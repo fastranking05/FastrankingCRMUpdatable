@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupDetail;
-use App\Models\FollowupComment;
+use App\Models\Comment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,10 +23,9 @@ class FollowupController extends BaseApiController
             $query = FollowupBusiness::with([
                 'creator:id,first_name,last_name',
                 'authPersons',
-                'followupDetails' => function ($query) {
-                    $query->with(['comments' => function ($query) {
-                        $query->with('creator:id,first_name,last_name');
-                    }]);
+                'followupDetails',
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 }
             ]);
 
@@ -92,9 +91,12 @@ class FollowupController extends BaseApiController
             'followup_details.*.status' => 'nullable|string|max:255',
             'followup_details.*.date' => 'nullable|date',
             'followup_details.*.time' => 'nullable|date_format:H:i',
-            'followup_details.*.comments' => 'nullable|array',
-            'followup_details.*.comments.*.comment' => 'required|string',
-            'followup_details.*.comments.*.comment_type' => 'nullable|in:note,call,email,meeting,other',
+            
+            // Comments (array) - directly linked to business
+            'comments' => 'nullable|array',
+            'comments.*.comment' => 'required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -128,22 +130,19 @@ class FollowupController extends BaseApiController
                     $detailData['created_by'] = auth()->id();
                     
                     $detail = FollowupDetail::create($detailData);
-                    
-                    // Create Comments if provided
-                    $comments = [];
-                    if (isset($detailData['comments'])) {
-                        foreach ($detailData['comments'] as $commentData) {
-                            $comment = $detail->comments()->create([
-                                'comment' => $commentData['comment'],
-                                'comment_type' => $commentData['comment_type'] ?? 'note',
-                                'created_by' => auth()->id(),
-                            ]);
-                            $comments[] = $comment;
-                        }
-                    }
-                    
-                    $detail->load('comments');
                     $followupDetails[] = $detail;
+                }
+            }
+
+            // Create Comments if provided (directly linked to business)
+            if ($request->has('comments')) {
+                foreach ($request->comments as $commentData) {
+                    $business->comments()->create([
+                        'comment' => $commentData['comment'],
+                        'old_status' => $commentData['old_status'] ?? null,
+                        'new_status' => $commentData['new_status'] ?? null,
+                        'created_by' => auth()->id(),
+                    ]);
                 }
             }
 
@@ -151,10 +150,9 @@ class FollowupController extends BaseApiController
             $business->load([
                 'creator:id,first_name,last_name',
                 'authPersons',
-                'followupDetails' => function ($query) {
-                    $query->with(['comments' => function ($query) {
-                        $query->with('creator:id,first_name,last_name');
-                    }]);
+                'followupDetails',
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 }
             ]);
 
@@ -171,10 +169,9 @@ class FollowupController extends BaseApiController
             $followup = FollowupBusiness::with([
                 'creator:id,first_name,last_name',
                 'authPersons',
-                'followupDetails' => function ($query) {
-                    $query->with(['comments' => function ($query) {
-                        $query->with('creator:id,first_name,last_name');
-                    }]);
+                'followupDetails',
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 }
             ])->find($id);
 
@@ -231,6 +228,13 @@ class FollowupController extends BaseApiController
             'followup_details.*.status' => 'nullable|string|max:255',
             'followup_details.*.date' => 'nullable|date',
             'followup_details.*.time' => 'nullable|date_format:H:i',
+            
+            // Comments (array) - directly linked to business
+            'comments' => 'nullable|array',
+            'comments.*.id' => 'sometimes|required|exists:comments,id',
+            'comments.*.comment' => 'sometimes|required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -283,14 +287,34 @@ class FollowupController extends BaseApiController
                 }
             }
 
+            // Update Comments if provided
+            if ($request->has('comments')) {
+                foreach ($request->comments as $commentData) {
+                    if (isset($commentData['id'])) {
+                        // Update existing
+                        $comment = Comment::find($commentData['id']);
+                        if ($comment && $comment->followup_business_id === $followup->id) {
+                            $comment->update($commentData);
+                        }
+                    } else {
+                        // Create new
+                        $followup->comments()->create([
+                            'comment' => $commentData['comment'],
+                            'old_status' => $commentData['old_status'] ?? null,
+                            'new_status' => $commentData['new_status'] ?? null,
+                            'created_by' => auth()->id(),
+                        ]);
+                    }
+                }
+            }
+
             // Load complete relationship data
             $followup->load([
                 'creator:id,first_name,last_name',
                 'authPersons',
-                'followupDetails' => function ($query) {
-                    $query->with(['comments' => function ($query) {
-                        $query->with('creator:id,first_name,last_name');
-                    }]);
+                'followupDetails',
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 }
             ]);
 

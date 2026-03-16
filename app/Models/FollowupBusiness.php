@@ -44,4 +44,9 @@ class FollowupBusiness extends Model
     {
         return $this->hasMany(FollowupDetail::class, 'followup_business_id');
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'followup_business_id');
+    }
 }

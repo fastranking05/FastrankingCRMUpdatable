@@ -12,18 +12,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('followup_comments', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('followup_detail_id')->required();
+            $table->unsignedBigInteger('followup_business_id')->required();
             $table->text('comment');
-            $table->enum('comment_type', ['note', 'call', 'email', 'meeting', 'other'])->default('note');
+            $table->string('old_status')->nullable();
+            $table->string('new_status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
-            $table->foreign('followup_detail_id')->references('id')->on('followup_details')->onDelete('cascade');
+            $table->foreign('followup_business_id')->references('id')->on('followup_businesses')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
-            $table->index(['followup_detail_id', 'comment_type']);
+            $table->index(['followup_business_id', 'created_at']);
         });
     }
 
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('followup_comments');
+        Schema::dropIfExists('comments');
     }
 };
