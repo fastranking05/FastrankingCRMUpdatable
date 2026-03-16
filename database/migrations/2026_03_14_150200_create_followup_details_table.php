@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('followup_details', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('followup_business_id')->required();
+            $table->string('id', 12)->primary(); // FRID00000001 format
+            $table->unsignedBigInteger('followup_business_id');
             $table->string('source')->nullable();
             $table->string('status')->nullable();
             $table->date('date')->nullable();
