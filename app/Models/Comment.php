@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class FollowupComment extends Model
+class Comment extends Model
 {
     use HasFactory;
 
-    protected $table = 'followup_comments';
-
     protected $fillable = [
-        'followup_detail_id',
+        'followup_business_id',
         'comment',
-        'comment_type',
+        'old_status',
+        'new_status',
         'created_by',
     ];
 
@@ -24,9 +23,9 @@ class FollowupComment extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function followupDetail(): BelongsTo
+    public function followupBusiness(): BelongsTo
     {
-        return $this->belongsTo(FollowupDetail::class, 'followup_detail_id');
+        return $this->belongsTo(FollowupBusiness::class, 'followup_business_id');
     }
 
     public function creator(): BelongsTo

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class FollowupDetail extends Model
 {
@@ -37,11 +36,6 @@ class FollowupDetail extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function comments(): HasMany
-    {
-        return $this->hasMany(FollowupComment::class, 'followup_detail_id');
     }
 
     // Accessor for formatted date and time

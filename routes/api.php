@@ -32,5 +32,4 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/followup/businesses.php';
     require __DIR__ . '/api/admin/followup/auth-persons.php';
     require __DIR__ . '/api/admin/followup/details.php';
-    require __DIR__ . '/api/admin/followup/comments.php';
 });

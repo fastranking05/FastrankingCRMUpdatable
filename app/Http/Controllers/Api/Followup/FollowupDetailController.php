@@ -16,7 +16,7 @@ class FollowupDetailController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
         return $this->executeTransaction(function () use ($request) {
-            $query = FollowupDetail::with(['creator:id,first_name,last_name', 'business:id,name', 'comments']);
+            $query = FollowupDetail::with(['creator:id,first_name,last_name', 'business:id,name']);
 
             // Filter by business_id
             if ($request->has('business_id')) {
@@ -60,9 +60,6 @@ class FollowupDetailController extends BaseApiController
             'status' => 'nullable|string|max:255',
             'date' => 'nullable|date',
             'time' => 'nullable|date_format:H:i',
-            'comments' => 'nullable|array',
-            'comments.*.comment' => 'required|string',
-            'comments.*.comment_type' => 'nullable|in:note,call,email,meeting,other',
         ]);
 
         if ($validator->fails()) {
@@ -75,18 +72,7 @@ class FollowupDetailController extends BaseApiController
 
             $detail = FollowupDetail::create($data);
 
-            // Add comments if provided
-            if ($request->has('comments')) {
-                foreach ($request->comments as $commentData) {
-                    $detail->comments()->create([
-                        'comment' => $commentData['comment'],
-                        'comment_type' => $commentData['comment_type'] ?? 'note',
-                        'created_by' => auth()->id(),
-                    ]);
-                }
-            }
-
-            $detail->load(['creator:id,first_name,last_name', 'business:id,name', 'comments']);
+            $detail->load(['creator:id,first_name,last_name', 'business:id,name']);
 
             return $this->successResponse($detail, 'Follow-up detail created successfully', 201);
         }, 'Follow-up detail creation', ['business_id' => $request->followup_business_id]);
@@ -98,7 +84,7 @@ class FollowupDetailController extends BaseApiController
     public function show(int $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $detail = FollowupDetail::with(['creator:id,first_name,last_name', 'business:id,name', 'comments', 'comments.creator:id,first_name,last_name'])->find($id);
+            $detail = FollowupDetail::with(['creator:id,first_name,last_name', 'business:id,name'])->find($id);
 
             if (!$detail) {
                 return $this->errorResponse('Follow-up detail not found', 404);
@@ -134,7 +120,7 @@ class FollowupDetailController extends BaseApiController
         return $this->executeTransaction(function () use ($request, $detail) {
             $detail->update($request->all());
 
-            $detail->load(['creator:id,first_name,last_name', 'business:id,name', 'comments']);
+            $detail->load(['creator:id,first_name,last_name', 'business:id,name']);
 
             return $this->successResponse($detail, 'Follow-up detail updated successfully');
         }, 'Follow-up detail update', ['detail_id' => $detail->id]);
