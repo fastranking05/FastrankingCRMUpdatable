@@ -81,7 +81,7 @@ class FollowupDetailController extends BaseApiController
     /**
      * Display the specified follow-up detail.
      */
-    public function show(int $id): JsonResponse
+    public function show(string $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
             $detail = FollowupDetail::with(['creator:id,first_name,last_name', 'business:id,name'])->find($id);
@@ -97,7 +97,7 @@ class FollowupDetailController extends BaseApiController
     /**
      * Update the specified follow-up detail.
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
         $detail = FollowupDetail::find($id);
 
@@ -129,7 +129,7 @@ class FollowupDetailController extends BaseApiController
     /**
      * Remove the specified follow-up detail.
      */
-    public function destroy(int $id): JsonResponse
+    public function destroy(string $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
             $detail = FollowupDetail::find($id);

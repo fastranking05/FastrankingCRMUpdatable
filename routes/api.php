@@ -33,3 +33,10 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/followup/auth-persons.php';
     require __DIR__ . '/api/admin/followup/details.php';
 });
+
+// Appointment Module Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/appointment/appointments.php';
+    require __DIR__ . '/api/admin/appointment/time-slots.php';
+    require __DIR__ . '/api/admin/appointment/settings.php';
+});

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class FollowupDetail extends Model
 {
@@ -12,7 +13,12 @@ class FollowupDetail extends Model
 
     protected $table = 'followup_details';
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $primaryKey = 'id';
+
     protected $fillable = [
+        'id',
         'followup_business_id',
         'source',
         'status',
@@ -27,6 +33,36 @@ class FollowupDetail extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = static::generateCustomId();
+            }
+        });
+    }
+
+    public static function generateCustomId(): string
+    {
+        $prefix = 'FRID';
+        $padding = 8;
+        
+        // Get the latest record
+        $latest = static::orderBy('id', 'desc')->first();
+        
+        if ($latest) {
+            // Extract numeric part from latest ID
+            $numericPart = (int) substr($latest->id, strlen($prefix));
+            $nextNumber = $numericPart + 1;
+        } else {
+            $nextNumber = 1;
+        }
+        
+        return $prefix . str_pad($nextNumber, $padding, '0', STR_PAD_LEFT);
+    }
 
     public function business(): BelongsTo
     {
