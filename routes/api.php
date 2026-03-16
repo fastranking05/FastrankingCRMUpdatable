@@ -24,3 +24,12 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/teams.php';
     require __DIR__ . '/api/admin/users.php';
 });
+
+// Follow-Up Module Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/followup/followup.php';
+    // Individual routes (optional - can be removed if not needed)
+    require __DIR__ . '/api/admin/followup/businesses.php';
+    require __DIR__ . '/api/admin/followup/auth-persons.php';
+    require __DIR__ . '/api/admin/followup/details.php';
+});
