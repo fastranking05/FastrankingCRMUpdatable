@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Appointment;
 
 use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Appointment;
+use App\Models\Comment;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
 use App\Models\TimeSlot;
@@ -60,10 +61,11 @@ class DirectAppointmentController extends BaseApiController
             'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
             
-            // Comments (optional)
+            // Comments (array) - directly linked to business
             'comments' => 'nullable|array',
-            'comments.*.comment' => 'required|string|max:1000',
-            'comments.*.created_by' => 'required|integer|exists:users,id',
+            'comments.*.comment' => 'sometimes|required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -113,12 +115,13 @@ class DirectAppointmentController extends BaseApiController
             if ($request->has('comments') && !empty($request->comments)) {
                 foreach ($request->comments as $commentData) {
                     $commentData['followup_business_id'] = $business->id;
-                    $commentData['appointment_id'] = $appointment->id;
                     $commentData['comment'] = $commentData['comment'];
-                    $commentData['created_by'] = $commentData['created_by'];
+                    $commentData['old_status'] = $commentData['old_status'] ?? null;
+                    $commentData['new_status'] = $commentData['new_status'] ?? null;
+                    $commentData['created_by'] = auth()->id();
                     
-                    // Create comment using the FollowupComment model
-                    \App\Models\FollowupComment::create($commentData);
+                    // Create comment using Comments model
+                    Comment::create($commentData);
                 }
             }
 
