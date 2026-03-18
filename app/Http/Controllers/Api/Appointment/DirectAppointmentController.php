@@ -59,6 +59,11 @@ class DirectAppointmentController extends BaseApiController
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
             'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
+            
+            // Comments (optional)
+            'comments' => 'nullable|array',
+            'comments.*.comment' => 'required|string|max:1000',
+            'comments.*.created_by' => 'required|integer|exists:users,id',
         ]);
 
         if ($validator->fails()) {
@@ -103,6 +108,19 @@ class DirectAppointmentController extends BaseApiController
 
             // Create appointment
             $appointment = Appointment::create($appointmentData);
+
+            // Create comments if provided
+            if ($request->has('comments') && !empty($request->comments)) {
+                foreach ($request->comments as $commentData) {
+                    $commentData['followup_business_id'] = $business->id;
+                    $commentData['appointment_id'] = $appointment->id;
+                    $commentData['comment'] = $commentData['comment'];
+                    $commentData['created_by'] = $commentData['created_by'];
+                    
+                    // Create comment using the FollowupComment model
+                    \App\Models\FollowupComment::create($commentData);
+                }
+            }
 
             // Load complete data for response
             $business->load([
@@ -208,6 +226,19 @@ class DirectAppointmentController extends BaseApiController
 
             // Create appointment
             $appointment = Appointment::create($appointmentData);
+
+            // Create comments if provided
+            if ($request->has('comments') && !empty($request->comments)) {
+                foreach ($request->comments as $commentData) {
+                    $commentData['followup_business_id'] = $business->id;
+                    $commentData['appointment_id'] = $appointment->id;
+                    $commentData['comment'] = $commentData['comment'];
+                    $commentData['created_by'] = $commentData['created_by'];
+                    
+                    // Create comment using the FollowupComment model
+                    \App\Models\FollowupComment::create($commentData);
+                }
+            }
 
             // Load complete data for response
             $business->load([
