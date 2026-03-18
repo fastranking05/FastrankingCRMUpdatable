@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Appointment\SimpleTimeSlotController;
+use App\Http\Controllers\Api\Appointment\TimeSlotPickerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +45,11 @@ Route::group([], function () {
 
 // Public Time Slot Routes (No Auth Required)
 Route::prefix('time-slots')->name('public.time-slots.')->group(function () {
-    Route::get('/available', [App\Http\Controllers\Api\Appointment\TimeSlotPickerController::class, 'getAvailableSlotsByDate'])->name('available');
+    Route::get('/available', [TimeSlotPickerController::class, 'getAvailableSlotsByDate'])->name('available');
 });
 
 // Simple Time Slot API
-Route::get('/simple-slots', [App\Http\Controllers\Api\Appointment\SimpleTimeSlotController::class, 'getAvailableSlots']);
+Route::get('/simple-slots', [SimpleTimeSlotController::class, 'getAvailableSlots']);
 
 // Public Time Slot Picker Routes (No Auth Required)
 require __DIR__ . '/api/admin/appointment/time-slots-picker.php';
