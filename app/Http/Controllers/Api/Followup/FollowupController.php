@@ -490,4 +490,118 @@ class FollowupController extends BaseApiController
             return $this->successResponse(null, 'Complete follow-up record deleted successfully');
         }, 'Follow-up deletion', ['followup_id' => $id]);
     }
+
+    /**
+     * Get all follow-ups created by logged-in user
+     */
+    public function myFollowups(Request $request): JsonResponse
+    {
+        return $this->executeTransaction(function () use ($request) {
+            $query = FollowupBusiness::with([
+                'creator:id,first_name,last_name',
+                'authPersons',
+                'followupDetails' => function ($query) {
+                    $query->latest('date')->latest('time')->limit(1);
+                },
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                }
+            ])->where('created_by', auth()->id());
+
+            // Filter by category
+            if ($request->has('category')) {
+                $query->where('category', $request->category);
+            }
+
+            // Filter by status (only if followup details exist)
+            if ($request->has('status')) {
+                $query->whereHas('followupDetails', function ($q) use ($request) {
+                    $q->where('status', $request->status);
+                });
+            }
+
+            // Filter by name
+            if ($request->has('name')) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            }
+
+            // Sort by latest followup date and time (businesses without followups come last)
+            $query->orderByDesc(
+                FollowupDetail::select('date')
+                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
+                    ->latest('date')
+                    ->limit(1)
+            )->orderByDesc(
+                FollowupDetail::select('time')
+                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
+                    ->latest('time')
+                    ->limit(1)
+            )->orderByDesc('followup_businesses.created_at'); // Businesses without followups sorted by creation date
+
+            // Pagination
+            $perPage = $request->get('per_page', 15);
+            $followups = $query->paginate($perPage);
+
+            return $this->successResponse($followups, 'My follow-ups retrieved successfully');
+        }, 'My follow-ups retrieval');
+    }
+
+    /**
+     * Get today's follow-ups created by logged-in user
+     */
+    public function todaysFollowups(Request $request): JsonResponse
+    {
+        return $this->executeTransaction(function () use ($request) {
+            $query = FollowupBusiness::with([
+                'creator:id,first_name,last_name',
+                'authPersons',
+                'followupDetails' => function ($query) {
+                    $query->latest('date')->latest('time')->limit(1);
+                },
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                }
+            ])
+            ->where('created_by', auth()->id())
+            ->whereHas('followupDetails', function ($q) {
+                $q->whereDate('date', today());
+            });
+
+            // Filter by category
+            if ($request->has('category')) {
+                $query->where('category', $request->category);
+            }
+
+            // Filter by status
+            if ($request->has('status')) {
+                $query->whereHas('followupDetails', function ($q) use ($request) {
+                    $q->where('status', $request->status);
+                });
+            }
+
+            // Filter by name
+            if ($request->has('name')) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            }
+
+            // Sort by followup date and time (descending)
+            $query->orderByDesc(
+                FollowupDetail::select('date')
+                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
+                    ->latest('date')
+                    ->limit(1)
+            )->orderByDesc(
+                FollowupDetail::select('time')
+                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
+                    ->latest('time')
+                    ->limit(1)
+            );
+
+            // Pagination
+            $perPage = $request->get('per_page', 15);
+            $followups = $query->paginate($perPage);
+
+            return $this->successResponse($followups, 'Today\'s follow-ups retrieved successfully');
+        }, 'Today\'s follow-ups retrieval');
+    }
 }
