@@ -113,13 +113,61 @@ class UserController extends BaseApiController
     public function show(int $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $user = User::with(['creator:id,first_name,last_name', 'teams', 'departments', 'roles', 'createdUsers:id,first_name,last_name'])->find($id);
+            $user = User::with([
+                'creator:id,first_name,last_name', 
+                'teams', 
+                'departments', 
+                'roles.modules' => function ($query) {
+                    $query->select('modules.id', 'modules.name', 'modules.description', 'modules.status')
+                          ->withPivot(['can_create', 'can_read', 'can_update', 'can_delete']);
+                }, 
+                'createdUsers:id,first_name,last_name'
+            ])->find($id);
 
             if (!$user) {
                 return $this->errorResponse('User not found', 404);
             }
 
-            return $this->successResponse($user->makeHidden(['password']), 'User retrieved successfully');
+            // Format modules and permissions
+            $modulesWithPermissions = [];
+            foreach ($user->roles as $role) {
+                foreach ($role->modules as $module) {
+                    $moduleId = $module->id;
+                    
+                    if (!isset($modulesWithPermissions[$moduleId])) {
+                        $modulesWithPermissions[$moduleId] = [
+                            'id' => $module->id,
+                            'name' => $module->name,
+                            'description' => $module->description,
+                            'status' => $module->status,
+                            'permissions' => [
+                                'can_create' => false,
+                                'can_read' => false,
+                                'can_update' => false,
+                                'can_delete' => false
+                            ]
+                        ];
+                    }
+                    
+                    // Merge permissions (union of all role permissions)
+                    $modulesWithPermissions[$moduleId]['permissions']['can_create'] = $modulesWithPermissions[$moduleId]['permissions']['can_create'] || $module->pivot->can_create;
+                    $modulesWithPermissions[$moduleId]['permissions']['can_read'] = $modulesWithPermissions[$moduleId]['permissions']['can_read'] || $module->pivot->can_read;
+                    $modulesWithPermissions[$moduleId]['permissions']['can_update'] = $modulesWithPermissions[$moduleId]['permissions']['can_update'] || $module->pivot->can_update;
+                    $modulesWithPermissions[$moduleId]['permissions']['can_delete'] = $modulesWithPermissions[$moduleId]['permissions']['can_delete'] || $module->pivot->can_delete;
+                }
+            }
+            
+            // Convert to array and sort by name
+            $modulesWithPermissions = array_values($modulesWithPermissions);
+            usort($modulesWithPermissions, function ($a, $b) {
+                return strcmp($a['name'], $b['name']);
+            });
+            
+            // Add modules to user data
+            $userData = $user->makeHidden(['password'])->toArray();
+            $userData['modules'] = $modulesWithPermissions;
+
+            return $this->successResponse($userData, 'User retrieved successfully');
         }, 'User retrieval', ['user_id' => $id]);
     }
 
