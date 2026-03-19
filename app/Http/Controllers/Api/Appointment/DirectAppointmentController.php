@@ -510,6 +510,20 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.altmobile' => 'nullable|string',
             'auth_persons.*.primaryemail' => 'sometimes|required|email',
             'auth_persons.*.altemail' => 'nullable|email',
+            
+            // Optional appointment details for creating new appointment
+            'appointment.date' => 'nullable|date|after_or_equal:today',
+            'appointment.time_slot_id' => 'nullable|exists:time_slots,id',
+            'appointment.current_status' => 'nullable|string|max:100',
+            'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
+            'appointment.source' => 'nullable|string|max:255',
+            'appointment.notes' => 'nullable|string',
+            
+            // Comments (array) - directly linked to business
+            'comments' => 'nullable|array',
+            'comments.*.comment' => 'sometimes|required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -573,51 +587,81 @@ class DirectAppointmentController extends BaseApiController
                 $business->authPersons()->sync($newAuthPersonIds);
             }
 
-            // Update appointment
+            // Create comments if provided
+            if ($request->has('comments') && !empty($request->comments)) {
+                foreach ($request->comments as $commentData) {
+                    $commentData['followup_business_id'] = $business->id;
+                    $commentData['comment'] = $commentData['comment'];
+                    $commentData['old_status'] = $commentData['old_status'] ?? null;
+                    $commentData['new_status'] = $commentData['new_status'] ?? null;
+                    $commentData['created_by'] = auth()->id();
+                    
+                    // Create comment using Comments model
+                    Comment::create($commentData);
+                }
+            }
+
+            // Create new appointment instead of updating existing one
             $appointmentData = $request->appointment ?? [];
             
-            // Check time slot availability if changing date or time slot
-            if (isset($appointmentData['date']) || isset($appointmentData['time_slot_id'])) {
-                $date = $appointmentData['date'] ?? $appointment->date;
-                $timeSlotId = $appointmentData['time_slot_id'] ?? $appointment->time_slot_id;
+            // Check if appointment data is provided
+            if (!empty($appointmentData)) {
+                // Set required fields for new appointment
+                $appointmentData['followup_business_id'] = $business->id;
+                $appointmentData['source'] = $appointmentData['source'] ?? 'Update';
+                $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
+                $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
+                $appointmentData['created_by'] = auth()->id();
                 
-                $timeSlot = TimeSlot::find($timeSlotId);
+                // Check time slot availability
+                $timeSlot = TimeSlot::find($appointmentData['time_slot_id']);
                 if (!$timeSlot || !$timeSlot->is_active) {
                     return $this->errorResponse('Time slot is not available', 400);
                 }
 
-                // Check if slot is available for the date (excluding current appointment)
-                $existingAppointments = Appointment::where('time_slot_id', $timeSlotId)
-                    ->where('date', $date)
-                    ->where('id', '!=', $appointment->id)
-                    ->whereIn('current_status', ['Booked', 'Confirmed', 'In Progress'])
-                    ->count();
-                
-                if ($existingAppointments >= $timeSlot->max_concurrent_bookings) {
+                // Check if slot is available for the date
+                if (!$timeSlot->isAvailableForDate($appointmentData['date'])) {
                     return $this->errorResponse('Time slot is not available for the selected date', 400);
                 }
+
+                // Create new appointment
+                $newAppointment = Appointment::create($appointmentData);
+                
+                // Load complete data for response
+                $business->load([
+                    'creator:id,first_name,last_name',
+                    'authPersons',
+                    'comments' => function ($query) {
+                        $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                    }
+                ]);
+
+                $newAppointment->load([
+                    'timeSlot',
+                    'creator:id,first_name,last_name'
+                ]);
+
+                return $this->successResponse([
+                    'business' => $business,
+                    'old_appointment' => $appointment,
+                    'new_appointment' => $newAppointment
+                ], 'Business and auth persons updated, new appointment created successfully');
+            } else {
+                // Only business and auth persons updated, no new appointment
+                $business->load([
+                    'creator:id,first_name,last_name',
+                    'authPersons',
+                    'comments' => function ($query) {
+                        $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                    }
+                ]);
+
+                return $this->successResponse([
+                    'business' => $business,
+                    'appointment' => $appointment,
+                    'message' => 'Business and auth persons updated successfully'
+                ], 'Business and auth persons updated successfully');
             }
-
-            $appointment->update($appointmentData);
-
-            // Load complete data for response
-            $business->load([
-                'creator:id,first_name,last_name',
-                'authPersons',
-                'comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                }
-            ]);
-
-            $appointment->load([
-                'timeSlot',
-                'creator:id,first_name,last_name'
-            ]);
-
-            return $this->successResponse([
-                'business' => $business,
-                'appointment' => $appointment
-            ], 'Appointment updated successfully');
         }, 'Appointment update by business');
     }
 
