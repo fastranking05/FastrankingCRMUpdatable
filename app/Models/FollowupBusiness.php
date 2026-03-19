@@ -45,6 +45,14 @@ class FollowupBusiness extends Model
         return $this->hasMany(FollowupDetail::class, 'followup_business_id');
     }
 
+    public function latestFollowupDetail(): HasMany
+    {
+        return $this->hasMany(FollowupDetail::class, 'followup_business_id')
+            ->latest('date')
+            ->latest('time')
+            ->limit(1);
+    }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'followup_business_id');
