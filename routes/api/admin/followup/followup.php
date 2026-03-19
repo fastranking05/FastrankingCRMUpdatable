@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['jwt.auth'])->prefix('followup')->name('followup.')->group(function () {
     Route::middleware('permission:Follow-Up,read')->group(function () {
         Route::get('/', [FollowupController::class, 'index'])->name('index');
+        
+        // New followup view APIs (must come before /{id} route)
+        Route::get('/my', [FollowupController::class, 'myFollowups'])->name('my');
+        Route::get('/today', [FollowupController::class, 'todaysFollowups'])->name('today');
+        
+        // Parameterized routes (must come after specific routes)
         Route::get('/{id}', [FollowupController::class, 'show'])->name('show');
     });
 
