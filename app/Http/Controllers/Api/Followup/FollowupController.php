@@ -492,6 +492,156 @@ class FollowupController extends BaseApiController
     }
 
     /**
+     * Get all follow-ups based on user role hierarchy
+     * 
+     * Hierarchy:
+     * 1. Admin: Can see all follow-ups created by any user
+     * 2. Manager + Lead Generation dept + has team: Can see team members' follow-ups + own
+     * 3. Executive + Lead Generation dept: Can see only own follow-ups
+     */
+    public function allFollowups(Request $request): JsonResponse
+    {
+        return $this->executeTransaction(function () use ($request) {
+            $user = auth()->user();
+            $userId = $user->id;
+
+            // Load user relationships
+            $user->load(['roles', 'departments', 'teams']);
+
+            // Get user role names
+            $roleNames = $user->roles->pluck('name')->toArray();
+            
+            // Get user department names
+            $departmentNames = $user->departments->pluck('name')->toArray();
+            
+            // Get user's team IDs
+            $teamIds = $user->teams->pluck('id')->toArray();
+
+            // Check if user is Admin (highest priority)
+            $isAdmin = in_array('Admin', $roleNames);
+
+            // Check if user is Manager with Lead Generation department and has teams
+            $isManager = in_array('Manager', $roleNames);
+            $isLeadGenerationDept = in_array('Lead Generation', $departmentNames);
+            $hasTeams = !empty($teamIds);
+
+            // Check if user is Executive with Lead Generation department
+            $isExecutive = in_array('Executive', $roleNames);
+
+            // Build the base query
+            $query = FollowupBusiness::with([
+                'creator:id,first_name,last_name',
+                'authPersons',
+                'followupDetails' => function ($query) {
+                    $query->latest('date')->latest('time')->limit(1);
+                },
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                }
+            ]);
+
+            // Apply hierarchy-based filters
+            if ($isAdmin) {
+                // Admin can see all follow-ups (no additional filter needed)
+                $accessLevel = 'admin';
+            } elseif ($isManager && $isLeadGenerationDept && $hasTeams) {
+                // Manager + Lead Generation + has teams: see team members' follow-ups + own
+                $teamUserIds = DB::table('team_user')
+                    ->whereIn('team_id', $teamIds)
+                    ->pluck('user_id')
+                    ->toArray();
+                
+                // Include current user and team members
+                $allowedUserIds = array_unique(array_merge($teamUserIds, [$userId]));
+                
+                $query->whereIn('created_by', $allowedUserIds);
+                $accessLevel = 'manager_team';
+            } elseif ($isExecutive && $isLeadGenerationDept) {
+                // Executive + Lead Generation: see only own follow-ups
+                $query->where('created_by', $userId);
+                $accessLevel = 'executive_own';
+            } else {
+                // Default: user can only see their own follow-ups
+                $query->where('created_by', $userId);
+                $accessLevel = 'own';
+            }
+
+            // Apply additional filters from request
+            // Filter by category
+            if ($request->has('category')) {
+                $query->where('category', $request->category);
+            }
+
+            // Filter by status (from followup_details)
+            if ($request->has('status')) {
+                $query->whereHas('followupDetails', function ($q) use ($request) {
+                    $q->where('status', $request->status);
+                });
+            }
+
+            // Filter by name
+            if ($request->has('name')) {
+                $query->where('name', 'like', '%' . $request->name . '%');
+            }
+
+            // Filter by creator (only for admin/manager)
+            if ($request->has('created_by') && in_array($accessLevel, ['admin', 'manager_team'])) {
+                if ($accessLevel === 'admin') {
+                    $query->where('created_by', $request->created_by);
+                } elseif ($accessLevel === 'manager_team') {
+                    // Manager can only filter by team members or themselves
+                    if (in_array($request->created_by, $allowedUserIds)) {
+                        $query->where('created_by', $request->created_by);
+                    }
+                }
+            }
+
+            // Filter by date range
+            if ($request->has('from_date') || $request->has('to_date')) {
+                $query->whereHas('followupDetails', function ($q) use ($request) {
+                    if ($request->has('from_date')) {
+                        $q->whereDate('date', '>=', $request->from_date);
+                    }
+                    if ($request->has('to_date')) {
+                        $q->whereDate('date', '<=', $request->to_date);
+                    }
+                });
+            }
+
+            // Sort by latest followup date and time (businesses without followups come last)
+            $query->orderByDesc(
+                FollowupDetail::select('date')
+                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
+                    ->latest('date')
+                    ->limit(1)
+            )->orderByDesc(
+                FollowupDetail::select('time')
+                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
+                    ->latest('time')
+                    ->limit(1)
+            )->orderByDesc('followup_businesses.created_at');
+
+            // Pagination
+            $perPage = $request->get('per_page', 15);
+            $followups = $query->paginate($perPage);
+
+            // Add metadata to response
+            $response = $followups->toArray();
+            $response['access_info'] = [
+                'access_level' => $accessLevel,
+                'user_roles' => $roleNames,
+                'user_departments' => $departmentNames,
+                'is_admin' => $isAdmin,
+                'is_manager_lead_gen' => $isManager && $isLeadGenerationDept,
+                'is_executive_lead_gen' => $isExecutive && $isLeadGenerationDept,
+                'team_count' => count($teamIds),
+            ];
+
+            return $this->successResponse($response, 'Follow-up records retrieved successfully');
+        }, 'All follow-ups retrieval');
+    }
+
+    /**
      * Get all follow-ups created by logged-in user
      */
     public function myFollowups(Request $request): JsonResponse
