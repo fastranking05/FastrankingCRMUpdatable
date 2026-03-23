@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Appointment\AppointmentController;
+use App\Http\Controllers\Api\Appointment\AppointmentListingController;
 use App\Http\Controllers\Api\Appointment\DirectAppointmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,12 @@ Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->
     Route::middleware('permission:Appointment,read')->group(function () {
         // Main appointment routes using business_id
         Route::get('/', [DirectAppointmentController::class, 'index'])->name('index');
-        
+
+        // Appointment Listing Routes (Role-based hierarchy)
+        Route::get('/all-appointments', [AppointmentListingController::class, 'getAllAppointments'])->name('all-appointments');
+        Route::get('/my-appointments', [AppointmentListingController::class, 'getMyAppointments'])->name('my-appointments');
+        Route::get('/today-appointments', [AppointmentListingController::class, 'getTodayAppointments'])->name('today-appointments');
+
         // Legacy appointment routes
         Route::get('/{id}', [AppointmentController::class, 'show'])->name('show');
         Route::get('/slots/available', [AppointmentController::class, 'getAvailableSlots'])->name('slots.available');

@@ -14,6 +14,7 @@ Route::middleware(['jwt.auth'])->prefix('followup')->name('followup.')->group(fu
         Route::get('/', [FollowupController::class, 'index'])->name('index');
         
         // New followup view APIs (must come before /{id} route)
+        Route::get('/all', [FollowupController::class, 'allFollowups'])->name('all');
         Route::get('/my', [FollowupController::class, 'myFollowups'])->name('my');
         Route::get('/today', [FollowupController::class, 'todaysFollowups'])->name('today');
         
