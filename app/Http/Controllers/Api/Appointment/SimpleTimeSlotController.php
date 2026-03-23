@@ -34,12 +34,12 @@ class SimpleTimeSlotController
             $availableSlots = $this->appointmentBookingEngine->getAvailableSlots($request->date);
             
             $slots = [];
-            foreach ($availableSlots['available_slots'] ?? [] as $slot) {
-                if ($slot['available_bookings'] > 0) {
+            foreach ($availableSlots as $slot) {
+                if ($slot['available_slots'] > 0) {
                     $slots[] = [
                         'id' => $slot['id'],
                         'time' => date('g:i A', strtotime($slot['start_time'])),
-                        'available' => $slot['available_bookings']
+                        'available' => $slot['available_slots']
                     ];
                 }
             }
