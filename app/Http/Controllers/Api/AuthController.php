@@ -38,10 +38,28 @@ class AuthController extends BaseApiController
             return $this->errorResponse('Account is inactive or suspended', 403);
         }
 
+        // Load user relationships
+        $user->load(['teams', 'departments', 'roles']);
+
         $token = JWTAuth::fromUser($user);
 
+        // Prepare user data with role and department info
+        $userData = $user->makeHidden(['password']);
+        
+        // Add role information
+        $userData->role_id = $user->roles->isNotEmpty() ? $user->roles->first()->id : null;
+        $userData->role_name = $user->roles->isNotEmpty() ? $user->roles->first()->name : null;
+        
+        // Add department information
+        $userData->department_id = $user->departments->isNotEmpty() ? $user->departments->first()->id : null;
+        $userData->department_name = $user->departments->isNotEmpty() ? $user->departments->first()->name : null;
+        
+        // Add team information
+        $userData->team_id = $user->teams->isNotEmpty() ? $user->teams->first()->id : null;
+        $userData->team_name = $user->teams->isNotEmpty() ? $user->teams->first()->name : null;
+
         return $this->successResponse([
-            'user' => $user->makeHidden(['password']),
+            'user' => $userData,
             'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60
