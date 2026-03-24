@@ -8,6 +8,7 @@ use App\Models\FollowupAuthPerson;
 use App\Models\FollowupDetail;
 use App\Models\Comment;
 use App\Models\Appointment;
+use App\Services\QualityAssignmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\DB;
 
 class FollowupController extends BaseApiController
 {
+    protected $qualityAssignmentService;
+
+    public function __construct(QualityAssignmentService $qualityAssignmentService)
+    {
+        $this->qualityAssignmentService = $qualityAssignmentService;
+    }
+
     /**
      * Display a listing of complete follow-up records.
      */
@@ -165,6 +173,9 @@ class FollowupController extends BaseApiController
                 $appointmentData['created_by'] = auth()->id();
 
                 $appointment = Appointment::create($appointmentData);
+
+                // Assign Quality Control to the appointment (Round-robin with workload management)
+                $this->qualityAssignmentService->assignQualityControl($appointment->id);
             }
 
             // Load complete relationship data
@@ -448,6 +459,9 @@ class FollowupController extends BaseApiController
                     $createData = $appointmentData;
                     unset($createData['id']); // Remove ID to let model generate it
                     $appointment = Appointment::create($createData);
+                    
+                    // Assign Quality Control to the new appointment (Round-robin with workload management)
+                    $this->qualityAssignmentService->assignQualityControl($appointment->id);
                 }
             }
 
