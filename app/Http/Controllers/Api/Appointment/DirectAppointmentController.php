@@ -9,6 +9,7 @@ use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
+use App\Services\QualityAssignmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,14 @@ use Illuminate\Support\Facades\Validator;
 class DirectAppointmentController extends BaseApiController
 {
     protected $appointmentBookingEngine;
+    protected $qualityAssignmentService;
 
-    public function __construct(AppointmentBookingEngine $appointmentBookingEngine)
-    {
+    public function __construct(
+        AppointmentBookingEngine $appointmentBookingEngine,
+        QualityAssignmentService $qualityAssignmentService
+    ) {
         $this->appointmentBookingEngine = $appointmentBookingEngine;
+        $this->qualityAssignmentService = $qualityAssignmentService;
     }
 
     /**
@@ -111,6 +116,9 @@ class DirectAppointmentController extends BaseApiController
 
             // Create appointment
             $appointment = Appointment::create($appointmentData);
+
+            // Assign Quality Control to the appointment (Round-robin with workload management)
+            $quality = $this->qualityAssignmentService->assignQualityControl($appointment->id);
 
             // Create comments if provided
             if ($request->has('comments') && !empty($request->comments)) {
@@ -230,6 +238,9 @@ class DirectAppointmentController extends BaseApiController
 
             // Create appointment
             $appointment = Appointment::create($appointmentData);
+
+            // Assign Quality Control to the appointment (Round-robin with workload management)
+            $this->qualityAssignmentService->assignQualityControl($appointment->id);
 
             // Create comments if provided
             if ($request->has('comments') && !empty($request->comments)) {
@@ -627,7 +638,10 @@ class DirectAppointmentController extends BaseApiController
 
                 // Create new appointment
                 $newAppointment = Appointment::create($appointmentData);
-                
+
+                // Assign Quality Control to the new appointment (Round-robin with workload management)
+                $this->qualityAssignmentService->assignQualityControl($newAppointment->id);
+
                 // Load complete data for response
                 $business->load([
                     'creator:id,first_name,last_name',
