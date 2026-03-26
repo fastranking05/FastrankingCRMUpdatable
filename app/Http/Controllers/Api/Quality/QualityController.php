@@ -7,6 +7,7 @@ use App\Models\Quality;
 use App\Models\QualityAnswer;
 use App\Models\QualityQuestion;
 use App\Services\QualityAssignmentService;
+use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -14,10 +15,14 @@ use Illuminate\Support\Facades\Validator;
 class QualityController extends BaseApiController
 {
     protected $assignmentService;
+    protected $dateRangeFilterService;
 
-    public function __construct(QualityAssignmentService $assignmentService)
-    {
+    public function __construct(
+        QualityAssignmentService $assignmentService,
+        DateRangeFilterService $dateRangeFilterService
+    ) {
         $this->assignmentService = $assignmentService;
+        $this->dateRangeFilterService = $dateRangeFilterService;
     }
 
     /**
@@ -32,21 +37,46 @@ class QualityController extends BaseApiController
             'answers:id,quality_id,question_id,answers',
         ]);
 
-        // Apply filters
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
+        // Apply flexible filters using DateRangeFilterService
+        $query = $this->dateRangeFilterService->applyFilters($query, $request, [
+            'date_column' => 'created_at',
+            'user_column' => 'assigned_user',
+            'status_column' => 'status',
+            'search_columns' => ['appointment_id', 'appointment.business.name']
+        ]);
+
+        // Apply additional specific filters
         if ($request->has('auditstatus')) {
             $query->where('auditstatus', $request->auditstatus);
-        }
-        if ($request->has('assigned_user')) {
-            $query->where('assigned_user', $request->assigned_user);
         }
 
         $qualities = $query->orderBy('created_at', 'desc')
             ->paginate($request->get('per_page', 15));
 
         return $this->successResponse($qualities, 'Quality records retrieved successfully');
+    }
+
+    /**
+     * Get filter options for quality records
+     */
+    public function getFilterOptions(): JsonResponse
+    {
+        $filterOptions = [
+            'date_filters' => DateRangeFilterService::getDateFilterOptions(),
+            'date_columns' => DateRangeFilterService::getDateColumns('quality'),
+            'status_options' => [
+                'QA-Pending',
+                'In Progress',
+                'Completed',
+                'Cancelled'
+            ],
+            'audit_status_options' => [
+                'qualified',
+                'unqualified'
+            ]
+        ];
+
+        return $this->successResponse($filterOptions, 'Filter options retrieved successfully');
     }
 
     /**
