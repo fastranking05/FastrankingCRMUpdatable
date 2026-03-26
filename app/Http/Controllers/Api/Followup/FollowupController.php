@@ -9,6 +9,7 @@ use App\Models\FollowupDetail;
 use App\Models\Comment;
 use App\Models\Appointment;
 use App\Services\QualityAssignmentService;
+use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,10 +18,14 @@ use Illuminate\Support\Facades\DB;
 class FollowupController extends BaseApiController
 {
     protected $qualityAssignmentService;
+    protected $dateRangeFilterService;
 
-    public function __construct(QualityAssignmentService $qualityAssignmentService)
-    {
+    public function __construct(
+        QualityAssignmentService $qualityAssignmentService,
+        DateRangeFilterService $dateRangeFilterService
+    ) {
         $this->qualityAssignmentService = $qualityAssignmentService;
+        $this->dateRangeFilterService = $dateRangeFilterService;
     }
 
     /**
@@ -38,7 +43,14 @@ class FollowupController extends BaseApiController
                 }
             ]);
 
-            // Filter by category
+            // Apply flexible filters using DateRangeFilterService
+            $query = $this->dateRangeFilterService->applyFilters($query, $request, [
+                'date_column' => 'created_at',
+                'user_column' => 'created_by',
+                'search_columns' => ['name', 'category', 'type', 'email', 'phone']
+            ]);
+
+            // Apply additional specific filters
             if ($request->has('category')) {
                 $query->where('category', $request->category);
             }
@@ -50,17 +62,52 @@ class FollowupController extends BaseApiController
                 });
             }
 
-            // Filter by name
-            if ($request->has('name')) {
-                $query->where('name', 'like', '%' . $request->name . '%');
-            }
-
             // Pagination
             $perPage = $request->get('per_page', 15);
             $followups = $query->paginate($perPage);
 
             return $this->successResponse($followups, 'Follow-up records retrieved successfully');
         }, 'Follow-up list retrieval');
+    }
+
+    /**
+     * Get filter options for follow-up records
+     */
+    public function getFilterOptions(): JsonResponse
+    {
+        $filterOptions = [
+            'date_filters' => DateRangeFilterService::getDateFilterOptions(),
+            'date_columns' => DateRangeFilterService::getDateColumns('followup'),
+            'category_options' => [
+                'Technology Services',
+                'Healthcare',
+                'Finance',
+                'Education',
+                'Retail',
+                'Manufacturing',
+                'Other'
+            ],
+            'type_options' => [
+                'Enterprise Client',
+                'SME',
+                'Startup',
+                'Individual',
+                'Government',
+                'Non-Profit'
+            ],
+            'status_options' => [
+                'New',
+                'Contacted',
+                'Interested',
+                'Not Interested',
+                'Follow-up Scheduled',
+                'Appointment Booked',
+                'Converted',
+                'Lost'
+            ]
+        ];
+
+        return $this->successResponse($filterOptions, 'Filter options retrieved successfully');
     }
 
     /**

@@ -15,6 +15,7 @@ Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->
     Route::middleware('permission:Appointment,read')->group(function () {
         // Main appointment routes using business_id
         Route::get('/', [DirectAppointmentController::class, 'index'])->name('index');
+        Route::get('/filter-options', [DirectAppointmentController::class, 'getFilterOptions'])->name('filter-options');
 
         // Appointment Listing Routes (Role-based hierarchy)
         Route::get('/all-appointments', [AppointmentListingController::class, 'getAllAppointments'])->name('all-appointments');
