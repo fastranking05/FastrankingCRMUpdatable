@@ -14,6 +14,7 @@ Route::middleware(['jwt.auth'])->prefix('quality')->name('quality.')->group(func
     // Quality Records Routes
     Route::middleware('permission:Quality Control,read')->group(function () {
         Route::get('/', [QualityController::class, 'index'])->name('index');
+        Route::get('/filter-options', [QualityController::class, 'getFilterOptions'])->name('filter-options');
         Route::get('/{id}', [QualityController::class, 'show'])->name('show');
         Route::get('/my-assignments', [QualityController::class, 'myAssignments'])->name('my-assignments');
         Route::get('/workload-stats', [QualityController::class, 'workloadStats'])->name('workload-stats');
