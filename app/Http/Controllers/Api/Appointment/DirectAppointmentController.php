@@ -10,6 +10,7 @@ use App\Models\FollowupAuthPerson;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
 use App\Services\QualityAssignmentService;
+use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,13 +20,16 @@ class DirectAppointmentController extends BaseApiController
 {
     protected $appointmentBookingEngine;
     protected $qualityAssignmentService;
+    protected $dateRangeFilterService;
 
     public function __construct(
         AppointmentBookingEngine $appointmentBookingEngine,
-        QualityAssignmentService $qualityAssignmentService
+        QualityAssignmentService $qualityAssignmentService,
+        DateRangeFilterService $dateRangeFilterService
     ) {
         $this->appointmentBookingEngine = $appointmentBookingEngine;
         $this->qualityAssignmentService = $qualityAssignmentService;
+        $this->dateRangeFilterService = $dateRangeFilterService;
     }
 
     /**
@@ -370,24 +374,28 @@ class DirectAppointmentController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
         $query = Appointment::with([
-            'business:id,name,category,type,phone,email',
-            'business.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile',
+            'followupBusiness:id,name,category,type,phone,email',
+            'followupBusiness.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile',
             'timeSlot:id,name,start_time,end_time',
             'creator:id,first_name,last_name'
         ])->where('source', 'Direct');
 
-        // Apply filters
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
+        // Apply flexible filters using DateRangeFilterService
+        $query = $this->dateRangeFilterService->applyFilters($query, $request, [
+            'date_column' => $request->get('date_column', 'date'), // Default to appointment date
+            'user_column' => 'created_by',
+            'status_column' => 'status',
+            'search_columns' => ['id', 'followupBusiness.name', 'followupBusiness.email', 'followupBusiness.phone']
+        ]);
+
+        // Apply additional specific filters
         if ($request->has('current_status')) {
             $query->where('current_status', $request->current_status);
         }
-        if ($request->has('date_from')) {
-            $query->where('date', '>=', $request->date_from);
-        }
-        if ($request->has('date_to')) {
-            $query->where('date', '<=', $request->date_to);
+
+        // Apply multiple status filter
+        if ($request->has('statuses') && is_array($request->statuses)) {
+            $query->whereIn('status', $request->statuses);
         }
 
         $appointments = $query->orderBy('date', 'asc')
@@ -398,15 +406,48 @@ class DirectAppointmentController extends BaseApiController
     }
 
     /**
+     * Get filter options for appointments
+     */
+    public function getFilterOptions(): JsonResponse
+    {
+        $filterOptions = [
+            'date_filters' => DateRangeFilterService::getDateFilterOptions(),
+            'date_columns' => DateRangeFilterService::getDateColumns('appointments'),
+            'status_options' => [
+                'Appointment Booked',
+                'Appointment Rebooked', 
+                'Appointment Confirmed',
+                'Appointment Completed',
+                'Appointment Cancelled',
+                'Ready',
+                'In Progress',
+                'Completed',
+                'Cancelled'
+            ],
+            'current_status_options' => [
+                'Booked',
+                'Confirmed',
+                'Completed',
+                'Cancelled',
+                'Rebooked',
+                'Ready',
+                'In Progress'
+            ]
+        ];
+
+        return $this->successResponse($filterOptions, 'Filter options retrieved successfully');
+    }
+
+    /**
      * Get single direct appointment
      */
     public function show(string $appointmentId): JsonResponse
     {
         $appointment = Appointment::with([
-            'business:id,name,category,type,phone,email,website',
-            'business.creator:id,first_name,last_name',
-            'business.authPersons:id,title,firstname,lastname,designation,gender,dob,primaryphone,altphone,primarymobile,altmobile,primaryemail,altemail',
-            'business.comments' => function ($query) {
+            'followupBusiness:id,name,category,type,phone,email,website',
+            'followupBusiness.creator:id,first_name,last_name',
+            'followupBusiness.authPersons:id,title,firstname,lastname,designation,gender,dob,primaryphone,altphone,primarymobile,altmobile,primaryemail,altemail',
+            'followupBusiness.comments' => function ($query) {
                 $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
             },
             'timeSlot:id,name,start_time,end_time,duration_minutes,max_concurrent_bookings',
