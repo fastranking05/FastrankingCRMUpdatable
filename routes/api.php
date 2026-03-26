@@ -48,6 +48,11 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/quality.php';
 });
 
+// Filter System Routes
+Route::group([], function () {
+    require __DIR__ . '/api/filters.php';
+});
+
 // Public Time Slot Routes (No Auth Required)
 Route::prefix('time-slots')->name('public.time-slots.')->group(function () {
     Route::get('/available', [TimeSlotPickerController::class, 'getAvailableSlotsByDate'])->name('available');
