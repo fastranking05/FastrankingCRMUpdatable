@@ -48,6 +48,11 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/quality.php';
 });
 
+// Quality Questions Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/quality-questions.php';
+});
+
 // Filter System Routes
 Route::group([], function () {
     require __DIR__ . '/api/filters.php';
