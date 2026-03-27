@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['jwt.auth'])->prefix('followup')->name('followup.')->group(function () {
     Route::middleware('permission:Follow-Up,read')->group(function () {
         // Filter endpoints
-        Route::post('/', [FollowupController::class, 'index'])->name('index');
-        Route::post('/filter-options', [FollowupController::class, 'getFilterOptions'])->name('filter-options');
+        Route::get('/filter-options', [FollowupController::class, 'getFilterOptions'])->name('filter-options');
+        Route::post('/followup-filter', [FollowupController::class, 'index'])->name('followup-filter');
     });
 });
