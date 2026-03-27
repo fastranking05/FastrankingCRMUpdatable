@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 class DateRangeFilterService
 {
     /**
+     * Get filter value from request (supports both GET and POST)
+     */
+    private function getFilterValue(Request $request, string $key, $default = null)
+    {
+        // Try POST data first, then GET data for backward compatibility
+        return $request->input($key) ?? $request->get($key) ?? $default;
+    }
+
+    /**
      * Apply date range filter to a query
      *
      * @param Builder $query
@@ -18,10 +27,10 @@ class DateRangeFilterService
      */
     public function applyDateFilter(Builder $query, Request $request, string $dateColumn = 'created_at'): Builder
     {
-        $dateFilter = $request->get('date_filter');
-        $dateColumn = $request->get('date_column', $dateColumn);
-        $customStartDate = $request->get('custom_start_date');
-        $customEndDate = $request->get('custom_end_date');
+        $dateFilter = $this->getFilterValue($request, 'date_filter');
+        $dateColumn = $this->getFilterValue($request, 'date_column', $dateColumn);
+        $customStartDate = $this->getFilterValue($request, 'custom_start_date');
+        $customEndDate = $this->getFilterValue($request, 'custom_end_date');
 
         if (!$dateFilter && !$customStartDate) {
             return $query;
@@ -95,7 +104,7 @@ class DateRangeFilterService
      */
     public function applyUserFilter(Builder $query, Request $request, string $userColumn = 'created_by'): Builder
     {
-        $createdBy = $request->get('created_by');
+        $createdBy = $this->getFilterValue($request, 'created_by');
 
         if ($createdBy) {
             if (is_array($createdBy)) {
@@ -118,7 +127,7 @@ class DateRangeFilterService
      */
     public function applyStatusFilter(Builder $query, Request $request, string $statusColumn = 'status'): Builder
     {
-        $status = $request->get('status');
+        $status = $this->getFilterValue($request, 'status');
 
         if ($status) {
             if (is_array($status)) {
@@ -141,7 +150,7 @@ class DateRangeFilterService
      */
     public function applySearchFilter(Builder $query, Request $request, array $searchColumns): Builder
     {
-        $search = $request->get('search');
+        $search = $this->getFilterValue($request, 'search');
 
         if ($search && !empty($searchColumns)) {
             $query->where(function ($q) use ($search, $searchColumns) {

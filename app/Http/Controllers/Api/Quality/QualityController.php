@@ -26,15 +26,14 @@ class QualityController extends BaseApiController
     }
 
     /**
-     * Get all quality records with filters
+     * Display a listing of quality records.
      */
     public function index(Request $request): JsonResponse
     {
         $query = Quality::with([
             'appointment:id,date,followup_business_id',
-            'appointment.business:id,name',
+            'appointment.followupBusiness:id,name',
             'assignedUser:id,first_name,last_name',
-            'answers:id,quality_id,question_id,answers',
         ]);
 
         // Apply flexible filters using DateRangeFilterService
@@ -42,16 +41,16 @@ class QualityController extends BaseApiController
             'date_column' => 'created_at',
             'user_column' => 'assigned_user',
             'status_column' => 'status',
-            'search_columns' => ['appointment_id', 'appointment.business.name']
+            'search_columns' => ['appointment_id', 'appointment.followupBusiness.name']
         ]);
 
         // Apply additional specific filters
         if ($request->has('auditstatus')) {
-            $query->where('auditstatus', $request->auditstatus);
+            $query->where('auditstatus', $request->input('auditstatus'));
         }
 
         $qualities = $query->orderBy('created_at', 'desc')
-            ->paginate($request->get('per_page', 15));
+            ->paginate($request->input('per_page', 15));
 
         return $this->successResponse($qualities, 'Quality records retrieved successfully');
     }
