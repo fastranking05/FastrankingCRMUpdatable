@@ -382,25 +382,25 @@ class DirectAppointmentController extends BaseApiController
 
         // Apply flexible filters using DateRangeFilterService
         $query = $this->dateRangeFilterService->applyFilters($query, $request, [
-            'date_column' => $request->get('date_column', 'date'), // Default to appointment date
+            'date_column' => $request->input('date_column', 'date'), // Default to appointment date
             'user_column' => 'created_by',
             'status_column' => 'status',
-            'search_columns' => ['id', 'followupBusiness.name', 'followupBusiness.email', 'followupBusiness.phone']
+            'search_columns' => ['id'] // Only search in direct columns for now
         ]);
 
         // Apply additional specific filters
         if ($request->has('current_status')) {
-            $query->where('current_status', $request->current_status);
+            $query->where('current_status', $request->input('current_status'));
         }
 
         // Apply multiple status filter
-        if ($request->has('statuses') && is_array($request->statuses)) {
-            $query->whereIn('status', $request->statuses);
+        if ($request->has('statuses') && is_array($request->input('statuses'))) {
+            $query->whereIn('status', $request->input('statuses'));
         }
 
         $appointments = $query->orderBy('date', 'asc')
             ->orderBy('time_slot_id', 'asc')
-            ->paginate($request->get('per_page', 15));
+            ->paginate($request->input('per_page', 15));
 
         return $this->successResponse($appointments, 'Direct appointments retrieved successfully');
     }

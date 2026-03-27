@@ -52,18 +52,18 @@ class FollowupController extends BaseApiController
 
             // Apply additional specific filters
             if ($request->has('category')) {
-                $query->where('category', $request->category);
+                $query->where('category', $request->input('category'));
             }
 
             // Filter by status (from followup_details)
             if ($request->has('status')) {
                 $query->whereHas('followupDetails', function ($q) use ($request) {
-                    $q->where('status', $request->status);
+                    $q->where('status', $request->input('status'));
                 });
             }
 
             // Pagination
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->input('per_page', 15);
             $followups = $query->paginate($perPage);
 
             return $this->successResponse($followups, 'Follow-up records retrieved successfully');

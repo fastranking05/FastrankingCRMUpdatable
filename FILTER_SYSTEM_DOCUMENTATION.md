@@ -14,16 +14,514 @@ A comprehensive, reusable filter system that provides flexible date range filter
 ## API Endpoints
 
 ### Appointments Module
-- `GET /api/appointments` - List appointments with filters
-- `GET /api/appointments/filter-options` - Get filter configuration
+- `POST /api/appointments` - List appointments with filters
+- `POST /api/appointments/filter-options` - Get filter configuration
 
 ### Quality Control Module  
-- `GET /api/quality` - List quality records with filters
-- `GET /api/quality/filter-options` - Get filter configuration
+- `POST /api/quality` - List quality records with filters
+- `POST /api/quality/filter-options` - Get filter configuration
 
 ### Followup Module
-- `GET /api/followup` - List followup records with filters
-- `GET /api/followup/filter-options` - Get filter configuration
+- `POST /api/followup` - List followup records with filters
+- `POST /api/followup/filter-options` - Get filter configuration
+
+## 🔒 Secure POST Filter APIs - Complete Reference
+
+### 📋 Appointments Module
+
+#### 1. Get Filter Options
+```http
+POST /api/appointments/filter-options
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Body:** (Empty)
+```json
+{}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "date_filters": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "this_week": "This Week",
+      "last_week": "Last Week",
+      "this_month": "This Month",
+      "last_month": "Last Month",
+      "this_year": "This Year",
+      "last_year": "Last Year",
+      "custom": "Custom Range"
+    },
+    "date_columns": {
+      "date": "Appointment Date",
+      "created_at": "Created Date",
+      "updated_at": "Updated Date"
+    },
+    "status_options": [
+      "Appointment Booked",
+      "Appointment Rebooked",
+      "Appointment Confirmed",
+      "Appointment Completed",
+      "Appointment Cancelled",
+      "Ready",
+      "In Progress",
+      "Completed",
+      "Cancelled"
+    ],
+    "current_status_options": [
+      "Booked",
+      "Confirmed",
+      "Completed",
+      "Cancelled",
+      "Rebooked",
+      "Ready",
+      "In Progress"
+    ]
+  }
+}
+```
+
+#### 2. Filter Appointments
+```http
+POST /api/appointments
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Payload Examples:**
+
+**Basic Date Filter:**
+```json
+{
+  "date_filter": "this_month",
+  "date_column": "date",
+  "per_page": 15
+}
+```
+
+**User Filter:**
+```json
+{
+  "created_by": 1,
+  "per_page": 15
+}
+```
+
+**Multiple Users Filter:**
+```json
+{
+  "created_by": [1, 2, 3],
+  "per_page": 15
+}
+```
+
+**Status Filter:**
+```json
+{
+  "status": "Appointment Booked",
+  "per_page": 15
+}
+```
+
+**Multiple Statuses Filter:**
+```json
+{
+  "status": ["Appointment Booked", "Appointment Confirmed"],
+  "per_page": 15
+}
+```
+
+**Current Status Filter:**
+```json
+{
+  "current_status": "Booked",
+  "per_page": 15
+}
+```
+
+**Search Filter:**
+```json
+{
+  "search": "ABC Corporation",
+  "per_page": 15
+}
+```
+
+**Custom Date Range:**
+```json
+{
+  "date_filter": "custom",
+  "date_column": "date",
+  "custom_start_date": "2026-03-01",
+  "custom_end_date": "2026-03-15",
+  "per_page": 15
+}
+```
+
+**Combined Filters:**
+```json
+{
+  "date_filter": "this_month",
+  "date_column": "date",
+  "created_by": [1, 2],
+  "status": "Appointment Booked",
+  "search": "ABC",
+  "per_page": 10
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": "FRMID00000001",
+        "followup_business_id": 1,
+        "source": "Direct",
+        "status": "Appointment Booked",
+        "date": "2026-03-15",
+        "time_slot_id": 1,
+        "current_status": "Booked",
+        "created_by": 1,
+        "created_at": "2026-03-15T10:30:00.000000Z",
+        "updated_at": "2026-03-15T10:30:00.000000Z",
+        "followupBusiness": {
+          "id": 1,
+          "name": "ABC Corporation",
+          "category": "Technology Services",
+          "type": "Enterprise Client",
+          "phone": "+1234567890",
+          "email": "contact@abc.com"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "John",
+          "last_name": "Doe"
+        }
+      }
+    ],
+    "first_page_url": "http://localhost:8000/api/appointments?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http://localhost:8000/api/appointments?page=1",
+    "links": [
+      {
+        "url": null,
+        "label": "&laquo; Previous",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8000/api/appointments?page=1",
+        "label": "1",
+        "active": true
+      },
+      {
+        "url": null,
+        "label": "Next &raquo;",
+        "active": false
+      }
+    ],
+    "next_page_url": null,
+    "path": "http://localhost:8000/api/appointments",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 1,
+    "total": 1
+  },
+  "message": "Direct appointments retrieved successfully"
+}
+```
+
+### 📋 Quality Control Module
+
+#### 1. Get Filter Options
+```http
+POST /api/quality/filter-options
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Body:** (Empty)
+```json
+{}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "date_filters": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "this_week": "This Week",
+      "last_week": "Last Week",
+      "this_month": "This Month",
+      "last_month": "Last Month",
+      "this_year": "This Year",
+      "last_year": "Last Year",
+      "custom": "Custom Range"
+    },
+    "date_columns": {
+      "created_at": "Created Date",
+      "updated_at": "Updated Date"
+    },
+    "status_options": [
+      "QA-Pending",
+      "QA-In Progress",
+      "QA-Completed",
+      "QA-Approved"
+    ]
+  }
+}
+```
+
+#### 2. Filter Quality Records
+```http
+POST /api/quality
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Payload Examples:**
+
+**Basic Date Filter:**
+```json
+{
+  "date_filter": "this_month",
+  "date_column": "created_at",
+  "per_page": 15
+}
+```
+
+**Assigned User Filter:**
+```json
+{
+  "assigned_user": 4,
+  "per_page": 15
+}
+```
+
+**Status Filter:**
+```json
+{
+  "status": "QA-Pending",
+  "per_page": 15
+}
+```
+
+**Audit Status Filter:**
+```json
+{
+  "auditstatus": "Pending",
+  "per_page": 15
+}
+```
+
+**Search Filter:**
+```json
+{
+  "search": "FRMID00000001",
+  "per_page": 15
+}
+```
+
+**Combined Filters:**
+```json
+{
+  "date_filter": "this_month",
+  "assigned_user": [4, 5],
+  "status": "QA-Pending",
+  "auditstatus": "Pending",
+  "search": "FRMID00000001",
+  "per_page": 10
+}
+```
+
+### 📋 Followup Module
+
+#### 1. Get Filter Options
+```http
+POST /api/followup/filter-options
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Body:** (Empty)
+```json
+{}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "date_filters": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "this_week": "This Week",
+      "last_week": "Last Week",
+      "this_month": "This Month",
+      "last_month": "Last Month",
+      "this_year": "This Year",
+      "last_year": "Last Year",
+      "custom": "Custom Range"
+    },
+    "date_columns": {
+      "created_at": "Created Date",
+      "updated_at": "Updated Date"
+    },
+    "category_options": [
+      "Technology Services",
+      "Healthcare",
+      "Finance",
+      "Education",
+      "Retail",
+      "Manufacturing",
+      "Other"
+    ],
+    "type_options": [
+      "Enterprise Client",
+      "SME",
+      "Startup",
+      "Individual",
+      "Government",
+      "Non-Profit"
+    ],
+    "status_options": [
+      "New",
+      "Contacted",
+      "Interested",
+      "Not Interested",
+      "Follow-up Scheduled",
+      "Appointment Booked",
+      "Converted",
+      "Lost"
+    ]
+  }
+}
+```
+
+#### 2. Filter Followup Records
+```http
+POST /api/followup
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Payload Examples:**
+
+**Basic Date Filter:**
+```json
+{
+  "date_filter": "this_month",
+  "date_column": "created_at",
+  "per_page": 15
+}
+```
+
+**User Filter:**
+```json
+{
+  "created_by": 1,
+  "per_page": 15
+}
+```
+
+**Category Filter:**
+```json
+{
+  "category": "Technology Services",
+  "per_page": 15
+}
+```
+
+**Status Filter:**
+```json
+{
+  "status": "New",
+  "per_page": 15
+}
+```
+
+**Search Filter:**
+```json
+{
+  "search": "ABC Corporation",
+  "per_page": 15
+}
+```
+
+**Combined Filters:**
+```json
+{
+  "date_filter": "this_month",
+  "created_by": [1, 2],
+  "category": "Technology Services",
+  "status": "New",
+  "search": "ABC",
+  "per_page": 10
+}
+```
+
+## 🔧 Universal Filter Parameters
+
+### Date Filter Options:
+- `today` - Today's records
+- `yesterday` - Yesterday's records
+- `this_week` - This week's records
+- `last_week` - Last week's records
+- `this_month` - This month's records
+- `last_month` - Last month's records
+- `this_year` - This year's records
+- `last_year` - Last year's records
+- `custom` - Custom date range (requires `custom_start_date` and `custom_end_date`)
+
+### Common Parameters:
+- `date_filter` - Date range filter option
+- `date_column` - Column to filter dates on (`date`, `created_at`, `updated_at`)
+- `custom_start_date` - Start date for custom range (YYYY-MM-DD)
+- `custom_end_date` - End date for custom range (YYYY-MM-DD)
+- `created_by` - User ID or array of user IDs
+- `assigned_user` - Assigned user ID or array (Quality module)
+- `status` - Status string or array of statuses
+- `search` - Text search query
+- `per_page` - Number of items per page (default: 15)
+- `page` - Page number for pagination
+
+## 🧪 Testing with cURL
+
+```bash
+# Test Appointments Filter
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     -d '{"date_filter":"this_month","per_page":10}' \
+     http://localhost:8000/api/appointments
+
+# Test Quality Filter
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     -d '{"date_filter":"this_month","status":"QA-Pending"}' \
+     http://localhost:8000/api/quality
+
+# Test Followup Filter
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     -d '{"date_filter":"this_month","category":"Technology Services"}' \
+     http://localhost:8000/api/followup
+```
 
 ## Filter Parameters
 
@@ -72,7 +570,9 @@ A comprehensive, reusable filter system that provides flexible date range filter
 
 ### 1. Get Filter Options
 ```bash
-GET /api/appointments/filter-options
+POST /api/appointments/filter-options
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
 **Response:**
@@ -99,27 +599,62 @@ GET /api/appointments/filter-options
 
 ### 2. Filter Appointments by Date Range
 ```bash
-GET /api/appointments?date_filter=this_month&date_column=date
+POST /api/appointments
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "date_filter": "this_month",
+  "date_column": "date"
+}
 ```
 
 ### 3. Filter by Multiple Users
 ```bash
-GET /api/appointments?created_by[]=1&created_by[]=2
+POST /api/appointments
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "created_by": [1, 2]
+}
 ```
 
 ### 4. Filter by Status and Date
 ```bash
-GET /api/appointments?status=Booked&date_filter=this_week
+POST /api/appointments
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "date_filter": "this_week",
+  "status": "Booked"
+}
 ```
 
 ### 5. Custom Date Range
 ```bash
-GET /api/appointments?date_filter=custom&custom_start_date=2026-03-01&custom_end_date=2026-03-15
+POST /api/appointments
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "date_filter": "custom",
+  "custom_start_date": "2026-03-01",
+  "custom_end_date": "2026-03-15"
+}
 ```
 
 ### 6. Search with Date Filter
 ```bash
-GET /api/appointments?search=ABC&date_filter=this_month
+POST /api/appointments
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "search": "ABC",
+  "date_filter": "this_month"
+}
 ```
 
 ## Frontend Integration Guide
@@ -148,7 +683,7 @@ const AppointmentFilters = () => {
   useEffect(() => {
     const loadFilterOptions = async () => {
       try {
-        const response = await axios.get('/api/appointments/filter-options');
+        const response = await axios.post('/api/appointments/filter-options');
         setFilterOptions(response.data.data);
       } catch (error) {
         console.error('Error loading filter options:', error);
@@ -164,20 +699,7 @@ const AppointmentFilters = () => {
       setLoading(true);
       setError('');
       try {
-        const params = new URLSearchParams();
-        
-        // Add filters to params
-        Object.keys(filters).forEach(key => {
-          if (filters[key] && filters[key] !== '') {
-            if (Array.isArray(filters[key])) {
-              filters[key].forEach(value => params.append(`${key}[]`, value));
-            } else {
-              params.append(key, filters[key]);
-            }
-          }
-        });
-
-        const response = await axios.get(`/api/appointments?${params}`);
+        const response = await axios.post('/api/appointments', filters);
         setAppointments(response.data.data);
       } catch (error) {
         console.error('Error loading appointments:', error);
@@ -530,7 +1052,7 @@ const useFilters = (moduleName) => {
   useEffect(() => {
     const loadFilterOptions = async () => {
       try {
-        const response = await axios.get(`/api/${moduleName}/filter-options`);
+        const response = await axios.post(`/api/${moduleName}/filter-options`);
         setFilterOptions(response.data.data);
       } catch (error) {
         console.error('Error loading filter options:', error);
@@ -546,20 +1068,7 @@ const useFilters = (moduleName) => {
       setLoading(true);
       setError('');
       try {
-        const params = new URLSearchParams();
-        
-        // Add filters to params
-        Object.keys(filters).forEach(key => {
-          if (filters[key] && filters[key] !== '') {
-            if (Array.isArray(filters[key])) {
-              filters[key].forEach(value => params.append(`${key}[]`, value));
-            } else {
-              params.append(key, filters[key]);
-            }
-          }
-        });
-
-        const response = await axios.get(`/api/${moduleName}?${params}`);
+        const response = await axios.post(`/api/${moduleName}`, filters);
         setData(response.data.data.data || []);
         setPagination(response.data.data);
       } catch (error) {
@@ -813,26 +1322,37 @@ export default useFilters;
 
 ### 1. Test Filter Options Endpoint
 ```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" \
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
      http://localhost:8000/api/appointments/filter-options
 ```
 
 ### 2. Test Basic Filtering
 ```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" \
-     "http://localhost:8000/api/appointments?date_filter=this_month"
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -d '{"date_filter":"this_month"}' \
+     http://localhost:8000/api/appointments
 ```
 
 ### 3. Test Combined Filters
 ```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" \
-     "http://localhost:8000/api/appointments?date_filter=this_month&created_by=1&status=Booked"
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -d '{"date_filter":"this_month","created_by":1,"status":"Booked"}' \
+     http://localhost:8000/api/appointments
 ```
 
 ### 4. Test Search
 ```bash
-curl -H "Authorization: Bearer YOUR_TOKEN" \
-     "http://localhost:8000/api/appointments?search=ABC"
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -d '{"search":"ABC"}' \
+     http://localhost:8000/api/appointments
 ```
 
 ## Module-Specific Notes

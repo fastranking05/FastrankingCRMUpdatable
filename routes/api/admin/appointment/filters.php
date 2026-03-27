@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->group(function () {
     Route::middleware('permission:Appointment,read')->group(function () {
         // Filter endpoints
-        Route::get('/', [DirectAppointmentController::class, 'index'])->name('index');
-        Route::get('/filter-options', [DirectAppointmentController::class, 'getFilterOptions'])->name('filter-options');
+        Route::post('/', [DirectAppointmentController::class, 'index'])->name('index');
+        Route::post('/filter-options', [DirectAppointmentController::class, 'getFilterOptions'])->name('filter-options');
     });
 });
