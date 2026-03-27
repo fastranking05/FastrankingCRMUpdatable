@@ -53,6 +53,11 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/quality-questions.php';
 });
 
+// Quality Data Submission Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/quality-data-submission.php';
+});
+
 // Filter System Routes
 Route::group([], function () {
     require __DIR__ . '/api/filters.php';

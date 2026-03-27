@@ -49,6 +49,17 @@ class QualityController extends BaseApiController
             $query->where('auditstatus', $request->input('auditstatus'));
         }
 
+        // Filter by score range
+        if ($request->has('score_min')) {
+            $query->where('score', '>=', $request->input('score_min'));
+        }
+        if ($request->has('score_max')) {
+            $query->where('score', '<=', $request->input('score_max'));
+        }
+        if ($request->has('score')) {
+            $query->where('score', $request->input('score'));
+        }
+
         $qualities = $query->orderBy('created_at', 'desc')
             ->paginate($request->input('per_page', 15));
 
@@ -132,6 +143,7 @@ class QualityController extends BaseApiController
             'auditstatus' => 'sometimes|in:qualified,unqualified',
             'status' => 'sometimes|string',
             'meeting_link' => 'nullable|url',
+            'score' => 'nullable|numeric|min:0|max:100',
         ]);
 
         if ($validator->fails()) {
@@ -153,6 +165,9 @@ class QualityController extends BaseApiController
             }
             if ($request->has('meeting_link')) {
                 $updateData['meeting_link'] = $request->meeting_link;
+            }
+            if ($request->has('score')) {
+                $updateData['score'] = $request->score;
             }
 
             $quality->update($updateData);
