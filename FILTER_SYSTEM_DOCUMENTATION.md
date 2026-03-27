@@ -14,16 +14,16 @@ A comprehensive, reusable filter system that provides flexible date range filter
 ## API Endpoints
 
 ### Appointments Module
-- `POST /api/appointments` - List appointments with filters
-- `POST /api/appointments/filter-options` - Get filter configuration
+- `GET /api/appointments/filter-options` - Get filter configuration
+- `POST /api/appointments/appointment-filter` - List appointments with filters
 
 ### Quality Control Module  
-- `POST /api/quality` - List quality records with filters
+- `POST /api/quality/quality-filter` - List quality records with filters
 - `POST /api/quality/filter-options` - Get filter configuration
 
 ### Followup Module
-- `POST /api/followup` - List followup records with filters
-- `POST /api/followup/filter-options` - Get filter configuration
+- `GET /api/followup/filter-options` - Get filter configuration
+- `POST /api/followup/followup-filter` - List followup records with filters
 
 ## 🔒 Secure POST Filter APIs - Complete Reference
 
@@ -31,8 +31,7 @@ A comprehensive, reusable filter system that provides flexible date range filter
 
 #### 1. Get Filter Options
 ```http
-POST /api/appointments/filter-options
-Content-Type: application/json
+GET /api/appointments/filter-options
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
@@ -88,7 +87,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 #### 2. Filter Appointments
 ```http
-POST /api/appointments
+POST /api/appointments/appointment-filter
 Content-Type: application/json
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
@@ -286,7 +285,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 #### 2. Filter Quality Records
 ```http
-POST /api/quality
+POST /api/quality/quality-filter
 Content-Type: application/json
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
@@ -350,8 +349,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 #### 1. Get Filter Options
 ```http
-POST /api/followup/filter-options
-Content-Type: application/json
+GET /api/followup/filter-options
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
@@ -413,7 +411,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 #### 2. Filter Followup Records
 ```http
-POST /api/followup
+POST /api/followup/followup-filter
 Content-Type: application/json
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
@@ -501,26 +499,36 @@ Authorization: Bearer YOUR_JWT_TOKEN
 ## 🧪 Testing with cURL
 
 ```bash
+# Test Appointments Filter Options
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     http://localhost:8000/api/appointments/filter-options
+
 # Test Appointments Filter
 curl -X POST \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer YOUR_JWT_TOKEN" \
      -d '{"date_filter":"this_month","per_page":10}' \
-     http://localhost:8000/api/appointments
+     http://localhost:8000/api/appointments/appointment-filter
 
 # Test Quality Filter
 curl -X POST \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer YOUR_JWT_TOKEN" \
      -d '{"date_filter":"this_month","status":"QA-Pending"}' \
-     http://localhost:8000/api/quality
+     http://localhost:8000/api/quality/quality-filter
+
+# Test Followup Filter Options
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     http://localhost:8000/api/followup/filter-options
 
 # Test Followup Filter
 curl -X POST \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer YOUR_JWT_TOKEN" \
      -d '{"date_filter":"this_month","category":"Technology Services"}' \
-     http://localhost:8000/api/followup
+     http://localhost:8000/api/followup/followup-filter
 ```
 
 ## Filter Parameters
@@ -683,7 +691,7 @@ const AppointmentFilters = () => {
   useEffect(() => {
     const loadFilterOptions = async () => {
       try {
-        const response = await axios.post('/api/appointments/filter-options');
+        const response = await axios.get('/api/appointments/filter-options');
         setFilterOptions(response.data.data);
       } catch (error) {
         console.error('Error loading filter options:', error);
@@ -699,7 +707,7 @@ const AppointmentFilters = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.post('/api/appointments', filters);
+        const response = await axios.post('/api/appointments/appointment-filter', filters);
         setAppointments(response.data.data);
       } catch (error) {
         console.error('Error loading appointments:', error);
@@ -1052,7 +1060,16 @@ const useFilters = (moduleName) => {
   useEffect(() => {
     const loadFilterOptions = async () => {
       try {
-        const response = await axios.post(`/api/${moduleName}/filter-options`);
+        // Use GET for appointments and followup, POST for quality
+        const method = (moduleName === 'appointments' || moduleName === 'followup') ? 'get' : 'post';
+        const endpoint = (moduleName === 'appointments' || moduleName === 'followup') 
+          ? `/api/${moduleName}/filter-options`
+          : `/api/${moduleName}/filter-options`;
+        
+        const response = method === 'get' 
+          ? await axios.get(endpoint)
+          : await axios.post(endpoint);
+        
         setFilterOptions(response.data.data);
       } catch (error) {
         console.error('Error loading filter options:', error);
@@ -1068,7 +1085,13 @@ const useFilters = (moduleName) => {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.post(`/api/${moduleName}`, filters);
+        const filterEndpoint = moduleName === 'appointments' 
+          ? '/api/appointments/appointment-filter'
+          : moduleName === 'quality'
+          ? '/api/quality/quality-filter'
+          : '/api/followup/followup-filter';
+        
+        const response = await axios.post(filterEndpoint, filters);
         setData(response.data.data.data || []);
         setPagination(response.data.data);
       } catch (error) {
