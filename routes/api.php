@@ -27,6 +27,12 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/users.php';
 });
 
+// Business Management Module Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/business-categories.php';
+    require __DIR__ . '/api/admin/business-types.php';
+});
+
 // Follow-Up Module Routes
 Route::group([], function () {
     require __DIR__ . '/api/admin/followup/followup.php';
