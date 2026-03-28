@@ -19,9 +19,11 @@ class Quality extends Model
         'status',
         'assigned_user',
         'meeting_link',
+        'score',
     ];
 
     protected $casts = [
+        'score' => 'decimal:2',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
