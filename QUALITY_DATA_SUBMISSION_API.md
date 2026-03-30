@@ -20,7 +20,7 @@ All endpoints require JWT authentication and `Administration,create` permission.
 
 ### Request Payload
 
-#### Complete Submission with Comments
+#### Complete Submission with Comments and Appointment Status Update
 ```json
 {
   "auditstatus": "qualified",
@@ -28,6 +28,7 @@ All endpoints require JWT authentication and `Administration,create` permission.
   "meetinglink": "https://meet.example.com/quality-assessment-123",
   "score": 85.50,
   "appointment_id": "FRMID00000001",
+  "appointment_current_status": "Conducted",
   "answers": [
     {
       "quality_id": 1,
@@ -48,7 +49,7 @@ All endpoints require JWT authentication and `Administration,create` permission.
   "comments": [
     {
       "followup_business_id": 1,
-      "comment": "dfjghdkghkdfghk",
+      "comment": "Quality assessment completed successfully. All criteria met.",
       "old_status": "QA-Pending",
       "new_status": "QA-Approved"
     }
@@ -102,6 +103,7 @@ All endpoints require JWT authentication and `Administration,create` permission.
   "meetinglink": "nullable|string",
   "score": "nullable|numeric|min:0|max:100",
   "appointment_id": "required|exists:appointments,id",
+  "appointment_current_status": "nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled",
   "answers": "required|array|min:1",
   "answers.*.quality_id": "required|exists:qualities,id",
   "answers.*.question_id": "required|exists:quality_questions,id",
@@ -169,14 +171,16 @@ All endpoints require JWT authentication and `Administration,create` permission.
       {
         "id": 1,
         "followup_business_id": 1,
-        "comment": "dfjghdkghkdfghk",
+        "comment": "Quality assessment completed successfully. All criteria met.",
         "old_status": "QA-Pending",
         "new_status": "QA-Approved",
         "created_by": 1,
         "created_at": "2026-03-27T12:00:00.000000Z",
         "updated_at": "2026-03-27T12:00:00.000000Z"
       }
-    ]
+    ],
+    "appointment_updated": true,
+    "appointment_current_status": "Conducted"
   },
   "message": "Quality data submitted successfully"
 }
@@ -222,6 +226,10 @@ All endpoints require JWT authentication and `Administration,create` permission.
 - `score` - Overall score (0-100)
 - `appointment_id` - Foreign key to appointments table (required)
 - `assigned_user` - Current user ID
+
+### appointments Table (Updated)
+**Fields Updated:**
+- `current_status` - Appointment status (optional: Booked, Confirmed, In Progress, Conducted, Not Conducted, Rescheduled, Cancelled)
 
 ### quality_answers Table
 **Fields Stored:**
