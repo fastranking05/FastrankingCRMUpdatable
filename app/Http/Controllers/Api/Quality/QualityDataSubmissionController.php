@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Quality;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\Quality;
 use App\Models\QualityAnswer;
@@ -28,6 +29,7 @@ class QualityDataSubmissionController extends BaseApiController
             'meetinglink' => 'nullable|string',
             'score' => 'nullable|numeric|min:0|max:100',
             'appointment_id' => 'required|exists:appointments,id',
+            'appointment_current_status' => 'nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled',
             
             // Quality answers
             'answers' => 'required|array|min:1',
@@ -57,6 +59,16 @@ class QualityDataSubmissionController extends BaseApiController
                 'appointment_id' => $request->appointment_id,
                 'assigned_user' => auth()->id(),
             ]);
+
+            // Update Appointment current_status if provided
+            $appointment = null;
+            if ($request->has('appointment_current_status') && !empty($request->appointment_current_status)) {
+                $appointment = Appointment::find($request->appointment_id);
+                if ($appointment) {
+                    $appointment->current_status = $request->appointment_current_status;
+                    $appointment->save();
+                }
+            }
 
             // Create Quality Answers (with manually provided quality_id)
             $answers = [];
@@ -93,6 +105,8 @@ class QualityDataSubmissionController extends BaseApiController
             $responseData = [
                 'quality' => $quality,
                 'comments' => $comments,
+                'appointment_updated' => $appointment ? true : false,
+                'appointment_current_status' => $appointment ? $appointment->current_status : null,
             ];
 
             return $this->successResponse($responseData, 'Quality data submitted successfully', 201);

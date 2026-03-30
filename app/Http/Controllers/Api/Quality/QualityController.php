@@ -96,8 +96,9 @@ class QualityController extends BaseApiController
     {
         $quality = Quality::with([
             'appointment',
-            'appointment.business',
-            'appointment.business.authPersons',
+            'appointment.followupBusiness',
+            'appointment.followupBusiness.authPersons',
+            'appointment.timeSlot',
             'assignedUser',
             'answers.question',
         ])->find($id);
