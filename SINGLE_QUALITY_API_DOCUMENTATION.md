@@ -1,0 +1,514 @@
+# Single Quality API Documentation
+
+## Overview
+This API retrieves a single quality record by ID with complete relationship data including appointment details, business information, authorized persons, and quality answers.
+
+## API Endpoint
+
+### **GET** `/api/quality/quality/{id}`
+
+Retrieves a single quality record by its ID.
+
+## Authentication Requirements
+
+- **JWT Token:** `Authorization: Bearer {token}`
+- **Permission:** `Quality Control,read`
+
+## Request Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| id | integer | Yes | Quality record ID |
+
+## Request Headers
+
+```http
+Authorization: Bearer {jwt_token}
+Content-Type: application/json
+```
+
+## Request Example
+
+### cURL
+```bash
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     http://127.0.0.1:8000/api/quality/quality/1
+```
+
+### JavaScript
+```javascript
+const response = await fetch('http://127.0.0.1:8000/api/quality/quality/1', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_JWT_TOKEN',
+    'Content-Type': 'application/json'
+  }
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+## Response Structure
+
+### Success Response (200 OK)
+```json
+{
+  "success": true,
+  "message": "Quality record retrieved successfully",
+  "data": {
+    "id": 1,
+    "appointment_id": "FRMID00000001",
+    "auditstatus": "unqualified",
+    "status": "QA-Pending",
+    "score": null,
+    "assigned_user": 4,
+    "meeting_link": null,
+    "created_at": "2026-03-24T16:39:49.000000Z",
+    "updated_at": "2026-03-24T16:39:49.000000Z",
+    "appointment": {
+      "id": "FRMID00000001",
+      "followup_business_id": 1,
+      "source": "Direct",
+      "status": "Appointment Booked",
+      "date": "2026-03-28",
+      "time_slot_id": 5,
+      "current_status": "Booked",
+      "created_by": 1,
+      "created_at": "2026-03-24T16:39:49.000000Z",
+      "updated_at": "2026-03-24T16:39:49.000000Z",
+      "followupBusiness": {
+        "id": 1,
+        "name": "ABC Corporation",
+        "category": "Technology Services",
+        "type": "Enterprise Client",
+        "website": "https://abccorp.com",
+        "phone": "+2541220036",
+        "email": "contact@abccorp.com",
+        "created_by": 1,
+        "created_at": "2026-03-24T16:39:49.000000Z",
+        "updated_at": "2026-03-24T16:39:49.000000Z",
+        "authPersons": [
+          {
+            "id": 1,
+            "title": "Mr.",
+            "firstname": "John",
+            "middlename": "Michael",
+            "lastname": "Doe",
+            "designation": "Chief Executive Officer",
+            "gender": "Male",
+            "dob": "1980-01-15",
+            "primaryemail": "john.doe@abccorp.com",
+            "primarymobile": "+1234567890",
+            "is_primary": true,
+            "created_by": 1,
+            "created_at": "2026-03-24T16:39:49.000000Z",
+            "updated_at": "2026-03-24T16:39:49.000000Z"
+          },
+          {
+            "id": 2,
+            "title": "Ms.",
+            "firstname": "Jane",
+            "middlename": null,
+            "lastname": "Smith",
+            "designation": "Technical Director",
+            "gender": "Female",
+            "dob": "1985-05-20",
+            "primaryemail": "jane.smith@abccorp.com",
+            "primarymobile": "+1234567891",
+            "is_primary": false,
+            "created_by": 1,
+            "created_at": "2026-03-24T16:39:49.000000Z",
+            "updated_at": "2026-03-24T16:39:49.000000Z"
+          }
+        ]
+      },
+      "timeSlot": {
+        "id": 5,
+        "start_time": "09:00:00",
+        "end_time": "10:00:00",
+        "is_available": true,
+        "created_at": "2026-03-24T16:39:49.000000Z",
+        "updated_at": "2026-03-24T16:39:49.000000Z"
+      }
+    },
+    "assignedUser": {
+      "id": 4,
+      "first_name": "Sandeep",
+      "last_name": "Singh",
+      "email": "sandeep@example.com",
+      "created_at": "2026-03-24T16:39:49.000000Z",
+      "updated_at": "2026-03-24T16:39:49.000000Z"
+    },
+    "answers": [
+      {
+        "id": 1,
+        "quality_id": 1,
+        "question_id": 1,
+        "answers": "yes",
+        "created_by": 4,
+        "created_at": "2026-03-27T14:02:27.000000Z",
+        "updated_at": "2026-03-27T14:02:27.000000Z",
+        "question": {
+          "id": 1,
+          "question": "This is updated question",
+          "description": "Quality assessment question",
+          "is_active": true,
+          "created_by": 1,
+          "created_at": "2026-03-24T16:39:49.000000Z",
+          "updated_at": "2026-03-24T16:39:49.000000Z"
+        }
+      },
+      {
+        "id": 2,
+        "quality_id": 1,
+        "question_id": 3,
+        "answers": "yes",
+        "created_by": 4,
+        "created_at": "2026-03-27T14:02:27.000000Z",
+        "updated_at": "2026-03-27T14:02:27.000000Z",
+        "question": {
+          "id": 3,
+          "question": "How would you rate our customer service quality?",
+          "description": "Customer service quality assessment",
+          "is_active": true,
+          "created_by": 1,
+          "created_at": "2026-03-24T16:39:49.000000Z",
+          "updated_at": "2026-03-24T16:39:49.000000Z"
+        }
+      }
+    ]
+  }
+}
+```
+
+### Error Responses
+
+#### 404 Not Found
+```json
+{
+  "success": false,
+  "error": "Quality record not found",
+  "message": "Quality record not found"
+}
+```
+
+#### 401 Unauthorized
+```json
+{
+  "success": false,
+  "error": "Unauthorized",
+  "message": "Token not provided or invalid"
+}
+```
+
+#### 403 Forbidden
+```json
+{
+  "success": false,
+  "error": "Forbidden",
+  "message": "You do not have permission to perform this action"
+}
+```
+
+## Data Fields Description
+
+### Quality Record Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| id | integer | Quality record ID |
+| appointment_id | string | Foreign key to appointments table |
+| auditstatus | string | Audit status ("unqualified" or "qualified") |
+| status | string | Quality record status |
+| score | decimal | Quality score (nullable) |
+| assigned_user | integer | ID of assigned user |
+| meeting_link | string | Meeting URL (nullable) |
+| created_at | datetime | Record creation timestamp |
+| updated_at | datetime | Record update timestamp |
+
+### Appointment Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| id | string | Appointment ID |
+| followup_business_id | integer | Foreign key to followup_businesses |
+| source | string | Appointment source (Direct, Follow-up) |
+| status | string | Appointment status |
+| date | date | Appointment date |
+| time_slot_id | integer | Time slot ID |
+| current_status | string | Current appointment status |
+| followupBusiness | object | Business information |
+| timeSlot | object | Time slot information |
+
+### Business Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| id | integer | Business ID |
+| name | string | Business name |
+| category | string | Business category |
+| type | string | Business type |
+| website | string | Business website |
+| phone | string | Business phone |
+| email | string | Business email |
+| authPersons | array | Array of authorized persons |
+
+### Authorized Person Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| id | integer | Person ID |
+| title | string | Title (Mr., Ms., Dr., etc.) |
+| firstname | string | First name |
+| middlename | string | Middle name (nullable) |
+| lastname | string | Last name |
+| designation | string | Job title/position |
+| gender | string | Gender |
+| dob | date | Date of birth |
+| primaryemail | string | Primary email |
+| primarymobile | string | Primary mobile |
+| is_primary | boolean | Whether this is the primary contact |
+
+### Time Slot Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| id | integer | Time slot ID |
+| start_time | time | Start time |
+| end_time | time | End time |
+| is_available | boolean | Availability status |
+
+### Quality Answer Fields
+| Field | Type | Description |
+|-------|------|-------------|
+| id | integer | Answer ID |
+| quality_id | integer | Quality record ID |
+| question_id | integer | Question ID |
+| answers | string | Answer text |
+| question | object | Question details |
+
+## Use Cases
+
+### 1. View Quality Details
+Display complete information about a specific quality audit including business context and answers.
+
+### 2. Quality Management
+Review individual quality records for assessment and decision-making.
+
+### 3. Reporting
+Generate detailed reports for specific quality audits.
+
+### 4. Audit Trail
+Track the complete history and details of a quality assessment.
+
+## Performance Considerations
+
+### Database Queries
+- Single database query with eager loading
+- Optimized relationships to prevent N+1 queries
+- Efficient data structure for minimal transfer
+
+### Response Size
+- Complete data set for comprehensive view
+- Consider pagination for large datasets in list views
+
+## Security
+
+### Access Control
+- JWT authentication required
+- Role-based permission system
+- Quality Control,read permission required
+
+### Data Privacy
+- Only authorized users can access quality data
+- Sensitive information properly handled
+
+## Integration Examples
+
+### React Component
+```javascript
+const QualityDetail = ({ qualityId }) => {
+  const [quality, setQuality] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchQuality = async () => {
+      try {
+        const token = localStorage.getItem('jwt_token');
+        const response = await fetch(`/api/quality/quality/${qualityId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        setQuality(data.data);
+      } catch (error) {
+        console.error('Error fetching quality:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuality();
+  }, [qualityId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (!quality) return <div>Quality not found</div>;
+
+  return (
+    <div>
+      <h2>Quality Audit Details</h2>
+      <p>Status: {quality.status}</p>
+      <p>Score: {quality.score || 'Not rated'}</p>
+      <h3>Business Information</h3>
+      <p>{quality.appointment.followupBusiness.name}</p>
+      {/* Render more details */}
+    </div>
+  );
+};
+```
+
+### Vue Component
+```javascript
+<template>
+  <div v-if="quality">
+    <h2>Quality Audit Details</h2>
+    <div class="quality-info">
+      <p><strong>Status:</strong> {{ quality.status }}</p>
+      <p><strong>Score:</strong> {{ quality.score || 'Not rated' }}</p>
+    </div>
+    <div class="business-info">
+      <h3>Business Information</h3>
+      <p>{{ quality.appointment.followupBusiness.name }}</p>
+      <p>{{ quality.appointment.followupBusiness.email }}</p>
+    </div>
+  </div>
+  <div v-else-if="loading">
+    Loading...
+  </div>
+  <div v-else>
+    Quality not found
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      quality: null,
+      loading: true
+    };
+  },
+  async created() {
+    await this.fetchQuality();
+  },
+  methods: {
+    async fetchQuality() {
+      try {
+        const token = localStorage.getItem('jwt_token');
+        const response = await fetch(`/api/quality/quality/${this.$route.params.id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        this.quality = data.data;
+      } catch (error) {
+        console.error('Error fetching quality:', error);
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
+};
+</script>
+```
+
+## Testing
+
+### Test Cases
+
+#### 1. Valid Quality ID
+```bash
+curl -X GET \
+     -H "Authorization: Bearer VALID_JWT_TOKEN" \
+     http://127.0.0.1:8000/api/quality/quality/1
+```
+**Expected:** 200 OK with quality data
+
+#### 2. Invalid Quality ID
+```bash
+curl -X GET \
+     -H "Authorization: Bearer VALID_JWT_TOKEN" \
+     http://127.0.0.1:8000/api/quality/quality/99999
+```
+**Expected:** 404 Not Found
+
+#### 3. No Authentication
+```bash
+curl -X GET \
+     http://127.0.0.1:8000/api/quality/quality/1
+```
+**Expected:** 401 Unauthorized
+
+#### 4. Invalid Token
+```bash
+curl -X GET \
+     -H "Authorization: Bearer INVALID_TOKEN" \
+     http://127.0.0.1:8000/api/quality/quality/1
+```
+**Expected:** 401 Unauthorized
+
+#### 5. No Permission
+```bash
+curl -X GET \
+     -H "Authorization: Bearer USER_WITHOUT_PERMISSION_TOKEN" \
+     http://127.0.0.1:8000/api/quality/quality/1
+```
+**Expected:** 403 Forbidden
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. 404 Not Found
+- Verify the quality ID exists
+- Check the URL structure: `/api/quality/quality/{id}`
+
+#### 2. 401 Unauthorized
+- Ensure JWT token is valid
+- Check token expiration
+- Verify token format
+
+#### 3. 403 Forbidden
+- Verify user has `Quality Control,read` permission
+- Check user role assignments
+
+#### 4. 500 Server Error
+- Check database connections
+- Verify relationships exist
+- Review error logs for details
+
+## Related APIs
+
+### Quality List API
+- **Endpoint:** `GET /api/quality/quality/`
+- **Description:** List all quality records with filtering
+
+### Quality Audit APIs
+- **Endpoint:** `GET /api/quality-audit/audit-pending`
+- **Description:** Get pending quality audits
+
+### Quality Update API
+- **Endpoint:** `PUT /api/quality/quality/{id}`
+- **Description:** Update quality record
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | 2026-03-30 | Initial documentation |
+| 1.1 | 2026-03-30 | Fixed relationship names, added timeSlot |
+
+---
+
+## Summary
+
+The Single Quality API provides comprehensive access to individual quality audit records with complete relationship data including business information, authorized persons, appointment details, and quality answers. It's designed for detailed view and management of quality assessments with proper authentication and authorization controls.
