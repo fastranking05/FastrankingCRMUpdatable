@@ -23,7 +23,8 @@ class QualityAuditController extends BaseApiController
         $query = Quality::with([
             'assignedUser:id,first_name,last_name,email',
             'answers.question:id,question',
-            'appointment'
+            'appointment.followupBusiness:id,name,category,type,website,phone,email',
+            'appointment.timeSlot:id,start_time,end_time'
         ]);
 
         // Filter by unqualified status
@@ -34,7 +35,78 @@ class QualityAuditController extends BaseApiController
 
         $audits = $query->orderBy('created_at', 'desc')->get();
 
-        return $this->successResponse($audits, 'Audit pending quality data retrieved successfully');
+        // Format the response to remove unwanted fields and ensure unique data
+        $formattedAudits = $audits->map(function ($audit) {
+            $business = null;
+            if ($audit->appointment && $audit->appointment->followupBusiness) {
+                $followupBusiness = $audit->appointment->followupBusiness;
+                
+                // Get auth persons specifically for this business
+                $authPersons = DB::table('followup_business_auth_person')
+                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
+                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
+                    ->select([
+                        'followup_auth_persons.id',
+                        'followup_auth_persons.title',
+                        'followup_auth_persons.firstname',
+                        'followup_auth_persons.middlename',
+                        'followup_auth_persons.lastname',
+                        'followup_auth_persons.designation',
+                        'followup_auth_persons.primaryemail',
+                        'followup_auth_persons.primarymobile',
+                        'followup_auth_persons.is_primary'
+                    ])
+                    ->get()
+                    ->map(function ($person) {
+                        return [
+                            'id' => $person->id,
+                            'title' => $person->title,
+                            'firstname' => $person->firstname,
+                            'middlename' => $person->middlename,
+                            'lastname' => $person->lastname,
+                            'designation' => $person->designation,
+                            'primaryemail' => $person->primaryemail,
+                            'primarymobile' => $person->primarymobile,
+                            'is_primary' => $person->is_primary
+                        ];
+                    });
+
+                $business = [
+                    'id' => $followupBusiness->id,
+                    'name' => $followupBusiness->name,
+                    'category' => $followupBusiness->category,
+                    'type' => $followupBusiness->type,
+                    'website' => $followupBusiness->website,
+                    'phone' => $followupBusiness->phone,
+                    'email' => $followupBusiness->email,
+                    'auth_persons' => $authPersons
+                ];
+            }
+
+            return [
+                'id' => $audit->id,
+                'appointment_id' => $audit->appointment_id,
+                'auditstatus' => $audit->auditstatus,
+                'status' => $audit->status,
+                'score' => $audit->score,
+                'assigned_user' => $audit->assignedUser,
+                'meeting_link' => $audit->meeting_link,
+                'created_at' => $audit->created_at,
+                'updated_at' => $audit->updated_at,
+                'answers' => $audit->answers,
+                'business' => $business,
+                'appointment_date' => $audit->appointment ? $audit->appointment->date : null,
+                'appointment_source' => $audit->appointment ? $audit->appointment->source : null,
+                'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
+                'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
+                    'id' => $audit->appointment->timeSlot->id,
+                    'start_time' => $audit->appointment->timeSlot->start_time,
+                    'end_time' => $audit->appointment->timeSlot->end_time
+                ] : null
+            ];
+        });
+
+        return $this->successResponse($formattedAudits, 'Audit pending quality data retrieved successfully');
     }
 
     /**
@@ -48,7 +120,8 @@ class QualityAuditController extends BaseApiController
         $query = Quality::with([
             'assignedUser:id,first_name,last_name,email',
             'answers.question:id,question',
-            'appointment'
+            'appointment.followupBusiness:id,name,category,type,website,phone,email',
+            'appointment.timeSlot:id,start_time,end_time'
         ]);
 
         // Filter by qualified status
@@ -59,7 +132,78 @@ class QualityAuditController extends BaseApiController
 
         $audits = $query->orderBy('created_at', 'desc')->get();
 
-        return $this->successResponse($audits, 'Audit completed quality data retrieved successfully');
+        // Format the response to remove unwanted fields and ensure unique data
+        $formattedAudits = $audits->map(function ($audit) {
+            $business = null;
+            if ($audit->appointment && $audit->appointment->followupBusiness) {
+                $followupBusiness = $audit->appointment->followupBusiness;
+                
+                // Get auth persons specifically for this business
+                $authPersons = DB::table('followup_business_auth_person')
+                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
+                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
+                    ->select([
+                        'followup_auth_persons.id',
+                        'followup_auth_persons.title',
+                        'followup_auth_persons.firstname',
+                        'followup_auth_persons.middlename',
+                        'followup_auth_persons.lastname',
+                        'followup_auth_persons.designation',
+                        'followup_auth_persons.primaryemail',
+                        'followup_auth_persons.primarymobile',
+                        'followup_auth_persons.is_primary'
+                    ])
+                    ->get()
+                    ->map(function ($person) {
+                        return [
+                            'id' => $person->id,
+                            'title' => $person->title,
+                            'firstname' => $person->firstname,
+                            'middlename' => $person->middlename,
+                            'lastname' => $person->lastname,
+                            'designation' => $person->designation,
+                            'primaryemail' => $person->primaryemail,
+                            'primarymobile' => $person->primarymobile,
+                            'is_primary' => $person->is_primary
+                        ];
+                    });
+
+                $business = [
+                    'id' => $followupBusiness->id,
+                    'name' => $followupBusiness->name,
+                    'category' => $followupBusiness->category,
+                    'type' => $followupBusiness->type,
+                    'website' => $followupBusiness->website,
+                    'phone' => $followupBusiness->phone,
+                    'email' => $followupBusiness->email,
+                    'auth_persons' => $authPersons
+                ];
+            }
+
+            return [
+                'id' => $audit->id,
+                'appointment_id' => $audit->appointment_id,
+                'auditstatus' => $audit->auditstatus,
+                'status' => $audit->status,
+                'score' => $audit->score,
+                'assigned_user' => $audit->assignedUser,
+                'meeting_link' => $audit->meeting_link,
+                'created_at' => $audit->created_at,
+                'updated_at' => $audit->updated_at,
+                'answers' => $audit->answers,
+                'business' => $business,
+                'appointment_date' => $audit->appointment ? $audit->appointment->date : null,
+                'appointment_source' => $audit->appointment ? $audit->appointment->source : null,
+                'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
+                'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
+                    'id' => $audit->appointment->timeSlot->id,
+                    'start_time' => $audit->appointment->timeSlot->start_time,
+                    'end_time' => $audit->appointment->timeSlot->end_time
+                ] : null
+            ];
+        });
+
+        return $this->successResponse($formattedAudits, 'Audit completed quality data retrieved successfully');
     }
 
     /**
@@ -74,7 +218,8 @@ class QualityAuditController extends BaseApiController
         $query = Quality::with([
             'assignedUser:id,first_name,last_name,email',
             'answers.question:id,question',
-            'appointment'
+            'appointment.followupBusiness:id,name,category,type,website,phone,email',
+            'appointment.timeSlot:id,start_time,end_time'
         ]);
 
         // Apply role-based filtering
@@ -82,7 +227,78 @@ class QualityAuditController extends BaseApiController
 
         $audits = $query->orderBy('created_at', 'desc')->get();
 
-        return $this->successResponse($audits, 'All quality data retrieved successfully');
+        // Format the response to remove unwanted fields and ensure unique data
+        $formattedAudits = $audits->map(function ($audit) {
+            $business = null;
+            if ($audit->appointment && $audit->appointment->followupBusiness) {
+                $followupBusiness = $audit->appointment->followupBusiness;
+                
+                // Get auth persons specifically for this business
+                $authPersons = DB::table('followup_business_auth_person')
+                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
+                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
+                    ->select([
+                        'followup_auth_persons.id',
+                        'followup_auth_persons.title',
+                        'followup_auth_persons.firstname',
+                        'followup_auth_persons.middlename',
+                        'followup_auth_persons.lastname',
+                        'followup_auth_persons.designation',
+                        'followup_auth_persons.primaryemail',
+                        'followup_auth_persons.primarymobile',
+                        'followup_auth_persons.is_primary'
+                    ])
+                    ->get()
+                    ->map(function ($person) {
+                        return [
+                            'id' => $person->id,
+                            'title' => $person->title,
+                            'firstname' => $person->firstname,
+                            'middlename' => $person->middlename,
+                            'lastname' => $person->lastname,
+                            'designation' => $person->designation,
+                            'primaryemail' => $person->primaryemail,
+                            'primarymobile' => $person->primarymobile,
+                            'is_primary' => $person->is_primary
+                        ];
+                    });
+
+                $business = [
+                    'id' => $followupBusiness->id,
+                    'name' => $followupBusiness->name,
+                    'category' => $followupBusiness->category,
+                    'type' => $followupBusiness->type,
+                    'website' => $followupBusiness->website,
+                    'phone' => $followupBusiness->phone,
+                    'email' => $followupBusiness->email,
+                    'auth_persons' => $authPersons
+                ];
+            }
+
+            return [
+                'id' => $audit->id,
+                'appointment_id' => $audit->appointment_id,
+                'auditstatus' => $audit->auditstatus,
+                'status' => $audit->status,
+                'score' => $audit->score,
+                'assigned_user' => $audit->assignedUser,
+                'meeting_link' => $audit->meeting_link,
+                'created_at' => $audit->created_at,
+                'updated_at' => $audit->updated_at,
+                'answers' => $audit->answers,
+                'business' => $business,
+                'appointment_date' => $audit->appointment ? $audit->appointment->date : null,
+                'appointment_source' => $audit->appointment ? $audit->appointment->source : null,
+                'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
+                'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
+                    'id' => $audit->appointment->timeSlot->id,
+                    'start_time' => $audit->appointment->timeSlot->start_time,
+                    'end_time' => $audit->appointment->timeSlot->end_time
+                ] : null
+            ];
+        });
+
+        return $this->successResponse($formattedAudits, 'All quality data retrieved successfully');
     }
 
     /**
