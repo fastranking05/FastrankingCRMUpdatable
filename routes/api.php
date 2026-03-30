@@ -64,6 +64,11 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/quality-data-submission.php';
 });
 
+// Quality Audit Routes
+Route::group([], function () {
+    require __DIR__ . '/api/quality-audit.php';
+});
+
 // Filter System Routes
 Route::group([], function () {
     require __DIR__ . '/api/filters.php';
