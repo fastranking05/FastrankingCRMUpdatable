@@ -99,6 +99,7 @@ class QualityController extends BaseApiController
             'appointment.followupBusiness',
             'appointment.followupBusiness.authPersons',
             'appointment.timeSlot',
+            'appointment.creator:id,first_name,middle_name,last_name,username',
             'assignedUser',
             'answers.question',
         ])->find($id);
@@ -107,7 +108,25 @@ class QualityController extends BaseApiController
             return $this->errorResponse('Quality record not found', 404);
         }
 
-        return $this->successResponse($quality, 'Quality record retrieved successfully');
+        // Transform the response to change 'creator' to 'appointment_creator'
+        $transformedQuality = $this->transformQualityResponse($quality);
+
+        return $this->successResponse($transformedQuality, 'Quality record retrieved successfully');
+    }
+
+    /**
+     * Transform quality response to change creator to appointment_creator
+     */
+    private function transformQualityResponse($quality): object
+    {
+        $data = $quality->toArray();
+        
+        if (isset($data['appointment']['creator'])) {
+            $data['appointment']['appointment_creator'] = $data['appointment']['creator'];
+            unset($data['appointment']['creator']);
+        }
+
+        return (object) $data;
     }
 
     /**
