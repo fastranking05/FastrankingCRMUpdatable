@@ -100,8 +100,8 @@ class QualityAuditController extends BaseApiController
                 'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
                 'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
                     'id' => $audit->appointment->timeSlot->id,
-                    'start_time' => $audit->appointment->timeSlot->start_time,
-                    'end_time' => $audit->appointment->timeSlot->end_time
+                    'start_time' => $audit->appointment->timeSlot->start_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->start_time)) : null,
+                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null
                 ] : null
             ];
         });
@@ -197,8 +197,8 @@ class QualityAuditController extends BaseApiController
                 'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
                 'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
                     'id' => $audit->appointment->timeSlot->id,
-                    'start_time' => $audit->appointment->timeSlot->start_time,
-                    'end_time' => $audit->appointment->timeSlot->end_time
+                    'start_time' => $audit->appointment->timeSlot->start_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->start_time)) : null,
+                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null
                 ] : null
             ];
         });
@@ -292,8 +292,8 @@ class QualityAuditController extends BaseApiController
                 'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
                 'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
                     'id' => $audit->appointment->timeSlot->id,
-                    'start_time' => $audit->appointment->timeSlot->start_time,
-                    'end_time' => $audit->appointment->timeSlot->end_time
+                    'start_time' => $audit->appointment->timeSlot->start_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->start_time)) : null,
+                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null
                 ] : null
             ];
         });
