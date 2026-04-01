@@ -69,6 +69,16 @@ Route::group([], function () {
     require __DIR__ . '/api/quality-audit.php';
 });
 
+// Consultation Routes
+Route::group([], function () {
+    require __DIR__ . '/api/consultation.php';
+});
+
+// User Assignment Routes
+Route::group([], function () {
+    require __DIR__ . '/api/user-assignment.php';
+});
+
 // Filter System Routes
 Route::group([], function () {
     require __DIR__ . '/api/filters.php';
