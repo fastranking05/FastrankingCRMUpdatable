@@ -29,7 +29,7 @@ class QualityQuestionController extends BaseApiController
         }
 
         $questions = $query->orderBy('created_at', 'desc')
-            ->paginate($request->get('per_page', 15));
+            ->paginate($request->get('per_page', 50));
 
         return $this->successResponse($questions, 'Quality questions retrieved successfully');
     }
