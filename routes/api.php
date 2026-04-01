@@ -51,27 +51,17 @@ Route::group([], function () {
 
 // Quality Control Module Routes
 Route::group([], function () {
-    require __DIR__ . '/api/admin/quality.php';
-});
-
-// Quality Questions Routes
-Route::group([], function () {
-    require __DIR__ . '/api/admin/quality-questions.php';
-});
-
-// Quality Data Submission Routes
-Route::group([], function () {
-    require __DIR__ . '/api/admin/quality-data-submission.php';
+    require __DIR__ . '/admin/quality.php';
 });
 
 // Quality Audit Routes
 Route::group([], function () {
-    require __DIR__ . '/api/quality-audit.php';
+    require __DIR__ . '/admin/quality/quality-audit.php';
 });
 
 // Consultation Routes
 Route::group([], function () {
-    require __DIR__ . '/api/consultation.php';
+    require __DIR__ . '/admin/consultation/consultation.php';
 });
 
 // User Assignment Routes
@@ -81,7 +71,7 @@ Route::group([], function () {
 
 // Filter System Routes
 Route::group([], function () {
-    require __DIR__ . '/api/filters.php';
+    require __DIR__ . '/filters/filters.php';
 });
 
 // Public Time Slot Routes (No Auth Required)
