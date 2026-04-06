@@ -13,8 +13,16 @@ Route::middleware(['jwt.auth'])->prefix('consultation')->name('consultation.')->
     // Consultation CRUD Routes
     Route::middleware('permission:Consultation,read')->group(function () {
         Route::get('/', [ConsultationController::class, 'index'])->name('index');
-        Route::get('/{id}', [ConsultationController::class, 'show'])->name('show');
+        
+        // New consultation status-based routes (must come before /{id} route)
+        Route::get('/scheduled', [ConsultationController::class, 'getScheduledConsultations'])->name('scheduled');
+        Route::get('/conducted', [ConsultationController::class, 'getConductedConsultations'])->name('conducted');
+        Route::get('/not-conducted', [ConsultationController::class, 'getNotConductedConsultations'])->name('not-conducted');
+        Route::get('/today', [ConsultationController::class, 'getTodayConsultations'])->name('today');
         Route::get('/appointment/{appointmentId}', [ConsultationController::class, 'getByAppointment'])->name('get-by-appointment');
+        
+        // Parameterized routes (must come after specific routes)
+        Route::get('/{id}', [ConsultationController::class, 'show'])->name('show');
     });
 
     Route::middleware('permission:Consultation,create')->group(function () {

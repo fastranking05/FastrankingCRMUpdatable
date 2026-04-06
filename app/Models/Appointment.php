@@ -95,6 +95,11 @@ class Appointment extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function quality(): BelongsTo
+    {
+        return $this->belongsTo(Quality::class, 'appointment_id', 'id');
+    }
+
     // Check if user is available for this appointment time
     public function isUserAvailable(): bool
     {

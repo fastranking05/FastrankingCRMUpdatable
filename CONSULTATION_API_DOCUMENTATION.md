@@ -370,6 +370,378 @@ Marks a consultation as completed/closed.
 }
 ```
 
+### 8. Get Scheduled Consultations (GET)
+**Endpoint:** `GET /api/consultation/scheduled`
+
+Retrieves consultations with status 'scheduled' or 'rescheduled'. Returns only the latest consultation per appointment and applies role-based filtering.
+
+#### Request Parameters
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| per_page | integer | No | Results per page (default: 15) |
+
+#### Request Example
+```bash
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     "http://127.0.0.1:8000/api/consultation/scheduled"
+```
+
+#### Response Example
+```json
+{
+  "success": true,
+  "message": "Scheduled consultations retrieved successfully",
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "appointment_id": "FRMID00000001",
+        "status": "scheduled",
+        "custom_status": "Awaiting Review",
+        "reason": "Initial consultation required",
+        "reschedule_date": "2026-04-15",
+        "reschedule_slot": 5,
+        "conducted_date": null,
+        "assigned_user": 4,
+        "created_by": 1,
+        "created_at": "2026-04-01T10:00:00.000000Z",
+        "updated_at": "2026-04-01T10:00:00.000000Z",
+        "appointment": {
+          "id": "FRMID00000001",
+          "followup_business_id": 1,
+          "date": "2026-04-10",
+          "followupBusiness": {
+            "id": 1,
+            "name": "ABC Corporation"
+          }
+        },
+        "rescheduleSlot": {
+          "id": 5,
+          "start_time": "14:00:00",
+          "end_time": "14:30:00"
+        },
+        "closer": null,
+        "assignedUser": {
+          "id": 4,
+          "first_name": "Sandeep",
+          "last_name": "Singh",
+          "username": "sandeep"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User",
+          "username": "admin"
+        }
+      }
+    ],
+    "first_page_url": "http://127.0.0.1:8000/api/consultation/scheduled?page=1",
+    "from": 1,
+    "last_page": 1,
+    "per_page": 15,
+    "to": 1,
+    "total": 1
+  }
+}
+```
+
+### 9. Get Conducted Consultations (GET)
+**Endpoint:** `GET /api/consultation/conducted`
+
+Retrieves consultations with status 'conducted'. Returns only the latest consultation per appointment and applies role-based filtering.
+
+#### Request Parameters
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| per_page | integer | No | Results per page (default: 15) |
+
+#### Request Example
+```bash
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     "http://127.0.0.1:8000/api/consultation/conducted"
+```
+
+#### Response Example
+```json
+{
+  "success": true,
+  "message": "Conducted consultations retrieved successfully",
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 2,
+        "appointment_id": "FRMID00000002",
+        "status": "conducted",
+        "custom_status": "Completed",
+        "reason": "Consultation completed successfully",
+        "reschedule_date": null,
+        "reschedule_slot": null,
+        "conducted_date": "2026-04-20",
+        "assigned_user": 4,
+        "created_by": 1,
+        "created_at": "2026-04-01T11:00:00.000000Z",
+        "updated_at": "2026-04-01T11:30:00.000000Z",
+        "appointment": {
+          "id": "FRMID00000002",
+          "followup_business_id": 2,
+          "date": "2026-04-10",
+          "followupBusiness": {
+            "id": 2,
+            "name": "XYZ Company"
+          }
+        },
+        "rescheduleSlot": null,
+        "closer": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User",
+          "username": "admin"
+        },
+        "assignedUser": {
+          "id": 4,
+          "first_name": "Sandeep",
+          "last_name": "Singh",
+          "username": "sandeep"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User",
+          "username": "admin"
+        }
+      }
+    ],
+    "first_page_url": "http://127.0.0.1:8000/api/consultation/conducted?page=1",
+    "from": 1,
+    "last_page": 1,
+    "per_page": 15,
+    "to": 1,
+    "total": 1
+  }
+}
+```
+
+### 10. Get Not Conducted Consultations (GET)
+**Endpoint:** `GET /api/consultation/not-conducted`
+
+Retrieves consultations with status not equal to 'conducted'. Returns only the latest consultation per appointment and applies role-based filtering.
+
+#### Request Parameters
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| per_page | integer | No | Results per page (default: 15) |
+
+#### Request Example
+```bash
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     "http://127.0.0.1:8000/api/consultation/not-conducted"
+```
+
+#### Response Example
+```json
+{
+  "success": true,
+  "message": "Not conducted consultations retrieved successfully",
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "appointment_id": "FRMID00000001",
+        "status": "scheduled",
+        "custom_status": "Awaiting Review",
+        "reason": "Initial consultation required",
+        "reschedule_date": "2026-04-15",
+        "reschedule_slot": 5,
+        "conducted_date": null,
+        "assigned_user": 4,
+        "created_by": 1,
+        "created_at": "2026-04-01T10:00:00.000000Z",
+        "updated_at": "2026-04-01T10:00:00.000000Z",
+        "appointment": {
+          "id": "FRMID00000001",
+          "followup_business_id": 1,
+          "date": "2026-04-10",
+          "followupBusiness": {
+            "id": 1,
+            "name": "ABC Corporation"
+          }
+        },
+        "rescheduleSlot": {
+          "id": 5,
+          "start_time": "14:00:00",
+          "end_time": "14:30:00"
+        },
+        "closer": null,
+        "assignedUser": {
+          "id": 4,
+          "first_name": "Sandeep",
+          "last_name": "Singh",
+          "username": "sandeep"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User",
+          "username": "admin"
+        }
+      }
+    ],
+    "first_page_url": "http://127.0.0.1:8000/api/consultation/not-conducted?page=1",
+    "from": 1,
+    "last_page": 1,
+    "per_page": 15,
+    "to": 1,
+    "total": 1
+  }
+}
+```
+
+### 11. Get Today's Consultations (GET)
+**Endpoint:** `GET /api/consultation/today`
+
+Retrieves today's consultations (scheduled/rescheduled with today's appointment date). Returns only the latest consultation per appointment and applies role-based filtering.
+
+#### Request Parameters
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| per_page | integer | No | Results per page (default: 15) |
+
+#### Request Example
+```bash
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     "http://127.0.0.1:8000/api/consultation/today"
+```
+
+#### Response Example
+```json
+{
+  "success": true,
+  "message": "Today's consultations retrieved successfully",
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 3,
+        "appointment_id": "FRMID00000003",
+        "status": "scheduled",
+        "custom_status": "Today's Appointment",
+        "reason": "Scheduled for today",
+        "reschedule_date": null,
+        "reschedule_slot": null,
+        "conducted_date": null,
+        "assigned_user": 4,
+        "created_by": 1,
+        "created_at": "2026-04-06T09:00:00.000000Z",
+        "updated_at": "2026-04-06T09:00:00.000000Z",
+        "appointment": {
+          "id": "FRMID00000003",
+          "followup_business_id": 3,
+          "date": "2026-04-06",
+          "followupBusiness": {
+            "id": 3,
+            "name": "Today's Client"
+          }
+        },
+        "rescheduleSlot": null,
+        "closer": null,
+        "assignedUser": {
+          "id": 4,
+          "first_name": "Sandeep",
+          "last_name": "Singh",
+          "username": "sandeep"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User",
+          "username": "admin"
+        }
+      }
+    ],
+    "first_page_url": "http://127.0.0.1:8000/api/consultation/today?page=1",
+    "from": 1,
+    "last_page": 1,
+    "per_page": 15,
+    "to": 1,
+    "total": 1
+  }
+}
+```
+
+## Role-Based Access Control
+
+### User Role Filtering Logic
+
+The new consultation endpoints implement role-based access control with the following logic:
+
+#### Executive Users (Sales Department)
+- **Access**: Can only see consultations assigned to themselves
+- **Filter**: `assigned_user = current_user_id`
+
+#### Manager/Director Users (Sales Department)  
+- **Access**: Can see consultations for their entire team and themselves
+- **Filter**: `assigned_user IN (team_user_ids)`
+
+#### Other Users
+- **Access**: Can see all consultations (no filtering applied)
+
+### Example Role-Based Responses
+
+#### Executive User Response
+```json
+{
+  "success": true,
+  "message": "Scheduled consultations retrieved successfully",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "assigned_user": 4,  // Only consultations assigned to this executive
+        "assignedUser": {
+          "id": 4,
+          "first_name": "Sandeep",
+          "last_name": "Singh"
+        }
+      }
+    ]
+  }
+}
+```
+
+#### Manager User Response
+```json
+{
+  "success": true,
+  "message": "Scheduled consultations retrieved successfully",
+  "data": {
+    "data": [
+      {
+        "id": 1,
+        "assigned_user": 4,  // Team member consultations
+        "assignedUser": { "id": 4, "first_name": "Sandeep" }
+      },
+      {
+        "id": 2,
+        "assigned_user": 5,  // Another team member
+        "assignedUser": { "id": 5, "first_name": "John" }
+      },
+      {
+        "id": 3,
+        "assigned_user": 2,  // Manager's own consultations
+        "assignedUser": { "id": 2, "first_name": "Manager" }
+      }
+    ]
+  }
+}
+```
+
 ## Data Fields Description
 
 ### Consultation Fields
@@ -707,8 +1079,24 @@ The Consultation API provides comprehensive functionality for managing consultat
 - ✅ Advanced filtering and searching
 - ✅ Relationship management
 - ✅ Role-based access control
+- ✅ Status-based consultation endpoints
+- ✅ Latest consultation per appointment logic
+- ✅ User role and department-based filtering
+- ✅ Today's consultation filtering
 - ✅ Audit trail capabilities
 - ✅ Performance optimization
 - ✅ Security best practices
+
+### New Status-Based Endpoints
+- ✅ **Scheduled Consultations** - Get consultations with 'scheduled' or 'rescheduled' status
+- ✅ **Conducted Consultations** - Get consultations with 'conducted' status
+- ✅ **Not Conducted Consultations** - Get consultations with status not equal to 'conducted'
+- ✅ **Today's Consultations** - Get today's scheduled/rescheduled consultations
+
+### Key Features
+- **Latest Consultation Logic**: Each endpoint returns only the most recent consultation per appointment
+- **Role-Based Filtering**: Executive users see only their assigned consultations, Managers/Directors see team consultations
+- **Department-Based Access**: Special filtering logic for Sales department users
+- **Pagination Support**: All endpoints support configurable pagination
 
 This module integrates seamlessly with the existing Quality and Appointment systems to provide a complete consultation management solution.
