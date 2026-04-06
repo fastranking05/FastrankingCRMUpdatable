@@ -21,6 +21,7 @@ class Consultation extends Model
         'closer',
         'conducted_date',
         'assigned_user',
+        'created_by',
     ];
 
     protected $casts = [
@@ -60,6 +61,14 @@ class Consultation extends Model
     public function assignedUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_user');
+    }
+
+    /**
+     * Get the user who created this consultation
+     */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**

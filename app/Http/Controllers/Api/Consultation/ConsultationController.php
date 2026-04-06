@@ -6,12 +6,63 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Consultation;
 use App\Models\Appointment;
 use App\Models\User;
+use App\Models\Department;
+use App\Services\UserAssignmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ConsultationController extends BaseApiController
 {
+    private UserAssignmentService $userAssignmentService;
+
+    public function __construct(UserAssignmentService $userAssignmentService)
+    {
+        $this->userAssignmentService = $userAssignmentService;
+    }
+
+    /**
+     * Apply user role-based filtering to consultation query
+     */
+    private function applyUserRoleFilter($query)
+    {
+        $user = auth()->user();
+        
+        // Get user's role and department
+        $userRole = $user->roles->first()->name ?? null;
+        $userDepartment = $user->departments->first()->name ?? null;
+        
+        // If user is executive and in sales department, show only assigned consultations
+        if ($userRole === 'executive' && $userDepartment === 'Sales') {
+            $query->where('assigned_user', $user->id);
+        }
+        // If user is not executive (manager, director) and in sales department, show team and own consultations
+        elseif ($userDepartment === 'Sales' && in_array($userRole, ['manager', 'director'])) {
+            // Get team members (users in the same department)
+            $teamUserIds = User::whereHas('departments', function($query) use ($userDepartment) {
+                $query->where('name', $userDepartment);
+            })->pluck('id')->toArray();
+            
+            $query->whereIn('assigned_user', $teamUserIds);
+        }
+        
+        return $query;
+    }
+
+    /**
+     * Get latest consultation per appointment
+     */
+    private function getLatestConsultations($query)
+    {
+        return $query->select('consultations.*')
+            ->join(DB::raw('(SELECT appointment_id, MAX(created_at) as max_created_at 
+                           FROM consultations 
+                           GROUP BY appointment_id) latest'), function($join) {
+                $join->on('consultations.appointment_id', '=', 'latest.appointment_id')
+                     ->on('consultations.created_at', '=', 'latest.max_created_at');
+            });
+    }
     /**
      * Display a listing of consultations.
      */
@@ -102,8 +153,15 @@ class ConsultationController extends BaseApiController
     public function show(int $id): JsonResponse
     {
         $consultation = Consultation::with([
-            'appointment:id,date,followup_business_id',
-            'appointment.followupBusiness:id,name',
+            'appointment' => function($query) {
+                $query->with([
+                    'followupBusiness' => function($query) {
+                        $query->with(['authPersons', 'comments']);
+                    },
+                    'timeSlot',
+                    'quality'
+                ]);
+            },
             'rescheduleSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
@@ -226,5 +284,146 @@ class ConsultationController extends BaseApiController
         ]);
 
         return $this->successResponse($consultation, 'Consultation closed successfully');
+    }
+
+    /**
+     * Get scheduled consultations (status: scheduled, rescheduled)
+     */
+    public function getScheduledConsultations(Request $request): JsonResponse
+    {
+        $query = Consultation::with([
+            'appointment' => function($query) {
+                $query->with([
+                    'followupBusiness' => function($query) {
+                        $query->with(['authPersons']);
+                    },
+                    'timeSlot'
+                ]);
+            },
+            'rescheduleSlot:id,start_time,end_time',
+            'closer:id,first_name,last_name,username',
+            'assignedUser:id,first_name,last_name,username',
+            'creator:id,first_name,last_name,username',
+        ]);
+
+        // Filter for scheduled and rescheduled status
+        $query->whereIn('status', ['scheduled', 'rescheduled']);
+
+        // Apply user role-based filtering
+        $this->applyUserRoleFilter($query);
+
+        // Get latest consultation per appointment
+        $this->getLatestConsultations($query);
+
+        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+
+        return $this->successResponse($consultations, 'Scheduled consultations retrieved successfully');
+    }
+
+    /**
+     * Get conducted consultations (status: conducted)
+     */
+    public function getConductedConsultations(Request $request): JsonResponse
+    {
+        $query = Consultation::with([
+            'appointment' => function($query) {
+                $query->with([
+                    'followupBusiness' => function($query) {
+                        $query->with(['authPersons']);
+                    },
+                    'timeSlot'
+                ]);
+            },
+            'rescheduleSlot:id,start_time,end_time',
+            'closer:id,first_name,last_name,username',
+            'assignedUser:id,first_name,last_name,username',
+            'creator:id,first_name,last_name,username',
+        ]);
+
+        // Filter for conducted status
+        $query->where('status', 'conducted');
+
+        // Apply user role-based filtering
+        $this->applyUserRoleFilter($query);
+
+        // Get latest consultation per appointment
+        $this->getLatestConsultations($query);
+
+        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+
+        return $this->successResponse($consultations, 'Conducted consultations retrieved successfully');
+    }
+
+    /**
+     * Get not conducted consultations (status not conducted)
+     */
+    public function getNotConductedConsultations(Request $request): JsonResponse
+    {
+        $query = Consultation::with([
+            'appointment' => function($query) {
+                $query->with([
+                    'followupBusiness' => function($query) {
+                        $query->with(['authPersons']);
+                    },
+                    'timeSlot'
+                ]);
+            },
+            'rescheduleSlot:id,start_time,end_time',
+            'closer:id,first_name,last_name,username',
+            'assignedUser:id,first_name,last_name,username',
+            'creator:id,first_name,last_name,username',
+        ]);
+
+        // Filter for not conducted status
+        $query->where('status', '=', 'Not Conducted');
+
+        // Apply user role-based filtering
+        $this->applyUserRoleFilter($query);
+
+        // Get latest consultation per appointment
+        $this->getLatestConsultations($query);
+
+        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+
+        return $this->successResponse($consultations, 'Not conducted consultations retrieved successfully');
+    }
+
+    /**
+     * Get today's consultations (scheduled/rescheduled with today's appointment date)
+     */
+    public function getTodayConsultations(Request $request): JsonResponse
+    {
+        $query = Consultation::with([
+            'appointment' => function($query) {
+                $query->with([
+                    'followupBusiness' => function($query) {
+                        $query->with(['authPersons']);
+                    },
+                    'timeSlot'
+                ]);
+            },
+            'rescheduleSlot:id,start_time,end_time',
+            'closer:id,first_name,last_name,username',
+            'assignedUser:id,first_name,last_name,username',
+            'creator:id,first_name,last_name,username',
+        ]);
+
+        // Filter for scheduled and rescheduled status
+        $query->whereIn('status', ['scheduled', 'rescheduled']);
+
+        // Filter for today's appointment date
+        $query->whereHas('appointment', function($q) {
+            $q->whereDate('date', today());
+        });
+
+        // Apply user role-based filtering
+        $this->applyUserRoleFilter($query);
+
+        // Get latest consultation per appointment
+        $this->getLatestConsultations($query);
+
+        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+
+        return $this->successResponse($consultations, 'Today\'s consultations retrieved successfully');
     }
 }
