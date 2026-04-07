@@ -90,7 +90,7 @@ Route::prefix('time-slots')->name('public.time-slots.')->group(function () {
 });
 
 // Simple Time Slot API
-Route::get('/simple-slots', [SimpleTimeSlotController::class, 'getAvailableSlots']);
+require __DIR__ . '/simple-slots.php';
 
 // Public Time Slot Picker Routes (No Auth Required)
 require __DIR__ . '/api/admin/appointment/time-slots-picker.php';
