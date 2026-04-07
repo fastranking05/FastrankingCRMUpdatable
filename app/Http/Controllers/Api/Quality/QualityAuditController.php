@@ -33,6 +33,9 @@ class QualityAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
+        // Get latest quality per appointment
+        $this->getLatestQualities($query);
+
         $audits = $query->orderBy('created_at', 'desc')->get();
 
         // Format the response to remove unwanted fields and ensure unique data
@@ -130,6 +133,9 @@ class QualityAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
+        // Get latest quality per appointment
+        $this->getLatestQualities($query);
+
         $audits = $query->orderBy('created_at', 'desc')->get();
 
         // Format the response to remove unwanted fields and ensure unique data
@@ -225,6 +231,9 @@ class QualityAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
+        // Get latest quality per appointment
+        $this->getLatestQualities($query);
+
         $audits = $query->orderBy('created_at', 'desc')->get();
 
         // Format the response to remove unwanted fields and ensure unique data
@@ -299,6 +308,20 @@ class QualityAuditController extends BaseApiController
         });
 
         return $this->successResponse($formattedAudits, 'All quality data retrieved successfully');
+    }
+
+    /**
+     * Get latest quality per appointment
+     */
+    private function getLatestQualities($query)
+    {
+        return $query->select('qualities.*')
+            ->join(DB::raw('(SELECT appointment_id, MAX(created_at) as max_created_at 
+                           FROM qualities 
+                           GROUP BY appointment_id) latest'), function($join) {
+                $join->on('qualities.appointment_id', '=', 'latest.appointment_id')
+                     ->on('qualities.created_at', '=', 'latest.max_created_at');
+            });
     }
 
     /**
