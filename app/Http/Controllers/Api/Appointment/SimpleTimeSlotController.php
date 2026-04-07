@@ -6,6 +6,7 @@ use App\Models\TimeSlot;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class SimpleTimeSlotController
 {
@@ -71,6 +72,11 @@ class SimpleTimeSlotController
             ]);
 
         } catch (\Exception $e) {
+            Log::error('Error getting available slots', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to get slots'
@@ -82,6 +88,7 @@ class SimpleTimeSlotController
     {
         $validator = Validator::make($request->all(), [
             'time_slot_id' => 'required|exists:time_slots,id',
+            'date' => 'required|date|after_or_equal:today',
             'session_id' => 'required|string'
         ]);
 
@@ -93,10 +100,30 @@ class SimpleTimeSlotController
             ], 422);
         }
 
-        // Block slot using existing temporary booking system
-        $result = $this->holdTimeSlot($request->date, $request->time_slot_id, auth()->id(), $request->session_id);
+        try {
+            Log::info('Block slot request', [
+                'date' => $request->date,
+                'time_slot_id' => $request->time_slot_id,
+                'user_id' => auth()->id(),
+                'session_id' => $request->session_id
+            ]);
 
-        return response()->json($result);
+            // Block slot using existing temporary booking system
+            $result = $this->holdTimeSlot($request->date, $request->time_slot_id, auth()->id(), $request->session_id);
+
+            return response()->json($result);
+        } catch (\Exception $e) {
+            Log::error('Error blocking slot', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to block slot: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function releaseSlot(Request $request): JsonResponse
@@ -113,40 +140,72 @@ class SimpleTimeSlotController
             ], 422);
         }
 
-        // Release slot using existing temporary booking system
-        $result = $this->confirmAppointment([
-            'date' => $request->date,
-            'time_slot_id' => $request->time_slot_id,
-            'created_by' => auth()->id(),
-            'session_id' => $request->session_id
-        ]);
+        try {
+            Log::info('Release slot request', [
+                'block_id' => $request->block_id,
+                'user_id' => auth()->id()
+            ]);
 
-        return response()->json($result);
+            // Release slot using existing temporary booking system
+            $result = $this->confirmAppointment([
+                'block_id' => $request->block_id
+            ]);
+
+            return response()->json($result);
+        } catch (\Exception $e) {
+            Log::error('Error releasing slot', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to release slot: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
      * Hold a time slot temporarily (15 minutes)
      */
-    private function holdTimeSlot(string $date, int $timeSlotId, int $userId, string $sessionId): array
+    private function holdTimeSlot(string $date, int $timeSlotId, ?int $userId, string $sessionId): array
     {
         try {
+            Log::info('Attempting to hold time slot', [
+                'date' => $date,
+                'time_slot_id' => $timeSlotId,
+                'user_id' => $userId,
+                'session_id' => $sessionId
+            ]);
+
             $timeSlot = TimeSlot::find($timeSlotId);
             if (!$timeSlot || !$timeSlot->is_active) {
                 return ['success' => false, 'message' => 'Time slot not available'];
             }
 
             // Check if slot is available for this date
-            if (!$timeSlot->isAvailableForDate($date)) {
+            $currentBookings = $this->getCurrentBookingsCount($timeSlotId, $date);
+            $maxConcurrentBookings = TimeSlot::getActiveSalesDepartmentUserCount();
+            $isAvailable = ($currentBookings < $maxConcurrentBookings);
+
+            if (!$isAvailable) {
                 return ['success' => false, 'message' => 'Time slot is already fully booked'];
             }
 
-            // Create temporary booking
+            // Create temporary booking with fallback user_id
             $tempBooking = \App\Models\AppointmentTemporaryBooking::create([
                 'date' => $date,
                 'time_slot_id' => $timeSlotId,
-                'user_id' => $userId,
+                'user_id' => $userId ?? 1, // Fallback to user ID 1 if not authenticated
                 'session_id' => $sessionId,
                 'expires_at' => now()->addMinutes(15),
+            ]);
+
+            Log::info('Time slot held successfully', [
+                'booking_id' => $tempBooking->id,
+                'time_slot_id' => $timeSlotId,
+                'expires_at' => $tempBooking->expires_at
             ]);
 
             return [
@@ -156,7 +215,16 @@ class SimpleTimeSlotController
             ];
 
         } catch (\Exception $e) {
-            return ['success' => false, 'message' => 'Failed to hold time slot'];
+            Log::error('Error holding time slot', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'date' => $date,
+                'time_slot_id' => $timeSlotId,
+                'user_id' => $userId,
+                'session_id' => $sessionId
+            ]);
+            
+            return ['success' => false, 'message' => 'Failed to hold time slot: ' . $e->getMessage()];
         }
     }
 
@@ -166,22 +234,22 @@ class SimpleTimeSlotController
     private function confirmAppointment(array $appointmentData): array
     {
         try {
-            $date = $appointmentData['date'];
-            $timeSlotId = $appointmentData['time_slot_id'];
-            $userId = $appointmentData['created_by'];
-            $sessionId = $appointmentData['session_id'];
-
-            // Find temporary booking
-            $tempBooking = \App\Models\AppointmentTemporaryBooking::where('date', $date)
-                ->where('time_slot_id', $timeSlotId)
-                ->where('user_id', $userId)
-                ->where('session_id', $sessionId)
-                ->where('expires_at', '>', now())
-                ->first();
-
+            $blockId = $appointmentData['block_id'];
+            
+            Log::info('Attempting to release slot', ['block_id' => $blockId]);
+            
+            // Find temporary booking by block_id
+            $tempBooking = \App\Models\AppointmentTemporaryBooking::find($blockId);
+            
             if (!$tempBooking) {
                 return ['success' => false, 'message' => 'Temporary booking not found or expired'];
             }
+
+            Log::info('Temporary booking found and deleted', [
+                'booking_id' => $tempBooking->id,
+                'time_slot_id' => $tempBooking->time_slot_id,
+                'date' => $tempBooking->date
+            ]);
 
             // Delete temporary booking
             $tempBooking->delete();
@@ -192,7 +260,13 @@ class SimpleTimeSlotController
             ];
 
         } catch (\Exception $e) {
-            return ['success' => false, 'message' => 'Failed to release time slot'];
+            Log::error('Error releasing time slot', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'block_id' => $blockId
+            ]);
+            
+            return ['success' => false, 'message' => 'Failed to release time slot: ' . $e->getMessage()];
         }
     }
 
@@ -201,21 +275,30 @@ class SimpleTimeSlotController
      */
     private function getCurrentBookingsCount(int $slotId, string $date): int
     {
-        $slot = TimeSlot::find($slotId);
-        if (!$slot) {
+        try {
+            $slot = TimeSlot::find($slotId);
+            if (!$slot) {
+                return 0;
+            }
+
+            $appointments = $slot->appointments()
+                ->where('date', $date)
+                ->whereIn('current_status', ['Appointment Booked', 'Confirmed', 'In Progress'])
+                ->count();
+
+            $tempBookings = $slot->temporaryBookings()
+                ->where('date', $date)
+                ->where('expires_at', '>', now())
+                ->count();
+
+            return $appointments + $tempBookings;
+        } catch (\Exception $e) {
+            Log::error('Error getting current bookings count', [
+                'slot_id' => $slotId,
+                'date' => $date,
+                'error' => $e->getMessage()
+            ]);
             return 0;
         }
-
-        $appointments = $slot->appointments()
-            ->where('date', $date)
-            ->whereIn('current_status', ['Appointment Booked', 'Confirmed', 'In Progress'])
-            ->count();
-
-        $tempBookings = $slot->temporaryBookings()
-            ->where('date', $date)
-            ->where('expires_at', '>', now())
-            ->count();
-
-        return $appointments + $tempBookings;
     }
 }
