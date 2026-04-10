@@ -345,6 +345,16 @@ Authorization: Bearer YOUR_JWT_TOKEN
 }
 ```
 
+**Appointment Date Filter:**
+```json
+{
+  "date_filter": "this_year",
+  "appointments": ["date"],
+  "status": "QA-Approved",
+  "per_page": 15
+}
+```
+
 ### 📋 Followup Module
 
 #### 1. Get Filter Options
@@ -1390,7 +1400,7 @@ curl -X POST \
 - Default date column: `created_at`
 - Additional columns: `updated_at`
 - Search columns: `appointment_id`, `appointment.business.name`
-- Additional filters: `auditstatus`
+- Additional filters: `auditstatus`, `appointments` (array - filters by appointment columns like `["date"]`)
 
 ### Followup Module
 - Default date column: `created_at`

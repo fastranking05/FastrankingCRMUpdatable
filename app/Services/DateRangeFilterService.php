@@ -177,9 +177,12 @@ class DateRangeFilterService
         $userColumn = $options['user_column'] ?? 'created_by';
         $statusColumn = $options['status_column'] ?? 'status';
         $searchColumns = $options['search_columns'] ?? [];
+        $skipDateFilter = $options['skip_date_filter'] ?? false;
 
-        // Apply date filter
-        $query = $this->applyDateFilter($query, $request, $dateColumn);
+        // Apply date filter (unless skipped)
+        if (!$skipDateFilter) {
+            $query = $this->applyDateFilter($query, $request, $dateColumn);
+        }
 
         // Apply user filter
         $query = $this->applyUserFilter($query, $request, $userColumn);
