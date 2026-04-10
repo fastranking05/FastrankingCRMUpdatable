@@ -8,8 +8,10 @@ use App\Models\QualityAnswer;
 use App\Models\QualityQuestion;
 use App\Services\QualityAssignmentService;
 use App\Services\DateRangeFilterService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class QualityController extends BaseApiController
@@ -30,19 +32,48 @@ class QualityController extends BaseApiController
      */
     public function index(Request $request): JsonResponse
     {
+
+        // Build base query
         $query = Quality::with([
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
             'assignedUser:id,first_name,last_name',
         ]);
 
+        // Get appointment IDs from date filter if present
+        $appointmentDateFilterIds = null;
+        if ($request->has('appointments') && is_array($request->input('appointments'))) {
+            $appointmentDateFilterIds = $this->getAppointmentDateFilterIds($request);
+        }
+
+        // Get latest quality record IDs for each appointment
+        // If appointment date filter is present, only get latest quality IDs for those appointments
+        $latestQualityIdsQuery = Quality::select(DB::raw('MAX(id) as id'))
+            ->groupBy('appointment_id');
+        
+        if ($appointmentDateFilterIds !== null && count($appointmentDateFilterIds) > 0) {
+            $latestQualityIdsQuery->whereIn('appointment_id', $appointmentDateFilterIds);
+        }
+        
+        $latestQualityIds = $latestQualityIdsQuery->pluck('id')->toArray();
+
+        $query->whereIn('id', $latestQualityIds);
+
         // Apply flexible filters using DateRangeFilterService
-        $query = $this->dateRangeFilterService->applyFilters($query, $request, [
+        // Skip date_filter if appointment date filter is active to avoid conflicts
+        $filterOptions = [
             'date_column' => 'created_at',
             'user_column' => 'assigned_user',
             'status_column' => 'status',
             'search_columns' => ['appointment_id', 'appointment.followupBusiness.name']
-        ]);
+        ];
+        
+        // If appointment date filter is active, skip the date filter in DateRangeFilterService
+        if ($request->has('appointments') && is_array($request->input('appointments'))) {
+            $filterOptions['skip_date_filter'] = true;
+        }
+        
+        $query = $this->dateRangeFilterService->applyFilters($query, $request, $filterOptions);
 
         // Apply additional specific filters
         if ($request->has('auditstatus')) {
@@ -64,6 +95,241 @@ class QualityController extends BaseApiController
             ->paginate($request->input('per_page', 15));
 
         return $this->successResponse($qualities, 'Quality records retrieved successfully');
+    }
+
+    /**
+     * Get appointment IDs matching date filter
+     */
+    private function getAppointmentDateFilterIds(Request $request): ?array
+    {
+        $dateFilter = $request->input('date_filter');
+        $customStartDate = $request->input('custom_start_date');
+        $customEndDate = $request->input('custom_end_date');
+
+        if (!$dateFilter && !$customStartDate) {
+            return null;
+        }
+
+        // Build date condition for appointments table
+        $dateCondition = '';
+        $bindings = [];
+
+        switch ($dateFilter) {
+            case 'today':
+                $todayStart = Carbon::today()->startOfDay();
+                $todayEnd = Carbon::today()->endOfDay();
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $todayStart;
+                $bindings[] = $todayEnd;
+                break;
+
+            case 'yesterday':
+                $yesterdayStart = Carbon::yesterday()->startOfDay();
+                $yesterdayEnd = Carbon::yesterday()->endOfDay();
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $yesterdayStart;
+                $bindings[] = $yesterdayEnd;
+                break;
+
+            case 'this_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek();
+                $bindings[] = Carbon::now()->endOfWeek();
+                break;
+
+            case 'last_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek();
+                break;
+
+            case 'this_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->month;
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subMonth()->month;
+                $bindings[] = Carbon::now()->subMonth()->year;
+                break;
+
+            case 'this_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subYear()->year;
+                break;
+
+            case 'custom':
+                if ($customStartDate && $customEndDate) {
+                    $dateCondition = 'date BETWEEN ? AND ?';
+                    $bindings[] = Carbon::parse($customStartDate)->startOfDay();
+                    $bindings[] = Carbon::parse($customEndDate)->endOfDay();
+                } elseif ($customStartDate) {
+                    $dateCondition = 'DATE(date) >= ?';
+                    $bindings[] = Carbon::parse($customStartDate);
+                } elseif ($customEndDate) {
+                    $dateCondition = 'DATE(date) <= ?';
+                    $bindings[] = Carbon::parse($customEndDate);
+                }
+                break;
+        }
+
+        if ($dateCondition) {
+            // Use raw SQL to get appointment IDs matching the date filter
+            $appointmentIds = \DB::select("SELECT id FROM appointments WHERE $dateCondition", $bindings);
+            return array_column($appointmentIds, 'id');
+        }
+
+        return null;
+    }
+
+    /**
+     * Apply appointment-based filters
+     */
+    private function applyAppointmentFilters($query, Request $request): void
+    {
+        $appointmentColumns = $request->input('appointments', []);
+        
+        foreach ($appointmentColumns as $column) {
+            switch ($column) {
+                case 'date':
+                    $this->applyAppointmentDateFilter($query, $request);
+                    break;
+                // Add more appointment columns as needed
+                // case 'followup_business_id':
+                //     if ($request->has('followup_business_id')) {
+                //         $query->whereHas('appointment', function ($q) use ($request) {
+                //             $q->where('followup_business_id', $request->input('followup_business_id'));
+                //         });
+                //     }
+                //     break;
+            }
+        }
+    }
+
+    /**
+     * Apply appointment date filter using relationship
+     */
+    private function applyAppointmentDateFilter($query, Request $request): void
+    {
+        $dateFilter = $request->input('date_filter');
+        $customStartDate = $request->input('custom_start_date');
+        $customEndDate = $request->input('custom_end_date');
+
+        \Log::info('Applying appointment date filter', [
+            'date_filter' => $dateFilter,
+            'custom_start_date' => $customStartDate,
+            'custom_end_date' => $customEndDate,
+            'today' => Carbon::today()->toDateString()
+        ]);
+
+        if (!$dateFilter && !$customStartDate) {
+            return;
+        }
+
+        // Build date condition for appointments table
+        $dateCondition = '';
+        $bindings = [];
+
+        switch ($dateFilter) {
+            case 'today':
+                $todayStart = Carbon::today()->startOfDay();
+                $todayEnd = Carbon::today()->endOfDay();
+                \Log::info('Filtering for today', ['start' => $todayStart, 'end' => $todayEnd]);
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $todayStart;
+                $bindings[] = $todayEnd;
+                break;
+
+            case 'yesterday':
+                $yesterdayStart = Carbon::yesterday()->startOfDay();
+                $yesterdayEnd = Carbon::yesterday()->endOfDay();
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $yesterdayStart;
+                $bindings[] = $yesterdayEnd;
+                break;
+
+            case 'this_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek();
+                $bindings[] = Carbon::now()->endOfWeek();
+                break;
+
+            case 'last_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek();
+                break;
+
+            case 'this_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->month;
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subMonth()->month;
+                $bindings[] = Carbon::now()->subMonth()->year;
+                break;
+
+            case 'this_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subYear()->year;
+                break;
+
+            case 'custom':
+                if ($customStartDate && $customEndDate) {
+                    $dateCondition = 'date BETWEEN ? AND ?';
+                    $bindings[] = Carbon::parse($customStartDate)->startOfDay();
+                    $bindings[] = Carbon::parse($customEndDate)->endOfDay();
+                } elseif ($customStartDate) {
+                    $dateCondition = 'DATE(date) >= ?';
+                    $bindings[] = Carbon::parse($customStartDate);
+                } elseif ($customEndDate) {
+                    $dateCondition = 'DATE(date) <= ?';
+                    $bindings[] = Carbon::parse($customEndDate);
+                }
+                break;
+        }
+
+        if ($dateCondition) {
+            // Check all appointments to see what dates exist first
+            $allAppointments = \DB::select("SELECT id, date FROM appointments LIMIT 10");
+            \Log::info('Sample appointments from database', ['appointments' => $allAppointments]);
+
+            // Use raw SQL to get appointment IDs matching the date filter
+            $appointmentIds = \DB::select("SELECT id, date FROM appointments WHERE $dateCondition", $bindings);
+            $appointmentIdArray = array_column($appointmentIds, 'id');
+            
+            \Log::info('Appointment IDs matching date filter', [
+                'condition' => $dateCondition,
+                'bindings' => $bindings,
+                'count' => count($appointmentIdArray),
+                'ids' => $appointmentIdArray,
+                'appointments' => $appointmentIds
+            ]);
+
+            // Filter quality records by these appointment IDs
+            if (count($appointmentIdArray) > 0) {
+                $query->whereIn('appointment_id', $appointmentIdArray);
+            } else {
+                \Log::warning('No appointments found matching date filter', ['condition' => $dateCondition]);
+                // Return empty result by adding impossible condition
+                $query->where('id', '=', 0);
+            }
+        }
     }
 
     /**
