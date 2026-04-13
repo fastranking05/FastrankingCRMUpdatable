@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Department;
 use App\Models\Comment;
 use App\Services\UserAssignmentService;
+use App\Services\DateRangeFilterService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,10 +19,14 @@ use Illuminate\Support\Facades\DB;
 class ConsultationController extends BaseApiController
 {
     private UserAssignmentService $userAssignmentService;
+    private DateRangeFilterService $dateRangeFilterService;
 
-    public function __construct(UserAssignmentService $userAssignmentService)
-    {
+    public function __construct(
+        UserAssignmentService $userAssignmentService,
+        DateRangeFilterService $dateRangeFilterService
+    ) {
         $this->userAssignmentService = $userAssignmentService;
+        $this->dateRangeFilterService = $dateRangeFilterService;
     }
 
     /**
@@ -455,5 +461,269 @@ class ConsultationController extends BaseApiController
         $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
 
         return $this->successResponse($consultations, 'Today\'s consultations retrieved successfully');
+    }
+
+    /**
+     * Filter consultations with comprehensive filtering options
+     */
+    public function filter(Request $request): JsonResponse
+    {
+        // Build base query with all required relationships
+        $query = Consultation::with([
+            'appointment',
+            'appointment.followupBusiness.authPersons',
+            'appointment.timeSlot',
+            'rescheduleSlot',
+            'assignedUser',
+            'creator',
+        ]);
+
+        // Get appointment IDs from date filter if present
+        $appointmentDateFilterIds = null;
+        if ($request->has('appointments') && is_array($request->input('appointments'))) {
+            $appointmentDateFilterIds = $this->getAppointmentDateFilterIds($request);
+        }
+
+        // Get latest consultation record IDs for each appointment
+        // If appointment date filter is present, only get latest consultation IDs for those appointments
+        $latestConsultationIdsQuery = Consultation::select(DB::raw('MAX(id) as id'))
+            ->groupBy('appointment_id');
+
+        if ($appointmentDateFilterIds !== null && count($appointmentDateFilterIds) > 0) {
+            $latestConsultationIdsQuery->whereIn('appointment_id', $appointmentDateFilterIds);
+        }
+
+        $latestConsultationIds = $latestConsultationIdsQuery->pluck('id')->toArray();
+
+        $query->whereIn('id', $latestConsultationIds);
+
+        // Apply flexible filters using DateRangeFilterService
+        // Skip date_filter if appointment date filter is active to avoid conflicts
+        $filterOptions = [
+            'date_column' => 'created_at',
+            'user_column' => 'assigned_user',
+            'status_column' => 'status',
+            'search_columns' => ['appointment_id', 'appointment.followupBusiness.name']
+        ];
+
+        // If appointment date filter is active, skip the date filter in DateRangeFilterService
+        if ($request->has('appointments') && is_array($request->input('appointments'))) {
+            $filterOptions['skip_date_filter'] = true;
+        }
+
+        $query = $this->dateRangeFilterService->applyFilters($query, $request, $filterOptions);
+
+        // Apply additional specific filters
+        if ($request->has('custom_status')) {
+            $query->where('custom_status', $request->input('custom_status'));
+        }
+
+        if ($request->has('is_customer_available')) {
+            $query->where('is_customer_available', $request->input('is_customer_available'));
+        }
+
+        $consultations = $query->orderBy('created_at', 'desc')
+            ->get();
+
+        // Transform data to match desired response format
+        $transformedData = $consultations->map(function ($consultation) {
+            return [
+                'id' => $consultation->id,
+                'appointment_id' => $consultation->appointment_id,
+                'status' => $consultation->status,
+                'custom_status' => $consultation->custom_status,
+                'reason' => $consultation->reason,
+                'assigned_user' => [
+                    'id' => $consultation->assignedUser->id ?? null,
+                    'first_name' => $consultation->assignedUser->first_name ?? null,
+                    'last_name' => $consultation->assignedUser->last_name ?? null,
+                    'email' => $consultation->assignedUser->email ?? null,
+                ],
+                'reschedule_date' => $consultation->reschedule_date,
+                'reschedule_slot' => $consultation->rescheduleSlot ? [
+                    'id' => $consultation->rescheduleSlot->id,
+                    'start_time' => $consultation->rescheduleSlot->start_time,
+                    'end_time' => $consultation->rescheduleSlot->end_time,
+                ] : null,
+                'conducted_date' => $consultation->conducted_date,
+                'is_customer_available' => $consultation->is_customer_available,
+                'created_at' => $consultation->created_at,
+                'updated_at' => $consultation->updated_at,
+                'business' => $consultation->appointment->followupBusiness ? [
+                    'id' => $consultation->appointment->followupBusiness->id,
+                    'name' => $consultation->appointment->followupBusiness->name,
+                    'category' => $consultation->appointment->followupBusiness->category,
+                    'type' => $consultation->appointment->followupBusiness->type,
+                    'website' => $consultation->appointment->followupBusiness->website,
+                    'phone' => $consultation->appointment->followupBusiness->phone,
+                    'email' => $consultation->appointment->followupBusiness->email,
+                    'auth_persons' => $consultation->appointment->followupBusiness->authPersons->map(function ($person) {
+                        return [
+                            'id' => $person->id,
+                            'title' => $person->title,
+                            'firstname' => $person->firstname,
+                            'middlename' => $person->middlename,
+                            'lastname' => $person->lastname,
+                            'designation' => $person->designation,
+                            'primaryemail' => $person->primaryemail,
+                            'primarymobile' => $person->primarymobile,
+                            'is_primary' => $person->pivot->is_primary ?? 0,
+                        ];
+                    })->toArray(),
+                ] : null,
+                'appointment_date' => $consultation->appointment->date,
+                'appointment_source' => $consultation->appointment->source,
+                'appointment_current_status' => $consultation->appointment->current_status,
+                'appointment_slot' => $consultation->appointment->timeSlot ? [
+                    'id' => $consultation->appointment->timeSlot->id,
+                    'start_time' => $consultation->appointment->timeSlot->start_time,
+                    'end_time' => $consultation->appointment->timeSlot->end_time,
+                ] : null,
+            ];
+        })->toArray();
+
+        return $this->successResponse($transformedData, 'All consultation data retrieved successfully');
+    }
+
+    /**
+     * Get appointment IDs matching date filter
+     */
+    private function getAppointmentDateFilterIds(Request $request): ?array
+    {
+        $dateFilter = $request->input('date_filter');
+        $customStartDate = $request->input('custom_start_date');
+        $customEndDate = $request->input('custom_end_date');
+
+        if (!$dateFilter && !$customStartDate) {
+            return null;
+        }
+
+        // Build date condition for appointments table
+        $dateCondition = '';
+        $bindings = [];
+
+        switch ($dateFilter) {
+            case 'today':
+                $todayStart = Carbon::today()->startOfDay();
+                $todayEnd = Carbon::today()->endOfDay();
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $todayStart;
+                $bindings[] = $todayEnd;
+                break;
+
+            case 'yesterday':
+                $yesterdayStart = Carbon::yesterday()->startOfDay();
+                $yesterdayEnd = Carbon::yesterday()->endOfDay();
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $yesterdayStart;
+                $bindings[] = $yesterdayEnd;
+                break;
+
+            case 'this_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek();
+                $bindings[] = Carbon::now()->endOfWeek();
+                break;
+
+            case 'last_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek();
+                break;
+
+            case 'this_month':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfMonth();
+                $bindings[] = Carbon::now()->endOfMonth();
+                break;
+
+            case 'last_month':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subMonth()->startOfMonth();
+                $bindings[] = Carbon::now()->subMonth()->endOfMonth();
+                break;
+
+            case 'this_year':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfYear();
+                $bindings[] = Carbon::now()->endOfYear();
+                break;
+
+            case 'last_year':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subYear()->startOfYear();
+                $bindings[] = Carbon::now()->subYear()->endOfYear();
+                break;
+
+            case 'custom':
+                if ($customStartDate && $customEndDate) {
+                    $dateCondition = 'date BETWEEN ? AND ?';
+                    $bindings[] = $customStartDate;
+                    $bindings[] = $customEndDate;
+                }
+                break;
+        }
+
+        if (empty($dateCondition)) {
+            return null;
+        }
+
+        // Execute raw query to get appointment IDs
+        $appointmentIds = DB::select(
+            "SELECT id FROM appointments WHERE " . $dateCondition,
+            $bindings
+        );
+
+        return array_map(function ($row) {
+            return $row->id;
+        }, $appointmentIds);
+    }
+
+    /**
+     * Get filter options for consultations
+     */
+    public function getFilterOptions(): JsonResponse
+    {
+        $filterOptions = [
+            'date_filters' => [
+                'today' => 'Today',
+                'yesterday' => 'Yesterday',
+                'this_week' => 'This Week',
+                'last_week' => 'Last Week',
+                'this_month' => 'This Month',
+                'last_month' => 'Last Month',
+                'this_year' => 'This Year',
+                'last_year' => 'Last Year',
+                'custom' => 'Custom Range'
+            ],
+            'date_columns' => [
+                'created_at' => 'Created Date',
+                'updated_at' => 'Updated Date'
+            ],
+            'status_options' => [
+                'scheduled',
+                'rescheduled',
+                'conducted',
+                'cancelled',
+                'pending',
+                'in_progress',
+                'completed'
+            ],
+            'custom_status_options' => [
+                'Pending Review',
+                'Awaiting Confirmation',
+                'Confirmed',
+                'In Progress',
+                'Completed',
+                'Cancelled',
+                'Rescheduled'
+            ],
+            'is_customer_available_options' => [
+                0 => 'Not Available',
+                1 => 'Available'
+            ]
+        ];
+
+        return $this->successResponse($filterOptions, 'Filter options retrieved successfully');
     }
 }

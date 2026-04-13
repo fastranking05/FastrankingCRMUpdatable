@@ -13,6 +13,8 @@ Route::middleware(['jwt.auth'])->prefix('consultation')->name('consultation.')->
     // Consultation CRUD Routes
     Route::middleware('permission:Consultation,read')->group(function () {
         Route::get('/', [ConsultationController::class, 'index'])->name('index');
+        Route::get('/filter', [ConsultationController::class, 'filter'])->name('filter');
+        Route::get('/filter-options', [ConsultationController::class, 'getFilterOptions'])->name('filter-options');
         
         // New consultation status-based routes (must come before /{id} route)
         Route::get('/scheduled', [ConsultationController::class, 'getScheduledConsultations'])->name('scheduled');

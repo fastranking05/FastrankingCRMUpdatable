@@ -21,6 +21,10 @@ A comprehensive, reusable filter system that provides flexible date range filter
 - `POST /api/quality/quality-filter` - List quality records with filters
 - `POST /api/quality/filter-options` - Get filter configuration
 
+### Consultation Module
+- `GET /api/consultation/filter` - List consultation records with filters
+- `GET /api/consultation/filter-options` - Get filter configuration
+
 ### Followup Module
 - `GET /api/followup/filter-options` - Get filter configuration
 - `POST /api/followup/followup-filter` - List followup records with filters
@@ -354,6 +358,204 @@ Authorization: Bearer YOUR_JWT_TOKEN
   "per_page": 15
 }
 ```
+
+### 📋 Consultation Module
+
+#### 1. Get Filter Options
+```http
+GET /api/consultation/filter-options
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Body:** (Empty)
+```json
+{}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "date_filters": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "this_week": "This Week",
+      "last_week": "Last Week",
+      "this_month": "This Month",
+      "last_month": "Last Month",
+      "this_year": "This Year",
+      "last_year": "Last Year",
+      "custom": "Custom Range"
+    },
+    "date_columns": {
+      "created_at": "Created Date",
+      "updated_at": "Updated Date"
+    },
+    "status_options": [
+      "scheduled",
+      "rescheduled",
+      "conducted",
+      "cancelled",
+      "pending",
+      "in_progress",
+      "completed"
+    ],
+    "custom_status_options": [
+      "Pending Review",
+      "Awaiting Confirmation",
+      "Confirmed",
+      "In Progress",
+      "Completed",
+      "Cancelled",
+      "Rescheduled"
+    ],
+    "is_customer_available_options": {
+      "0": "Not Available",
+      "1": "Available"
+    }
+  }
+}
+```
+
+#### 2. Filter Consultation Records
+```http
+GET /api/consultation/filter
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Payload Examples:**
+
+**Basic Date Filter:**
+```json
+{
+  "date_filter": "this_month"
+}
+```
+
+**Assigned User Filter:**
+```json
+{
+  "assigned_user": 1
+}
+```
+
+**Status Filter:**
+```json
+{
+  "status": "scheduled"
+}
+```
+
+**Custom Status Filter:**
+```json
+{
+  "custom_status": "Pending Review"
+}
+```
+
+**Customer Availability Filter:**
+```json
+{
+  "is_customer_available": 1
+}
+```
+
+**Search Filter:**
+```json
+{
+  "search": "FRMID00000001"
+}
+```
+
+**Combined Filters:**
+```json
+{
+  "date_filter": "this_month",
+  "assigned_user": 1,
+  "status": "scheduled",
+  "custom_status": "Pending Review",
+  "is_customer_available": 1,
+  "search": "FRMID00000001"
+}
+```
+
+**Appointment Date Filter:**
+```json
+{
+  "appointments": [
+    {
+      "date": "today"
+    }
+  ],
+  "status": "scheduled"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "All consultation data retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "appointment_id": "FRMID00000001",
+      "status": "scheduled",
+      "custom_status": "Pending Review",
+      "reason": "Customer requested consultation",
+      "assigned_user": {
+        "id": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@example.com"
+      },
+      "reschedule_date": "2026-04-15",
+      "reschedule_slot": {
+        "id": 1,
+        "start_time": "14:00:00",
+        "end_time": "14:30:00"
+      },
+      "conducted_date": null,
+      "is_customer_available": 1,
+      "created_at": "2026-04-13T10:30:00.000000Z",
+      "updated_at": "2026-04-13T10:30:00.000000Z",
+      "business": {
+        "id": 1,
+        "name": "ABC Corporation",
+        "category": "Technology Services",
+        "type": "Enterprise Client",
+        "website": "https://abc.com",
+        "phone": "+1234567890",
+        "email": "contact@abc.com",
+        "auth_persons": [
+          {
+            "id": 1,
+            "title": "Mr",
+            "firstname": "John",
+            "middlename": "A",
+            "lastname": "Smith",
+            "designation": "CEO",
+            "primaryemail": "john@abc.com",
+            "primarymobile": "+1234567890",
+            "is_primary": 1
+          }
+        ]
+      },
+      "appointment_date": "2026-04-10",
+      "appointment_source": "Direct",
+      "appointment_current_status": "scheduled",
+      "appointment_slot": {
+        "id": 1,
+        "start_time": "14:00:00",
+        "end_time": "14:30:00"
+      }
+    }
+  ]
+}
+```
+
+**Note:** The consultation filter returns only the latest consultation record per appointment, similar to the quality filter. It returns all data without pagination.
 
 ### 📋 Followup Module
 
