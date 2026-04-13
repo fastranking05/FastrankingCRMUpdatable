@@ -22,6 +22,7 @@ class Consultation extends Model
         'conducted_date',
         'assigned_user',
         'created_by',
+        'is_customer_available',
     ];
 
     protected $casts = [

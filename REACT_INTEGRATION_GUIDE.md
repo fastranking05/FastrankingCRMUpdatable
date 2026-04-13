@@ -36,6 +36,7 @@ Content-Type: application/json
 
 {
   "time_slot_id": 1,
+  "date": "2026-04-08",
   "session_id": "user-session-123"
 }
 ```
@@ -46,6 +47,19 @@ Content-Type: application/json
   "success": true,
   "message": "Time slot held successfully",
   "booking_id": 123
+}
+```
+
+**Required Parameters:**
+- `time_slot_id` (integer): ID of the time slot to block
+- `date` (string): Date for the slot (YYYY-MM-DD format)
+- `session_id` (string): Unique session identifier
+
+**Error Response:**
+```json
+{
+  "success": false,
+  "message": "Time slot is already fully booked"
 }
 ```
 
@@ -102,10 +116,11 @@ class SimpleSlotsAPI {
   }
 
   // Block a time slot
-  async blockSlot(timeSlotId, sessionId) {
+  async blockSlot(timeSlotId, date, sessionId) {
     try {
       const response = await this.axios.post('/simple-slots/block', {
         time_slot_id: timeSlotId,
+        date: date,
         session_id: sessionId
       });
       return response.data;
@@ -174,7 +189,7 @@ const SlotBooking = () => {
     
     try {
       setLoading(true);
-      const result = await api.blockSlot(slot.id, sessionId);
+      const result = await api.blockSlot(slot.id, selectedDate, sessionId);
       
       if (result.success) {
         setSelectedSlot(slot);
@@ -465,6 +480,141 @@ const handleApiError = (error) => {
     alert('Network error. Please check your connection.');
   }
 };
+```
+
+## Complete Usage Examples
+
+### Basic Implementation
+```javascript
+// 1. Initialize API service
+import SimpleSlotsAPI from './services/api';
+
+const api = new SimpleSlotsAPI();
+
+// 2. Get available slots for today
+const today = new Date().toISOString().split('T')[0];
+const slotsData = await api.getAvailableSlots(today);
+
+// 3. Block a slot when user selects it
+const bookingId = await api.blockSlot(1, today, 'user-session-123');
+console.log('Slot blocked with ID:', bookingId);
+
+// 4. Release the slot when needed
+await api.releaseSlot(bookingId);
+console.log('Slot released');
+```
+
+### React Hook Example
+```javascript
+// src/hooks/useSlotBooking.js
+import { useState, useEffect, useCallback } from 'react';
+import SimpleSlotsAPI from '../services/api';
+
+export const useSlotBooking = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [slots, setSlots] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [bookingId, setBookingId] = useState(null);
+
+  const api = new SimpleSlotsAPI();
+
+  // Load slots when date changes
+  useEffect(() => {
+    const loadSlots = async () => {
+      setLoading(true);
+      try {
+        const data = await api.getAvailableSlots(selectedDate);
+        setSlots(data.slots || []);
+      } catch (error) {
+        console.error('Failed to load slots:', error);
+        setSlots([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSlots();
+  }, [selectedDate]);
+
+  // Block slot function
+  const blockSlot = useCallback(async (timeSlotId) => {
+    try {
+      setLoading(true);
+      const sessionId = `user-${Date.now()}`;
+      const result = await api.blockSlot(timeSlotId, selectedDate, sessionId);
+      
+      if (result.success) {
+        setBookingId(result.booking_id);
+        // Refresh slots to show updated availability
+        const data = await api.getAvailableSlots(selectedDate);
+        setSlots(data.slots || []);
+        return result.booking_id;
+      }
+    } catch (error) {
+      console.error('Error blocking slot:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [selectedDate]);
+
+  // Release slot function
+  const releaseSlot = useCallback(async () => {
+    if (!bookingId) return;
+    
+    try {
+      setLoading(true);
+      const result = await api.releaseSlot(bookingId);
+      
+      if (result.success) {
+        setBookingId(null);
+        // Refresh slots to show updated availability
+        const data = await api.getAvailableSlots(selectedDate);
+        setSlots(data.slots || []);
+      }
+    } catch (error) {
+      console.error('Error releasing slot:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [bookingId, selectedDate]);
+
+  return {
+    selectedDate,
+    slots,
+    loading,
+    bookingId,
+    setSelectedDate,
+    blockSlot,
+    releaseSlot
+  };
+};
+```
+
+### Testing with cURL
+```bash
+# Test get available slots
+curl -X GET "http://127.0.0.1:8000/api/simple-slots?date=2026-04-08" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Test block a slot
+curl -X POST "http://127.0.0.1:8000/api/simple-slots/block" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "time_slot_id": 1,
+    "date": "2026-04-08",
+    "session_id": "test-session-123"
+  }'
+
+# Test release a slot
+curl -X POST "http://127.0.0.1:8000/api/simple-slots/release" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "block_id": 123
+  }'
 ```
 
 ## Integration Checklist

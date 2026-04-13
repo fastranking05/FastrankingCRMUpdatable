@@ -39,22 +39,94 @@ Retrieves a paginated list of consultations with optional filtering.
 ### 2. Create Consultation (POST)
 **Endpoint:** `POST /api/consultation`
 
-Creates a new consultation record.
+Creates a new consultation record. Optionally adds comments to the associated business. Automatically updates the appointment's `current_status` to match the consultation status.
 
 #### Request Payload
 ```json
 {
   "appointment_id": "FRMID00000001",
-  "status": "Pending",
-  "custom_status": "Awaiting Review",
-  "reason": "Initial consultation required for quality assessment",
+  "status": "scheduled",
+  "custom_status": "Pending Review",
+  "reason": "Customer requested consultation",
   "reschedule_date": "2026-04-15",
-  "reschedule_slot": 5,
-  "assigned_user": 4,
-  "conducted_date": "2026-04-20"
+  "reschedule_slot": 1,
+  "assigned_user": 1,
+  "conducted_date": "2026-04-10",
+  "is_customer_available": 1,
+  "comments": [
+    {
+      "comment": "Initial inquiry received through website contact form. Client interested in enterprise solutions.",
+      "old_status": null,
+      "new_status": "Followup"
+    },
+    {
+      "comment": "Follow-up call scheduled for next week.",
+      "old_status": "Followup",
+      "new_status": "Scheduled"
+    }
+  ]
 }
 ```
 
+<<<<<<< HEAD
+=======
+#### Validation Rules
+```json
+{
+  "appointment_id": "required|exists:appointments,id",
+  "status": "required|string|max:50",
+  "custom_status": "nullable|string|max:50",
+  "reason": "nullable|string",
+  "reschedule_date": "nullable|date",
+  "reschedule_slot": "nullable|exists:time_slots,id",
+  "assigned_user": "nullable|exists:users,id",
+  "conducted_date": "nullable|date",
+  "is_customer_available": "nullable|boolean",
+  "comments": "nullable|array",
+  "comments.*.comment": "sometimes|required|string",
+  "comments.*.old_status": "nullable|string|max:255",
+  "comments.*.new_status": "nullable|string|max:255"
+}
+```
+
+#### Important Notes
+- When a consultation is created, the associated appointment's `current_status` is automatically updated to match the consultation's `status`
+- Comments are automatically linked to the business associated with the appointment
+- Multiple comments can be submitted in a single request
+
+#### Response Example
+```json
+{
+  "success": true,
+  "message": "Consultation created successfully",
+  "data": {
+    "id": 1,
+    "appointment_id": "FRMID00000001",
+    "status": "Pending",
+    "custom_status": "Awaiting Review",
+    "reason": "Initial consultation required for quality assessment",
+    "reschedule_date": "2026-04-15",
+    "reschedule_slot": 5,
+    "conducted_date": null,
+    "assigned_user": 4,
+    "created_by": 1,
+    "is_customer_available": 1,
+    "created_at": "2026-04-01T10:00:00.000000Z",
+    "updated_at": "2026-04-01T10:00:00.000000Z",
+    "appointment": { ... },
+    "rescheduleSlot": { ... },
+    "closer": null,
+    "assignedUser": { ... },
+    "creator": { ... }
+  }
+}
+```
+
+### 3. Get Single Consultation (GET)
+**Endpoint:** `GET /api/consultation/{id}`
+
+Retrieves a specific consultation by ID with all relationships.
+>>>>>>> 4075952667dcb3910af583585f7f38a368d5a648
 
 #### Request Example
 ```bash singe view
@@ -541,6 +613,7 @@ The new consultation endpoints implement role-based access control with the foll
 | conducted_date | date | When consultation was conducted |
 | assigned_user | integer | Foreign key to users table (assigned to) |
 | created_by | integer | Foreign key to users table (who created) |
+| is_customer_available | boolean | Customer availability status (0 or 1) |
 | created_at | datetime | Creation timestamp |
 | updated_at | datetime | Last update timestamp |
 
@@ -776,6 +849,7 @@ CREATE TABLE `consultations` (
   `conducted_date` date DEFAULT NULL,
   `assigned_user` bigint unsigned DEFAULT NULL,
   `created_by` bigint unsigned DEFAULT NULL,
+  `is_customer_available` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
