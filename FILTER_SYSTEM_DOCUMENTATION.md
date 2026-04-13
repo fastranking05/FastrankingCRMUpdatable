@@ -247,8 +247,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 #### 1. Get Filter Options
 ```http
-POST /api/quality/filter-options
-Content-Type: application/json
+GET /api/quality/quality-filter-options
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
@@ -294,68 +293,84 @@ Content-Type: application/json
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
 
+**Implementation Note:** The Quality module uses a model scope (`Quality::scopeFilter`) to handle all filtering logic, including appointment date filtering via the `whereHas('appointment')` relationship.
+
+**Supported Filters:**
+- `status` - Filter by quality status (e.g., "QA-Approved", "QA-Pending")
+- `auditstatus` - Filter by audit status (e.g., "qualified", "Pending")
+- `score_min`, `score_max`, `score` - Filter by score range or exact score
+- `appointments` - Filter by appointment date using the format `[{"date": "today"}]`
+
 **Request Payload Examples:**
-
-**Basic Date Filter:**
-```json
-{
-  "date_filter": "this_month",
-  "date_column": "created_at",
-  "per_page": 15
-}
-```
-
-**Assigned User Filter:**
-```json
-{
-  "assigned_user": 4,
-  "per_page": 15
-}
-```
 
 **Status Filter:**
 ```json
 {
-  "status": "QA-Pending",
-  "per_page": 15
+  "status": "QA-Approved"
 }
 ```
 
 **Audit Status Filter:**
 ```json
 {
-  "auditstatus": "Pending",
-  "per_page": 15
+  "auditstatus": "qualified"
 }
 ```
 
-**Search Filter:**
+**Score Range Filter:**
 ```json
 {
-  "search": "FRMID00000001",
-  "per_page": 15
+  "score_min": 80,
+  "score_max": 100
+}
+```
+
+**Appointment Date Filter (Today):**
+```json
+{
+  "appointments": [
+    {
+      "date": "today"
+    }
+  ]
+}
+```
+
+**Appointment Date Filter (This Month):**
+```json
+{
+  "appointments": [
+    {
+      "date": "this_month"
+    }
+  ]
+}
+```
+
+**Appointment Date Filter (Custom Range):**
+```json
+{
+  "appointments": [
+    {
+      "date": "custom",
+      "custom_start_date": "2026-04-01",
+      "custom_end_date": "2026-04-30"
+    }
+  ]
 }
 ```
 
 **Combined Filters:**
 ```json
 {
-  "date_filter": "this_month",
-  "assigned_user": [4, 5],
-  "status": "QA-Pending",
-  "auditstatus": "Pending",
-  "search": "FRMID00000001",
-  "per_page": 10
-}
-```
-
-**Appointment Date Filter:**
-```json
-{
-  "date_filter": "this_year",
-  "appointments": ["date"],
+  "appointments": [
+    {
+      "date": "this_month"
+    }
+  ],
   "status": "QA-Approved",
-  "per_page": 15
+  "auditstatus": "qualified",
+  "score_min": 80
 }
 ```
 

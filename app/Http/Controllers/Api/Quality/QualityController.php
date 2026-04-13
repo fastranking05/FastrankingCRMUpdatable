@@ -30,73 +30,64 @@ class QualityController extends BaseApiController
     /**
      * Display a listing of quality records.
      */
+    // app/Http/Controllers/Api/Quality/QualityController.php
+
     public function index(Request $request): JsonResponse
     {
+        // 1. Start with the latest quality record per appointment
+        $latestQualityIds = Quality::selectRaw('MAX(id) as id')
+            ->groupBy('appointment_id')
+            ->pluck('id');
 
-        // Build base query with all required relationships
         $query = Quality::with([
             'appointment',
             'appointment.followupBusiness.authPersons',
             'appointment.timeSlot',
             'assignedUser',
             'answers',
-        ]);
+        ])->whereIn('id', $latestQualityIds);
 
-        // Get appointment IDs from date filter if present
-        $appointmentDateFilterIds = null;
-        if ($request->has('appointments') && is_array($request->input('appointments'))) {
-            $appointmentDateFilterIds = $this->getAppointmentDateFilterIds($request);
+        // 2. Build filters array from request
+        $filters = [];
+
+        // Status filter (your payload sends "status": "QA-Approved")
+        if ($request->has('status')) {
+            $filters['status'] = $request->input('status');
         }
 
-        // Get latest quality record IDs for each appointment
-        // If appointment date filter is present, only get latest quality IDs for those appointments
-        $latestQualityIdsQuery = Quality::select(DB::raw('MAX(id) as id'))
-            ->groupBy('appointment_id');
-        
-        if ($appointmentDateFilterIds !== null && count($appointmentDateFilterIds) > 0) {
-            $latestQualityIdsQuery->whereIn('appointment_id', $appointmentDateFilterIds);
-        }
-        
-        $latestQualityIds = $latestQualityIdsQuery->pluck('id')->toArray();
-
-        $query->whereIn('id', $latestQualityIds);
-
-        // Apply flexible filters using DateRangeFilterService
-        // Skip date_filter if appointment date filter is active to avoid conflicts
-        $filterOptions = [
-            'date_column' => 'created_at',
-            'user_column' => 'assigned_user',
-            'status_column' => 'status',
-            'search_columns' => ['appointment_id', 'appointment.followupBusiness.name']
-        ];
-        
-        // If appointment date filter is active, skip the date filter in DateRangeFilterService
-        if ($request->has('appointments') && is_array($request->input('appointments'))) {
-            $filterOptions['skip_date_filter'] = true;
-        }
-        
-        $query = $this->dateRangeFilterService->applyFilters($query, $request, $filterOptions);
-
-        // Apply additional specific filters
+        // Audit status filter
         if ($request->has('auditstatus')) {
-            $query->where('auditstatus', $request->input('auditstatus'));
+            $filters['auditstatus'] = $request->input('auditstatus');
         }
 
-        // Filter by score range
+        // Score filters
         if ($request->has('score_min')) {
-            $query->where('score', '>=', $request->input('score_min'));
+            $filters['score_min'] = $request->input('score_min');
         }
         if ($request->has('score_max')) {
-            $query->where('score', '<=', $request->input('score_max'));
+            $filters['score_max'] = $request->input('score_max');
         }
         if ($request->has('score')) {
-            $query->where('score', $request->input('score'));
+            $filters['score'] = $request->input('score');
         }
 
-        $qualities = $query->orderBy('created_at', 'desc')
-            ->get();
+        // Appointment date filter from the "appointments" payload structure
+        if ($request->has('appointments') && is_array($request->input('appointments'))) {
+            $appointmentFilter = $request->input('appointments')[0] ?? [];
+            if (isset($appointmentFilter['date'])) {
+                $filters['appointment_date_filter'] = $appointmentFilter['date'];
+                $filters['custom_start_date'] = $appointmentFilter['custom_start_date'] ?? null;
+                $filters['custom_end_date']   = $appointmentFilter['custom_end_date'] ?? null;
+            }
+        }
 
-        // Transform data to match desired response format
+        // 3. Apply all filters using the model scope
+        $query->filter($filters);
+
+        // 4. Order and get results
+        $qualities = $query->orderBy('created_at', 'desc')->get();
+
+        // 5. Transform data (your existing transformation logic stays the same)
         $transformedData = $qualities->map(function ($quality) {
             return [
                 'id' => $quality->id,
@@ -113,14 +104,12 @@ class QualityController extends BaseApiController
                 'meeting_link' => $quality->meeting_link,
                 'created_at' => $quality->created_at,
                 'updated_at' => $quality->updated_at,
-                'answers' => $quality->answers->map(function ($answer) {
-                    return [
-                        'id' => $answer->id,
-                        'question_id' => $answer->question_id,
-                        'answer' => $answer->answer,
-                        'score' => $answer->score,
-                    ];
-                })->toArray(),
+                'answers' => $quality->answers->map(fn($answer) => [
+                    'id' => $answer->id,
+                    'question_id' => $answer->question_id,
+                    'answer' => $answer->answer,
+                    'score' => $answer->score,
+                ])->toArray(),
                 'business' => $quality->appointment->followupBusiness ? [
                     'id' => $quality->appointment->followupBusiness->id,
                     'name' => $quality->appointment->followupBusiness->name,
@@ -129,19 +118,17 @@ class QualityController extends BaseApiController
                     'website' => $quality->appointment->followupBusiness->website,
                     'phone' => $quality->appointment->followupBusiness->phone,
                     'email' => $quality->appointment->followupBusiness->email,
-                    'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->pivot->is_primary ?? 0,
-                        ];
-                    })->toArray(),
+                    'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(fn($person) => [
+                        'id' => $person->id,
+                        'title' => $person->title,
+                        'firstname' => $person->firstname,
+                        'middlename' => $person->middlename,
+                        'lastname' => $person->lastname,
+                        'designation' => $person->designation,
+                        'primaryemail' => $person->primaryemail,
+                        'primarymobile' => $person->primarymobile,
+                        'is_primary' => $person->pivot->is_primary ?? 0,
+                    ])->toArray(),
                 ] : null,
                 'appointment_date' => $quality->appointment->date,
                 'appointment_source' => $quality->appointment->source,
@@ -160,11 +147,25 @@ class QualityController extends BaseApiController
     /**
      * Get appointment IDs matching date filter
      */
-    private function getAppointmentDateFilterIds(Request $request): ?array
+    private function getAppointmentDateFilterIds($appointments): ?array
     {
-        $dateFilter = $request->input('date_filter');
-        $customStartDate = $request->input('custom_start_date');
-        $customEndDate = $request->input('custom_end_date');
+        $dateFilter = null;
+        $customStartDate = null;
+        $customEndDate = null;
+
+        // Extract date filter from appointments array
+        if (is_array($appointments) && count($appointments) > 0) {
+            $firstAppointment = $appointments[0];
+            if (is_array($firstAppointment) && isset($firstAppointment['date'])) {
+                $dateFilter = $firstAppointment['date'];
+            }
+            if (is_array($firstAppointment) && isset($firstAppointment['custom_start_date'])) {
+                $customStartDate = $firstAppointment['custom_start_date'];
+            }
+            if (is_array($firstAppointment) && isset($firstAppointment['custom_end_date'])) {
+                $customEndDate = $firstAppointment['custom_end_date'];
+            }
+        }
 
         if (!$dateFilter && !$customStartDate) {
             return null;
@@ -176,31 +177,27 @@ class QualityController extends BaseApiController
 
         switch ($dateFilter) {
             case 'today':
-                $todayStart = Carbon::today()->startOfDay();
-                $todayEnd = Carbon::today()->endOfDay();
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = $todayStart;
-                $bindings[] = $todayEnd;
+                $todayDate = Carbon::today()->toDateString();
+                $dateCondition = 'DATE(date) = ?';
+                $bindings[] = $todayDate;
                 break;
 
             case 'yesterday':
-                $yesterdayStart = Carbon::yesterday()->startOfDay();
-                $yesterdayEnd = Carbon::yesterday()->endOfDay();
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = $yesterdayStart;
-                $bindings[] = $yesterdayEnd;
+                $yesterdayDate = Carbon::yesterday()->toDateString();
+                $dateCondition = 'DATE(date) = ?';
+                $bindings[] = $yesterdayDate;
                 break;
 
             case 'this_week':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->startOfWeek();
-                $bindings[] = Carbon::now()->endOfWeek();
+                $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek()->toDateString();
+                $bindings[] = Carbon::now()->endOfWeek()->toDateString();
                 break;
 
             case 'last_week':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->subWeek()->startOfWeek();
-                $bindings[] = Carbon::now()->subWeek()->endOfWeek();
+                $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek()->toDateString();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek()->toDateString();
                 break;
 
             case 'this_month':
@@ -227,15 +224,15 @@ class QualityController extends BaseApiController
 
             case 'custom':
                 if ($customStartDate && $customEndDate) {
-                    $dateCondition = 'date BETWEEN ? AND ?';
-                    $bindings[] = Carbon::parse($customStartDate)->startOfDay();
-                    $bindings[] = Carbon::parse($customEndDate)->endOfDay();
+                    $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                    $bindings[] = Carbon::parse($customStartDate)->toDateString();
+                    $bindings[] = Carbon::parse($customEndDate)->toDateString();
                 } elseif ($customStartDate) {
                     $dateCondition = 'DATE(date) >= ?';
-                    $bindings[] = Carbon::parse($customStartDate);
+                    $bindings[] = Carbon::parse($customStartDate)->toDateString();
                 } elseif ($customEndDate) {
                     $dateCondition = 'DATE(date) <= ?';
-                    $bindings[] = Carbon::parse($customEndDate);
+                    $bindings[] = Carbon::parse($customEndDate)->toDateString();
                 }
                 break;
         }
@@ -255,20 +252,20 @@ class QualityController extends BaseApiController
     private function applyAppointmentFilters($query, Request $request): void
     {
         $appointmentColumns = $request->input('appointments', []);
-        
+
         foreach ($appointmentColumns as $column) {
             switch ($column) {
                 case 'date':
                     $this->applyAppointmentDateFilter($query, $request);
                     break;
-                // Add more appointment columns as needed
-                // case 'followup_business_id':
-                //     if ($request->has('followup_business_id')) {
-                //         $query->whereHas('appointment', function ($q) use ($request) {
-                //             $q->where('followup_business_id', $request->input('followup_business_id'));
-                //         });
-                //     }
-                //     break;
+                    // Add more appointment columns as needed
+                    // case 'followup_business_id':
+                    //     if ($request->has('followup_business_id')) {
+                    //         $query->whereHas('appointment', function ($q) use ($request) {
+                    //             $q->where('followup_business_id', $request->input('followup_business_id'));
+                    //         });
+                    //     }
+                    //     break;
             }
         }
     }
@@ -372,7 +369,7 @@ class QualityController extends BaseApiController
             // Use raw SQL to get appointment IDs matching the date filter
             $appointmentIds = \DB::select("SELECT id, date FROM appointments WHERE $dateCondition", $bindings);
             $appointmentIdArray = array_column($appointmentIds, 'id');
-            
+
             \Log::info('Appointment IDs matching date filter', [
                 'condition' => $dateCondition,
                 'bindings' => $bindings,
@@ -446,7 +443,7 @@ class QualityController extends BaseApiController
     private function transformQualityResponse($quality): object
     {
         $data = $quality->toArray();
-        
+
         if (isset($data['appointment']['creator'])) {
             $data['appointment']['appointment_creator'] = $data['appointment']['creator'];
             unset($data['appointment']['creator']);
