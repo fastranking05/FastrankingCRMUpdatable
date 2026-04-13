@@ -481,7 +481,7 @@ class ConsultationController extends BaseApiController
         // Get appointment IDs from date filter if present
         $appointmentDateFilterIds = null;
         if ($request->has('appointments') && is_array($request->input('appointments'))) {
-            $appointmentDateFilterIds = $this->getAppointmentDateFilterIds($request);
+            $appointmentDateFilterIds = $this->getAppointmentDateFilterIds($request->input('appointments'));
         }
 
         // Get latest consultation record IDs for each appointment
@@ -588,11 +588,25 @@ class ConsultationController extends BaseApiController
     /**
      * Get appointment IDs matching date filter
      */
-    private function getAppointmentDateFilterIds(Request $request): ?array
+    private function getAppointmentDateFilterIds($appointments): ?array
     {
-        $dateFilter = $request->input('date_filter');
-        $customStartDate = $request->input('custom_start_date');
-        $customEndDate = $request->input('custom_end_date');
+        $dateFilter = null;
+        $customStartDate = null;
+        $customEndDate = null;
+
+        // Extract date filter from appointments array
+        if (is_array($appointments) && count($appointments) > 0) {
+            $firstAppointment = $appointments[0];
+            if (is_array($firstAppointment) && isset($firstAppointment['date'])) {
+                $dateFilter = $firstAppointment['date'];
+            }
+            if (is_array($firstAppointment) && isset($firstAppointment['custom_start_date'])) {
+                $customStartDate = $firstAppointment['custom_start_date'];
+            }
+            if (is_array($firstAppointment) && isset($firstAppointment['custom_end_date'])) {
+                $customEndDate = $firstAppointment['custom_end_date'];
+            }
+        }
 
         if (!$dateFilter && !$customStartDate) {
             return null;
@@ -604,62 +618,62 @@ class ConsultationController extends BaseApiController
 
         switch ($dateFilter) {
             case 'today':
-                $todayStart = Carbon::today()->startOfDay();
-                $todayEnd = Carbon::today()->endOfDay();
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = $todayStart;
-                $bindings[] = $todayEnd;
+                $todayDate = Carbon::today()->toDateString();
+                $dateCondition = 'DATE(date) = ?';
+                $bindings[] = $todayDate;
                 break;
 
             case 'yesterday':
-                $yesterdayStart = Carbon::yesterday()->startOfDay();
-                $yesterdayEnd = Carbon::yesterday()->endOfDay();
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = $yesterdayStart;
-                $bindings[] = $yesterdayEnd;
+                $yesterdayDate = Carbon::yesterday()->toDateString();
+                $dateCondition = 'DATE(date) = ?';
+                $bindings[] = $yesterdayDate;
                 break;
 
             case 'this_week':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->startOfWeek();
-                $bindings[] = Carbon::now()->endOfWeek();
+                $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek()->toDateString();
+                $bindings[] = Carbon::now()->endOfWeek()->toDateString();
                 break;
 
             case 'last_week':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->subWeek()->startOfWeek();
-                $bindings[] = Carbon::now()->subWeek()->endOfWeek();
+                $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek()->toDateString();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek()->toDateString();
                 break;
 
             case 'this_month':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->startOfMonth();
-                $bindings[] = Carbon::now()->endOfMonth();
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->month;
+                $bindings[] = Carbon::now()->year;
                 break;
 
             case 'last_month':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->subMonth()->startOfMonth();
-                $bindings[] = Carbon::now()->subMonth()->endOfMonth();
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subMonth()->month;
+                $bindings[] = Carbon::now()->subMonth()->year;
                 break;
 
             case 'this_year':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->startOfYear();
-                $bindings[] = Carbon::now()->endOfYear();
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->year;
                 break;
 
             case 'last_year':
-                $dateCondition = 'date BETWEEN ? AND ?';
-                $bindings[] = Carbon::now()->subYear()->startOfYear();
-                $bindings[] = Carbon::now()->subYear()->endOfYear();
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subYear()->year;
                 break;
 
             case 'custom':
                 if ($customStartDate && $customEndDate) {
-                    $dateCondition = 'date BETWEEN ? AND ?';
-                    $bindings[] = $customStartDate;
-                    $bindings[] = $customEndDate;
+                    $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                    $bindings[] = Carbon::parse($customStartDate)->toDateString();
+                    $bindings[] = Carbon::parse($customEndDate)->toDateString();
+                } elseif ($customStartDate) {
+                    $dateCondition = 'DATE(date) >= ?';
+                    $bindings[] = Carbon::parse($customStartDate)->toDateString();
+                } elseif ($customEndDate) {
+                    $dateCondition = 'DATE(date) <= ?';
+                    $bindings[] = Carbon::parse($customEndDate)->toDateString();
                 }
                 break;
         }

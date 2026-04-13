@@ -41,9 +41,11 @@ echo "\n";
 // Test 2: Test with appointment date filter only
 echo "Test 2: Appointment date filter only\n";
 $test2Data = json_encode([
-    'date_filter' => 'today',
-    'appointments' => ['date'],
-    'per_page' => 15
+    'appointments' => [
+        [
+            'date' => 'today'
+        ]
+    ]
 ]);
 
 $ch2 = curl_init();
@@ -93,13 +95,15 @@ echo "Total records: " . ($data3['data']['total'] ?? 0) . "\n";
 
 echo "\n";
 
-// Test 4: Test with both filters (the user's request)
-echo "Test 4: Both filters (user's request)\n";
+// Test 4: Test with both filters (the user's request - corrected format)
+echo "Test 4: Both filters (user's request - corrected format)\n";
 $test4Data = json_encode([
-    'date_filter' => 'today',
-    'appointments' => ['date'],
-    'status' => 'QA-Approved',
-    'per_page' => 15
+    'appointments' => [
+        [
+            'date' => 'today'
+        ]
+    ],
+    'status' => 'QA-Approved'
 ]);
 
 $ch4 = curl_init();
