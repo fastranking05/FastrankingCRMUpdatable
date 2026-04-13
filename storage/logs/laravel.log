@@ -618,3 +618,238 @@
 [2026-04-13 12:08:00] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
 [2026-04-13 12:08:14] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
 [2026-04-13 12:09:08] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-13 15:39:07] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:07] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-13 15:39:08] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:08] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:10] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-13 15:39:11] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:39:11] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:12] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-13 15:39:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:13] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:39:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:14] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:39:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:14] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:39:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:39:15] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:42:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:42:54] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-13 15:42:58] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:42:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:00] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:43:01] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-13 15:43:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:04] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:04] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-13 15:43:05] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:05] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:43:06] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:06] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:43:06] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:06] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:43:07] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:44:17] local.ERROR: SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'closer' (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: fastrankingcrm, SQL: alter table `consultations` add `closer` bigint unsigned null after `reschedule_slot`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S21): SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'closer' (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: fastrankingcrm, SQL: alter table `consultations` add `closer` bigint unsigned null after `reschedule_slot`) at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php:838)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate/Database/Connection->runQueryCallback('alter table `co...', Array, Object(Closure))
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate/Database/Connection->run('alter table `co...', Array, Object(Closure))
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Schema/Blueprint.php(121): Illuminate/Database/Connection->statement('alter table `co...')
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php(686): Illuminate/Database/Schema/Blueprint->build()
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php(494): Illuminate/Database/Schema/Builder->build(Object(Illuminate/Database/Schema/Blueprint))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate/Database/Schema/Builder->table('consultations', Object(Closure))
+#6 D:/FastrankingCRMUpdatable/database/migrations/2026_04_13_094716_add_closer_to_consultations_table.php(14): Illuminate/Support/Facades/Facade::__callStatic('table', Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(517): Illuminate/Database/Migrations/Migration@anonymous->up()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(442): Illuminate/Database/Migrations/Migrator->runMethod(Object(Illuminate/Database/MySqlConnection), Object(Illuminate/Database/Migrations/Migration@anonymous), 'up')
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(451): Illuminate/Database/Migrations/Migrator->Illuminate/Database/Migrations/{closure}()
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(253): Illuminate/Database/Migrations/Migrator->runMigration(Object(Illuminate/Database/Migrations/Migration@anonymous), 'up')
+#11 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/View/Components/Task.php(41): Illuminate/Database/Migrations/Migrator->Illuminate/Database/Migrations/{closure}()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(814): Illuminate/Console/View/Components/Task->render('2026_04_13_0947...', Object(Closure))
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(253): Illuminate/Database/Migrations/Migrator->write('Illuminate//Cons...', '2026_04_13_0947...', Object(Closure))
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(211): Illuminate/Database/Migrations/Migrator->runUp('D://FastrankingC...', 18, false)
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(138): Illuminate/Database/Migrations/Migrator->runPending(Array, Array)
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(116): Illuminate/Database/Migrations/Migrator->run(Array, Array)
+#17 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(671): Illuminate/Database/Console/Migrations/MigrateCommand->Illuminate/Database/Console/Migrations/{closure}()
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(109): Illuminate/Database/Migrations/Migrator->usingConnection(NULL, Object(Closure))
+#19 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(88): Illuminate/Database/Console/Migrations/MigrateCommand->runMigrations()
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Database/Console/Migrations/MigrateCommand->handle()
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::Illuminate/Container/{closure}()
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate/Container/Container->call(Array)
+#26 D:/FastrankingCRMUpdatable/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#28 D:/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#29 D:/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Database/Console/Migrations/MigrateCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#30 D:/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#33 D:/FastrankingCRMUpdatable/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#34 {main}
+
+[previous exception] [object] (PDOException(code: 42S21): SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'closer' at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php:584)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): PDOStatement->execute()
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate/Database/Connection->Illuminate/Database/{closure}('alter table `co...', Array)
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate/Database/Connection->runQueryCallback('alter table `co...', Array, Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate/Database/Connection->run('alter table `co...', Array, Object(Closure))
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Schema/Blueprint.php(121): Illuminate/Database/Connection->statement('alter table `co...')
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php(686): Illuminate/Database/Schema/Blueprint->build()
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Schema/Builder.php(494): Illuminate/Database/Schema/Builder->build(Object(Illuminate/Database/Schema/Blueprint))
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate/Database/Schema/Builder->table('consultations', Object(Closure))
+#8 D:/FastrankingCRMUpdatable/database/migrations/2026_04_13_094716_add_closer_to_consultations_table.php(14): Illuminate/Support/Facades/Facade::__callStatic('table', Array)
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(517): Illuminate/Database/Migrations/Migration@anonymous->up()
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(442): Illuminate/Database/Migrations/Migrator->runMethod(Object(Illuminate/Database/MySqlConnection), Object(Illuminate/Database/Migrations/Migration@anonymous), 'up')
+#11 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(451): Illuminate/Database/Migrations/Migrator->Illuminate/Database/Migrations/{closure}()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(253): Illuminate/Database/Migrations/Migrator->runMigration(Object(Illuminate/Database/Migrations/Migration@anonymous), 'up')
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/View/Components/Task.php(41): Illuminate/Database/Migrations/Migrator->Illuminate/Database/Migrations/{closure}()
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(814): Illuminate/Console/View/Components/Task->render('2026_04_13_0947...', Object(Closure))
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(253): Illuminate/Database/Migrations/Migrator->write('Illuminate//Cons...', '2026_04_13_0947...', Object(Closure))
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(211): Illuminate/Database/Migrations/Migrator->runUp('D://FastrankingC...', 18, false)
+#17 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(138): Illuminate/Database/Migrations/Migrator->runPending(Array, Array)
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(116): Illuminate/Database/Migrations/Migrator->run(Array, Array)
+#19 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php(671): Illuminate/Database/Console/Migrations/MigrateCommand->Illuminate/Database/Console/Migrations/{closure}()
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(109): Illuminate/Database/Migrations/Migrator->usingConnection(NULL, Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Console/Migrations/MigrateCommand.php(88): Illuminate/Database/Console/Migrations/MigrateCommand->runMigrations()
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Database/Console/Migrations/MigrateCommand->handle()
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::Illuminate/Container/{closure}()
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate/Container/Container->call(Array)
+#28 D:/FastrankingCRMUpdatable/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#30 D:/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#31 D:/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Database/Console/Migrations/MigrateCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#32 D:/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#35 D:/FastrankingCRMUpdatable/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#36 {main}
+"} 
+[2026-04-13 15:44:46] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:44:47] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 15:45:12] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:45:12] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 15:45:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:14] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-13 15:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:16] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:16] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-13 15:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:18] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-13 15:45:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:18] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:19] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:19] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:20] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:20] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:32] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:45:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:34] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-13 15:45:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:35] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-13 15:45:35] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:45:35] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 15:45:36] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:36] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:36] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-13 15:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:37] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:37] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:38] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:38] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:45:39] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 15:45:39] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-13 15:48:51] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 15:48:51] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 16:07:02] local.DEBUG: Module not found or inactive {"module":"User Block Calendar"} 
+[2026-04-13 16:07:02] local.WARNING: Permission denied {"user_id":1,"module":"User Block Calendar","permission":"read","url":"http://127.0.0.1:8000/api/user-block-calendar/available-slots","method":"GET","timestamp":"2026-04-13 16:07:02"} 
+[2026-04-13 16:07:27] local.DEBUG: Module not found or inactive {"module":"User Block Calendar"} 
+[2026-04-13 16:07:27] local.WARNING: Permission denied {"user_id":1,"module":"User Block Calendar","permission":"read","url":"http://127.0.0.1:8000/api/user-block-calendar/available-slots","method":"GET","timestamp":"2026-04-13 16:07:27"} 
+[2026-04-13 16:08:13] local.DEBUG: Module not found or inactive {"module":"User Block Calendar"} 
+[2026-04-13 16:08:13] local.WARNING: Permission denied {"user_id":1,"module":"User Block Calendar","permission":"read","url":"http://127.0.0.1:8000/api/user-block-calendar/available-slots","method":"GET","timestamp":"2026-04-13 16:08:13"} 
+[2026-04-13 16:11:26] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 16:11:26] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 16:11:52] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 16:11:52] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 16:11:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:53] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-13 16:11:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"create","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:56] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 16:11:56] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-13 16:11:57] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:57] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:57] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-13 16:11:58] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:58] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-13 16:11:58] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:58] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-13 16:11:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:59] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-13 16:11:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-13 16:11:59] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-13 16:13:34] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-13 16:13:34] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-13 16:14:30] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:30] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users/9","method":"GET","timestamp":"2026-04-13 16:14:30"} 
+[2026-04-13 16:14:34] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:34] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/departments","method":"GET","timestamp":"2026-04-13 16:14:34"} 
+[2026-04-13 16:14:35] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:35] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/roles","method":"GET","timestamp":"2026-04-13 16:14:35"} 
+[2026-04-13 16:14:36] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:36] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/modules","method":"GET","timestamp":"2026-04-13 16:14:36"} 
+[2026-04-13 16:14:36] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:36] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/teams","method":"GET","timestamp":"2026-04-13 16:14:36"} 
+[2026-04-13 16:14:36] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:36] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users","method":"GET","timestamp":"2026-04-13 16:14:36"} 
+[2026-04-13 16:14:37] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:37] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"create","url":"http://127.0.0.1:8000/api/business-categories","method":"GET","timestamp":"2026-04-13 16:14:37"} 
+[2026-04-13 16:14:37] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:37] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"create","url":"http://127.0.0.1:8000/api/business-types","method":"GET","timestamp":"2026-04-13 16:14:37"} 
+[2026-04-13 16:14:38] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:38] local.WARNING: Permission denied {"user_id":9,"module":"Appointment","permission":"read","url":"http://127.0.0.1:8000/api/appointments/filter-options","method":"GET","timestamp":"2026-04-13 16:14:38"} 
+[2026-04-13 16:14:38] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:38] local.WARNING: Permission denied {"user_id":9,"module":"Follow-Up","permission":"read","url":"http://127.0.0.1:8000/api/followup/filter-options","method":"GET","timestamp":"2026-04-13 16:14:38"} 
+[2026-04-13 16:14:39] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:39] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/quality-questions","method":"GET","timestamp":"2026-04-13 16:14:39"} 
+[2026-04-13 16:14:39] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:14:39] local.WARNING: Permission denied {"user_id":9,"module":"Appointment","permission":"read","url":"http://127.0.0.1:8000/api/appointments/all-appointments","method":"GET","timestamp":"2026-04-13 16:14:39"} 
+[2026-04-13 16:14:58] local.DEBUG: Module not found or inactive {"module":"User Block Calendar"} 
+[2026-04-13 16:14:58] local.WARNING: Permission denied {"user_id":9,"module":"User Block Calendar","permission":"create","url":"http://127.0.0.1:8000/api/user-block-calendar","method":"POST","timestamp":"2026-04-13 16:14:58"} 
+[2026-04-13 16:16:45] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:45] local.WARNING: Permission denied {"user_id":9,"module":"Appointment","permission":"read","url":"http://127.0.0.1:8000/api/appointments/all-appointments","method":"GET","timestamp":"2026-04-13 16:16:45"} 
+[2026-04-13 16:16:45] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:45] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users/9","method":"GET","timestamp":"2026-04-13 16:16:45"} 
+[2026-04-13 16:16:46] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:46] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"create","url":"http://127.0.0.1:8000/api/business-categories","method":"GET","timestamp":"2026-04-13 16:16:46"} 
+[2026-04-13 16:16:48] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:48] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"create","url":"http://127.0.0.1:8000/api/business-types","method":"GET","timestamp":"2026-04-13 16:16:48"} 
+[2026-04-13 16:16:48] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:48] local.WARNING: Permission denied {"user_id":9,"module":"Appointment","permission":"read","url":"http://127.0.0.1:8000/api/appointments/filter-options","method":"GET","timestamp":"2026-04-13 16:16:48"} 
+[2026-04-13 16:16:49] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:49] local.WARNING: Permission denied {"user_id":9,"module":"Follow-Up","permission":"read","url":"http://127.0.0.1:8000/api/followup/filter-options","method":"GET","timestamp":"2026-04-13 16:16:49"} 
+[2026-04-13 16:16:49] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:49] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/quality-questions","method":"GET","timestamp":"2026-04-13 16:16:49"} 
+[2026-04-13 16:16:50] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:50] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users","method":"GET","timestamp":"2026-04-13 16:16:50"} 
+[2026-04-13 16:16:50] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:50] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/departments","method":"GET","timestamp":"2026-04-13 16:16:50"} 
+[2026-04-13 16:16:51] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:51] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/roles","method":"GET","timestamp":"2026-04-13 16:16:51"} 
+[2026-04-13 16:16:51] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:51] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/modules","method":"GET","timestamp":"2026-04-13 16:16:51"} 
+[2026-04-13 16:16:52] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:16:52] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/teams","method":"GET","timestamp":"2026-04-13 16:16:52"} 
+[2026-04-13 16:17:03] local.DEBUG: User has no active roles {"user_id":9} 
+[2026-04-13 16:17:03] local.WARNING: Permission denied {"user_id":9,"module":"Appointment","permission":"read","url":"http://127.0.0.1:8000/api/appointments/all-appointments","method":"GET","timestamp":"2026-04-13 16:17:03"} 
