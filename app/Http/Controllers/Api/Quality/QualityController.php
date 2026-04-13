@@ -33,11 +33,13 @@ class QualityController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
 
-        // Build base query
+        // Build base query with all required relationships
         $query = Quality::with([
-            'appointment:id,date,followup_business_id',
-            'appointment.followupBusiness:id,name',
-            'assignedUser:id,first_name,last_name',
+            'appointment',
+            'appointment.followupBusiness.authPersons',
+            'appointment.timeSlot',
+            'assignedUser',
+            'answers',
         ]);
 
         // Get appointment IDs from date filter if present
@@ -92,9 +94,67 @@ class QualityController extends BaseApiController
         }
 
         $qualities = $query->orderBy('created_at', 'desc')
-            ->paginate($request->input('per_page', 15));
+            ->get();
 
-        return $this->successResponse($qualities, 'Quality records retrieved successfully');
+        // Transform data to match desired response format
+        $transformedData = $qualities->map(function ($quality) {
+            return [
+                'id' => $quality->id,
+                'appointment_id' => $quality->appointment_id,
+                'auditstatus' => $quality->auditstatus,
+                'status' => $quality->status,
+                'score' => $quality->score,
+                'assigned_user' => [
+                    'id' => $quality->assignedUser->id ?? null,
+                    'first_name' => $quality->assignedUser->first_name ?? null,
+                    'last_name' => $quality->assignedUser->last_name ?? null,
+                    'email' => $quality->assignedUser->email ?? null,
+                ],
+                'meeting_link' => $quality->meeting_link,
+                'created_at' => $quality->created_at,
+                'updated_at' => $quality->updated_at,
+                'answers' => $quality->answers->map(function ($answer) {
+                    return [
+                        'id' => $answer->id,
+                        'question_id' => $answer->question_id,
+                        'answer' => $answer->answer,
+                        'score' => $answer->score,
+                    ];
+                })->toArray(),
+                'business' => $quality->appointment->followupBusiness ? [
+                    'id' => $quality->appointment->followupBusiness->id,
+                    'name' => $quality->appointment->followupBusiness->name,
+                    'category' => $quality->appointment->followupBusiness->category,
+                    'type' => $quality->appointment->followupBusiness->type,
+                    'website' => $quality->appointment->followupBusiness->website,
+                    'phone' => $quality->appointment->followupBusiness->phone,
+                    'email' => $quality->appointment->followupBusiness->email,
+                    'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(function ($person) {
+                        return [
+                            'id' => $person->id,
+                            'title' => $person->title,
+                            'firstname' => $person->firstname,
+                            'middlename' => $person->middlename,
+                            'lastname' => $person->lastname,
+                            'designation' => $person->designation,
+                            'primaryemail' => $person->primaryemail,
+                            'primarymobile' => $person->primarymobile,
+                            'is_primary' => $person->pivot->is_primary ?? 0,
+                        ];
+                    })->toArray(),
+                ] : null,
+                'appointment_date' => $quality->appointment->date,
+                'appointment_source' => $quality->appointment->source,
+                'appointment_current_status' => $quality->appointment->current_status,
+                'appointment_slot' => $quality->appointment->timeSlot ? [
+                    'id' => $quality->appointment->timeSlot->id,
+                    'start_time' => $quality->appointment->timeSlot->start_time,
+                    'end_time' => $quality->appointment->timeSlot->end_time,
+                ] : null,
+            ];
+        })->toArray();
+
+        return $this->successResponse($transformedData, 'All quality data retrieved successfully');
     }
 
     /**

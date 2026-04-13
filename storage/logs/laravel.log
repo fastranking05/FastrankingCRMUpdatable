@@ -1,1 +1,2 @@
 [2026-04-10 11:02:46] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-13 08:49:53] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
