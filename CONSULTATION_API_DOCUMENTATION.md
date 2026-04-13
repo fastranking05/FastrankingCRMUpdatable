@@ -35,77 +35,6 @@ Retrieves a paginated list of consultations with optional filtering.
 | date_to | date | No | Filter by creation date (to) |
 | per_page | integer | No | Results per page (default: 15) |
 
-#### Request Example
-```bash
-curl -X GET \
-     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-     "http://127.0.0.1:8000/api/consultation?status=Pending&per_page=10"
-```
-
-#### Response Example
-```json
-{
-  "success": true,
-  "message": "Consultations retrieved successfully",
-  "data": {
-    "current_page": 1,
-    "data": [
-      {
-        "id": 1,
-        "appointment_id": "FRMID00000001",
-        "status": "Pending",
-        "custom_status": "Awaiting Review",
-        "reason": "Initial consultation required",
-        "reschedule_date": "2026-04-15",
-        "reschedule_slot": 5,
-        "conducted_date": null,
-        "assigned_user": 4,
-        "created_by": 1,
-        "created_at": "2026-04-01T10:00:00.000000Z",
-        "updated_at": "2026-04-01T10:00:00.000000Z",
-        "appointment": {
-          "id": "FRMID00000001",
-          "followup_business_id": 1,
-          "date": "2026-04-10",
-          "followupBusiness": {
-            "id": 1,
-            "name": "ABC Corporation"
-          }
-        },
-        "rescheduleSlot": {
-          "id": 5,
-          "start_time": "14:00:00",
-          "end_time": "14:30:00"
-        },
-        "closer": {
-          "id": 1,
-          "first_name": "Admin",
-          "last_name": "User",
-          "username": "admin"
-        },
-        "assignedUser": {
-          "id": 4,
-          "first_name": "Sandeep",
-          "last_name": "Singh",
-          "username": "sandeep"
-        },
-        "creator": {
-          "id": 1,
-          "first_name": "Admin",
-          "last_name": "User",
-          "username": "admin"
-        }
-      }
-    ],
-    "first_page_url": "http://127.0.0.1:8000/api/consultation?page=1",
-    "from": 1,
-    "last_page": 1,
-    "per_page": 15,
-    "to": 1,
-    "total": 1
-  }
-}
-```
 
 ### 2. Create Consultation (POST)
 **Endpoint:** `POST /api/consultation`
@@ -126,54 +55,9 @@ Creates a new consultation record.
 }
 ```
 
-#### Validation Rules
-```json
-{
-  "appointment_id": "required|exists:appointments,id",
-  "status": "required|string|max:50",
-  "custom_status": "nullable|string|max:50",
-  "reason": "nullable|string",
-  "reschedule_date": "nullable|date",
-  "reschedule_slot": "nullable|exists:time_slots,id",
-  "assigned_user": "nullable|exists:users,id",
-  "conducted_date": "nullable|date"
-}
-```
-
-#### Response Example
-```json
-{
-  "success": true,
-  "message": "Consultation created successfully",
-  "data": {
-    "id": 1,
-    "appointment_id": "FRMID00000001",
-    "status": "Pending",
-    "custom_status": "Awaiting Review",
-    "reason": "Initial consultation required for quality assessment",
-    "reschedule_date": "2026-04-15",
-    "reschedule_slot": 5,
-    "conducted_date": null,
-    "assigned_user": 4,
-    "created_by": 1,
-    "created_at": "2026-04-01T10:00:00.000000Z",
-    "updated_at": "2026-04-01T10:00:00.000000Z",
-    "appointment": { ... },
-    "rescheduleSlot": { ... },
-    "closer": null,
-    "assignedUser": { ... },
-    "creator": { ... }
-  }
-}
-```
-
-### 3. Get Single Consultation (GET)
-**Endpoint:** `GET /api/consultation/{id}`
-
-Retrieves a specific consultation by ID with all relationships.
 
 #### Request Example
-```bash
+```bash singe view
 curl -X GET \
      -H "Authorization: Bearer YOUR_JWT_TOKEN" \
      "http://127.0.0.1:8000/api/consultation/1"
@@ -206,69 +90,7 @@ curl -X GET \
 }
 ```
 
-### 4. Update Consultation (PUT)
-**Endpoint:** `PUT /api/consultation/{id}`
 
-Updates an existing consultation record.
-
-#### Request Payload
-```json
-{
-  "status": "In Progress",
-  "custom_status": "Under Review",
-  "reason": "Consultation in progress, further assessment needed",
-  "reschedule_date": "2026-04-16",
-  "reschedule_slot": 6,
-  "assigned_user": 4,
-  "conducted_date": "2026-04-20"
-}
-```
-
-#### Response Example
-```json
-{
-  "success": true,
-  "message": "Consultation updated successfully",
-  "data": {
-    "id": 1,
-    "appointment_id": "FRMID00000001",
-    "status": "In Progress",
-    "custom_status": "Under Review",
-    "reason": "Consultation in progress, further assessment needed",
-    "reschedule_date": "2026-04-16",
-    "reschedule_slot": 6,
-    "conducted_date": "2026-04-20",
-    "assigned_user": 4,
-    "created_by": 1,
-    "updated_at": "2026-04-01T12:00:00.000000Z",
-    "appointment": { ... },
-    "rescheduleSlot": { ... },
-    "closer": { ... },
-    "assignedUser": { ... },
-    "creator": { ... }
-  }
-}
-```
-
-### 5. Delete Consultation (DELETE)
-**Endpoint:** `DELETE /api/consultation/{id}`
-
-Deletes a consultation record.
-
-#### Request Example
-```bash
-curl -X DELETE \
-     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-     "http://127.0.0.1:8000/api/consultation/1"
-```
-
-#### Response Example
-```json
-{
-  "success": true,
-  "message": "Consultation deleted successfully",
-  "data": null
-}
 ```
 
 ### 6. Get Consultations by Appointment (GET)
@@ -329,46 +151,7 @@ curl -X GET \
 }
 ```
 
-### 7. Close Consultation (POST)
-**Endpoint:** `POST /api/consultation/{id}/close`
 
-Marks a consultation as completed/closed.
-
-#### Request Payload
-```json
-{
-  "conducted_date": "2026-04-20",
-  "reason": "Consultation completed successfully, all requirements met"
-}
-```
-
-#### Response Example
-```json
-{
-  "success": true,
-  "message": "Consultation closed successfully",
-  "data": {
-    "id": 1,
-    "appointment_id": "FRMID00000001",
-    "status": "Completed",
-    "custom_status": "Closed",
-    "reason": "Consultation completed successfully, all requirements met",
-    "reschedule_date": "2026-04-15",
-    "reschedule_slot": 5,
-    "conducted_date": "2026-04-20",
-    "assigned_user": 4,
-    "created_by": 1,
-    "closer": 1,
-    "created_at": "2026-04-01T10:00:00.000000Z",
-    "updated_at": "2026-04-01T14:00:00.000000Z",
-    "appointment": { ... },
-    "rescheduleSlot": { ... },
-    "closer": { ... },
-    "assignedUser": { ... },
-    "creator": { ... }
-  }
-}
-```
 
 ### 8. Get Scheduled Consultations (GET)
 **Endpoint:** `GET /api/consultation/scheduled`
