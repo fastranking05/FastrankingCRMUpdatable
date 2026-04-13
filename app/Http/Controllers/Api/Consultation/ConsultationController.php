@@ -7,6 +7,7 @@ use App\Models\Consultation;
 use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Comment;
 use App\Services\UserAssignmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -118,6 +119,11 @@ class ConsultationController extends BaseApiController
             'reschedule_slot' => 'nullable|exists:time_slots,id',
             'assigned_user' => 'nullable|exists:users,id',
             'conducted_date' => 'nullable|date',
+            'is_customer_available' => 'nullable|boolean',
+            'comments' => 'nullable|array',
+            'comments.*.comment' => 'sometimes|required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -133,14 +139,38 @@ class ConsultationController extends BaseApiController
             'reschedule_slot' => $request->reschedule_slot,
             'assigned_user' => $request->assigned_user,
             'conducted_date' => $request->conducted_date,
+            'is_customer_available' => $request->is_customer_available ?? 0,
         ]);
+
+        // Create comments if provided
+        if ($request->has('comments') && is_array($request->comments)) {
+            $appointment = Appointment::find($request->appointment_id);
+            if ($appointment && $appointment->followup_business_id) {
+                foreach ($request->comments as $commentData) {
+                    Comment::create([
+                        'followup_business_id' => $appointment->followup_business_id,
+                        'comment' => $commentData['comment'] ?? null,
+                        'old_status' => $commentData['old_status'] ?? null,
+                        'new_status' => $commentData['new_status'] ?? null,
+                        'created_by' => auth()->id(),
+                    ]);
+                }
+            }
+        }
+
+        // Update appointment current_status with consultation status
+        $appointment = Appointment::find($request->appointment_id);
+        if ($appointment) {
+            $appointment->update([
+                'current_status' => $request->status,
+            ]);
+        }
 
         // Load relationships for response
         $consultation->load([
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
             'rescheduleSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
         ]);
 
