@@ -521,3 +521,9 @@
 "} 
 [2026-04-13 09:48:33] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"create","has_permission":true,"user_roles":[1],"module_id":7} 
 [2026-04-13 09:49:01] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"create","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-13 10:46:13] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-13 10:46:14] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-13 10:46:15] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-13 10:46:15] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-13 10:46:16] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-13 10:46:17] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
