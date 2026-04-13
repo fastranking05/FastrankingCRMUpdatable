@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class QualityController extends BaseApiController
@@ -239,7 +240,7 @@ class QualityController extends BaseApiController
 
         if ($dateCondition) {
             // Use raw SQL to get appointment IDs matching the date filter
-            $appointmentIds = \DB::select("SELECT id FROM appointments WHERE $dateCondition", $bindings);
+            $appointmentIds = DB::select("SELECT id FROM appointments WHERE $dateCondition", $bindings);
             return array_column($appointmentIds, 'id');
         }
 
@@ -279,7 +280,7 @@ class QualityController extends BaseApiController
         $customStartDate = $request->input('custom_start_date');
         $customEndDate = $request->input('custom_end_date');
 
-        \Log::info('Applying appointment date filter', [
+        Log::info('Applying appointment date filter', [
             'date_filter' => $dateFilter,
             'custom_start_date' => $customStartDate,
             'custom_end_date' => $customEndDate,
@@ -298,7 +299,7 @@ class QualityController extends BaseApiController
             case 'today':
                 $todayStart = Carbon::today()->startOfDay();
                 $todayEnd = Carbon::today()->endOfDay();
-                \Log::info('Filtering for today', ['start' => $todayStart, 'end' => $todayEnd]);
+                Log::info('Filtering for today', ['start' => $todayStart, 'end' => $todayEnd]);
                 $dateCondition = 'date BETWEEN ? AND ?';
                 $bindings[] = $todayStart;
                 $bindings[] = $todayEnd;
@@ -363,14 +364,14 @@ class QualityController extends BaseApiController
 
         if ($dateCondition) {
             // Check all appointments to see what dates exist first
-            $allAppointments = \DB::select("SELECT id, date FROM appointments LIMIT 10");
-            \Log::info('Sample appointments from database', ['appointments' => $allAppointments]);
+            $allAppointments = DB::select("SELECT id, date FROM appointments LIMIT 10");
+            Log::info('Sample appointments from database', ['appointments' => $allAppointments]);
 
             // Use raw SQL to get appointment IDs matching the date filter
-            $appointmentIds = \DB::select("SELECT id, date FROM appointments WHERE $dateCondition", $bindings);
+            $appointmentIds = DB::select("SELECT id, date FROM appointments WHERE $dateCondition", $bindings);
             $appointmentIdArray = array_column($appointmentIds, 'id');
 
-            \Log::info('Appointment IDs matching date filter', [
+            Log::info('Appointment IDs matching date filter', [
                 'condition' => $dateCondition,
                 'bindings' => $bindings,
                 'count' => count($appointmentIdArray),
@@ -382,7 +383,7 @@ class QualityController extends BaseApiController
             if (count($appointmentIdArray) > 0) {
                 $query->whereIn('appointment_id', $appointmentIdArray);
             } else {
-                \Log::warning('No appointments found matching date filter', ['condition' => $dateCondition]);
+                Log::warning('No appointments found matching date filter', ['condition' => $dateCondition]);
                 // Return empty result by adding impossible condition
                 $query->where('id', '=', 0);
             }
