@@ -284,7 +284,7 @@ class SimpleTimeSlotController
 
             $appointments = $slot->appointments()
                 ->where('date', $date)
-                ->whereIn('current_status', ['Appointment Booked', 'Confirmed', 'In Progress'])
+                ->whereIn('current_status', ['Appointment Booked', 'Confirmed', 'In Progress', 'QA-Pending', 'scheduled', 'rescheduled'])
                 ->count();
 
             $tempBookings = $slot->temporaryBookings()
