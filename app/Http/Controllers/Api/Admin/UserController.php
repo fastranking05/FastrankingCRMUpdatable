@@ -199,8 +199,10 @@ class UserController extends BaseApiController
             'status' => 'nullable|in:active,inactive,suspended',
             'team_ids' => 'nullable|array',
             'team_ids.*' => 'exists:teams,id',
+            'department_id' => 'nullable|exists:departments,id',
             'department_ids' => 'nullable|array',
             'department_ids.*' => 'exists:departments,id',
+            'role_id' => 'nullable|exists:roles,id',
             'role_ids' => 'nullable|array',
             'role_ids.*' => 'exists:roles,id',
         ]);
@@ -226,13 +228,17 @@ class UserController extends BaseApiController
                 $user->teams()->sync($request->team_ids);
             }
 
-            // Sync departments if provided
-            if ($request->has('department_ids')) {
+            // Sync departments if provided (handle both single department_id and array department_ids)
+            if ($request->has('department_id')) {
+                $user->departments()->sync([$request->department_id]);
+            } elseif ($request->has('department_ids')) {
                 $user->departments()->sync($request->department_ids);
             }
 
-            // Sync roles if provided
-            if ($request->has('role_ids')) {
+            // Sync roles if provided (handle both single role_id and array role_ids)
+            if ($request->has('role_id')) {
+                $user->roles()->sync([$request->role_id]);
+            } elseif ($request->has('role_ids')) {
                 $user->roles()->sync($request->role_ids);
             }
 
