@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Appointment;
 
 use App\Models\TimeSlot;
+use App\Models\UserBlockCalendar;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -291,7 +292,12 @@ class SimpleTimeSlotController
                 ->where('expires_at', '>', now())
                 ->count();
 
-            return $appointments + $tempBookings;
+            // Count user block calendar entries for this date and slot
+            $userBlockCalendarCount = UserBlockCalendar::where('date', $date)
+                ->where('slot_id', $slotId)
+                ->count();
+
+            return $appointments + $tempBookings + $userBlockCalendarCount;
         } catch (\Exception $e) {
             Log::error('Error getting current bookings count', [
                 'slot_id' => $slotId,
