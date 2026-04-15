@@ -195,7 +195,8 @@ class ConsultationController extends BaseApiController
                         $query->with(['authPersons', 'comments']);
                     },
                     'timeSlot',
-                    'quality'
+                    'quality',
+                    'creator:id,first_name,last_name,email,username'
                 ]);
             },
             'rescheduleSlot:id,start_time,end_time',
