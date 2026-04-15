@@ -89,4 +89,14 @@ class TimeSlot extends Model
 
         return $appointments + $tempBookings;
     }
+
+    /**
+     * Check if time slot is available for a specific date
+     */
+    public function isAvailableForDate(string $date): bool
+    {
+        $currentBookings = $this->getCurrentBookingsCount($date);
+        $maxBookings = $this->max_concurrent_bookings ?? 3;
+        return $currentBookings < $maxBookings;
+    }
 }
