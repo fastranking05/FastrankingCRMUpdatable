@@ -884,3 +884,27 @@
 [2026-04-16 15:47:17] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
 [2026-04-16 15:47:18] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
 [2026-04-16 15:47:19] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-16 15:53:13] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 15:53:13] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 15:53:15] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-21"} 
+[2026-04-16 15:53:18] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-21"} 
+[2026-04-16 15:53:20] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-15"} 
+[2026-04-16 15:53:23] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-21"} 
+[2026-04-16 15:58:37] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 15:58:37] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 15:58:38] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 15:58:38] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 15:58:41] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 15:58:41] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 15:58:41] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 15:58:41] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 15:58:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 15:58:42] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 15:58:44] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 15:58:45] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 15:58:45] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 15:58:46] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 16:14:55] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 16:14:55] local.INFO: Appointment retrieval successful {"appointment_id":"FRMID00000001","user_id":1} 
+[2026-04-16 16:15:47] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 16:15:47] local.INFO: Appointment retrieval successful {"appointment_id":"FRMID00000003","user_id":1} 

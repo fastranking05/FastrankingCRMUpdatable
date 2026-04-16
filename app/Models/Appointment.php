@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Appointment extends Model
@@ -98,6 +99,11 @@ class Appointment extends Model
     public function quality(): BelongsTo
     {
         return $this->belongsTo(Quality::class, 'appointment_id', 'id');
+    }
+
+    public function consultations(): HasMany
+    {
+        return $this->hasMany(Consultation::class, 'appointment_id', 'id');
     }
 
     // Check if user is available for this appointment time

@@ -267,20 +267,31 @@ class AppointmentController extends BaseApiController
     }
 
     /**
-     * Show appointment details
+     * Show appointment details with all related information
      */
     public function show(string $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
             $appointment = Appointment::with([
-                'followupBusiness:id,name,category,type,phone,email,created_by',
+                'followupBusiness',
                 'followupBusiness.authPersons',
-                'followupBusiness.creator:id,first_name,last_name',
+                'followupBusiness.creator:id,first_name,last_name,email,username',
                 'followupBusiness.comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                    $query->with('creator:id,first_name,last_name,email,username')->orderBy('created_at', 'desc');
                 },
                 'timeSlot:id,name,start_time,end_time',
-                'creator:id,first_name,last_name'
+                'creator:id,first_name,last_name,email,username',
+                'quality' => function ($query) {
+                    $query->with('assignedUser:id,first_name,last_name,email,username');
+                },
+                'consultations' => function ($query) {
+                    $query->with([
+                        'assignedUser:id,first_name,last_name,email,username',
+                        'closer:id,first_name,last_name,email,username',
+                        'meetingSlot:id,start_time,end_time',
+                        'creator:id,first_name,last_name,email,username'
+                    ])->orderBy('created_at', 'desc');
+                }
             ])->find($id);
 
             if (!$appointment) {
