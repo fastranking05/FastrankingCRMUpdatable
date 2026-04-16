@@ -7,6 +7,7 @@ use App\Models\UserBlockCalendar;
 use App\Models\User;
 use App\Models\TimeSlot;
 use App\Models\Appointment;
+use App\Models\Consultation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -280,5 +281,181 @@ class UserBlockCalendarController extends BaseApiController
         })->values()->toArray();
 
         return $this->successResponse($transformedData, 'Available time slots retrieved successfully');
+    }
+
+    /**
+     * Get schedule details for a specific date.
+     * Returns appointments, consultations, and user block calendar entries for the date.
+     */
+    public function getScheduleDetails(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', 422, $validator->errors());
+        }
+
+        $date = $request->input('date');
+
+        // Get appointments for the date
+        $appointments = Appointment::with([
+            'followupBusiness:id,name,phone,email',
+            'timeSlot:id,start_time,end_time',
+            'creator:id,first_name,last_name,email,username'
+        ])
+        ->where('date', $date)
+        ->orderBy('time_slot_id')
+        ->get()
+        ->map(function ($appointment) {
+            return [
+                'id' => $appointment->id,
+                'followup_business_id' => $appointment->followup_business_id,
+                'business_name' => $appointment->followupBusiness->name ?? null,
+                'contact_person' => $appointment->followupBusiness->email ?? null,
+                'contact_number' => $appointment->followupBusiness->phone ?? null,
+                'date' => $appointment->date,
+                'time_slot' => $appointment->timeSlot ? [
+                    'id' => $appointment->timeSlot->id,
+                    'start_time' => $appointment->timeSlot->start_time,
+                    'end_time' => $appointment->timeSlot->end_time,
+                ] : null,
+                'current_status' => $appointment->current_status,
+                'created_by' => $appointment->creator ? [
+                    'id' => $appointment->creator->id,
+                    'first_name' => $appointment->creator->first_name,
+                    'last_name' => $appointment->creator->last_name,
+                    'email' => $appointment->creator->email,
+                    'username' => $appointment->creator->username,
+                ] : null,
+            ];
+        });
+
+        // Get consultations for the date
+        $consultations = Consultation::with([
+            'appointment' => function($query) {
+                $query->with([
+                    'followupBusiness:id,name,phone,email',
+                    'timeSlot:id,start_time,end_time'
+                ]);
+            },
+            'closer:id,first_name,last_name,username',
+            'assignedUser:id,first_name,last_name,username'
+        ])
+        ->whereHas('appointment', function($query) use ($date) {
+            $query->where('date', $date);
+        })
+        ->orderBy('id')
+        ->get()
+        ->map(function ($consultation) {
+            return [
+                'id' => $consultation->id,
+                'appointment_id' => $consultation->appointment_id,
+                'business_name' => $consultation->appointment->followupBusiness->name ?? null,
+                'contact_person' => $consultation->appointment->followupBusiness->email ?? null,
+                'contact_number' => $consultation->appointment->followupBusiness->phone ?? null,
+                'date' => $consultation->appointment->date,
+                'time_slot' => $consultation->appointment->timeSlot ? [
+                    'id' => $consultation->appointment->timeSlot->id,
+                    'start_time' => $consultation->appointment->timeSlot->start_time,
+                    'end_time' => $consultation->appointment->timeSlot->end_time,
+                ] : null,
+                'status' => $consultation->status,
+                'custom_status' => $consultation->custom_status,
+                'assigned_user' => $consultation->assignedUser ? [
+                    'id' => $consultation->assignedUser->id,
+                    'first_name' => $consultation->assignedUser->first_name,
+                    'last_name' => $consultation->assignedUser->last_name,
+                    'username' => $consultation->assignedUser->username,
+                ] : null,
+                'closer' => $consultation->closer ? [
+                    'id' => $consultation->closer->id,
+                    'first_name' => $consultation->closer->first_name,
+                    'last_name' => $consultation->closer->last_name,
+                    'username' => $consultation->closer->username,
+                ] : null,
+            ];
+        });
+
+        // Get user block calendar entries for the date
+        $userBlockCalendars = UserBlockCalendar::with([
+            'user:id,first_name,last_name,email',
+            'timeSlot:id,start_time,end_time',
+            'createdBy:id,first_name,last_name,email'
+        ])
+        ->where('date', $date)
+        ->orderBy('slot_id')
+        ->get()
+        ->map(function ($blockCalendar) {
+            return [
+                'id' => $blockCalendar->id,
+                'user_id' => $blockCalendar->user_id,
+                'date' => $blockCalendar->date,
+                'slot_id' => $blockCalendar->slot_id,
+                'comments' => $blockCalendar->comments,
+                'user' => $blockCalendar->user ? [
+                    'id' => $blockCalendar->user->id,
+                    'first_name' => $blockCalendar->user->first_name,
+                    'last_name' => $blockCalendar->user->last_name,
+                    'email' => $blockCalendar->user->email,
+                ] : null,
+                'time_slot' => $blockCalendar->timeSlot ? [
+                    'id' => $blockCalendar->timeSlot->id,
+                    'start_time' => $blockCalendar->timeSlot->start_time,
+                    'end_time' => $blockCalendar->timeSlot->end_time,
+                ] : null,
+                'created_by' => $blockCalendar->createdBy ? [
+                    'id' => $blockCalendar->createdBy->id,
+                    'first_name' => $blockCalendar->createdBy->first_name,
+                    'last_name' => $blockCalendar->createdBy->last_name,
+                    'email' => $blockCalendar->createdBy->email,
+                ] : null,
+            ];
+        });
+
+        // Get scheduled and rescheduled appointments for the date
+        $scheduledAppointments = Appointment::with([
+            'followupBusiness:id,name,phone,email',
+            'timeSlot:id,start_time,end_time',
+            'creator:id,first_name,last_name,email,username'
+        ])
+        ->where('date', $date)
+        ->whereIn('current_status', ['scheduled', 'rescheduled'])
+        ->orderBy('time_slot_id')
+        ->get()
+        ->map(function ($appointment) {
+            return [
+                'id' => $appointment->id,
+                'followup_business_id' => $appointment->followup_business_id,
+                'business_name' => $appointment->followupBusiness->name ?? null,
+                'contact_person' => $appointment->followupBusiness->email ?? null,
+                'contact_number' => $appointment->followupBusiness->phone ?? null,
+                'date' => $appointment->date,
+                'time_slot' => $appointment->timeSlot ? [
+                    'id' => $appointment->timeSlot->id,
+                    'start_time' => $appointment->timeSlot->start_time,
+                    'end_time' => $appointment->timeSlot->end_time,
+                ] : null,
+                'current_status' => $appointment->current_status,
+                'created_by' => $appointment->creator ? [
+                    'id' => $appointment->creator->id,
+                    'first_name' => $appointment->creator->first_name,
+                    'last_name' => $appointment->creator->last_name,
+                    'email' => $appointment->creator->email,
+                    'username' => $appointment->creator->username,
+                ] : null,
+            ];
+        });
+
+        $scheduleDetails = [
+            'date' => $date,
+            'appointments' => $appointments,
+            'scheduled_rescheduled_appointments' => $scheduledAppointments,
+            'consultations' => $consultations,
+            'user_block_calendars' => $userBlockCalendars,
+        ];
+
+        return $this->successResponse($scheduleDetails, 'Schedule details retrieved successfully');
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['jwt.auth'])->prefix('user-block-calendar')->name('user-block-calendar.')->group(function () {
     // User Block Calendar Routes
     Route::get('/available-slots', [UserBlockCalendarController::class, 'getAvailableTimeSlots'])->name('available-slots');
+    Route::get('/schedule-details', [UserBlockCalendarController::class, 'getScheduleDetails'])->name('schedule-details');
     Route::get('/', [UserBlockCalendarController::class, 'index'])->name('index');
     Route::get('/{id}', [UserBlockCalendarController::class, 'show'])->name('show');
     Route::post('/', [UserBlockCalendarController::class, 'store'])->name('store');
