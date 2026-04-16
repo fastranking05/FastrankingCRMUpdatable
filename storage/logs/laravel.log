@@ -490,3 +490,289 @@
 [2026-04-15 14:19:43] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
 [2026-04-15 14:19:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
 [2026-04-15 14:19:43] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 09:32:41] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:42] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 09:32:46] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:47] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-16 09:32:48] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 09:32:49] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:49] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 09:32:50] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:50] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 09:32:50] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:50] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 09:32:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:51] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 09:32:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 09:32:51] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 09:32:53] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 09:32:53] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:48:25] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:48:25] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:48:25] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:26] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 11:48:28] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-16 11:48:28] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:48:30] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:30] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:30] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 11:48:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:31] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:48:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:32] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:48:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:32] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:48:33] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:33] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:48:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:48:35] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 11:48:54] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:48:54] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:52:30] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:52:30] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:52:46] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:52:46] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:54:36] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:54:36] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:54:36] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:36] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 11:54:39] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:54:40] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-16 11:54:40] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:41] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:41] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 11:54:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:42] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:54:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:42] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:54:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:43] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:54:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 11:54:43] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 11:56:58] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:56:58] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 11:57:24] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 11:57:24] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 12:00:49] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:00:49] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 12:01:08] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:01:08] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 12:23:15] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:23:16] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 12:23:16] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:16] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 12:23:20] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:23:20] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-16 12:23:21] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:21] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:21] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 12:23:22] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:22] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:23:22] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:23] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:23:23] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:23] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:23:24] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:23:24] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:55:30] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:55:30] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 12:57:46] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:57:46] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 12:57:47] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:57:47] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 12:57:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:57:54] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:57:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:57:55] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:57:56] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:57:56] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:57:57] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:57:57] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 12:57:58] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 12:57:58] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 12:58:00] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 12:58:00] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-16 12:58:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:04:22] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:04:22] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:04:40] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:04:40] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:05:06] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:05:06] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:05:06] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:06] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-16 13:05:10] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:05:10] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-04-16 13:05:11] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:11] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:11] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 13:05:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:12] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:05:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:13] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:05:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:13] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:05:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:05:14] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:05:38] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:05:38] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:08:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:08:59] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:08:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:08:59] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:09:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:09:00] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:09:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:09:01] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:09:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:09:01] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 13:09:14] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:14] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users/8","method":"GET","timestamp":"2026-04-16 13:09:14"} 
+[2026-04-16 13:09:20] local.DEBUG: Permission check result {"user_id":8,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 13:09:21] local.DEBUG: Permission check result {"user_id":8,"module":"Follow-Up","permission":"read","has_permission":false,"user_roles":[4],"module_id":3} 
+[2026-04-16 13:09:21] local.WARNING: Permission denied {"user_id":8,"module":"Follow-Up","permission":"read","url":"http://127.0.0.1:8000/api/followup/filter-options","method":"GET","timestamp":"2026-04-16 13:09:21"} 
+[2026-04-16 13:09:21] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:21] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/quality-questions","method":"GET","timestamp":"2026-04-16 13:09:21"} 
+[2026-04-16 13:09:22] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:22] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users","method":"GET","timestamp":"2026-04-16 13:09:22"} 
+[2026-04-16 13:09:22] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:22] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/departments","method":"GET","timestamp":"2026-04-16 13:09:22"} 
+[2026-04-16 13:09:23] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:23] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/roles","method":"GET","timestamp":"2026-04-16 13:09:23"} 
+[2026-04-16 13:09:23] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:23] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/modules","method":"GET","timestamp":"2026-04-16 13:09:23"} 
+[2026-04-16 13:09:24] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:09:24] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/teams","method":"GET","timestamp":"2026-04-16 13:09:24"} 
+[2026-04-16 13:09:24] local.DEBUG: Permission check result {"user_id":8,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 13:09:25] local.INFO: Executive accessing own appointments {"user_id":8} 
+[2026-04-16 13:11:16] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:11:17] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:21:20] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:21:20] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:21:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:21:31] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:21:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:21:31] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:21:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:21:32] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:21:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:21:32] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:21:33] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:21:33] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 13:21:58] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:21:58] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users/9","method":"GET","timestamp":"2026-04-16 13:21:58"} 
+[2026-04-16 13:22:02] local.DEBUG: Permission check result {"user_id":9,"module":"Follow-Up","permission":"read","has_permission":false,"user_roles":[4],"module_id":3} 
+[2026-04-16 13:22:02] local.WARNING: Permission denied {"user_id":9,"module":"Follow-Up","permission":"read","url":"http://127.0.0.1:8000/api/followup/filter-options","method":"GET","timestamp":"2026-04-16 13:22:02"} 
+[2026-04-16 13:22:03] local.DEBUG: Permission check result {"user_id":9,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 13:22:03] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:22:03] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/quality-questions","method":"GET","timestamp":"2026-04-16 13:22:03"} 
+[2026-04-16 13:22:04] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:22:04] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users","method":"GET","timestamp":"2026-04-16 13:22:04"} 
+[2026-04-16 13:22:05] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:22:05] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/departments","method":"GET","timestamp":"2026-04-16 13:22:05"} 
+[2026-04-16 13:22:05] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:22:05] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/roles","method":"GET","timestamp":"2026-04-16 13:22:05"} 
+[2026-04-16 13:22:06] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:22:06] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/modules","method":"GET","timestamp":"2026-04-16 13:22:06"} 
+[2026-04-16 13:22:06] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:22:06] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/teams","method":"GET","timestamp":"2026-04-16 13:22:06"} 
+[2026-04-16 13:22:07] local.DEBUG: Permission check result {"user_id":9,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 13:22:07] local.INFO: Executive accessing own appointments {"user_id":9} 
+[2026-04-16 13:22:45] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:22:45] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:22:49] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-16 13:22:53] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-16 13:22:57] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-04-16 13:27:32] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:27:32] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:31:13] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:31:15] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-16"} 
+[2026-04-16 13:31:17] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-17"} 
+[2026-04-16 13:31:20] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-16"} 
+[2026-04-16 13:31:21] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-15"} 
+[2026-04-16 13:31:27] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:34:40] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:37:05] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:37:07] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-16"} 
+[2026-04-16 13:37:09] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:37:14] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-16"} 
+[2026-04-16 13:37:16] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-15"} 
+[2026-04-16 13:37:33] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:37:33] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:37:34] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:37:34] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:37:34] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:37:34] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:37:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:37:35] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-16 13:37:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-16 13:37:35] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-16 13:38:01] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:01] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users/8","method":"GET","timestamp":"2026-04-16 13:38:01"} 
+[2026-04-16 13:38:06] local.DEBUG: Permission check result {"user_id":8,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 13:38:07] local.DEBUG: Permission check result {"user_id":8,"module":"Follow-Up","permission":"read","has_permission":false,"user_roles":[4],"module_id":3} 
+[2026-04-16 13:38:07] local.WARNING: Permission denied {"user_id":8,"module":"Follow-Up","permission":"read","url":"http://127.0.0.1:8000/api/followup/filter-options","method":"GET","timestamp":"2026-04-16 13:38:07"} 
+[2026-04-16 13:38:08] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:08] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/quality-questions","method":"GET","timestamp":"2026-04-16 13:38:08"} 
+[2026-04-16 13:38:08] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:08] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users","method":"GET","timestamp":"2026-04-16 13:38:08"} 
+[2026-04-16 13:38:09] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:09] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/departments","method":"GET","timestamp":"2026-04-16 13:38:09"} 
+[2026-04-16 13:38:09] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:09] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/roles","method":"GET","timestamp":"2026-04-16 13:38:09"} 
+[2026-04-16 13:38:10] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:10] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/modules","method":"GET","timestamp":"2026-04-16 13:38:10"} 
+[2026-04-16 13:38:10] local.DEBUG: Permission check result {"user_id":8,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 13:38:10] local.WARNING: Permission denied {"user_id":8,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/teams","method":"GET","timestamp":"2026-04-16 13:38:10"} 
+[2026-04-16 13:38:11] local.DEBUG: Permission check result {"user_id":8,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 13:38:11] local.INFO: Executive accessing own appointments {"user_id":8} 
+[2026-04-16 13:38:13] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:38:17] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:38:20] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:38:32] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:38:34] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:39:18] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:39:20] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-17"} 
+[2026-04-16 13:39:26] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:43:10] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:43:13] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:43:15] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:43:17] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:43:26] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-16 13:43:26] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-16 13:43:28] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-15"} 
+[2026-04-16 13:43:31] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-16"} 
+[2026-04-16 13:49:31] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:56:28] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:56:30] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:56:32] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:57:07] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 13:57:13] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 13:57:53] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 13:59:22] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 14:02:36] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 14:02:40] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-16"} 
+[2026-04-16 14:02:42] local.INFO: Consultation Query Debug {"current_user_id":8,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[8],"date":"2026-04-15"} 
+[2026-04-16 14:03:00] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-16"} 
+[2026-04-16 14:03:02] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-04-15"} 
+[2026-04-16 14:03:29] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:29] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users/9","method":"GET","timestamp":"2026-04-16 14:03:29"} 
+[2026-04-16 14:03:35] local.DEBUG: Permission check result {"user_id":9,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 14:03:36] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:36] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/quality-questions","method":"GET","timestamp":"2026-04-16 14:03:36"} 
+[2026-04-16 14:03:36] local.DEBUG: Permission check result {"user_id":9,"module":"Follow-Up","permission":"read","has_permission":false,"user_roles":[4],"module_id":3} 
+[2026-04-16 14:03:36] local.WARNING: Permission denied {"user_id":9,"module":"Follow-Up","permission":"read","url":"http://127.0.0.1:8000/api/followup/filter-options","method":"GET","timestamp":"2026-04-16 14:03:36"} 
+[2026-04-16 14:03:37] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:37] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/users","method":"GET","timestamp":"2026-04-16 14:03:37"} 
+[2026-04-16 14:03:37] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:37] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/departments","method":"GET","timestamp":"2026-04-16 14:03:37"} 
+[2026-04-16 14:03:38] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:38] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/roles","method":"GET","timestamp":"2026-04-16 14:03:38"} 
+[2026-04-16 14:03:39] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:39] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/modules","method":"GET","timestamp":"2026-04-16 14:03:39"} 
+[2026-04-16 14:03:39] local.DEBUG: Permission check result {"user_id":9,"module":"Administration","permission":"read","has_permission":false,"user_roles":[4],"module_id":1} 
+[2026-04-16 14:03:39] local.WARNING: Permission denied {"user_id":9,"module":"Administration","permission":"read","url":"http://127.0.0.1:8000/api/teams","method":"GET","timestamp":"2026-04-16 14:03:39"} 
+[2026-04-16 14:03:39] local.DEBUG: Permission check result {"user_id":9,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[4],"module_id":4} 
+[2026-04-16 14:03:39] local.INFO: Executive accessing own appointments {"user_id":9} 
+[2026-04-16 14:03:42] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
+[2026-04-16 14:03:51] local.INFO: Consultation Query Debug {"current_user_id":9,"user_roles":["Executive"],"is_admin_or_director":false,"is_executive":true,"is_manager":false,"allowed_user_ids":[9],"date":"2026-04-15"} 
