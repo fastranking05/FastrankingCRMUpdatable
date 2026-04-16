@@ -286,6 +286,10 @@ class UserBlockCalendarController extends BaseApiController
     /**
      * Get schedule details for a specific date.
      * Returns appointments, consultations, and user block calendar entries for the date.
+     * Role-based access control:
+     * - Executive: Only sees their own data
+     * - Admin/Director: Sees all data
+     * - Manager: Sees their team and department data
      */
     public function getScheduleDetails(Request $request): JsonResponse
     {
@@ -299,41 +303,98 @@ class UserBlockCalendarController extends BaseApiController
 
         $date = $request->input('date');
 
-        // Get appointments for the date
-        $appointments = Appointment::with([
+        // Get authenticated user
+        $currentUser = auth()->user();
+        if (!$currentUser) {
+            return $this->errorResponse('User not authenticated', 401);
+        }
+
+        // Get user roles
+        $userRoles = $currentUser->roles()->pluck('name')->toArray();
+        $currentUser->load(['teams', 'departments']);
+
+        // Determine access level (case-insensitive)
+        $isAdminOrDirector = in_array('Admin', $userRoles, true) || in_array('Director', $userRoles, true) ||
+                            in_array('admin', $userRoles, true) || in_array('director', $userRoles, true);
+        $isExecutive = in_array('Executive', $userRoles, true) || in_array('executive', $userRoles, true);
+        $isManager = in_array('Manager', $userRoles, true) || in_array('manager', $userRoles, true);
+
+        // Build user IDs filter based on role
+        $allowedUserIds = [];
+        if ($isExecutive) {
+            // Executive: Only see their own data
+            $allowedUserIds = [$currentUser->id];
+        } elseif ($isManager) {
+            // Manager: See their team and department data
+            $teamMemberIds = $currentUser->teams()->with('users')->get()->pluck('users')->flatten()->pluck('id')->toArray();
+            $departmentMemberIds = $currentUser->departments()->with('users')->get()->pluck('users')->flatten()->pluck('id')->toArray();
+            $allowedUserIds = array_unique(array_merge($teamMemberIds, $departmentMemberIds, [$currentUser->id]));
+        }
+        // Admin/Director: No filter (see all data)
+
+        // Get appointments for the date with role-based filtering
+        $appointmentsQuery = Appointment::with([
             'followupBusiness:id,name,phone,email',
             'timeSlot:id,start_time,end_time',
             'creator:id,first_name,last_name,email,username'
         ])
-        ->where('date', $date)
-        ->orderBy('time_slot_id')
-        ->get()
-        ->map(function ($appointment) {
-            return [
-                'id' => $appointment->id,
-                'followup_business_id' => $appointment->followup_business_id,
-                'business_name' => $appointment->followupBusiness->name ?? null,
-                'contact_person' => $appointment->followupBusiness->email ?? null,
-                'contact_number' => $appointment->followupBusiness->phone ?? null,
-                'date' => $appointment->date,
-                'time_slot' => $appointment->timeSlot ? [
-                    'id' => $appointment->timeSlot->id,
-                    'start_time' => $appointment->timeSlot->start_time,
-                    'end_time' => $appointment->timeSlot->end_time,
-                ] : null,
-                'current_status' => $appointment->current_status,
-                'created_by' => $appointment->creator ? [
-                    'id' => $appointment->creator->id,
-                    'first_name' => $appointment->creator->first_name,
-                    'last_name' => $appointment->creator->last_name,
-                    'email' => $appointment->creator->email,
-                    'username' => $appointment->creator->username,
-                ] : null,
-            ];
-        });
+        ->where('date', $date);
 
-        // Get consultations for the date
-        $consultations = Consultation::with([
+        // Apply role-based filter for appointments
+        if ($isExecutive || $isManager) {
+            $appointmentsQuery->where(function($query) use ($allowedUserIds, $date) {
+                // Filter by created_by
+                $query->whereIn('created_by', $allowedUserIds);
+                // Also include appointments where the LATEST consultation is assigned to the user
+                $latestConsultationIds = Consultation::select(DB::raw('MAX(id) as id'))
+                    ->whereHas('appointment', function($q) use ($date) {
+                        $q->where('date', $date);
+                    })
+                    ->groupBy('appointment_id')
+                    ->pluck('id');
+
+                $appointmentIdsWithLatestConsultation = Consultation::whereIn('id', $latestConsultationIds)
+                    ->where(function($q) use ($allowedUserIds) {
+                        $q->whereIn('assigned_user', $allowedUserIds)
+                          ->orWhereIn('closer', $allowedUserIds);
+                    })
+                    ->pluck('appointment_id')
+                    ->toArray();
+
+                if (!empty($appointmentIdsWithLatestConsultation)) {
+                    $query->orWhereIn('id', $appointmentIdsWithLatestConsultation);
+                }
+            });
+        }
+
+        $appointments = $appointmentsQuery->orderBy('time_slot_id')
+            ->get()
+            ->map(function ($appointment) {
+                return [
+                    'id' => $appointment->id,
+                    'followup_business_id' => $appointment->followup_business_id,
+                    'business_name' => $appointment->followupBusiness->name ?? null,
+                    'contact_person' => $appointment->followupBusiness->email ?? null,
+                    'contact_number' => $appointment->followupBusiness->phone ?? null,
+                    'date' => $appointment->date,
+                    'time_slot' => $appointment->timeSlot ? [
+                        'id' => $appointment->timeSlot->id,
+                        'start_time' => $appointment->timeSlot->start_time,
+                        'end_time' => $appointment->timeSlot->end_time,
+                    ] : null,
+                    'current_status' => $appointment->current_status,
+                    'created_by' => $appointment->creator ? [
+                        'id' => $appointment->creator->id,
+                        'first_name' => $appointment->creator->first_name,
+                        'last_name' => $appointment->creator->last_name,
+                        'email' => $appointment->creator->email,
+                        'username' => $appointment->creator->username,
+                    ] : null,
+                ];
+            });
+
+        // Get consultations for the date with role-based filtering
+        $consultationsQuery = Consultation::with([
             'appointment' => function($query) {
                 $query->with([
                     'followupBusiness:id,name,phone,email',
@@ -345,108 +406,186 @@ class UserBlockCalendarController extends BaseApiController
         ])
         ->whereHas('appointment', function($query) use ($date) {
             $query->where('date', $date);
-        })
-        ->orderBy('id')
-        ->get()
-        ->map(function ($consultation) {
-            return [
-                'id' => $consultation->id,
-                'appointment_id' => $consultation->appointment_id,
-                'business_name' => $consultation->appointment->followupBusiness->name ?? null,
-                'contact_person' => $consultation->appointment->followupBusiness->email ?? null,
-                'contact_number' => $consultation->appointment->followupBusiness->phone ?? null,
-                'date' => $consultation->appointment->date,
-                'time_slot' => $consultation->appointment->timeSlot ? [
-                    'id' => $consultation->appointment->timeSlot->id,
-                    'start_time' => $consultation->appointment->timeSlot->start_time,
-                    'end_time' => $consultation->appointment->timeSlot->end_time,
-                ] : null,
-                'status' => $consultation->status,
-                'custom_status' => $consultation->custom_status,
-                'assigned_user' => $consultation->assignedUser ? [
-                    'id' => $consultation->assignedUser->id,
-                    'first_name' => $consultation->assignedUser->first_name,
-                    'last_name' => $consultation->assignedUser->last_name,
-                    'username' => $consultation->assignedUser->username,
-                ] : null,
-                'closer' => $consultation->closer ? [
-                    'id' => $consultation->closer->id,
-                    'first_name' => $consultation->closer->first_name,
-                    'last_name' => $consultation->closer->last_name,
-                    'username' => $consultation->closer->username,
-                ] : null,
-            ];
         });
 
-        // Get user block calendar entries for the date
-        $userBlockCalendars = UserBlockCalendar::with([
+        // Apply role-based filter for consultations (filter by assigned_user or closer)
+        if ($isExecutive || $isManager) {
+            $consultationsQuery->where(function($query) use ($allowedUserIds) {
+                $query->whereIn('assigned_user', $allowedUserIds)
+                      ->orWhereIn('closer', $allowedUserIds);
+            });
+        }
+
+        // Debug: Log the query and conditions
+        \Log::info('Consultation Query Debug', [
+            'current_user_id' => $currentUser->id,
+            'user_roles' => $userRoles,
+            'is_admin_or_director' => $isAdminOrDirector,
+            'is_executive' => $isExecutive,
+            'is_manager' => $isManager,
+            'allowed_user_ids' => $allowedUserIds,
+            'date' => $date,
+        ]);
+
+        // Get only the latest consultation per appointment using subquery
+        $latestConsultationIds = Consultation::select(DB::raw('MAX(id) as id'))
+            ->whereHas('appointment', function($query) use ($date) {
+                $query->where('date', $date);
+            })
+            ->groupBy('appointment_id')
+            ->pluck('id');
+
+        // Apply role-based filter to the latest consultations
+        if ($isExecutive || $isManager) {
+            $consultationsQuery->where(function($query) use ($allowedUserIds, $latestConsultationIds) {
+                $query->whereIn('id', $latestConsultationIds)
+                      ->where(function($q) use ($allowedUserIds) {
+                          $q->whereIn('assigned_user', $allowedUserIds)
+                            ->orWhereIn('closer', $allowedUserIds);
+                      });
+            });
+        } else {
+            $consultationsQuery->whereIn('id', $latestConsultationIds);
+        }
+
+        $consultations = $consultationsQuery->orderBy('id', 'desc')
+            ->get()
+            ->map(function ($consultation) {
+                return [
+                    'id' => $consultation->id,
+                    'appointment_id' => $consultation->appointment_id,
+                    'business_name' => $consultation->appointment->followupBusiness->name ?? null,
+                    'contact_person' => $consultation->appointment->followupBusiness->email ?? null,
+                    'contact_number' => $consultation->appointment->followupBusiness->phone ?? null,
+                    'date' => $consultation->appointment->date,
+                    'time_slot' => $consultation->appointment->timeSlot ? [
+                        'id' => $consultation->appointment->timeSlot->id,
+                        'start_time' => $consultation->appointment->timeSlot->start_time,
+                        'end_time' => $consultation->appointment->timeSlot->end_time,
+                    ] : null,
+                    'status' => $consultation->status,
+                    'custom_status' => $consultation->custom_status,
+                    'assigned_user' => $consultation->assignedUser ? [
+                        'id' => $consultation->assignedUser->id,
+                        'first_name' => $consultation->assignedUser->first_name,
+                        'last_name' => $consultation->assignedUser->last_name,
+                        'username' => $consultation->assignedUser->username,
+                    ] : null,
+                    'closer' => $consultation->closer ? [
+                        'id' => $consultation->closer->id,
+                        'first_name' => $consultation->closer->first_name,
+                        'last_name' => $consultation->closer->last_name,
+                        'username' => $consultation->closer->username,
+                    ] : null,
+                ];
+            });
+
+        // Get user block calendar entries for the date with role-based filtering
+        $userBlockCalendarsQuery = UserBlockCalendar::with([
             'user:id,first_name,last_name,email',
             'timeSlot:id,start_time,end_time',
             'createdBy:id,first_name,last_name,email'
         ])
-        ->where('date', $date)
-        ->orderBy('slot_id')
-        ->get()
-        ->map(function ($blockCalendar) {
-            return [
-                'id' => $blockCalendar->id,
-                'user_id' => $blockCalendar->user_id,
-                'date' => $blockCalendar->date,
-                'slot_id' => $blockCalendar->slot_id,
-                'comments' => $blockCalendar->comments,
-                'user' => $blockCalendar->user ? [
-                    'id' => $blockCalendar->user->id,
-                    'first_name' => $blockCalendar->user->first_name,
-                    'last_name' => $blockCalendar->user->last_name,
-                    'email' => $blockCalendar->user->email,
-                ] : null,
-                'time_slot' => $blockCalendar->timeSlot ? [
-                    'id' => $blockCalendar->timeSlot->id,
-                    'start_time' => $blockCalendar->timeSlot->start_time,
-                    'end_time' => $blockCalendar->timeSlot->end_time,
-                ] : null,
-                'created_by' => $blockCalendar->createdBy ? [
-                    'id' => $blockCalendar->createdBy->id,
-                    'first_name' => $blockCalendar->createdBy->first_name,
-                    'last_name' => $blockCalendar->createdBy->last_name,
-                    'email' => $blockCalendar->createdBy->email,
-                ] : null,
-            ];
-        });
+        ->where('date', $date);
 
-        // Get scheduled and rescheduled appointments for the date
-        $scheduledAppointments = Appointment::with([
+        // Apply role-based filter for user block calendar entries
+        if ($isExecutive || $isManager) {
+            $userBlockCalendarsQuery->where(function($query) use ($allowedUserIds) {
+                $query->whereIn('user_id', $allowedUserIds)
+                      ->orWhereIn('created_by', $allowedUserIds);
+            });
+        }
+
+        $userBlockCalendars = $userBlockCalendarsQuery->orderBy('slot_id')
+            ->get()
+            ->map(function ($blockCalendar) {
+                return [
+                    'id' => $blockCalendar->id,
+                    'user_id' => $blockCalendar->user_id,
+                    'date' => $blockCalendar->date,
+                    'slot_id' => $blockCalendar->slot_id,
+                    'comments' => $blockCalendar->comments,
+                    'user' => $blockCalendar->user ? [
+                        'id' => $blockCalendar->user->id,
+                        'first_name' => $blockCalendar->user->first_name,
+                        'last_name' => $blockCalendar->user->last_name,
+                        'email' => $blockCalendar->user->email,
+                    ] : null,
+                    'time_slot' => $blockCalendar->timeSlot ? [
+                        'id' => $blockCalendar->timeSlot->id,
+                        'start_time' => $blockCalendar->timeSlot->start_time,
+                        'end_time' => $blockCalendar->timeSlot->end_time,
+                    ] : null,
+                    'created_by' => $blockCalendar->createdBy ? [
+                        'id' => $blockCalendar->createdBy->id,
+                        'first_name' => $blockCalendar->createdBy->first_name,
+                        'last_name' => $blockCalendar->createdBy->last_name,
+                        'email' => $blockCalendar->createdBy->email,
+                    ] : null,
+                ];
+            });
+
+        // Get scheduled and rescheduled appointments for the date with role-based filtering
+        $scheduledAppointmentsQuery = Appointment::with([
             'followupBusiness:id,name,phone,email',
             'timeSlot:id,start_time,end_time',
             'creator:id,first_name,last_name,email,username'
         ])
         ->where('date', $date)
-        ->whereIn('current_status', ['scheduled', 'rescheduled'])
-        ->orderBy('time_slot_id')
-        ->get()
-        ->map(function ($appointment) {
-            return [
-                'id' => $appointment->id,
-                'followup_business_id' => $appointment->followup_business_id,
-                'business_name' => $appointment->followupBusiness->name ?? null,
-                'contact_person' => $appointment->followupBusiness->email ?? null,
-                'contact_number' => $appointment->followupBusiness->phone ?? null,
-                'date' => $appointment->date,
-                'time_slot' => $appointment->timeSlot ? [
-                    'id' => $appointment->timeSlot->id,
-                    'start_time' => $appointment->timeSlot->start_time,
-                    'end_time' => $appointment->timeSlot->end_time,
-                ] : null,
-                'current_status' => $appointment->current_status,
-                'created_by' => $appointment->creator ? [
-                    'id' => $appointment->creator->id,
-                    'first_name' => $appointment->creator->first_name,
-                    'last_name' => $appointment->creator->last_name,
-                    'email' => $appointment->creator->email,
-                    'username' => $appointment->creator->username,
-                ] : null,
-            ];
-        });
+        ->whereIn('current_status', ['scheduled', 'rescheduled']);
+
+        // Apply role-based filter for scheduled/rescheduled appointments
+        if ($isExecutive || $isManager) {
+            $scheduledAppointmentsQuery->where(function($query) use ($allowedUserIds, $date) {
+                // Filter by created_by
+                $query->whereIn('created_by', $allowedUserIds);
+                // Also include appointments where the LATEST consultation is assigned to the user
+                $latestConsultationIds = Consultation::select(DB::raw('MAX(id) as id'))
+                    ->whereHas('appointment', function($q) use ($date) {
+                        $q->where('date', $date);
+                    })
+                    ->groupBy('appointment_id')
+                    ->pluck('id');
+
+                $appointmentIdsWithLatestConsultation = Consultation::whereIn('id', $latestConsultationIds)
+                    ->where(function($q) use ($allowedUserIds) {
+                        $q->whereIn('assigned_user', $allowedUserIds)
+                          ->orWhereIn('closer', $allowedUserIds);
+                    })
+                    ->pluck('appointment_id')
+                    ->toArray();
+
+                if (!empty($appointmentIdsWithLatestConsultation)) {
+                    $query->orWhereIn('id', $appointmentIdsWithLatestConsultation);
+                }
+            });
+        }
+
+        $scheduledAppointments = $scheduledAppointmentsQuery->orderBy('time_slot_id')
+            ->get()
+            ->map(function ($appointment) {
+                return [
+                    'id' => $appointment->id,
+                    'followup_business_id' => $appointment->followup_business_id,
+                    'business_name' => $appointment->followupBusiness->name ?? null,
+                    'contact_person' => $appointment->followupBusiness->email ?? null,
+                    'contact_number' => $appointment->followupBusiness->phone ?? null,
+                    'date' => $appointment->date,
+                    'time_slot' => $appointment->timeSlot ? [
+                        'id' => $appointment->timeSlot->id,
+                        'start_time' => $appointment->timeSlot->start_time,
+                        'end_time' => $appointment->timeSlot->end_time,
+                    ] : null,
+                    'current_status' => $appointment->current_status,
+                    'created_by' => $appointment->creator ? [
+                        'id' => $appointment->creator->id,
+                        'first_name' => $appointment->creator->first_name,
+                        'last_name' => $appointment->creator->last_name,
+                        'email' => $appointment->creator->email,
+                        'username' => $appointment->creator->username,
+                    ] : null,
+                ];
+            });
 
         $scheduleDetails = [
             'date' => $date,
