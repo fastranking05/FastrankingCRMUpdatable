@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Consultation;
+use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Support\Facades\DB;
@@ -41,11 +42,16 @@ class UserAssignmentService
             ]);
             
             if ($assignedUser) {
+                // Get appointment details
+                $appointment = Appointment::find($appointmentId);
+
                 // Create consultation with assigned user
                 $consultation = Consultation::create([
                     'appointment_id' => $appointmentId,
                     'status' => 'scheduled',
                     'assigned_user' => $assignedUser->id,
+                    'meeting_date' => $appointment ? $appointment->date : null,
+                    'meeting_slot' => $appointment ? $appointment->time_slot_id : null,
                 ]);
 
                 $this->updateUserLoadCounter($assignedUser->id);
