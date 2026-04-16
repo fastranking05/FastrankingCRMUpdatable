@@ -78,7 +78,7 @@ class ConsultationController extends BaseApiController
         $query = Consultation::with([
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -121,8 +121,8 @@ class ConsultationController extends BaseApiController
             'status' => 'required|string|max:50',
             'custom_status' => 'nullable|string|max:50',
             'reason' => 'nullable|string',
-            'reschedule_date' => 'nullable|date',
-            'reschedule_slot' => 'nullable|exists:time_slots,id',
+            'meeting_date' => 'nullable|date',
+            'meeting_slot' => 'nullable|exists:time_slots,id',
             'assigned_user' => 'nullable|exists:users,id',
             'conducted_date' => 'nullable|date',
             'is_customer_available' => 'nullable|boolean',
@@ -141,8 +141,8 @@ class ConsultationController extends BaseApiController
             'status' => $request->status,
             'custom_status' => $request->custom_status,
             'reason' => $request->reason,
-            'reschedule_date' => $request->reschedule_date,
-            'reschedule_slot' => $request->reschedule_slot,
+            'meeting_date' => $request->meeting_date,
+            'meeting_slot' => $request->meeting_slot,
             'assigned_user' => $request->assigned_user,
             'conducted_date' => $request->conducted_date,
             'is_customer_available' => $request->is_customer_available ?? 0,
@@ -176,7 +176,7 @@ class ConsultationController extends BaseApiController
         $consultation->load([
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'assignedUser:id,first_name,last_name,username',
         ]);
 
@@ -199,7 +199,7 @@ class ConsultationController extends BaseApiController
                     'creator:id,first_name,last_name,email,username'
                 ]);
             },
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -227,8 +227,8 @@ class ConsultationController extends BaseApiController
             'status' => 'sometimes|required|string|max:50',
             'custom_status' => 'sometimes|nullable|string|max:50',
             'reason' => 'sometimes|nullable|string',
-            'reschedule_date' => 'sometimes|nullable|date',
-            'reschedule_slot' => 'sometimes|nullable|exists:time_slots,id',
+            'meeting_date' => 'sometimes|nullable|date',
+            'meeting_slot' => 'sometimes|nullable|exists:time_slots,id',
             'assigned_user' => 'sometimes|nullable|exists:users,id',
             'conducted_date' => 'sometimes|nullable|date',
         ]);
@@ -241,8 +241,8 @@ class ConsultationController extends BaseApiController
             'status',
             'custom_status',
             'reason',
-            'reschedule_date',
-            'reschedule_slot',
+            'meeting_date',
+            'meeting_slot',
             'assigned_user',
             'conducted_date',
         ]));
@@ -251,7 +251,7 @@ class ConsultationController extends BaseApiController
         $consultation->load([
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
         ]);
@@ -283,7 +283,7 @@ class ConsultationController extends BaseApiController
         $consultations = Consultation::with([
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -337,7 +337,7 @@ class ConsultationController extends BaseApiController
                     'timeSlot'
                 ]);
             },
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -371,7 +371,7 @@ class ConsultationController extends BaseApiController
                     'timeSlot'
                 ]);
             },
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -405,7 +405,7 @@ class ConsultationController extends BaseApiController
                     'timeSlot'
                 ]);
             },
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -439,7 +439,7 @@ class ConsultationController extends BaseApiController
                     'timeSlot'
                 ]);
             },
-            'rescheduleSlot:id,start_time,end_time',
+            'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
@@ -474,7 +474,7 @@ class ConsultationController extends BaseApiController
             'appointment',
             'appointment.followupBusiness.authPersons',
             'appointment.timeSlot',
-            'rescheduleSlot',
+            'meetingSlot',
             'assignedUser',
             'creator',
         ]);
@@ -540,11 +540,11 @@ class ConsultationController extends BaseApiController
                     'last_name' => $consultation->assignedUser->last_name ?? null,
                     'email' => $consultation->assignedUser->email ?? null,
                 ],
-                'reschedule_date' => $consultation->reschedule_date,
-                'reschedule_slot' => $consultation->rescheduleSlot ? [
-                    'id' => $consultation->rescheduleSlot->id,
-                    'start_time' => $consultation->rescheduleSlot->start_time,
-                    'end_time' => $consultation->rescheduleSlot->end_time,
+                'meeting_date' => $consultation->meeting_date,
+                'meeting_slot' => $consultation->meetingSlot ? [
+                    'id' => $consultation->meetingSlot->id,
+                    'start_time' => $consultation->meetingSlot->start_time,
+                    'end_time' => $consultation->meetingSlot->end_time,
                 ] : null,
                 'conducted_date' => $consultation->conducted_date,
                 'is_customer_available' => $consultation->is_customer_available,
