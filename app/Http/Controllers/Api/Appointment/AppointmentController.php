@@ -10,6 +10,7 @@ use App\Models\Consultation;
 use App\Models\Comment;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
+use App\Services\UserAssignmentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,10 +18,12 @@ use Illuminate\Support\Facades\Validator;
 class AppointmentController extends BaseApiController
 {
     protected $bookingEngine;
+    protected $userAssignmentService;
 
-    public function __construct(AppointmentBookingEngine $bookingEngine)
+    public function __construct(AppointmentBookingEngine $bookingEngine, UserAssignmentService $userAssignmentService)
     {
         $this->bookingEngine = $bookingEngine;
+        $this->userAssignmentService = $userAssignmentService;
     }
 
     /**
@@ -409,6 +412,165 @@ class AppointmentController extends BaseApiController
         ]);
 
         return $this->successResponse($consultation, 'Customer availability updated successfully');
+    }
+
+    /**
+     * Reschedule consultation and update appointment
+     */
+    public function rescheduleConsultation(Request $request, string $id): JsonResponse
+    {
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return $this->errorResponse('Appointment not found', 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'is_customer_available' => 'required|boolean',
+            'status' => 'required|string|max:255',
+            'meeting_date' => 'required|date',
+            'meeting_time_slot_id' => 'required|exists:time_slots,id',
+            'appointments' => 'required|array',
+            'appointments.*.date' => 'required|date',
+            'appointments.*.time_slot_id' => 'required|exists:time_slots,id',
+            'appointments.*.current_status' => 'required|string|max:255',
+            'comments' => 'nullable|array',
+            'comments.*.followup_business_id' => 'required|exists:followup_businesses,id',
+            'comments.*.comment' => 'required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', 422, $validator->errors());
+        }
+
+        return $this->executeTransaction(function () use ($request, $appointment) {
+            // Get assigned user using round robin
+            $assignmentResult = $this->userAssignmentService->createAndAssignConsultation($appointment->id);
+            
+            if (!$assignmentResult) {
+                return $this->errorResponse('Failed to assign user using round robin', 500);
+            }
+
+            // Create new consultation
+            $consultation = Consultation::create([
+                'appointment_id' => $appointment->id,
+                'status' => $request->status,
+                'is_customer_available' => $request->is_customer_available,
+                'meeting_date' => $request->meeting_date,
+                'meeting_slot' => $request->meeting_time_slot_id,
+                'assigned_user' => $assignmentResult['assigned_user']->id,
+            ]);
+
+            // Update appointment
+            $appointmentData = $request->appointments[0];
+            $appointment->update([
+                'date' => $appointmentData['date'],
+                'time_slot_id' => $appointmentData['time_slot_id'],
+                'current_status' => $appointmentData['current_status'],
+            ]);
+
+            // Create comments if provided
+            if ($request->has('comments') && is_array($request->comments)) {
+                foreach ($request->comments as $commentData) {
+                    Comment::create([
+                        'followup_business_id' => $commentData['followup_business_id'],
+                        'comment' => $commentData['comment'],
+                        'old_status' => $commentData['old_status'] ?? null,
+                        'new_status' => $commentData['new_status'] ?? null,
+                        'created_by' => auth()->id(),
+                    ]);
+                }
+            }
+
+            // Load relationships for response
+            $consultation->load([
+                'appointment:id,date,followup_business_id',
+                'appointment.followupBusiness:id,name',
+                'meetingSlot:id,start_time,end_time',
+                'assignedUser:id,first_name,last_name,username',
+            ]);
+
+            return $this->successResponse($consultation, 'Consultation rescheduled successfully');
+        }, 'Consultation reschedule', ['appointment_id' => $appointment->id]);
+    }
+
+    /**
+     * Reject consultation and update appointment
+     */
+    public function rejectConsultation(Request $request, string $id): JsonResponse
+    {
+        $appointment = Appointment::find($id);
+
+        if (!$appointment) {
+            return $this->errorResponse('Appointment not found', 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'is_customer_available' => 'required|boolean',
+            'reason' => 'required|string|max:255',
+            'meeting_date' => 'required|date',
+            'appointments' => 'required|array',
+            'appointments.*.current_status' => 'required|string|max:255',
+            'comments' => 'nullable|array',
+            'comments.*.followup_business_id' => 'required|exists:followup_businesses,id',
+            'comments.*.comment' => 'required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', 422, $validator->errors());
+        }
+
+        return $this->executeTransaction(function () use ($request, $appointment) {
+            // Get assigned user using round robin
+            $assignmentResult = $this->userAssignmentService->createAndAssignConsultation($appointment->id);
+            
+            if (!$assignmentResult) {
+                return $this->errorResponse('Failed to assign user using round robin', 500);
+            }
+
+            // Create new consultation
+            $consultation = Consultation::create([
+                'appointment_id' => $appointment->id,
+                'status' => 'rejected',
+                'is_customer_available' => $request->is_customer_available,
+                'reason' => $request->reason,
+                'meeting_date' => $request->meeting_date,
+                'assigned_user' => $assignmentResult['assigned_user']->id,
+            ]);
+
+            // Update appointment
+            $appointmentData = $request->appointments[0];
+            $appointment->update([
+                'current_status' => $appointmentData['current_status'],
+            ]);
+
+            // Create comments if provided
+            if ($request->has('comments') && is_array($request->comments)) {
+                foreach ($request->comments as $commentData) {
+                    Comment::create([
+                        'followup_business_id' => $commentData['followup_business_id'],
+                        'comment' => $commentData['comment'],
+                        'old_status' => $commentData['old_status'] ?? null,
+                        'new_status' => $commentData['new_status'] ?? null,
+                        'created_by' => auth()->id(),
+                    ]);
+                }
+            }
+
+            // Load relationships for response
+            $consultation->load([
+                'appointment:id,date,followup_business_id',
+                'appointment.followupBusiness:id,name',
+                'meetingSlot:id,start_time,end_time',
+                'assignedUser:id,first_name,last_name,username',
+            ]);
+
+            return $this->successResponse($consultation, 'Consultation rejected successfully');
+        }, 'Consultation rejection', ['appointment_id' => $appointment->id]);
     }
 
     /**

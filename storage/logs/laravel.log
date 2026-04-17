@@ -909,3 +909,119 @@
 [2026-04-16 16:15:47] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
 [2026-04-16 16:15:47] local.INFO: Appointment retrieval successful {"appointment_id":"FRMID00000003","user_id":1} 
 [2026-04-17 09:13:01] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-17 09:50:40] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-17 09:51:09] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-17 09:51:09] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-04-17 09:51:09] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-04-17 09:51:09] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":4,"users":{"Anurag":5,"John":7,"Jane":8,"Bob":9}} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":4,"users":[{"id":5,"name":"Anurag Kumar","email":"anurag@fastranking.email"},{"id":7,"name":"John Sales","email":"john.sales@example.com"},{"id":8,"name":"Jane Sales","email":"jane.sales@example.com"},{"id":9,"name":"Bob Sales","email":"bob.sales@example.com"}]} 
+[2026-04-17 09:51:10] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":4,"users_empty":false} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[5,7,8,9]} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"5":2,"7":2,"8":2,"9":3}} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":[{"id":5,"name":"Anurag Kumar","load":2},{"id":7,"name":"John Sales","load":2},{"id":8,"name":"Jane Sales","load":2},{"id":9,"name":"Bob Sales","load":3}]} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":2,"least_loaded_users_count":3,"least_loaded_users":[{"id":5,"name":"Anurag Kumar"},{"id":7,"name":"John Sales"},{"id":8,"name":"Jane Sales"}]} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":3,"current_index":false,"calculated_index":2} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":3,"round_robin_index":2} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":8,"selected_user_name":"Jane Sales"} 
+[2026-04-17 09:51:10] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":8} 
+[2026-04-17 09:51:10] local.INFO: Consultation 12 created and assigned to user 8  
+[2026-04-17 09:51:11] local.ERROR: Consultation reschedule failed {"appointment_id":"FRMID00000004","user_id":1,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_by' in 'field list' (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: fastrankingcrm, SQL: insert into `consultations` (`appointment_id`, `status`, `is_customer_available`, `meeting_date`, `meeting_slot`, `assigned_user`, `created_by`, `updated_at`, `created_at`) values (FRMID00000004, Rescheduled, 0, 2026-04-16 00:00:00, 1, 8, 1, 2026-04-17 09:51:10, 2026-04-17 09:51:10))","trace":"#0 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into `co...', Array, Object(Closure))
+#1 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\MySqlConnection.php(42): Illuminate\\Database\\Connection->run('insert into `co...', Array, Object(Closure))
+#2 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Processors\\MySqlProcessor.php(35): Illuminate\\Database\\MySqlConnection->insert('insert into `co...', Array, 'id')
+#3 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(4140): Illuminate\\Database\\Query\\Processors\\MySqlProcessor->processInsertGetId(Object(Illuminate\\Database\\Query\\Builder), 'insert into `co...', Array, 'id')
+#4 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(2235): Illuminate\\Database\\Query\\Builder->insertGetId(Array, 'id')
+#5 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(1436): Illuminate\\Database\\Eloquent\\Builder->__call('insertGetId', Array)
+#6 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(1401): Illuminate\\Database\\Eloquent\\Model->insertAndSetId(Object(Illuminate\\Database\\Eloquent\\Builder), Array)
+#7 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(1240): Illuminate\\Database\\Eloquent\\Model->performInsert(Object(Illuminate\\Database\\Eloquent\\Builder))
+#8 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(1219): Illuminate\\Database\\Eloquent\\Model->save()
+#9 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(388): Illuminate\\Database\\Eloquent\\Builder->Illuminate\\Database\\Eloquent\\{closure}(Object(App\\Models\\Consultation))
+#10 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(1218): tap(Object(App\\Models\\Consultation), Object(Closure))
+#11 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->create(Array)
+#12 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(2540): Illuminate\\Database\\Eloquent\\Model->forwardCallTo(Object(Illuminate\\Database\\Eloquent\\Builder), 'create', Array)
+#13 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(2556): Illuminate\\Database\\Eloquent\\Model->__call('create', Array)
+#14 D:\\FastrankingCRMUpdatable\\app\\Http\\Controllers\\Api\\Appointment\\AppointmentController.php(457): Illuminate\\Database\\Eloquent\\Model::__callStatic('create', Array)
+#15 D:\\FastrankingCRMUpdatable\\app\\Http\\Controllers\\Api\\BaseApiController.php(24): App\\Http\\Controllers\\Api\\Appointment\\AppointmentController->App\\Http\\Controllers\\Api\\Appointment\\{closure}()
+#16 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Concerns\\ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\BaseApiController->App\\Http\\Controllers\\Api\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#17 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#18 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#19 D:\\FastrankingCRMUpdatable\\app\\Http\\Controllers\\Api\\BaseApiController.php(23): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#20 D:\\FastrankingCRMUpdatable\\app\\Http\\Controllers\\Api\\Appointment\\AppointmentController.php(448): App\\Http\\Controllers\\Api\\BaseApiController->executeTransaction(Object(Closure), 'Consultation re...', Array)
+#21 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Appointment\\AppointmentController->rescheduleConsultation(Object(Illuminate\\Http\\Request), 'FRMID00000004')
+#22 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Appointment\\AppointmentController), 'rescheduleConsu...')
+#23 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(211): Illuminate\\Routing\\Route->runController()
+#24 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(822): Illuminate\\Routing\\Route->run()
+#25 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#26 D:\\FastrankingCRMUpdatable\\app\\Http\\Middleware\\PermissionMiddleware.php(54): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Appointment', 'update')
+#28 D:\\FastrankingCRMUpdatable\\vendor\\tymon\\jwt-auth\\src\\Http\\Middleware\\Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#34 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#35 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#36 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#37 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#38 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#39 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#59 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#60 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#61 D:\\FastrankingCRMUpdatable\\public\\index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#62 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('D:\\\\FastrankingC...')
+#63 {main}"} 
+[2026-04-17 09:52:24] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":4,"users":{"Anurag":5,"John":7,"Jane":8,"Bob":9}} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":4,"users":[{"id":5,"name":"Anurag Kumar","email":"anurag@fastranking.email"},{"id":7,"name":"John Sales","email":"john.sales@example.com"},{"id":8,"name":"Jane Sales","email":"jane.sales@example.com"},{"id":9,"name":"Bob Sales","email":"bob.sales@example.com"}]} 
+[2026-04-17 09:52:24] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":4,"users_empty":false} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[5,7,8,9]} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"5":2,"7":2,"8":2,"9":3}} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":[{"id":5,"name":"Anurag Kumar","load":2},{"id":7,"name":"John Sales","load":2},{"id":8,"name":"Jane Sales","load":2},{"id":9,"name":"Bob Sales","load":3}]} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":2,"least_loaded_users_count":3,"least_loaded_users":[{"id":5,"name":"Anurag Kumar"},{"id":7,"name":"John Sales"},{"id":8,"name":"Jane Sales"}]} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":3,"current_index":false,"calculated_index":2} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":3,"round_robin_index":2} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":8,"selected_user_name":"Jane Sales"} 
+[2026-04-17 09:52:24] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":8} 
+[2026-04-17 09:52:24] local.INFO: Consultation 13 created and assigned to user 8  
+[2026-04-17 09:52:24] local.INFO: Consultation reschedule successful {"appointment_id":"FRMID00000004","user_id":1} 
+[2026-04-17 10:02:37] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":4,"users":{"Anurag":5,"John":7,"Jane":8,"Bob":9}} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":4,"users":[{"id":5,"name":"Anurag Kumar","email":"anurag@fastranking.email"},{"id":7,"name":"John Sales","email":"john.sales@example.com"},{"id":8,"name":"Jane Sales","email":"jane.sales@example.com"},{"id":9,"name":"Bob Sales","email":"bob.sales@example.com"}]} 
+[2026-04-17 10:02:37] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":4,"users_empty":false} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[5,7,8,9]} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"5":2,"7":2,"8":4,"9":3}} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":{"0":{"id":5,"name":"Anurag Kumar","load":2},"1":{"id":7,"name":"John Sales","load":2},"3":{"id":9,"name":"Bob Sales","load":3},"2":{"id":8,"name":"Jane Sales","load":4}}} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":2,"least_loaded_users_count":2,"least_loaded_users":[{"id":5,"name":"Anurag Kumar"},{"id":7,"name":"John Sales"}]} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":2,"current_index":false,"calculated_index":1} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":2,"round_robin_index":1} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":7,"selected_user_name":"John Sales"} 
+[2026-04-17 10:02:37] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":7} 
+[2026-04-17 10:02:37] local.INFO: Consultation 15 created and assigned to user 7  
+[2026-04-17 10:02:37] local.INFO: Consultation rejection successful {"appointment_id":"FRMID00000004","user_id":1} 
+[2026-04-17 10:03:00] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
