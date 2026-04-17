@@ -257,6 +257,35 @@
 }
 ```
 
+### 15. Update Customer Availability for Consultation
+**POST** `/{id}/update-availability`
+
+Updates the customer availability status for the latest consultation of an appointment and optionally adds comments to the business.
+
+**Request Body:**
+```json
+{
+  "is_customer_available": 1,
+  "comments": [
+    {
+      "followup_business_id": 5,
+      "comment": "Follow-up call scheduled for next week.",
+      "old_status": "Followup",
+      "new_status": "Scheduled"
+    }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Customer availability updated successfully",
+  "data": {...}
+}
+```
+
 ## Permissions
 - **Read:** `Appointment,read`
 - **Create:** `Appointment,create`

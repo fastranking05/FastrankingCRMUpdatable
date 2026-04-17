@@ -50,6 +50,9 @@ Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->
         Route::put('/{id}', [AppointmentController::class, 'update'])->name('update.legacy');
         Route::patch('/{id}', [AppointmentController::class, 'update'])->name('update.patch');
         Route::put('/direct/{appointmentId}', [DirectAppointmentController::class, 'update'])->name('direct.update');
+        
+        // Update customer availability for consultation
+        Route::post('/{id}/update-availability', [AppointmentController::class, 'updateCustomerAvailability'])->name('update-availability');
     });
 
     Route::middleware('permission:Appointment,delete')->group(function () {
