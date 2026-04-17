@@ -275,6 +275,7 @@ Updates the customer availability status for the latest consultation of an appoi
     }
   ]
 }
+
 ```
 
 **Response:**
@@ -282,6 +283,81 @@ Updates the customer availability status for the latest consultation of an appoi
 {
   "success": true,
   "message": "Customer availability updated successfully",
+  "data": {...}
+}
+```
+
+### 16. Reschedule Consultation and Update Appointment
+**POST** `/{id}/reschedule-consultation`
+
+Creates a new consultation record for an appointment and updates the appointment details. The assigned user is automatically determined using round robin logic.
+
+**Request Body:**
+```json
+{
+  "is_customer_available": 0,
+  "status": "rescheduled",
+  "meeting_date": "2026-04-16",
+  "meeting_time_slot_id": 1,
+  "appointments": [
+    {
+      "date": "2026-04-16",
+      "time_slot_id": 1,
+      "current_status": "rescheduled"
+    }
+  ],
+  "comments": [
+    {
+      "followup_business_id": 5,
+      "comment": "Follow-up call scheduled for next week.",
+      "old_status": "Scheduled",
+      "new_status": "rescheduled"
+    }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Consultation rescheduled successfully",
+  "data": {...}
+}
+```
+
+### 17. Reject Consultation and Update Appointment
+**POST** `/{id}/reject-consultation`
+
+Creates a new consultation record with rejected status for an appointment and updates the appointment details. The assigned user is automatically determined using round robin logic.
+
+**Request Body:**
+```json
+{
+  "is_customer_available": 0,
+  "reason": "Cx-declined",
+  "meeting_date": "2026-04-16",
+  "appointments": [
+    {
+      "current_status": "not conducted"
+    }
+  ],
+  "comments": [
+    {
+      "followup_business_id": 7,
+      "comment": "Follow-up call scheduled for next week.",
+      "old_status": "Rescheduled",
+      "new_status": "not conducted"
+    }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Consultation rejected successfully",
   "data": {...}
 }
 ```

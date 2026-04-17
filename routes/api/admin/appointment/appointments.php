@@ -53,6 +53,12 @@ Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->
         
         // Update customer availability for consultation
         Route::post('/{id}/update-availability', [AppointmentController::class, 'updateCustomerAvailability'])->name('update-availability');
+        
+        // Reschedule consultation and update appointment
+        Route::post('/{id}/reschedule-consultation', [AppointmentController::class, 'rescheduleConsultation'])->name('reschedule-consultation');
+        
+        // Reject consultation and update appointment
+        Route::post('/{id}/reject-consultation', [AppointmentController::class, 'rejectConsultation'])->name('reject-consultation');
     });
 
     Route::middleware('permission:Appointment,delete')->group(function () {
