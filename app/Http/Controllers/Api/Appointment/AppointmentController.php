@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Controllers\Api\Followup\FollowupController;
 use App\Models\Appointment;
 use App\Models\AppointmentSetting;
+use App\Models\Consultation;
+use App\Models\Comment;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
 use Illuminate\Http\JsonResponse;
@@ -351,6 +353,62 @@ class AppointmentController extends BaseApiController
 
             return $this->successResponse($appointment, 'Appointment updated successfully');
         }, 'Appointment update', ['appointment_id' => $appointment->id]);
+    }
+
+    /**
+     * Update customer availability for a consultation and add comments
+     */
+    public function updateCustomerAvailability(Request $request, string $id): JsonResponse
+    {
+        // Find the latest consultation for this appointment
+        $consultation = Consultation::where('appointment_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if (!$consultation) {
+            return $this->errorResponse('Consultation not found for this appointment', 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'is_customer_available' => 'required|boolean',
+            'comments' => 'nullable|array',
+            'comments.*.followup_business_id' => 'required|exists:followup_businesses,id',
+            'comments.*.comment' => 'required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', 422, $validator->errors());
+        }
+
+        // Update consultation
+        $consultation->update([
+            'is_customer_available' => $request->is_customer_available,
+        ]);
+
+        // Create comments if provided
+        if ($request->has('comments') && is_array($request->comments)) {
+            foreach ($request->comments as $commentData) {
+                Comment::create([
+                    'followup_business_id' => $commentData['followup_business_id'],
+                    'comment' => $commentData['comment'],
+                    'old_status' => $commentData['old_status'] ?? null,
+                    'new_status' => $commentData['new_status'] ?? null,
+                    'created_by' => auth()->id(),
+                ]);
+            }
+        }
+
+        // Load relationships for response
+        $consultation->load([
+            'appointment:id,date,followup_business_id',
+            'appointment.followupBusiness:id,name',
+            'meetingSlot:id,start_time,end_time',
+            'assignedUser:id,first_name,last_name,username',
+        ]);
+
+        return $this->successResponse($consultation, 'Customer availability updated successfully');
     }
 
     /**

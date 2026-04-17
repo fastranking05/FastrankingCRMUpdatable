@@ -908,3 +908,4 @@
 [2026-04-16 16:14:55] local.INFO: Appointment retrieval successful {"appointment_id":"FRMID00000001","user_id":1} 
 [2026-04-16 16:15:47] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
 [2026-04-16 16:15:47] local.INFO: Appointment retrieval successful {"appointment_id":"FRMID00000003","user_id":1} 
+[2026-04-17 09:13:01] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"update","has_permission":true,"user_roles":[1],"module_id":4} 
