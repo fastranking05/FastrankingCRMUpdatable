@@ -42,6 +42,11 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/followup/details.php';
 });
 
+// Leads Module Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/leads/leads.php';
+});
+
 // Appointment Module Routes
 Route::group([], function () {
     require __DIR__ . '/api/admin/appointment/appointments.php';
