@@ -38,14 +38,6 @@ class FollowupAuthPerson extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected $hidden = [
-        'primaryphone',
-        'altphone',
-        'primarymobile',
-        'altmobile',
-        'altemail',
-    ];
-
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
