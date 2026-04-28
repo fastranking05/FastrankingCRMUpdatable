@@ -3,6 +3,7 @@
 ## Base URL
 `/api/followup-businesses` for business endpoints
 `/api/followup-auth-persons` for auth person endpoints
+`/api/followup` for follow-up details and comments endpoints
 
 ---
 
@@ -140,6 +141,114 @@ Creates a new follow-up authorized person record.
 
 ---
 
+## 3. Add Follow-Up Details and Comments
+**POST** `/followup`
+
+Adds follow-up details and comments to an existing business.
+
+**Request Body:**
+```json
+{
+  "followup_business_id": 1,
+  "followup_details": [
+    {
+      "source": "Website",
+      "status": "Contacted",
+      "date": "2026-04-28",
+      "time": "10:30"
+    }
+  ],
+  "comments": [
+    {
+      "comment": "Initial contact made",
+      "old_status": "New",
+      "new_status": "Contacted"
+    }
+  ]
+}
+```
+
+**Validation Rules:**
+- `followup_business_id`: required, exists in followup_businesses table
+- `followup_details`: nullable, array
+- `followup_details.*.source`: nullable, string, max 255 characters
+- `followup_details.*.status`: nullable, string, max 255 characters
+- `followup_details.*.date`: nullable, date
+- `followup_details.*.time`: nullable, date_format:H:i
+- `comments`: nullable, array
+- `comments.*.comment`: required, string
+- `comments.*.old_status`: nullable, string, max 255 characters
+- `comments.*.new_status`: nullable, string, max 255 characters
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Follow-up details and comments created successfully",
+  "data": {
+    "id": 1,
+    "name": "ABC Corporation",
+    "followupDetails": [...],
+    "comments": [...]
+  }
+}
+```
+
+---
+
+## 4. Update Follow-Up Details and Comments
+**PUT** `/followup/{id}`
+
+Updates follow-up details and comments for an existing business.
+
+**Request Body:**
+```json
+{
+  "followup_details": [
+    {
+      "source": "Phone",
+      "status": "Follow-up Scheduled",
+      "date": "2026-04-28",
+      "time": "14:00"
+    }
+  ],
+  "comments": [
+    {
+      "comment": "Follow-up call scheduled",
+      "old_status": "Contacted",
+      "new_status": "Follow-up Scheduled"
+    }
+  ]
+}
+```
+
+**Validation Rules:**
+- `followup_details`: nullable, array
+- `followup_details.*.source`: nullable, string, max 255 characters
+- `followup_details.*.status`: nullable, string, max 255 characters
+- `followup_details.*.date`: nullable, date
+- `followup_details.*.time`: nullable, date_format:H:i
+- `comments`: nullable, array
+- `comments.*.comment`: sometimes required, string
+- `comments.*.old_status`: nullable, string, max 255 characters
+- `comments.*.new_status`: nullable, string, max 255 characters
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Follow-up details and comments updated successfully",
+  "data": {
+    "id": 1,
+    "name": "ABC Corporation",
+    "followupDetails": [...],
+    "comments": [...]
+  }
+}
+```
+
+---
+
 ## Permissions
 
 ### Follow-Up Business
@@ -153,3 +262,7 @@ Creates a new follow-up authorized person record.
 - **Create:** `Follow-Up,create`
 - **Update:** `Follow-Up,update`
 - **Delete:** `Follow-Up,delete`
+
+### Follow-Up Details and Comments
+- **Create:** `Follow-Up,create`
+- **Update:** `Follow-Up,update`
