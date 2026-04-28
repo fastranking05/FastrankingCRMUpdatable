@@ -110,12 +110,148 @@ Retrieves only leads created by the logged-in user.
 ## 4. Get Lead Details
 **GET** `/{id}`
 
+Retrieves detailed information about a specific lead including all related data:
+- Business details
+- Authorized persons
+- Comments (with creators)
+- Follow-up details
+- Emails (with creators)
+- Appointments (with time slots, creators, quality assessments, and consultations)
+
 **Response:**
 ```json
 {
   "success": true,
   "message": "Lead retrieved successfully",
-  "data": {...}
+  "data": {
+    "id": 1,
+    "name": "ABC Corporation",
+    "category": "Technology",
+    "type": "Enterprise",
+    "website": "https://example.com",
+    "phone": "+1234567890",
+    "email": "info@example.com",
+    "created_by": 1,
+    "created_at": "2026-04-28T10:00:00.000000Z",
+    "updated_at": "2026-04-28T10:00:00.000000Z",
+    "creator": {
+      "id": 1,
+      "first_name": "Admin",
+      "last_name": "User"
+    },
+    "authPersons": [
+      {
+        "id": 1,
+        "title": "Mr.",
+        "firstname": "John",
+        "lastname": "Doe",
+        "designation": "CEO",
+        "primaryemail": "john@example.com",
+        "primarymobile": "+1234567890",
+        "is_primary": true
+      }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "followup_business_id": 1,
+        "comment": "Initial contact made",
+        "old_status": null,
+        "new_status": "Contacted",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User"
+        }
+      }
+    ],
+    "followupDetails": [
+      {
+        "id": 1,
+        "followup_business_id": 1,
+        "source": "LinkedIn",
+        "status": "In Progress",
+        "date": "2026-04-28",
+        "time": "14:30",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z"
+      }
+    ],
+    "emails": [
+      {
+        "id": 1,
+        "followup_business_id": 1,
+        "to": ["contact@example.com", "info@example.com"],
+        "cc": ["manager@example.com"],
+        "bcc": null,
+        "type": "Follow-up",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User"
+        }
+      }
+    ],
+    "appointments": [
+      {
+        "id": "FRMID00000001",
+        "followup_business_id": 1,
+        "source": "Cold Call",
+        "status": "Booked",
+        "date": "2026-05-01",
+        "time_slot_id": 1,
+        "current_status": "Booked",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "timeSlot": {
+          "id": 1,
+          "name": "Morning Slot",
+          "start_time": "09:00:00",
+          "end_time": "10:00:00",
+          "duration_minutes": 60
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User"
+        },
+        "quality": {
+          "id": 1,
+          "appointment_id": "FRMID00000001",
+          "quality_score": 85,
+          "feedback": "Good quality",
+          "created_at": "2026-04-28T10:00:00.000000Z"
+        },
+        "consultations": [
+          {
+            "id": 1,
+            "appointment_id": "FRMID00000001",
+            "status": "Completed",
+            "is_customer_available": true,
+            "meeting_date": "2026-05-01",
+            "meeting_slot": 1,
+            "assigned_user": 2,
+            "created_at": "2026-04-28T10:00:00.000000Z",
+            "meetingSlot": {
+              "id": 1,
+              "start_time": "09:00:00",
+              "end_time": "10:00:00"
+            },
+            "assignedUser": {
+              "id": 2,
+              "first_name": "Sales",
+              "last_name": "Executive",
+              "username": "sales_exec"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 

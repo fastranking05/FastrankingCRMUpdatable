@@ -176,12 +176,35 @@ class LeadsController extends BaseApiController
     }
 
     /**
-     * Display the specified lead.
+     * Display the specified lead with all related data.
      */
     public function show(int $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $business = FollowupBusiness::with(['creator:id,first_name,last_name', 'authPersons', 'comments'])->find($id);
+            $business = FollowupBusiness::with([
+                'creator:id,first_name,last_name',
+                'authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile,is_primary',
+                'comments' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                },
+                'followupDetails',
+                'emails' => function ($query) {
+                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                },
+                'appointments' => function ($query) {
+                    $query->with([
+                        'timeSlot:id,name,start_time,end_time,duration_minutes',
+                        'creator:id,first_name,last_name',
+                        'quality',
+                        'consultations' => function ($consultationQuery) {
+                            $consultationQuery->with([
+                                'meetingSlot:id,start_time,end_time',
+                                'assignedUser:id,first_name,last_name,username'
+                            ])->orderBy('created_at', 'desc');
+                        }
+                    ])->orderBy('date', 'desc')->orderBy('time_slot_id', 'desc');
+                }
+            ])->find($id);
 
             if (!$business) {
                 return $this->errorResponse('Lead not found', 404);
