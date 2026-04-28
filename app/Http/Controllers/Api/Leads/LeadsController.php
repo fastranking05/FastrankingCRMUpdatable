@@ -183,7 +183,7 @@ class LeadsController extends BaseApiController
         return $this->executeTransaction(function () use ($id) {
             $business = FollowupBusiness::with([
                 'creator:id,first_name,last_name',
-                'authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile,is_primary',
+                'authPersons',
                 'comments' => function ($query) {
                     $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 },
