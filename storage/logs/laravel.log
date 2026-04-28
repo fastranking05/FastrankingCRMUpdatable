@@ -1615,3 +1615,212 @@
 #19 D:/FastrankingCRMUpdatable/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #20 {main}
 "} 
+[2026-04-28 11:57:09] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:09] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 11:57:14] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 11:57:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:16] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 11:57:16] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:16] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 11:57:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:17] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:17] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:18] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:18] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:19] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 11:57:22] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 11:57:23] local.INFO: Lead retrieval successful {"lead_id":1,"user_id":1} 
+[2026-04-28 11:57:47] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 11:57:47] local.INFO: Lead retrieval successful {"lead_id":1,"user_id":1} 
+[2026-04-28 11:57:47] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:47] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 11:57:50] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 11:57:51] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 11:57:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:52] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:52] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 11:57:52] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:52] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:53] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:53] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:55] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:57:58] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 11:57:58] local.INFO: Lead retrieval successful {"lead_id":1,"user_id":1} 
+[2026-04-28 11:57:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:57:59] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 11:58:02] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 11:58:02] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 11:58:03] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:58:03] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:58:03] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 11:58:04] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:58:04] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:58:04] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:58:04] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:58:05] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:58:05] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:58:05] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:58:05] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:59:34] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:59:34] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 11:59:40] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 11:59:40] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 11:59:41] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:59:41] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:59:41] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 11:59:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:59:42] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:59:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:59:43] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 11:59:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 11:59:54] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 11:59:57] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 11:59:58] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:00:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:00] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:00:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:01] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:00:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:01] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:00:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:00:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:00:03] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:00:03] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:00:15] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:00:16] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:00:16] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-04-28 12:00:21] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:00:21] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:00:21] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-28 12:00:23] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:00:23] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:00:23] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-28 12:00:25] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:00:25] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-04-28 12:01:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:01:55] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 12:01:58] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:01:58] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:01:59] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:01:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:01:59] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:02:00] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:02:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:01] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:01] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:03] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:03] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:02:04] local.INFO: Lead retrieval successful {"lead_id":1,"user_id":1} 
+[2026-04-28 12:02:12] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:02:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:13] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 12:02:15] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:02:16] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:02:16] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:17] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:02:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:17] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:18] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:18] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:02:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:02:19] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:04:08] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"create","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:04:09] local.INFO: Lead creation successful {"business_name":"New Business","email":"test@test.com","user_id":1} 
+[2026-04-28 12:04:10] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:04:13] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:04:13] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:06:08] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:06:08] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:06:08] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:08] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 12:06:11] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:06:11] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:06:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:12] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:06:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:13] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:06:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:13] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:06:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:14] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:06:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:06:15] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:08:21] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:08:21] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:10:10] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:10:10] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:10:23] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:10:23] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:10:24] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:24] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 12:10:24] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:10:26] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:10:27] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:28] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:28] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:10:28] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:28] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:10:29] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:29] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:10:29] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:29] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:10:30] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:10:31] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:34:40] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:34:40] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:34:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:43] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 12:34:44] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:34:45] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:34:45] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:46] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:46] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:34:47] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:47] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:34:47] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:47] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:34:48] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:48] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:34:48] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:34:48] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:34:56] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:34:56] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:36:31] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:36:31] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:37:26] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:37:26] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-04-28 12:37:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:26] local.INFO: User retrieval successful {"user_id":1} 
+[2026-04-28 12:37:29] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-04-28 12:37:30] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-04-28 12:37:30] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:31] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-04-28 12:37:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:32] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:37:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:32] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:37:33] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:33] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:37:33] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-04-28 12:37:33] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-04-28 12:41:55] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:41:57] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-04-28 12:41:57] local.INFO: Lead retrieval successful {"lead_id":1,"user_id":1} 
