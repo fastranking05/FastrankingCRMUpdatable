@@ -144,11 +144,27 @@ Retrieves detailed information about a specific lead including all related data:
         "id": 1,
         "title": "Mr.",
         "firstname": "John",
+        "middlename": "William",
         "lastname": "Doe",
-        "designation": "CEO",
-        "primaryemail": "john@example.com",
-        "primarymobile": "+1234567890",
-        "is_primary": true
+        "is_primary": true,
+        "designation": "Chief Executive Officer",
+        "gender": "male",
+        "dob": "1980-05-15",
+        "primaryphone": "+1-555-0101",
+        "altphone": "+1-555-0102",
+        "primarymobile": "+1-555-0201",
+        "altmobile": "+1-555-0202",
+        "primaryemail": "john.doe@example.com",
+        "altemail": "john.alternate@example.com",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "updated_at": "2026-04-28T10:00:00.000000Z",
+        "pivot": {
+          "followup_business_id": 1,
+          "followup_auth_person_id": 1,
+          "created_at": "2026-04-28T10:00:00.000000Z",
+          "updated_at": "2026-04-28T10:00:00.000000Z"
+        }
       }
     ],
     "comments": [
