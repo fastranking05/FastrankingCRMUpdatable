@@ -168,6 +168,18 @@ class LeadsController extends BaseApiController
     }
 
     /**
+     * Get all business names and IDs
+     */
+    public function getAllBusinessNames(): JsonResponse
+    {
+        $businesses = FollowupBusiness::select('id', 'name')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return $this->successResponse($businesses, 'Business names retrieved successfully');
+    }
+
+    /**
      * Display a listing of leads (legacy)
      */
     public function index(Request $request): JsonResponse

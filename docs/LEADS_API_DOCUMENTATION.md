@@ -107,6 +107,37 @@ Retrieves only leads created by the logged-in user.
 
 ---
 
+## 3. Get All Business Names
+**GET** `/business-names`
+
+Retrieves a list of all business names and IDs from the followup business table.
+
+**Authentication:** None (Public endpoint)
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Business names retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "name": "ABC Corporation"
+    },
+    {
+      "id": 2,
+      "name": "XYZ Industries"
+    },
+    {
+      "id": 3,
+      "name": "Test Business"
+    }
+  ]
+}
+```
+
+---
+
 ## 4. Get Lead Details
 **GET** `/{id}`
 
@@ -273,7 +304,7 @@ Retrieves detailed information about a specific lead including all related data:
 
 ---
 
-## 5. Update Lead
+## 6. Update Lead
 **PUT** `/{id}`
 
 **Request Body:**
@@ -296,7 +327,7 @@ Retrieves detailed information about a specific lead including all related data:
 
 ---
 
-## 6. Delete Lead
+## 7. Delete Lead
 **DELETE** `/{id}`
 
 **Response:**
