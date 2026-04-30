@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Free access route for business names
+Route::get('/leads/business-names', [LeadsController::class, 'getAllBusinessNames'])->name('leads.business-names');
+
 Route::middleware(['jwt.auth'])->prefix('leads')->name('leads.')->group(function () {
     Route::middleware('permission:Leads,read')->group(function () {
         Route::get('/all-leads', [LeadsController::class, 'getAllLeads'])->name('all-leads');
