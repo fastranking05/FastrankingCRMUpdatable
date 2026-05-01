@@ -38,31 +38,9 @@ class DirectAppointmentController extends BaseApiController
     public function createDirectAppointment(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            // Business Details
-            'business.name' => 'required|string|max:255',
-            'business.category' => 'nullable|string|max:255',
-            'business.type' => 'nullable|string|max:255',
-            'business.website' => 'nullable|url|max:255',
-            'business.phone' => 'nullable|string|unique:followup_businesses,phone',
-            'business.email' => 'nullable|email|unique:followup_businesses,email',
-            
-            // Auth Persons (array - at least one required)
-            'auth_persons' => 'required|array|min:1',
-            'auth_persons.*.title' => 'nullable|string|max:50',
-            'auth_persons.*.firstname' => 'required|string|max:255',
-            'auth_persons.*.middlename' => 'nullable|string|max:255',
-            'auth_persons.*.lastname' => 'required|string|max:255',
-            'auth_persons.*.is_primary' => 'nullable|boolean',
-            'auth_persons.*.designation' => 'nullable|string|max:255',
-            'auth_persons.*.gender' => 'nullable|in:male,female,other',
-            'auth_persons.*.dob' => 'nullable|date',
-            'auth_persons.*.primaryphone' => 'nullable|string|unique:followup_auth_persons,primaryphone',
-            'auth_persons.*.altphone' => 'nullable|string',
-            'auth_persons.*.primarymobile' => 'nullable|string|unique:followup_auth_persons,primarymobile',
-            'auth_persons.*.altmobile' => 'nullable|string|unique:followup_auth_persons,altmobile',
-            'auth_persons.*.primaryemail' => 'required|email|unique:followup_auth_persons,primaryemail',
-            'auth_persons.*.altemail' => 'nullable|email|unique:followup_auth_persons,altemail',
-            
+            // Business ID (required to link appointment to existing business)
+            'followup_business_id' => 'required|exists:followup_businesses,id',
+
             // Appointment Details
             'appointment.date' => 'required|date|after_or_equal:today',
             'appointment.time_slot_id' => 'required|exists:time_slots,id',
@@ -70,7 +48,7 @@ class DirectAppointmentController extends BaseApiController
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
             'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
-            
+
             // Comments (array) - directly linked to business
             'comments' => 'nullable|array',
             'comments.*.comment' => 'sometimes|required|string',
@@ -83,21 +61,11 @@ class DirectAppointmentController extends BaseApiController
         }
 
         return $this->executeTransaction(function () use ($request) {
-            // Create Business
-            $businessData = $request->business;
-            $businessData['created_by'] = auth()->id();
-            $business = FollowupBusiness::create($businessData);
-
-            // Create Auth Persons and associate with business
-            $authPersonIds = [];
-            foreach ($request->auth_persons as $personData) {
-                $personData['created_by'] = auth()->id();
-                $authPerson = FollowupAuthPerson::create($personData);
-                $authPersonIds[] = $authPerson->id;
+            // Get existing business
+            $business = FollowupBusiness::find($request->followup_business_id);
+            if (!$business) {
+                return $this->errorResponse('Business not found', 404);
             }
-
-            // Associate auth persons with business
-            $business->authPersons()->attach($authPersonIds);
 
             // Create Appointment
             $appointmentData = $request->appointment;
@@ -132,7 +100,7 @@ class DirectAppointmentController extends BaseApiController
                     $commentData['old_status'] = $commentData['old_status'] ?? null;
                     $commentData['new_status'] = $commentData['new_status'] ?? null;
                     $commentData['created_by'] = auth()->id();
-                    
+
                     // Create comment using Comments model
                     Comment::create($commentData);
                 }

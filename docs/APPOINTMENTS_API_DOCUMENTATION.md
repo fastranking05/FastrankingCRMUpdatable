@@ -215,15 +215,27 @@
 ### 13. Create Direct Appointment
 **POST** `/direct`
 
+Creates an appointment for an existing business.
+
 **Request Body:**
 ```json
 {
   "followup_business_id": 1,
-  "business": {...},
-  "auth_persons": [...],
-  "source": "web",
-  "date": "2026-04-16",
-  "time_slot_id": 1
+  "appointment": {
+    "date": "2026-04-16",
+    "time_slot_id": 1,
+    "current_status": "Booked",
+    "status": "Appointment Booked",
+    "source": "Direct",
+    "notes": "Optional notes"
+  },
+  "comments": [
+    {
+      "comment": "Initial contact made",
+      "old_status": "New",
+      "new_status": "Contacted"
+    }
+  ]
 }
 ```
 
@@ -231,8 +243,51 @@
 ```json
 {
   "success": true,
-  "message": "Appointment created successfully",
-  "data": {...}
+  "message": "Direct appointment created successfully",
+  "data": {
+    "business": {
+      "id": 1,
+      "name": "ABC Corporation",
+      "category": "Technology",
+      "type": "Enterprise",
+      "website": "https://example.com",
+      "phone": "+1234567890",
+      "email": "info@example.com",
+      "created_by": 1,
+      "created_at": "2026-04-28T10:00:00.000000Z",
+      "updated_at": "2026-04-28T10:00:00.000000Z",
+      "creator": {
+        "id": 1,
+        "first_name": "Admin",
+        "last_name": "User"
+      },
+      "authPersons": [...],
+      "comments": [...]
+    },
+    "appointment": {
+      "id": "FRMID00000001",
+      "followup_business_id": 1,
+      "date": "2026-04-16",
+      "time_slot_id": 1,
+      "current_status": "Booked",
+      "source": "Direct",
+      "status": "Appointment Booked",
+      "created_by": 1,
+      "created_at": "2026-04-28T10:00:00.000000Z",
+      "timeSlot": {
+        "id": 1,
+        "name": "Morning Slot",
+        "start_time": "09:00:00",
+        "end_time": "10:00:00",
+        "duration_minutes": 60
+      },
+      "creator": {
+        "id": 1,
+        "first_name": "Admin",
+        "last_name": "User"
+      }
+    }
+  }
 }
 ```
 
