@@ -345,7 +345,7 @@ class FollowupController extends BaseApiController
             // Check if user is Executive with Lead Generation department
             $isExecutive = in_array('Executive', $roleNames);
 
-            // Build the base query
+            // Build the base query - only include businesses that have followup details
             $query = FollowupBusiness::with([
                 'creator:id,first_name,last_name',
                 'authPersons',
@@ -355,7 +355,7 @@ class FollowupController extends BaseApiController
                 'comments' => function ($query) {
                     $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 }
-            ]);
+            ])->whereHas('followupDetails');
 
             // Apply hierarchy-based filters
             if ($isAdmin) {
@@ -473,7 +473,8 @@ class FollowupController extends BaseApiController
                 'comments' => function ($query) {
                     $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
                 }
-            ])->where('created_by', auth()->id());
+            ])->where('created_by', auth()->id())
+              ->whereHas('followupDetails');
 
             // Filter by category
             if ($request->has('category')) {

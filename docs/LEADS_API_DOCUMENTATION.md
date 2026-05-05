@@ -13,27 +13,55 @@ Creates a new lead with business, auth persons, and comments.
 **Request Body:**
 ```json
 {
-  "business_name": "ABC Corporation",
+  "business_name": "Example Company Ltd",
   "category": "Technology",
   "type": "Software",
-  "website": "https://abccorp.com",
+  "website": "https://example.com",
   "phone": "+1234567890",
-  "email": "contact@abccorp.com",
+  "email": "contact@example.com",
   "auth_persons": [
     {
-      "title": "Mr.",
+      "title": "Mr",
       "firstname": "John",
+      "middlename": "Robert",
       "lastname": "Doe",
       "is_primary": true,
       "designation": "CEO",
-      "primaryemail": "john.doe@abccorp.com"
+      "gender": "male",
+      "dob": "1980-01-15",
+      "primaryphone": "+1234567890",
+      "altphone": "+0987654321",
+      "primarymobile": "+1122334455",
+      "altmobile": "+5544332211",
+      "primaryemail": "john.doe@example.com",
+      "altemail": "john.alternate@example.com"
+    },
+    {
+      "title": "Mr",
+      "firstname": "John",
+      "middlename": "Robert",
+      "lastname": "Doe",
+      "is_primary": true,
+      "designation": "CEO",
+      "gender": "male",
+      "dob": "1980-01-15",
+      "primaryphone": "+1234567890",
+      "altphone": "+0987654321",
+      "primarymobile": "+1122334455",
+      "altmobile": "+5544332211",
+      "primaryemail": "john.doe@example.com",
+      "altemail": "john.alternate@example.com"
     }
   ],
   "comments": [
     {
-      "comment": "Initial contact made",
-      "old_status": "New",
-      "new_status": "Contacted"
+      "comment": "Initial contact made via website form",
+      "old_status": "new",
+      "new_status": "contacted"
+    },
+    {
+      "comment": "Follow-up scheduled for next week",
+      "followup_business_id": 123
     }
   ]
 }
