@@ -18,6 +18,7 @@ Route::middleware(['jwt.auth'])->prefix('leads')->name('leads.')->group(function
         Route::get('/my-leads', [LeadsController::class, 'getMyLeads'])->name('my-leads');
         Route::get('/', [LeadsController::class, 'index'])->name('index');
         Route::get('/{id}', [LeadsController::class, 'show'])->name('show');
+        Route::post('/check-duplicate', [LeadsController::class, 'checkDuplicate'])->name('check-duplicate');
     });
 
     Route::middleware('permission:Leads,create')->group(function () {

@@ -166,7 +166,80 @@ Retrieves a list of all business names and IDs from the followup business table.
 
 ---
 
-## 4. Get Lead Details
+## 4. Check Duplicate Lead Data
+**POST** `/check-duplicate`
+
+Checks for duplicate lead data in the system before creating a new lead. This endpoint verifies if any of the provided business or authorized person contact information already exists in the database.
+
+**Authentication:** Required (JWT)
+**Permission:** `Leads,read`
+
+**Request Body:**
+```json
+{
+  "business_phone": "+1234567890",
+  "business_email": "contact@example.com",
+  "auth_person_phone": "+1234567890",
+  "auth_person_mobile": "+1122334455",
+  "auth_person_email": "john.doe@example.com"
+}
+```
+
+**Request Parameters (all optional):**
+- `business_phone` (string): Business phone number to check for duplicates
+- `business_email` (email): Business email address to check for duplicates
+- `auth_person_phone` (string): Authorized person phone number (checks both primaryphone and altphone fields)
+- `auth_person_mobile` (string): Authorized person mobile number (checks both primarymobile and altmobile fields)
+- `auth_person_email` (email): Authorized person email address (checks both primaryemail and altemail fields)
+
+**Response (No Duplicates Found):**
+```json
+{
+  "success": true,
+  "message": "No duplicates found",
+  "data": {
+    "has_duplicates": false,
+    "duplicates": {}
+  }
+}
+```
+
+**Response (Duplicates Found):**
+```json
+{
+  "success": true,
+  "message": "Duplicates found",
+  "data": {
+    "has_duplicates": true,
+    "duplicates": {
+      "business_phone": {
+        "exists": true,
+        "lead_id": 123,
+        "business_name": "ABC Corporation"
+      },
+      "auth_person_email": {
+        "exists": true,
+        "lead_id": 456,
+        "business_name": "XYZ Industries",
+        "auth_person_name": "John Doe"
+      }
+    }
+  }
+}
+```
+
+**Response Fields:**
+- `has_duplicates` (boolean): Indicates whether any duplicates were found
+- `duplicates` (object): Contains details of each duplicate found
+  - For business duplicates: includes `exists`, `lead_id`, and `business_name`
+  - For auth person duplicates: includes `exists`, `lead_id`, `business_name`, and `auth_person_name`
+
+**Usage Example:**
+This endpoint should be called before creating a new lead to prevent duplicate entries. If duplicates are found, the frontend can display appropriate warnings to the user.
+
+---
+
+## 5. Get Lead Details
 **GET** `/{id}`
 
 Retrieves detailed information about a specific lead including all related data:

@@ -360,4 +360,103 @@ class LeadsController extends BaseApiController
     {
         return ['id' => $user->id, 'name' => $user->first_name . ' ' . $user->last_name, 'user_type' => $user->user_type];
     }
+
+    /**
+     * Check for duplicate lead data
+     */
+    public function checkDuplicate(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'business_phone' => 'nullable|string',
+            'business_email' => 'nullable|email',
+            'auth_person_phone' => 'nullable|string',
+            'auth_person_mobile' => 'nullable|string',
+            'auth_person_email' => 'nullable|email',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', 422, $validator->errors());
+        }
+
+        $duplicates = [];
+
+        // Check business phone
+        if ($request->has('business_phone') && !empty($request->business_phone)) {
+            $businessPhone = FollowupBusiness::where('phone', $request->business_phone)->first();
+            if ($businessPhone) {
+                $duplicates['business_phone'] = [
+                    'exists' => true,
+                    'lead_id' => $businessPhone->id,
+                    'business_name' => $businessPhone->name,
+                ];
+            }
+        }
+
+        // Check business email
+        if ($request->has('business_email') && !empty($request->business_email)) {
+            $businessEmail = FollowupBusiness::where('email', $request->business_email)->first();
+            if ($businessEmail) {
+                $duplicates['business_email'] = [
+                    'exists' => true,
+                    'lead_id' => $businessEmail->id,
+                    'business_name' => $businessEmail->name,
+                ];
+            }
+        }
+
+        // Check auth person phone (primaryphone or altphone)
+        if ($request->has('auth_person_phone') && !empty($request->auth_person_phone)) {
+            $authPersonPhone = FollowupAuthPerson::where('primaryphone', $request->auth_person_phone)
+                ->orWhere('altphone', $request->auth_person_phone)
+                ->first();
+            if ($authPersonPhone) {
+                $business = $authPersonPhone->businesses()->first();
+                $duplicates['auth_person_phone'] = [
+                    'exists' => true,
+                    'lead_id' => $business ? $business->id : null,
+                    'business_name' => $business ? $business->name : null,
+                    'auth_person_name' => $authPersonPhone->firstname . ' ' . $authPersonPhone->lastname,
+                ];
+            }
+        }
+
+        // Check auth person mobile (primarymobile or altmobile)
+        if ($request->has('auth_person_mobile') && !empty($request->auth_person_mobile)) {
+            $authPersonMobile = FollowupAuthPerson::where('primarymobile', $request->auth_person_mobile)
+                ->orWhere('altmobile', $request->auth_person_mobile)
+                ->first();
+            if ($authPersonMobile) {
+                $business = $authPersonMobile->businesses()->first();
+                $duplicates['auth_person_mobile'] = [
+                    'exists' => true,
+                    'lead_id' => $business ? $business->id : null,
+                    'business_name' => $business ? $business->name : null,
+                    'auth_person_name' => $authPersonMobile->firstname . ' ' . $authPersonMobile->lastname,
+                ];
+            }
+        }
+
+        // Check auth person email (primaryemail or altemail)
+        if ($request->has('auth_person_email') && !empty($request->auth_person_email)) {
+            $authPersonEmail = FollowupAuthPerson::where('primaryemail', $request->auth_person_email)
+                ->orWhere('altemail', $request->auth_person_email)
+                ->first();
+            if ($authPersonEmail) {
+                $business = $authPersonEmail->businesses()->first();
+                $duplicates['auth_person_email'] = [
+                    'exists' => true,
+                    'lead_id' => $business ? $business->id : null,
+                    'business_name' => $business ? $business->name : null,
+                    'auth_person_name' => $authPersonEmail->firstname . ' ' . $authPersonEmail->lastname,
+                ];
+            }
+        }
+
+        $hasDuplicates = !empty($duplicates);
+
+        return $this->successResponse([
+            'has_duplicates' => $hasDuplicates,
+            'duplicates' => $duplicates,
+        ], $hasDuplicates ? 'Duplicates found' : 'No duplicates found');
+    }
 }
