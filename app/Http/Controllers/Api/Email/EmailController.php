@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class EmailController extends BaseApiController
 {
@@ -154,7 +156,7 @@ class EmailController extends BaseApiController
     }
 
     /**
-     * Store a newly created email in storage.
+     * Store a newly created email in storage and send it.
      */
     public function store(Request $request): JsonResponse
     {
@@ -167,24 +169,99 @@ class EmailController extends BaseApiController
             'bcc' => 'nullable|array',
             'bcc.*' => 'nullable|email',
             'type' => 'required|string|max:255',
+            'template' => 'required|string',
+            'dynamic_data' => 'nullable|array',
         ]);
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
-        $email = Email::create([
-            'followup_business_id' => $request->followup_business_id,
-            'to' => $request->to,
-            'cc' => $request->cc,
-            'bcc' => $request->bcc,
-            'type' => $request->type,
-            'created_by' => auth()->id(),
-        ]);
+        try {
+            // Get business details for dynamic data
+            $business = \App\Models\FollowupBusiness::with('authPersons')->find($request->followup_business_id);
 
-        $email->load(['followupBusiness:id,name', 'creator:id,first_name,last_name']);
+            // Prepare dynamic data with business information
+            $dynamicData = $request->dynamic_data ?? [];
+            $dynamicData['business_name'] = $business->name ?? '';
+            $dynamicData['business_email'] = $business->email ?? '';
+            $dynamicData['business_phone'] = $business->phone ?? '';
+            $dynamicData['business_category'] = $business->category ?? '';
+            $dynamicData['business_type'] = $business->type ?? '';
+            $dynamicData['business_website'] = $business->website ?? '';
 
-        return $this->successResponse($email, 'Email created successfully', 201);
+            // Add auth person information if available
+            if ($business && $business->authPersons && $business->authPersons->isNotEmpty()) {
+                $primaryAuthPerson = $business->authPersons->where('is_primary', true)->first();
+                if (!$primaryAuthPerson) {
+                    $primaryAuthPerson = $business->authPersons->first();
+                }
+                if ($primaryAuthPerson) {
+                    $dynamicData['contact_name'] = $primaryAuthPerson->firstname . ' ' . $primaryAuthPerson->lastname;
+                    $dynamicData['contact_email'] = $primaryAuthPerson->primaryemail ?? '';
+                    $dynamicData['contact_phone'] = $primaryAuthPerson->primaryphone ?? '';
+                    $dynamicData['contact_mobile'] = $primaryAuthPerson->primarymobile ?? '';
+                    $dynamicData['contact_designation'] = $primaryAuthPerson->designation ?? '';
+                }
+            }
+
+            // Replace placeholders in template with dynamic data
+            $emailContent = $request->template;
+            foreach ($dynamicData as $key => $value) {
+                $emailContent = str_replace('{' . $key . '}', $value, $emailContent);
+                $emailContent = str_replace('{{' . $key . '}}', $value, $emailContent);
+            }
+
+            // Static subject (can be customized as needed)
+            $emailSubject = 'Follow-up Email';
+
+            // Send the email using Laravel's Mail facade
+            Mail::raw($emailContent, function ($message) use ($request, $emailSubject) {
+                $message->to($request->to)
+                    ->cc($request->cc ?? [])
+                    ->bcc($request->bcc ?? [])
+                    ->subject($emailSubject);
+
+                // Set from address from .env config
+                $fromAddress = config('mail.from.address');
+                $fromName = config('mail.from.name');
+                if ($fromAddress) {
+                    $message->from($fromAddress, $fromName);
+                }
+            });
+
+            // Store email record
+            $email = Email::create([
+                'followup_business_id' => $request->followup_business_id,
+                'to' => $request->to,
+                'cc' => $request->cc,
+                'bcc' => $request->bcc,
+                'type' => $request->type,
+                'created_by' => auth()->id(),
+            ]);
+
+            $email->load(['followupBusiness:id,name', 'creator:id,first_name,last_name']);
+
+            Log::info('Email sent successfully', [
+                'email_id' => $email->id,
+                'to' => $request->to,
+                'subject' => $emailSubject,
+                'created_by' => auth()->id(),
+            ]);
+
+            return $this->successResponse($email, 'Email sent successfully', 201);
+
+        } catch (\Exception $e) {
+            Log::error('Failed to send email', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'request_data' => $request->except(['template']),
+            ]);
+
+            return $this->errorResponse('Failed to send email: ' . $e->getMessage(), 500, [
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ]);
+        }
     }
 
     /**

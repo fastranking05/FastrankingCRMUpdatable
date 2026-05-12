@@ -141,7 +141,7 @@ Retrieves emails created only by the authenticated user.
 ## 4. Create Email
 **POST** `/emails`
 
-Creates a new email record.
+Creates a new email record and sends the email using the configured mail settings from `.env` file.
 
 **Request Body:**
 ```json
@@ -150,7 +150,11 @@ Creates a new email record.
   "to": ["contact@example.com", "info@example.com"],
   "cc": ["manager@example.com"],
   "bcc": ["ceo@example.com"],
-  "type": "Follow-up"
+  "type": "Follow-up",
+  "template": "<h1>Hello {contact_name}</h1><p>We are following up regarding {business_name}. Please contact us at {business_phone}.</p>",
+  "dynamic_data": {
+    "custom_field": "custom_value"
+  }
 }
 ```
 
@@ -163,12 +167,44 @@ Creates a new email record.
 - `bcc`: nullable, array
 - `bcc.*`: nullable, email format
 - `type`: required, string, max 255 characters
+- `template`: required, string (HTML or plain text from frontend, used only for sending email, not stored)
+- `dynamic_data`: nullable, array of additional dynamic data for template (used only for sending email, not stored)
+
+**Note:** The subject is static and set to "Follow-up Email" in the backend. The `template` and `dynamic_data` fields are only used for sending the email and are NOT stored in the database. The data is already available in the `followup_business` and `auth_persons` tables.
+
+**Dynamic Data Available in Template:**
+The following dynamic data is automatically available for use in the template (use `{key}` or `{{key}}` format):
+
+**Business Data:**
+- `business_name`: Company name
+- `business_email`: Company email
+- `business_phone`: Company phone
+- `business_category`: Business category
+- `business_type`: Business type
+- `business_website`: Company website
+
+**Contact Person Data:**
+- `contact_name`: Full name of primary contact
+- `contact_email`: Primary contact email
+- `contact_phone`: Primary contact phone
+- `contact_mobile`: Primary contact mobile
+- `contact_designation`: Contact person designation
+
+**Custom Data:**
+- Any additional key-value pairs provided in `dynamic_data` field
+
+**Email Configuration:**
+The email is sent using the mail configuration from `.env` file:
+- `MAIL_FROM_ADDRESS`: Sender email address
+- `MAIL_FROM_NAME`: Sender name
+- `MAIL_MAILER`: Mail driver (smtp, mailgun, etc.)
+- Other standard Laravel mail configuration
 
 **Response:**
 ```json
 {
   "success": true,
-  "message": "Email created successfully",
+  "message": "Email sent successfully",
   "data": {
     "id": 1,
     "followup_business_id": 1,
@@ -188,6 +224,37 @@ Creates a new email record.
       "first_name": "Admin",
       "last_name": "User"
     }
+  }
+}
+```
+
+**Template Example (from Frontend):**
+```html
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+  <h2 style="color: #333;">Follow-up for {business_name}</h2>
+  <p>Dear {contact_name},</p>
+  <p>Hope you are doing well. We wanted to follow up regarding our previous discussion.</p>
+  <p><strong>Company Details:</strong></p>
+  <ul>
+    <li>Name: {business_name}</li>
+    <li>Category: {business_category}</li>
+    <li>Type: {business_type}</li>
+    <li>Phone: {business_phone}</li>
+    <li>Email: {business_email}</li>
+    <li>Website: {business_website}</li>
+  </ul>
+  <p>Please feel free to contact us at {business_phone} or email us at {business_email}.</p>
+  <p>Best regards,<br>Your Company Team</p>
+</div>
+```
+
+**Error Response:**
+```json
+{
+  "success": false,
+  "message": "Failed to send email: Connection to smtp server failed",
+  "data": {
+    "error": "Detailed error message (in debug mode only)"
   }
 }
 ```
