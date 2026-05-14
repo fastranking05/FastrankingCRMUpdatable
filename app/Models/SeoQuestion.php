@@ -15,12 +15,15 @@ class SeoQuestion extends Model
 
     protected $fillable = [
         'name',
+        'answer_type',
+        'dropdown_options',
         'is_active',
         'created_by',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'dropdown_options' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

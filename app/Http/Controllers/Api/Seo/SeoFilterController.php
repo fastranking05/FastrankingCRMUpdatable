@@ -16,7 +16,7 @@ class SeoFilterController extends BaseApiController
 
     public function __construct(DateRangeFilterService $dateRangeFilterService = null)
     {
-        $this->dateRangeFilterService = $dateRangeFilterService ?: app('App\Services\DateRangeFilterService');
+        $this->dateRangeFilterService = $dateRangeFilterService ?: app(DateRangeFilterService::class);
     }
 
     /**
@@ -112,7 +112,7 @@ class SeoFilterController extends BaseApiController
             ],
             'status_options' => [
                 'Pending',
-                'Audit Completed', 
+                'Audit Completed',
                 'Not Applicable',
                 'In Progress',
                 'On Hold',
@@ -174,7 +174,7 @@ class SeoFilterController extends BaseApiController
         if (!$user) {
             return;
         }
-        
+
         // Load user relationships if not already loaded
         if (!$user->relationLoaded('roles')) {
             $user->load('roles');
