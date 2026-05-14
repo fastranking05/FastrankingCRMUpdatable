@@ -67,4 +67,9 @@ class FollowupBusiness extends Model
     {
         return $this->hasMany(Appointment::class, 'followup_business_id');
     }
+
+    public function seoDetails(): HasMany
+    {
+        return $this->hasMany(SeoDetail::class, 'followup_business_id');
+    }
 }

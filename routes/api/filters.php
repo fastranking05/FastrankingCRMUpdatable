@@ -23,3 +23,8 @@ Route::group([], function () {
 Route::group([], function () {
     require __DIR__ . '/admin/followup/filters.php';
 });
+
+// SEO Filter Routes
+Route::group([], function () {
+    require __DIR__ . '/admin/seo/filters.php';
+});

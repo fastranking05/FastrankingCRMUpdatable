@@ -110,4 +110,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Quality::class, 'assigned_user');
     }
+
+    public function seoQuestions(): HasMany
+    {
+        return $this->hasMany(SeoQuestion::class, 'created_by');
+    }
+
+    public function assignedSeoDetails(): HasMany
+    {
+        return $this->hasMany(SeoDetail::class, 'assigned_user');
+    }
 }

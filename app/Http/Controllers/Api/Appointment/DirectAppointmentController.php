@@ -10,6 +10,7 @@ use App\Models\FollowupAuthPerson;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
 use App\Services\QualityAssignmentService;
+use App\Services\SeoAssignmentService;
 use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,15 +21,18 @@ class DirectAppointmentController extends BaseApiController
 {
     protected $appointmentBookingEngine;
     protected $qualityAssignmentService;
+    protected $seoAssignmentService;
     protected $dateRangeFilterService;
 
     public function __construct(
         AppointmentBookingEngine $appointmentBookingEngine,
         QualityAssignmentService $qualityAssignmentService,
+        SeoAssignmentService $seoAssignmentService,
         DateRangeFilterService $dateRangeFilterService
     ) {
         $this->appointmentBookingEngine = $appointmentBookingEngine;
         $this->qualityAssignmentService = $qualityAssignmentService;
+        $this->seoAssignmentService = $seoAssignmentService;
         $this->dateRangeFilterService = $dateRangeFilterService;
     }
 
@@ -91,6 +95,9 @@ class DirectAppointmentController extends BaseApiController
 
             // Assign Quality Control to the appointment (Round-robin with workload management)
             $quality = $this->qualityAssignmentService->assignQualityControl($appointment->id);
+
+            // Assign SEO to the business (Round-robin with workload management for Digital Marketing users)
+            $seoDetail = $this->seoAssignmentService->assignSeo($appointment->id, $business->id);
 
             // Create comments if provided
             if ($request->has('comments') && !empty($request->comments)) {
@@ -211,8 +218,11 @@ class DirectAppointmentController extends BaseApiController
             // Create appointment
             $appointment = Appointment::create($appointmentData);
 
-            // Assign Quality Control to the appointment (Round-robin with workload management)
+            // Assign Quality Control to appointment (Round-robin with workload management)
             $this->qualityAssignmentService->assignQualityControl($appointment->id);
+
+            // Assign SEO to the business (Round-robin with workload management for Digital Marketing users)
+            $this->seoAssignmentService->assignSeo($appointment->id, $business->id);
 
             // Create comments if provided
             if ($request->has('comments') && !empty($request->comments)) {
@@ -650,6 +660,9 @@ class DirectAppointmentController extends BaseApiController
 
                 // Assign Quality Control to the new appointment (Round-robin with workload management)
                 $this->qualityAssignmentService->assignQualityControl($newAppointment->id);
+
+                // Assign SEO to the business (Round-robin with workload management for Digital Marketing users)
+                $this->seoAssignmentService->assignSeo($newAppointment->id, $business->id);
 
                 // Load complete data for response
                 $business->load([
