@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Consultation;
+use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class UserAssignmentService
 {
     private const CACHE_PREFIX = 'user_assignment_';
     private const CACHE_TTL = 3600; // 1 hour
-    
+
     /**
      * Create and assign consultation to Sales department user using Round Robin with load balancing
      */
@@ -27,31 +28,36 @@ class UserAssignmentService
             }
 
             $activeSalesUsers = $this->getActiveSalesUsers($salesDepartment->id);
-            
+
             if ($activeSalesUsers->isEmpty()) {
                 Log::error('No active users found in Sales department');
                 return null;
             }
 
             $assignedUser = $this->selectUserByRoundRobin($activeSalesUsers);
-            
+
             Log::info('UserAssignmentService: selectUserByRoundRobin result', [
                 'assigned_user_is_null' => is_null($assignedUser),
                 'assigned_user_id' => $assignedUser ? $assignedUser->id : null,
             ]);
-            
+
             if ($assignedUser) {
+                // Get appointment details
+                $appointment = Appointment::find($appointmentId);
+
                 // Create consultation with assigned user
                 $consultation = Consultation::create([
                     'appointment_id' => $appointmentId,
                     'status' => 'scheduled',
                     'assigned_user' => $assignedUser->id,
+                    'meeting_date' => $appointment ? $appointment->date : null,
+                    'meeting_slot' => $appointment ? $appointment->time_slot_id : null,
                 ]);
 
                 $this->updateUserLoadCounter($assignedUser->id);
-                
+
                 Log::info("Consultation {$consultation->id} created and assigned to user {$assignedUser->id}");
-                
+
                 return [
                     'consultation' => $consultation,
                     'assigned_user' => $assignedUser,
@@ -71,11 +77,11 @@ class UserAssignmentService
     private function getSalesDepartment(): ?Department
     {
         Log::info('UserAssignmentService: Looking for Sales department');
-        
+
         $department = Department::where('name', 'Sales')
             ->where('status', 'active')
             ->first();
-            
+
         if ($department) {
             Log::info('UserAssignmentService: Sales department found', [
                 'department_id' => $department->id,
@@ -87,14 +93,14 @@ class UserAssignmentService
                 'search_name' => 'Sales',
                 'search_status' => 'active',
             ]);
-            
+
             // Log all departments for debugging
             $allDepartments = Department::all(['id', 'name', 'status']);
             Log::info('UserAssignmentService: All available departments', [
                 'departments' => $allDepartments->toArray(),
             ]);
         }
-        
+
         return $department;
     }
 
@@ -106,18 +112,18 @@ class UserAssignmentService
         Log::info('UserAssignmentService: Getting active users for department', [
             'department_id' => $departmentId,
         ]);
-        
+
         // First, let's check if there are any users with this department at all
         $anyUsersWithDept = User::whereHas('departments', function ($query) use ($departmentId) {
             $query->where('departments.id', $departmentId);
         })->get();
-        
+
         Log::info('UserAssignmentService: Users with department (any status)', [
             'department_id' => $departmentId,
             'count' => $anyUsersWithDept->count(),
             'users' => $anyUsersWithDept->pluck('id', 'first_name')->toArray(),
         ]);
-        
+
         // Now check for active users with active department
         $users = User::whereHas('departments', function ($query) use ($departmentId) {
             $query->where('departments.id', $departmentId)
@@ -126,7 +132,7 @@ class UserAssignmentService
         ->where('status', 'active')
         ->select(['id', 'first_name', 'last_name', 'email'])
         ->get();
-        
+
         Log::info('UserAssignmentService: Active users with active department', [
             'department_id' => $departmentId,
             'count' => $users->count(),
@@ -138,7 +144,7 @@ class UserAssignmentService
                 ];
             })->toArray(),
         ]);
-        
+
         // If no users found, let's debug further
         if ($users->isEmpty()) {
             // Check all active users
@@ -153,12 +159,12 @@ class UserAssignmentService
                     ];
                 })->toArray(),
             ]);
-            
+
             // Check department-user relationships for active users
             $activeUsersWithDepts = User::where('status', 'active')
                 ->with('departments')
                 ->get();
-                
+
             Log::info('UserAssignmentService: Active users with their departments', [
                 'users_departments' => $activeUsersWithDepts->map(function($user) {
                     return [
@@ -175,7 +181,7 @@ class UserAssignmentService
                 })->toArray(),
             ]);
         }
-        
+
         return $users;
     }
 
@@ -201,13 +207,13 @@ class UserAssignmentService
             Log::info('UserAssignmentService: Getting user loads', [
                 'user_ids' => $userIds,
             ]);
-            
+
             $userLoads = $this->getUserLoads($userIds);
-            
+
             Log::info('UserAssignmentService: User loads retrieved', [
                 'user_loads' => $userLoads,
             ]);
-            
+
             // Sort users by current load (ascending) for load balancing
             $sortedUsers = $users->sortBy(function ($user) use ($userLoads) {
                 return $userLoads[$user->id] ?? 0;
@@ -242,13 +248,13 @@ class UserAssignmentService
 
             // Use round robin to select from the least loaded users
             $roundRobinIndex = $this->getRoundRobinIndex('sales', $leastLoadedUsers->count());
-            
+
             Log::info('UserAssignmentService: Round robin index calculated', [
                 'department' => 'sales',
                 'user_count' => $leastLoadedUsers->count(),
                 'round_robin_index' => $roundRobinIndex,
             ]);
-            
+
             // CRITICAL: Check if index is valid
             if ($roundRobinIndex < 0 || $roundRobinIndex >= $leastLoadedUsers->count()) {
                 Log::error('UserAssignmentService: Invalid round robin index', [
@@ -257,7 +263,7 @@ class UserAssignmentService
                 ]);
                 return null;
             }
-            
+
             $selectedUser = $leastLoadedUsers->values()->get($roundRobinIndex);
 
             if ($selectedUser) {
@@ -313,31 +319,31 @@ class UserAssignmentService
     private function getRoundRobinIndex(string $department, int $userCount): int
     {
         $cacheKey = self::CACHE_PREFIX . $department . '_index';
-        
+
         // Use atomic increment for better performance
         $currentIndex = Cache::increment($cacheKey, 1);
-        
+
         // Set expiration on first access or if cache doesn't exist
         if ($currentIndex === 1 || !Cache::has($cacheKey)) {
             Cache::put($cacheKey, $currentIndex, self::CACHE_TTL);
         }
-        
+
         // Use modulo to get index within range
         // Ensure we never return negative index
         $index = ($currentIndex - 1) % $userCount;
-        
+
         // Handle negative modulo result (PHP can return negative for negative dividends)
         if ($index < 0) {
             $index += $userCount;
         }
-        
+
         Log::info('UserAssignmentService: getRoundRobinIndex calculated', [
             'department' => $department,
             'user_count' => $userCount,
             'current_index' => $currentIndex,
             'calculated_index' => $index,
         ]);
-        
+
         return $index;
     }
 
@@ -383,9 +389,9 @@ class UserAssignmentService
 
         $users = $this->getActiveSalesUsers($salesDepartment->id);
         $userIds = $users->pluck('id');
-        
+
         $consultationLoads = $this->getUserLoads($userIds);
-        
+
         $stats = [];
         foreach ($users as $user) {
             $stats[] = [

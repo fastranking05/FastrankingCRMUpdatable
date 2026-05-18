@@ -16,16 +16,17 @@ class Consultation extends Model
         'status',
         'custom_status',
         'reason',
-        'reschedule_date',
-        'reschedule_slot',
+        'meeting_date',
+        'meeting_slot',
         'closer',
         'conducted_date',
         'assigned_user',
         'created_by',
+        'is_customer_available',
     ];
 
     protected $casts = [
-        'reschedule_date' => 'date',
+        'meeting_date' => 'date',
         'conducted_date' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -40,11 +41,11 @@ class Consultation extends Model
     }
 
     /**
-     * Get the time slot for reschedule
+     * Get the time slot for meeting
      */
-    public function rescheduleSlot(): BelongsTo
+    public function meetingSlot(): BelongsTo
     {
-        return $this->belongsTo(TimeSlot::class, 'reschedule_slot');
+        return $this->belongsTo(TimeSlot::class, 'meeting_slot');
     }
 
     /**

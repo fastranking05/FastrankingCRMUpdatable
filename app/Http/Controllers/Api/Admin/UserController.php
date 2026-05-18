@@ -114,13 +114,13 @@ class UserController extends BaseApiController
     {
         return $this->executeTransaction(function () use ($id) {
             $user = User::with([
-                'creator:id,first_name,last_name', 
-                'teams', 
-                'departments', 
+                'creator:id,first_name,last_name',
+                'teams',
+                'departments',
                 'roles.modules' => function ($query) {
                     $query->select('modules.id', 'modules.name', 'modules.description', 'modules.status')
                           ->withPivot(['can_create', 'can_read', 'can_update', 'can_delete']);
-                }, 
+                },
                 'createdUsers:id,first_name,last_name'
             ])->find($id);
 
@@ -133,7 +133,7 @@ class UserController extends BaseApiController
             foreach ($user->roles as $role) {
                 foreach ($role->modules as $module) {
                     $moduleId = $module->id;
-                    
+
                     if (!isset($modulesWithPermissions[$moduleId])) {
                         $modulesWithPermissions[$moduleId] = [
                             'id' => $module->id,
@@ -148,7 +148,7 @@ class UserController extends BaseApiController
                             ]
                         ];
                     }
-                    
+
                     // Merge permissions (union of all role permissions)
                     $modulesWithPermissions[$moduleId]['permissions']['can_create'] = $modulesWithPermissions[$moduleId]['permissions']['can_create'] || $module->pivot->can_create;
                     $modulesWithPermissions[$moduleId]['permissions']['can_read'] = $modulesWithPermissions[$moduleId]['permissions']['can_read'] || $module->pivot->can_read;
@@ -156,13 +156,13 @@ class UserController extends BaseApiController
                     $modulesWithPermissions[$moduleId]['permissions']['can_delete'] = $modulesWithPermissions[$moduleId]['permissions']['can_delete'] || $module->pivot->can_delete;
                 }
             }
-            
+
             // Convert to array and sort by name
             $modulesWithPermissions = array_values($modulesWithPermissions);
             usort($modulesWithPermissions, function ($a, $b) {
                 return strcmp($a['name'], $b['name']);
             });
-            
+
             // Add modules to user data
             $userData = $user->makeHidden(['password'])->toArray();
             $userData['modules'] = $modulesWithPermissions;
@@ -199,8 +199,10 @@ class UserController extends BaseApiController
             'status' => 'nullable|in:active,inactive,suspended',
             'team_ids' => 'nullable|array',
             'team_ids.*' => 'exists:teams,id',
+            'department_id' => 'nullable|exists:departments,id',
             'department_ids' => 'nullable|array',
             'department_ids.*' => 'exists:departments,id',
+            'role_id' => 'nullable|exists:roles,id',
             'role_ids' => 'nullable|array',
             'role_ids.*' => 'exists:roles,id',
         ]);
@@ -226,13 +228,17 @@ class UserController extends BaseApiController
                 $user->teams()->sync($request->team_ids);
             }
 
-            // Sync departments if provided
-            if ($request->has('department_ids')) {
+            // Sync departments if provided (handle both single department_id and array department_ids)
+            if ($request->has('department_id')) {
+                $user->departments()->sync([$request->department_id]);
+            } elseif ($request->has('department_ids')) {
                 $user->departments()->sync($request->department_ids);
             }
 
-            // Sync roles if provided
-            if ($request->has('role_ids')) {
+            // Sync roles if provided (handle both single role_id and array role_ids)
+            if ($request->has('role_id')) {
+                $user->roles()->sync([$request->role_id]);
+            } elseif ($request->has('role_ids')) {
                 $user->roles()->sync($request->role_ids);
             }
 

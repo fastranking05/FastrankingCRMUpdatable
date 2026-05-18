@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Appointment extends Model
@@ -53,7 +54,7 @@ class Appointment extends Model
             if (empty($model->id)) {
                 $model->id = static::generateCustomId();
             }
-            
+
             // Set default current_status if not provided
             if (empty($model->current_status)) {
                 $model->current_status = 'Booked';
@@ -65,10 +66,10 @@ class Appointment extends Model
     {
         $prefix = 'FRMID';
         $padding = 8;
-        
+
         // Get the latest record
         $latest = static::orderBy('id', 'desc')->first();
-        
+
         if ($latest) {
             // Extract numeric part from latest ID
             $numericPart = (int) substr($latest->id, strlen($prefix));
@@ -76,7 +77,7 @@ class Appointment extends Model
         } else {
             $nextNumber = 1;
         }
-        
+
         return $prefix . str_pad($nextNumber, $padding, '0', STR_PAD_LEFT);
     }
 
@@ -100,12 +101,17 @@ class Appointment extends Model
         return $this->belongsTo(Quality::class, 'appointment_id', 'id');
     }
 
+    public function consultations(): HasMany
+    {
+        return $this->hasMany(Consultation::class, 'appointment_id', 'id');
+    }
+
     // Check if user is available for this appointment time
     public function isUserAvailable(): bool
     {
         // Get business department
         $business = $this->followupBusiness;
-        
+
         // Get all users in the same department as the business
         $departmentUsers = User::where('department_id', $business->department_id ?? null)
             ->where('is_active', true)

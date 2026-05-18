@@ -42,6 +42,16 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/followup/details.php';
 });
 
+// Leads Module Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/leads/leads.php';
+});
+
+// Email Module Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/email/email.php';
+});
+
 // Appointment Module Routes
 Route::group([], function () {
     require __DIR__ . '/api/admin/appointment/appointments.php';
@@ -69,6 +79,21 @@ Route::group([], function () {
     require __DIR__ . '/api/quality-audit.php';
 });
 
+// SEO Audit Routes
+Route::group([], function () {
+    require __DIR__ . '/api/seo-audit.php';
+});
+
+// SEO Questions Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/seo/questions.php';
+});
+
+// SEO Data Submission Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/seo/submission.php';
+});
+
 // Consultation Routes
 Route::group([], function () {
     require __DIR__ . '/api/consultation.php';
@@ -84,13 +109,18 @@ Route::group([], function () {
     require __DIR__ . '/api/filters.php';
 });
 
+// User Block Calendar Routes
+Route::group([], function () {
+    require __DIR__ . '/api/admin/UserBlockcanlender/user-block-calendar.php';
+});
+
 // Public Time Slot Routes (No Auth Required)
 Route::prefix('time-slots')->name('public.time-slots.')->group(function () {
     Route::get('/available', [TimeSlotPickerController::class, 'getAvailableSlotsByDate'])->name('available');
 });
 
 // Simple Time Slot API
-Route::get('/simple-slots', [SimpleTimeSlotController::class, 'getAvailableSlots']);
+require __DIR__ . '/simple-slots.php';
 
 // Public Time Slot Picker Routes (No Auth Required)
 require __DIR__ . '/api/admin/appointment/time-slots-picker.php';

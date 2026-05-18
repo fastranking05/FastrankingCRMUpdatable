@@ -8,8 +8,11 @@ use App\Models\QualityAnswer;
 use App\Models\QualityQuestion;
 use App\Services\QualityAssignmentService;
 use App\Services\DateRangeFilterService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class QualityController extends BaseApiController
@@ -28,42 +31,363 @@ class QualityController extends BaseApiController
     /**
      * Display a listing of quality records.
      */
+    // app/Http/Controllers/Api/Quality/QualityController.php
+
     public function index(Request $request): JsonResponse
     {
+        // 1. Start with the latest quality record per appointment
+        $latestQualityIds = Quality::selectRaw('MAX(id) as id')
+            ->groupBy('appointment_id')
+            ->pluck('id');
+
         $query = Quality::with([
-            'appointment:id,date,followup_business_id',
-            'appointment.followupBusiness:id,name',
-            'assignedUser:id,first_name,last_name',
-        ]);
+            'appointment',
+            'appointment.followupBusiness.authPersons',
+            'appointment.timeSlot',
+            'assignedUser',
+            'answers',
+        ])->whereIn('id', $latestQualityIds);
 
-        // Apply flexible filters using DateRangeFilterService
-        $query = $this->dateRangeFilterService->applyFilters($query, $request, [
-            'date_column' => 'created_at',
-            'user_column' => 'assigned_user',
-            'status_column' => 'status',
-            'search_columns' => ['appointment_id', 'appointment.followupBusiness.name']
-        ]);
+        // 2. Build filters array from request
+        $filters = [];
 
-        // Apply additional specific filters
-        if ($request->has('auditstatus')) {
-            $query->where('auditstatus', $request->input('auditstatus'));
+        // Status filter (your payload sends "status": "QA-Approved")
+        if ($request->has('status')) {
+            $filters['status'] = $request->input('status');
         }
 
-        // Filter by score range
+        // Audit status filter
+        if ($request->has('auditstatus')) {
+            $filters['auditstatus'] = $request->input('auditstatus');
+        }
+
+        // Score filters
         if ($request->has('score_min')) {
-            $query->where('score', '>=', $request->input('score_min'));
+            $filters['score_min'] = $request->input('score_min');
         }
         if ($request->has('score_max')) {
-            $query->where('score', '<=', $request->input('score_max'));
+            $filters['score_max'] = $request->input('score_max');
         }
         if ($request->has('score')) {
-            $query->where('score', $request->input('score'));
+            $filters['score'] = $request->input('score');
         }
 
-        $qualities = $query->orderBy('created_at', 'desc')
-            ->paginate($request->input('per_page', 15));
+        // Appointment date filter from the "appointments" payload structure
+        if ($request->has('appointments') && is_array($request->input('appointments'))) {
+            $appointmentFilter = $request->input('appointments')[0] ?? [];
+            if (isset($appointmentFilter['date'])) {
+                $filters['appointment_date_filter'] = $appointmentFilter['date'];
+                $filters['custom_start_date'] = $appointmentFilter['custom_start_date'] ?? null;
+                $filters['custom_end_date']   = $appointmentFilter['custom_end_date'] ?? null;
+            }
+        }
 
-        return $this->successResponse($qualities, 'Quality records retrieved successfully');
+        // 3. Apply all filters using the model scope
+        $query->filter($filters);
+
+        // 4. Order and get results
+        $qualities = $query->orderBy('created_at', 'desc')->get();
+
+        // 5. Transform data (your existing transformation logic stays the same)
+        $transformedData = $qualities->map(function ($quality) {
+            return [
+                'id' => $quality->id,
+                'appointment_id' => $quality->appointment_id,
+                'auditstatus' => $quality->auditstatus,
+                'status' => $quality->status,
+                'score' => $quality->score,
+                'assigned_user' => [
+                    'id' => $quality->assignedUser->id ?? null,
+                    'first_name' => $quality->assignedUser->first_name ?? null,
+                    'last_name' => $quality->assignedUser->last_name ?? null,
+                    'email' => $quality->assignedUser->email ?? null,
+                ],
+                'meeting_link' => $quality->meeting_link,
+                'created_at' => $quality->created_at,
+                'updated_at' => $quality->updated_at,
+                'answers' => $quality->answers->map(fn($answer) => [
+                    'id' => $answer->id,
+                    'question_id' => $answer->question_id,
+                    'answer' => $answer->answer,
+                    'score' => $answer->score,
+                ])->toArray(),
+                'business' => $quality->appointment->followupBusiness ? [
+                    'id' => $quality->appointment->followupBusiness->id,
+                    'name' => $quality->appointment->followupBusiness->name,
+                    'category' => $quality->appointment->followupBusiness->category,
+                    'type' => $quality->appointment->followupBusiness->type,
+                    'website' => $quality->appointment->followupBusiness->website,
+                    'phone' => $quality->appointment->followupBusiness->phone,
+                    'email' => $quality->appointment->followupBusiness->email,
+                    'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(fn($person) => [
+                        'id' => $person->id,
+                        'title' => $person->title,
+                        'firstname' => $person->firstname,
+                        'middlename' => $person->middlename,
+                        'lastname' => $person->lastname,
+                        'designation' => $person->designation,
+                        'primaryemail' => $person->primaryemail,
+                        'primarymobile' => $person->primarymobile,
+                        'is_primary' => $person->pivot->is_primary ?? 0,
+                    ])->toArray(),
+                ] : null,
+                'appointment_date' => $quality->appointment->date,
+                'appointment_source' => $quality->appointment->source,
+                'appointment_current_status' => $quality->appointment->current_status,
+                'appointment_slot' => $quality->appointment->timeSlot ? [
+                    'id' => $quality->appointment->timeSlot->id,
+                    'start_time' => $quality->appointment->timeSlot->start_time,
+                    'end_time' => $quality->appointment->timeSlot->end_time,
+                ] : null,
+            ];
+        })->toArray();
+
+        return $this->successResponse($transformedData, 'All quality data retrieved successfully');
+    }
+
+    /**
+     * Get appointment IDs matching date filter
+     */
+    private function getAppointmentDateFilterIds($appointments): ?array
+    {
+        $dateFilter = null;
+        $customStartDate = null;
+        $customEndDate = null;
+
+        // Extract date filter from appointments array
+        if (is_array($appointments) && count($appointments) > 0) {
+            $firstAppointment = $appointments[0];
+            if (is_array($firstAppointment) && isset($firstAppointment['date'])) {
+                $dateFilter = $firstAppointment['date'];
+            }
+            if (is_array($firstAppointment) && isset($firstAppointment['custom_start_date'])) {
+                $customStartDate = $firstAppointment['custom_start_date'];
+            }
+            if (is_array($firstAppointment) && isset($firstAppointment['custom_end_date'])) {
+                $customEndDate = $firstAppointment['custom_end_date'];
+            }
+        }
+
+        if (!$dateFilter && !$customStartDate) {
+            return null;
+        }
+
+        // Build date condition for appointments table
+        $dateCondition = '';
+        $bindings = [];
+
+        switch ($dateFilter) {
+            case 'today':
+                $todayDate = Carbon::today()->toDateString();
+                $dateCondition = 'DATE(date) = ?';
+                $bindings[] = $todayDate;
+                break;
+
+            case 'yesterday':
+                $yesterdayDate = Carbon::yesterday()->toDateString();
+                $dateCondition = 'DATE(date) = ?';
+                $bindings[] = $yesterdayDate;
+                break;
+
+            case 'this_week':
+                $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek()->toDateString();
+                $bindings[] = Carbon::now()->endOfWeek()->toDateString();
+                break;
+
+            case 'last_week':
+                $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek()->toDateString();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek()->toDateString();
+                break;
+
+            case 'this_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->month;
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subMonth()->month;
+                $bindings[] = Carbon::now()->subMonth()->year;
+                break;
+
+            case 'this_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subYear()->year;
+                break;
+
+            case 'custom':
+                if ($customStartDate && $customEndDate) {
+                    $dateCondition = 'DATE(date) BETWEEN ? AND ?';
+                    $bindings[] = Carbon::parse($customStartDate)->toDateString();
+                    $bindings[] = Carbon::parse($customEndDate)->toDateString();
+                } elseif ($customStartDate) {
+                    $dateCondition = 'DATE(date) >= ?';
+                    $bindings[] = Carbon::parse($customStartDate)->toDateString();
+                } elseif ($customEndDate) {
+                    $dateCondition = 'DATE(date) <= ?';
+                    $bindings[] = Carbon::parse($customEndDate)->toDateString();
+                }
+                break;
+        }
+
+        if ($dateCondition) {
+            // Use raw SQL to get appointment IDs matching the date filter
+            $appointmentIds = DB::select("SELECT id FROM appointments WHERE $dateCondition", $bindings);
+            return array_column($appointmentIds, 'id');
+        }
+
+        return null;
+    }
+
+    /**
+     * Apply appointment-based filters
+     */
+    private function applyAppointmentFilters($query, Request $request): void
+    {
+        $appointmentColumns = $request->input('appointments', []);
+
+        foreach ($appointmentColumns as $column) {
+            switch ($column) {
+                case 'date':
+                    $this->applyAppointmentDateFilter($query, $request);
+                    break;
+                    // Add more appointment columns as needed
+                    // case 'followup_business_id':
+                    //     if ($request->has('followup_business_id')) {
+                    //         $query->whereHas('appointment', function ($q) use ($request) {
+                    //             $q->where('followup_business_id', $request->input('followup_business_id'));
+                    //         });
+                    //     }
+                    //     break;
+            }
+        }
+    }
+
+    /**
+     * Apply appointment date filter using relationship
+     */
+    private function applyAppointmentDateFilter($query, Request $request): void
+    {
+        $dateFilter = $request->input('date_filter');
+        $customStartDate = $request->input('custom_start_date');
+        $customEndDate = $request->input('custom_end_date');
+
+        Log::info('Applying appointment date filter', [
+            'date_filter' => $dateFilter,
+            'custom_start_date' => $customStartDate,
+            'custom_end_date' => $customEndDate,
+            'today' => Carbon::today()->toDateString()
+        ]);
+
+        if (!$dateFilter && !$customStartDate) {
+            return;
+        }
+
+        // Build date condition for appointments table
+        $dateCondition = '';
+        $bindings = [];
+
+        switch ($dateFilter) {
+            case 'today':
+                $todayStart = Carbon::today()->startOfDay();
+                $todayEnd = Carbon::today()->endOfDay();
+                Log::info('Filtering for today', ['start' => $todayStart, 'end' => $todayEnd]);
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $todayStart;
+                $bindings[] = $todayEnd;
+                break;
+
+            case 'yesterday':
+                $yesterdayStart = Carbon::yesterday()->startOfDay();
+                $yesterdayEnd = Carbon::yesterday()->endOfDay();
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = $yesterdayStart;
+                $bindings[] = $yesterdayEnd;
+                break;
+
+            case 'this_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->startOfWeek();
+                $bindings[] = Carbon::now()->endOfWeek();
+                break;
+
+            case 'last_week':
+                $dateCondition = 'date BETWEEN ? AND ?';
+                $bindings[] = Carbon::now()->subWeek()->startOfWeek();
+                $bindings[] = Carbon::now()->subWeek()->endOfWeek();
+                break;
+
+            case 'this_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->month;
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_month':
+                $dateCondition = 'MONTH(date) = ? AND YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subMonth()->month;
+                $bindings[] = Carbon::now()->subMonth()->year;
+                break;
+
+            case 'this_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->year;
+                break;
+
+            case 'last_year':
+                $dateCondition = 'YEAR(date) = ?';
+                $bindings[] = Carbon::now()->subYear()->year;
+                break;
+
+            case 'custom':
+                if ($customStartDate && $customEndDate) {
+                    $dateCondition = 'date BETWEEN ? AND ?';
+                    $bindings[] = Carbon::parse($customStartDate)->startOfDay();
+                    $bindings[] = Carbon::parse($customEndDate)->endOfDay();
+                } elseif ($customStartDate) {
+                    $dateCondition = 'DATE(date) >= ?';
+                    $bindings[] = Carbon::parse($customStartDate);
+                } elseif ($customEndDate) {
+                    $dateCondition = 'DATE(date) <= ?';
+                    $bindings[] = Carbon::parse($customEndDate);
+                }
+                break;
+        }
+
+        if ($dateCondition) {
+            // Check all appointments to see what dates exist first
+            $allAppointments = DB::select("SELECT id, date FROM appointments LIMIT 10");
+            Log::info('Sample appointments from database', ['appointments' => $allAppointments]);
+
+            // Use raw SQL to get appointment IDs matching the date filter
+            $appointmentIds = DB::select("SELECT id, date FROM appointments WHERE $dateCondition", $bindings);
+            $appointmentIdArray = array_column($appointmentIds, 'id');
+
+            Log::info('Appointment IDs matching date filter', [
+                'condition' => $dateCondition,
+                'bindings' => $bindings,
+                'count' => count($appointmentIdArray),
+                'ids' => $appointmentIdArray,
+                'appointments' => $appointmentIds
+            ]);
+
+            // Filter quality records by these appointment IDs
+            if (count($appointmentIdArray) > 0) {
+                $query->whereIn('appointment_id', $appointmentIdArray);
+            } else {
+                Log::warning('No appointments found matching date filter', ['condition' => $dateCondition]);
+                // Return empty result by adding impossible condition
+                $query->where('id', '=', 0);
+            }
+        }
     }
 
     /**
@@ -120,7 +444,6 @@ class QualityController extends BaseApiController
     private function transformQualityResponse($quality): object
     {
         $data = $quality->toArray();
-        
         if (isset($data['appointment']['creator'])) {
             $data['appointment']['appointment_creator'] = $data['appointment']['creator'];
             unset($data['appointment']['creator']);

@@ -32,7 +32,7 @@ Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->
     Route::middleware('permission:Appointment,create')->group(function () {
         // Main appointment creation using business_id
         Route::post('/', [DirectAppointmentController::class, 'createDirectAppointment'])->name('create');
-        
+
         // Legacy appointment routes
         Route::post('/slots/hold', [AppointmentController::class, 'holdTimeSlot'])->name('slots.hold');
         Route::post('/slots/confirm', [AppointmentController::class, 'confirmAppointment'])->name('slots.confirm');
@@ -45,17 +45,26 @@ Route::middleware(['jwt.auth'])->prefix('appointments')->name('appointments.')->
     Route::middleware('permission:Appointment,update')->group(function () {
         // Main appointment update using business_id
         Route::put('/{business_id}', [DirectAppointmentController::class, 'updateAppointmentByBusiness'])->name('update');
-        
+
         // Legacy appointment routes
         Route::put('/{id}', [AppointmentController::class, 'update'])->name('update.legacy');
         Route::patch('/{id}', [AppointmentController::class, 'update'])->name('update.patch');
         Route::put('/direct/{appointmentId}', [DirectAppointmentController::class, 'update'])->name('direct.update');
+
+        // Update customer availability for consultation
+        Route::post('/{id}/update-availability', [AppointmentController::class, 'updateCustomerAvailability'])->name('update-availability');
+
+        // Reschedule consultation and update appointment
+        Route::post('/{id}/reschedule-consultation', [AppointmentController::class, 'rescheduleConsultation'])->name('reschedule-consultation');
+
+        // Reject consultation and update appointment
+        Route::post('/{id}/reject-consultation', [AppointmentController::class, 'rejectConsultation'])->name('reject-consultation');
     });
 
     Route::middleware('permission:Appointment,delete')->group(function () {
         // Main appointment delete using business_id
         Route::delete('/{business_id}', [DirectAppointmentController::class, 'deleteAppointmentByBusiness'])->name('delete');
-        
+
         // Legacy appointment routes
         Route::delete('/{id}', [AppointmentController::class, 'destroy'])->name('destroy');
         Route::delete('/slots/release', [AppointmentController::class, 'releaseTimeSlot'])->name('slots.release');

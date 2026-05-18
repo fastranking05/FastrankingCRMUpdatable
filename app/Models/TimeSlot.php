@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class TimeSlot extends Model
 {
@@ -41,70 +42,44 @@ class TimeSlot extends Model
         return $this->hasMany(AppointmentTemporaryBooking::class, 'time_slot_id');
     }
 
-    // Check if slot is available for specific date and department
-    public function isAvailableForDate(string $date, ?int $departmentId = null): bool
+    /**
+     * Get count of active users in Sales department
+     */
+    public static function getActiveSalesDepartmentUserCount(): int
     {
-        if (!$this->is_active) {
-            return false;
-        }
+        try {
+            // Debug: Check if Sales department exists first
+            $salesDeptExists = DB::table('departments')
+                ->where('name', 'Sales')
+                ->exists();
 
-        // Check department restriction
-        if ($departmentId && $this->department_ids && !in_array($departmentId, $this->department_ids)) {
-            return false;
-        }
-
-        // Check existing appointments for the date
-        $existingAppointments = $this->appointments()
-            ->where('date', $date)
-            ->whereIn('current_status', ['Booked', 'Confirmed', 'In Progress'])
-            ->count();
-
-        // Check temporary bookings (slots being held)
-        $tempBookings = $this->temporaryBookings()
-            ->where('date', $date)
-            ->where('expires_at', '>', now())
-            ->count();
-
-        $totalBookings = $existingAppointments + $tempBookings;
-
-        return $totalBookings < $this->max_concurrent_bookings;
-    }
-
-    // Get available slots for a specific date and department
-    public static function getAvailableSlots(string $date, ?int $departmentId = null): array
-    {
-        $activeSlots = static::where('is_active', true)
-            ->when($departmentId, function ($query, $deptId) {
-                $query->where(function ($q) use ($deptId) {
-                    $q->whereNull('department_ids')
-                      ->orWhereJsonContains('department_ids', $deptId);
-                });
-            })
-            ->orderBy('start_time')
-            ->get();
-
-        $availableSlots = [];
-        foreach ($activeSlots as $slot) {
-            if ($slot->isAvailableForDate($date, $departmentId)) {
-                $availableSlots[] = [
-                    'id' => $slot->id,
-                    'name' => $slot->name,
-                    'start_time' => $slot->start_time->format('H:i'),
-                    'end_time' => $slot->end_time->format('H:i'),
-                    'duration_minutes' => $slot->duration_minutes,
-                    'available_slots' => $slot->max_concurrent_bookings - $slot->getCurrentBookingsCount($date),
-                ];
+            if (!$salesDeptExists) {
+                \Log::error('Sales department not found in database');
+                return 3; // Fallback
             }
-        }
 
-        return $availableSlots;
+            $count = DB::table('users')
+                ->join('department_user', 'users.id', '=', 'department_user.user_id')
+                ->join('departments', 'department_user.department_id', '=', 'departments.id')
+                ->where('departments.name', 'Sales')
+                ->where('users.status', 'active')  // Use status column with 'active' value
+                ->count();
+
+            \Log::info('Active Sales department users count: ' . $count);
+            return $count;
+
+        } catch (\Exception $e) {
+            \Log::error('Error getting active Sales department user count: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            return 3; // Default fallback value
+        }
     }
 
     public function getCurrentBookingsCount(string $date): int
     {
         $appointments = $this->appointments()
             ->where('date', $date)
-            ->whereIn('current_status', ['Booked', 'Confirmed', 'In Progress'])
+            ->whereIn('current_status', ['Appointment Booked', 'Confirmed', 'In Progress', 'QA-Pending', 'scheduled', 'rescheduled'])
             ->count();
 
         $tempBookings = $this->temporaryBookings()
@@ -113,5 +88,15 @@ class TimeSlot extends Model
             ->count();
 
         return $appointments + $tempBookings;
+    }
+
+    /**
+     * Check if time slot is available for a specific date
+     */
+    public function isAvailableForDate(string $date): bool
+    {
+        $currentBookings = $this->getCurrentBookingsCount($date);
+        $maxBookings = $this->max_concurrent_bookings ?? 3;
+        return $currentBookings < $maxBookings;
     }
 }

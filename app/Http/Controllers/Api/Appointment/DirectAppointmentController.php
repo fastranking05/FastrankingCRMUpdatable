@@ -10,6 +10,7 @@ use App\Models\FollowupAuthPerson;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
 use App\Services\QualityAssignmentService;
+use App\Services\SeoAssignmentService;
 use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,15 +21,18 @@ class DirectAppointmentController extends BaseApiController
 {
     protected $appointmentBookingEngine;
     protected $qualityAssignmentService;
+    protected $seoAssignmentService;
     protected $dateRangeFilterService;
 
     public function __construct(
         AppointmentBookingEngine $appointmentBookingEngine,
         QualityAssignmentService $qualityAssignmentService,
+        SeoAssignmentService $seoAssignmentService,
         DateRangeFilterService $dateRangeFilterService
     ) {
         $this->appointmentBookingEngine = $appointmentBookingEngine;
         $this->qualityAssignmentService = $qualityAssignmentService;
+        $this->seoAssignmentService = $seoAssignmentService;
         $this->dateRangeFilterService = $dateRangeFilterService;
     }
 
@@ -38,31 +42,9 @@ class DirectAppointmentController extends BaseApiController
     public function createDirectAppointment(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            // Business Details
-            'business.name' => 'required|string|max:255',
-            'business.category' => 'nullable|string|max:255',
-            'business.type' => 'nullable|string|max:255',
-            'business.website' => 'nullable|url|max:255',
-            'business.phone' => 'nullable|string|unique:followup_businesses,phone',
-            'business.email' => 'nullable|email|unique:followup_businesses,email',
-            
-            // Auth Persons (array - at least one required)
-            'auth_persons' => 'required|array|min:1',
-            'auth_persons.*.title' => 'nullable|string|max:50',
-            'auth_persons.*.firstname' => 'required|string|max:255',
-            'auth_persons.*.middlename' => 'nullable|string|max:255',
-            'auth_persons.*.lastname' => 'required|string|max:255',
-            'auth_persons.*.is_primary' => 'nullable|boolean',
-            'auth_persons.*.designation' => 'nullable|string|max:255',
-            'auth_persons.*.gender' => 'nullable|in:male,female,other',
-            'auth_persons.*.dob' => 'nullable|date',
-            'auth_persons.*.primaryphone' => 'nullable|string|unique:followup_auth_persons,primaryphone',
-            'auth_persons.*.altphone' => 'nullable|string',
-            'auth_persons.*.primarymobile' => 'nullable|string|unique:followup_auth_persons,primarymobile',
-            'auth_persons.*.altmobile' => 'nullable|string|unique:followup_auth_persons,altmobile',
-            'auth_persons.*.primaryemail' => 'required|email|unique:followup_auth_persons,primaryemail',
-            'auth_persons.*.altemail' => 'nullable|email|unique:followup_auth_persons,altemail',
-            
+            // Business ID (required to link appointment to existing business)
+            'followup_business_id' => 'required|exists:followup_businesses,id',
+
             // Appointment Details
             'appointment.date' => 'required|date|after_or_equal:today',
             'appointment.time_slot_id' => 'required|exists:time_slots,id',
@@ -70,7 +52,6 @@ class DirectAppointmentController extends BaseApiController
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
             'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
-            
             // Comments (array) - directly linked to business
             'comments' => 'nullable|array',
             'comments.*.comment' => 'sometimes|required|string',
@@ -83,21 +64,11 @@ class DirectAppointmentController extends BaseApiController
         }
 
         return $this->executeTransaction(function () use ($request) {
-            // Create Business
-            $businessData = $request->business;
-            $businessData['created_by'] = auth()->id();
-            $business = FollowupBusiness::create($businessData);
-
-            // Create Auth Persons and associate with business
-            $authPersonIds = [];
-            foreach ($request->auth_persons as $personData) {
-                $personData['created_by'] = auth()->id();
-                $authPerson = FollowupAuthPerson::create($personData);
-                $authPersonIds[] = $authPerson->id;
+            // Get existing business
+            $business = FollowupBusiness::find($request->followup_business_id);
+            if (!$business) {
+                return $this->errorResponse('Business not found', 404);
             }
-
-            // Associate auth persons with business
-            $business->authPersons()->attach($authPersonIds);
 
             // Create Appointment
             $appointmentData = $request->appointment;
@@ -124,6 +95,9 @@ class DirectAppointmentController extends BaseApiController
             // Assign Quality Control to the appointment (Round-robin with workload management)
             $quality = $this->qualityAssignmentService->assignQualityControl($appointment->id);
 
+            // Assign SEO to the business (Round-robin with workload management for Digital Marketing users)
+            $seoDetail = $this->seoAssignmentService->assignSeo($appointment->id, $business->id);
+
             // Create comments if provided
             if ($request->has('comments') && !empty($request->comments)) {
                 foreach ($request->comments as $commentData) {
@@ -132,7 +106,6 @@ class DirectAppointmentController extends BaseApiController
                     $commentData['old_status'] = $commentData['old_status'] ?? null;
                     $commentData['new_status'] = $commentData['new_status'] ?? null;
                     $commentData['created_by'] = auth()->id();
-                    
                     // Create comment using Comments model
                     Comment::create($commentData);
                 }
@@ -172,7 +145,7 @@ class DirectAppointmentController extends BaseApiController
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
             'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
-            
+
             // Optional new auth persons
             'auth_persons' => 'nullable|array',
             'auth_persons.*.title' => 'nullable|string|max:50',
@@ -216,7 +189,7 @@ class DirectAppointmentController extends BaseApiController
                     $authPerson = FollowupAuthPerson::create($personData);
                     $newAuthPersonIds[] = $authPerson->id;
                 }
-                
+
                 // Associate new auth persons with business
                 $business->authPersons()->attach($newAuthPersonIds);
             }
@@ -243,8 +216,11 @@ class DirectAppointmentController extends BaseApiController
             // Create appointment
             $appointment = Appointment::create($appointmentData);
 
-            // Assign Quality Control to the appointment (Round-robin with workload management)
+            // Assign Quality Control to appointment (Round-robin with workload management)
             $this->qualityAssignmentService->assignQualityControl($appointment->id);
+
+            // Assign SEO to the business (Round-robin with workload management for Digital Marketing users)
+            $this->seoAssignmentService->assignSeo($appointment->id, $business->id);
 
             // Create comments if provided
             if ($request->has('comments') && !empty($request->comments)) {
@@ -253,7 +229,7 @@ class DirectAppointmentController extends BaseApiController
                     $commentData['appointment_id'] = $appointment->id;
                     $commentData['comment'] = $commentData['comment'];
                     $commentData['created_by'] = $commentData['created_by'];
-                    
+
                     // Create comment using the FollowupComment model
                     \App\Models\FollowupComment::create($commentData);
                 }
@@ -295,7 +271,7 @@ class DirectAppointmentController extends BaseApiController
 
         try {
             $availableSlots = $this->appointmentBookingEngine->getAvailableSlots($request->date);
-            
+
             return $this->successResponse($availableSlots, 'Available time slots retrieved successfully');
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to retrieve available time slots', 500, [
@@ -415,7 +391,7 @@ class DirectAppointmentController extends BaseApiController
             'date_columns' => DateRangeFilterService::getDateColumns('appointments'),
             'status_options' => [
                 'Appointment Booked',
-                'Appointment Rebooked', 
+                'Appointment Rebooked',
                 'Appointment Confirmed',
                 'Appointment Completed',
                 'Appointment Cancelled',
@@ -490,12 +466,12 @@ class DirectAppointmentController extends BaseApiController
             }
 
             $appointmentData = $request->appointment ?? [];
-            
+
             // Check time slot availability if changing date or time slot
             if (isset($appointmentData['date']) || isset($appointmentData['time_slot_id'])) {
                 $date = $appointmentData['date'] ?? $appointment->date;
                 $timeSlotId = $appointmentData['time_slot_id'] ?? $appointment->time_slot_id;
-                
+
                 $timeSlot = TimeSlot::find($timeSlotId);
                 if (!$timeSlot || !$timeSlot->is_active) {
                     return $this->errorResponse('Time slot is not available', 400);
@@ -507,7 +483,7 @@ class DirectAppointmentController extends BaseApiController
                     ->where('id', '!=', $appointment->id)
                     ->whereIn('current_status', ['Booked', 'Confirmed', 'In Progress'])
                     ->count();
-                
+
                 if ($existingAppointments >= $timeSlot->max_concurrent_bookings) {
                     return $this->errorResponse('Time slot is not available for the selected date', 400);
                 }
@@ -537,7 +513,7 @@ class DirectAppointmentController extends BaseApiController
             'appointment.current_status' => 'nullable|string|max:100',
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
             'appointment.notes' => 'nullable|string',
-            
+
             // Optional business update
             'business.name' => 'nullable|string|max:255',
             'business.category' => 'nullable|string|max:255',
@@ -545,7 +521,7 @@ class DirectAppointmentController extends BaseApiController
             'business.website' => 'nullable|url|max:255',
             'business.phone' => 'nullable|string',
             'business.email' => 'nullable|email',
-            
+
             // Optional auth persons update
             'auth_persons' => 'nullable|array',
             'auth_persons.*.id' => 'sometimes|required|exists:followup_auth_persons,id',
@@ -563,7 +539,7 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.altmobile' => 'nullable|string',
             'auth_persons.*.primaryemail' => 'sometimes|required|email',
             'auth_persons.*.altemail' => 'nullable|email',
-            
+
             // Optional appointment details for creating new appointment
             'appointment.date' => 'nullable|date|after_or_equal:today',
             'appointment.time_slot_id' => 'nullable|exists:time_slots,id',
@@ -571,7 +547,7 @@ class DirectAppointmentController extends BaseApiController
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
             'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
-            
+
             // Comments (array) - directly linked to business
             'comments' => 'nullable|array',
             'comments.*.comment' => 'sometimes|required|string',
@@ -606,7 +582,7 @@ class DirectAppointmentController extends BaseApiController
                 // Get current auth person IDs for this business
                 $currentAuthPersonIds = $business->authPersons()->pluck('followup_auth_persons.id')->toArray();
                 $newAuthPersonIds = [];
-                
+
                 foreach ($request->auth_persons as $personData) {
                     if (isset($personData['id'])) {
                         // Update existing auth person
@@ -622,20 +598,20 @@ class DirectAppointmentController extends BaseApiController
                         $newAuthPersonIds[] = $person->id;
                     }
                 }
-                
+
                 // Delete auth persons that are no longer in the payload
                 $idsToDelete = array_diff($currentAuthPersonIds, $newAuthPersonIds);
                 if (!empty($idsToDelete)) {
                     foreach ($idsToDelete as $idToDelete) {
                         $business->authPersons()->detach($idToDelete);
-                        
+
                         $personToDelete = FollowupAuthPerson::find($idToDelete);
                         if ($personToDelete && $personToDelete->businesses()->count() === 0) {
                             $personToDelete->delete();
                         }
                     }
                 }
-                
+
                 // Sync auth persons with business
                 $business->authPersons()->sync($newAuthPersonIds);
             }
@@ -648,7 +624,7 @@ class DirectAppointmentController extends BaseApiController
                     $commentData['old_status'] = $commentData['old_status'] ?? null;
                     $commentData['new_status'] = $commentData['new_status'] ?? null;
                     $commentData['created_by'] = auth()->id();
-                    
+
                     // Create comment using Comments model
                     Comment::create($commentData);
                 }
@@ -656,7 +632,7 @@ class DirectAppointmentController extends BaseApiController
 
             // Create new appointment instead of updating existing one
             $appointmentData = $request->appointment ?? [];
-            
+
             // Check if appointment data is provided
             if (!empty($appointmentData)) {
                 // Set required fields for new appointment
@@ -665,7 +641,7 @@ class DirectAppointmentController extends BaseApiController
                 $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
                 $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
                 $appointmentData['created_by'] = auth()->id();
-                
+
                 // Check time slot availability
                 $timeSlot = TimeSlot::find($appointmentData['time_slot_id']);
                 if (!$timeSlot || !$timeSlot->is_active) {
@@ -682,6 +658,9 @@ class DirectAppointmentController extends BaseApiController
 
                 // Assign Quality Control to the new appointment (Round-robin with workload management)
                 $this->qualityAssignmentService->assignQualityControl($newAppointment->id);
+
+                // Assign SEO to the business (Round-robin with workload management for Digital Marketing users)
+                $this->seoAssignmentService->assignSeo($newAppointment->id, $business->id);
 
                 // Load complete data for response
                 $business->load([
