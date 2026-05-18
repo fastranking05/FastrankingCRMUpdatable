@@ -385,4 +385,4 @@ document.getElementById('date-picker').addEventListener('change', (e) => {
 5. **Use `display_time`** for UI display (already formatted)
 6. **Cache responses** - Time slots don't change frequently
 
-This API provides everything needed for seamless frontend time slot selection! 🚀
+This API provides everything needed for seamless frontend time slot selection!
