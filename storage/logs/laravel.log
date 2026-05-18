@@ -814,3 +814,987 @@
 [2026-05-14 14:32:41] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
 [2026-05-14 14:36:29] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
 [2026-05-14 14:36:45] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:46:51] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:46:54] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:47:19] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:47:45] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:47:59] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:48:46] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:50:01] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:50:12] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:50:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 14:50:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 14:50:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 14:50:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 14:50:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 14:53:57] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:53:59] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:54:01] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:54:35] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:54:40] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:54:46] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:54:52] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 14:55:01] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 15:35:08] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 15:42:12] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 15:42:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:42:14] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-05-14 15:42:15] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-05-14 15:42:17] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 15:42:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:42:21] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 15:42:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:42:59] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-05-14 15:43:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:43:00] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-05-14 15:43:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:43:01] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-05-14 15:43:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:43:01] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-05-14 15:43:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:43:02] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-05-14 15:43:05] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-05-14 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-05-14 15:43:15] local.INFO: Lead retrieval successful {"lead_id":4,"user_id":1} 
+[2026-05-14 15:43:23] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-05-14 15:43:24] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-05-14 15:43:33] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 15:43:34] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 15:43:34] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-05-14 15:43:39] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-05-14 15:43:39] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-05-14 15:43:39] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-05-14 15:43:53] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:43:53] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:43:54] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 15:43:54] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:43:55] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:43:56] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:43:56] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-05-14 15:43:56] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:43:57] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:44:04] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:44:04] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:44:05] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 15:44:06] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:44:06] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-05-14 15:44:07] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 15:44:07] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 15:44:29] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:01:29] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:01:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:32] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:32] local.INFO: User retrieval successful {"user_id":1} 
+[2026-05-14 16:01:34] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-05-14 16:01:34] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 16:01:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:35] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-05-14 16:01:36] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:36] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:01:36] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:36] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:01:36] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:36] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:01:37] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:01:37] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:02:17] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:02:47] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:04:52] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"create","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:05:41] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"create","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:05:41] local.INFO: SEO audit submission started {"user_id":1,"seo_detail_id":1,"status":"Audit Completed"} 
+[2026-05-14 16:05:41] local.INFO: SEO detail updated {"seo_detail_id":1,"status":"Audit Completed","audited_website":"https://www.sw19postoffice.co.uk/"} 
+[2026-05-14 16:05:41] local.DEBUG: SEO answer created {"answer_id":1,"seo_detail_id":1,"seo_question_id":1,"answer_index":0} 
+[2026-05-14 16:05:41] local.DEBUG: SEO answer created {"answer_id":2,"seo_detail_id":1,"seo_question_id":2,"answer_index":1} 
+[2026-05-14 16:05:41] local.DEBUG: SEO answer created {"answer_id":3,"seo_detail_id":1,"seo_question_id":3,"answer_index":2} 
+[2026-05-14 16:05:41] local.DEBUG: SEO answer created {"answer_id":4,"seo_detail_id":1,"seo_question_id":4,"answer_index":3} 
+[2026-05-14 16:05:41] local.INFO: SEO audit submission completed successfully {"user_id":1,"seo_detail_id":1,"execution_time_ms":88.27,"answers_count":4,"comments_count":0} 
+[2026-05-14 16:05:48] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:05:48] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:06:05] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:06:05] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(307): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->allAudits()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'allAudits')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:06:07] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:06:08] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:06:08] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:06:09] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:06:44] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"create","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:17:05] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:17:06] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:06] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(307): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->allAudits()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'allAudits')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:17:10] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:10] local.INFO: User retrieval successful {"user_id":1} 
+[2026-05-14 16:17:14] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-05-14 16:17:15] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 16:17:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:16] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-05-14 16:17:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:17] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:17:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:18] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:17:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:18] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:17:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:19] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:17:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:19] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:17:20] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:26] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:17:31] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:44] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(307): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->allAudits()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'allAudits')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:17:47] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:47] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:47] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:17:48] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:17:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:18:09] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:18:09] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:19:45] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:19:46] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:46] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(307): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->allAudits()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'allAudits')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:19:52] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:52] local.INFO: User retrieval successful {"user_id":1} 
+[2026-05-14 16:19:53] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-05-14 16:19:54] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 16:19:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:55] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-05-14 16:19:56] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:56] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:19:56] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:56] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:19:57] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:57] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:19:57] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:57] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:19:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:19:59] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:20:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:37:57] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:37:59] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:37:59] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(307): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->allAudits()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'allAudits')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:38:11] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:11] local.INFO: User retrieval successful {"user_id":1} 
+[2026-05-14 16:38:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:12] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(307): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->allAudits()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'allAudits')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:38:14] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-05-14 16:38:16] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-05-14 16:38:16] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-05-14 16:38:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:17] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-05-14 16:38:18] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:18] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:38:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:19] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:38:19] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:19] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:38:20] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:20] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-05-14 16:38:22] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:23] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-05-14 16:38:23] local.ERROR: Call to undefined relationship [question] on model [App\Models\SeoQuestionAnswer]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [question] on model [App\\Models\\SeoQuestionAnswer]. at D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php:35)
+[stacktrace]
+#0 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate/Database/Eloquent/RelationNotFoundException::make(Object(App/Models/SeoQuestionAnswer), 'question')
+#1 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate/Database/Eloquent/Builder->Illuminate/Database/Eloquent/{closure}()
+#2 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate/Database/Eloquent/Relations/Relation::noConstraints(Object(Closure))
+#3 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate/Database/Eloquent/Builder->getRelation('question')
+#4 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'question', Object(Closure))
+#5 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#6 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate/Database/Eloquent/Builder->get(Array)
+#7 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate/Database/Eloquent/Relations/Relation->get()
+#8 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate/Database/Eloquent/Relations/Relation->getEager()
+#9 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate/Database/Eloquent/Builder->eagerLoadRelation(Array, 'questionAnswers', Object(Closure))
+#10 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate/Database/Eloquent/Builder->eagerLoadRelations(Array)
+#11 D:/FastrankingCRMUpdatable/app/Http/Controllers/Api/Seo/SeoAuditController.php(128): Illuminate/Database/Eloquent/Builder->get()
+#12 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App/Http/Controllers/Api/Seo/SeoAuditController->auditCompleted()
+#13 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate/Routing/ControllerDispatcher->dispatch(Object(Illuminate/Routing/Route), Object(App/Http/Controllers/Api/Seo/SeoAuditController), 'auditCompleted')
+#14 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate/Routing/Route->runController()
+#15 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate/Routing/Route->run()
+#16 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Routing/Router->Illuminate/Routing/{closure}(Object(Illuminate/Http/Request))
+#17 D:/FastrankingCRMUpdatable/app/Http/Middleware/PermissionMiddleware.php(54): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#18 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App/Http/Middleware/PermissionMiddleware->handle(Object(Illuminate/Http/Request), Object(Closure), 'Administration', 'read')
+#19 D:/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#20 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon/JWTAuth/Http/Middleware/Authenticate->handle(Object(Illuminate/Http/Request), Object(Closure))
+#21 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#22 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Routing/Middleware/SubstituteBindings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#23 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#24 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#25 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate/Routing/Router->runRouteWithinStack(Object(Illuminate/Routing/Route), Object(Illuminate/Http/Request))
+#26 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate/Routing/Router->runRoute(Object(Illuminate/Http/Request), Object(Illuminate/Routing/Route))
+#27 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate/Routing/Router->dispatchToRoute(Object(Illuminate/Http/Request))
+#28 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate/Routing/Router->dispatch(Object(Illuminate/Http/Request))
+#29 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate/Foundation/Http/Kernel->Illuminate/Foundation/Http/{closure}(Object(Illuminate/Http/Request))
+#30 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#31 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#32 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull->handle(Object(Illuminate/Http/Request), Object(Closure))
+#33 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#34 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate/Foundation/Http/Middleware/TransformsRequest->handle(Object(Illuminate/Http/Request), Object(Closure))
+#35 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/TrimStrings->handle(Object(Illuminate/Http/Request), Object(Closure))
+#36 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#37 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePostSize->handle(Object(Illuminate/Http/Request), Object(Closure))
+#38 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#39 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance->handle(Object(Illuminate/Http/Request), Object(Closure))
+#40 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#41 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/HandleCors->handle(Object(Illuminate/Http/Request), Object(Closure))
+#42 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#43 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/TrustProxies->handle(Object(Illuminate/Http/Request), Object(Closure))
+#44 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#45 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks->handle(Object(Illuminate/Http/Request), Object(Closure))
+#46 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#47 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate/Http/Middleware/ValidatePathEncoding->handle(Object(Illuminate/Http/Request), Object(Closure))
+#48 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate/Pipeline/Pipeline->Illuminate/Pipeline/{closure}(Object(Illuminate/Http/Request))
+#49 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate/Pipeline/Pipeline->then(Object(Closure))
+#50 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate/Foundation/Http/Kernel->sendRequestThroughRouter(Object(Illuminate/Http/Request))
+#51 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate/Foundation/Http/Kernel->handle(Object(Illuminate/Http/Request))
+#52 D:/FastrankingCRMUpdatable/public/index.php(20): Illuminate/Foundation/Application->handleRequest(Object(Illuminate/Http/Request))
+#53 D:/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('D://FastrankingC...')
+#54 {main}
+"} 
+[2026-05-14 16:38:24] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 

@@ -57,7 +57,38 @@ The API implements role-based access control similar to the Quality module:
             },
             "created_at": "2026-05-12T10:00:00.000000Z",
             "updated_at": "2026-05-12T10:00:00.000000Z",
-            "question_answers": [],
+            "question_answers": [
+                {
+                    "id": 10,
+                    "seo_details_id": 1,
+                    "seo_question_id": 1,
+                    "answer": "The website has well-optimized meta tags",
+                    "comments": "Consider adding OG tags",
+                    "created_at": "2026-05-14T15:00:00.000000Z",
+                    "updated_at": "2026-05-14T15:00:00.000000Z",
+                    "question": {
+                        "id": 1,
+                        "name": "How would you rate the meta tags?",
+                        "answer_type": "text",
+                        "dropdown_options": null
+                    }
+                },
+                {
+                    "id": 11,
+                    "seo_details_id": 1,
+                    "seo_question_id": 3,
+                    "answer": "Option A",
+                    "comments": null,
+                    "created_at": "2026-05-14T15:00:00.000000Z",
+                    "updated_at": "2026-05-14T15:00:00.000000Z",
+                    "question": {
+                        "id": 3,
+                        "name": "Select the SEO strategy",
+                        "answer_type": "dropdown",
+                        "dropdown_options": ["Option A", "Option B", "Option C"]
+                    }
+                }
+            ],
             "business": {
                 "id": 1,
                 "name": "Example Business",
@@ -138,7 +169,34 @@ The API implements role-based access control similar to the Quality module:
                 },
                 "created_at": "2026-05-12T10:00:00.000000Z",
                 "updated_at": "2026-05-12T10:00:00.000000Z",
-                "question_answers": []
+                "question_answers": [
+                    {
+                        "id": 10,
+                        "question": {
+                            "id": 1,
+                            "name": "How would you rate the meta tags?",
+                            "answer_type": "text",
+                            "dropdown_options": null
+                        },
+                        "answer": "The website has well-optimized meta tags",
+                        "comments": "Consider adding OG tags",
+                        "created_at": "2026-05-14T15:00:00.000000Z",
+                        "updated_at": "2026-05-14T15:00:00.000000Z"
+                    },
+                    {
+                        "id": 11,
+                        "question": {
+                            "id": 3,
+                            "name": "Select the SEO strategy",
+                            "answer_type": "dropdown",
+                            "dropdown_options": ["Option A", "Option B", "Option C"]
+                        },
+                        "answer": "Option A",
+                        "comments": null,
+                        "created_at": "2026-05-14T15:00:00.000000Z",
+                        "updated_at": "2026-05-14T15:00:00.000000Z"
+                    }
+                ]
             },
             "business_details": {
                 "id": 1,
@@ -367,6 +425,31 @@ The API implements role-based access control similar to the Quality module:
 | primaryemail | String | Primary email |
 | primarymobile | String | Primary mobile |
 | is_primary | Boolean | Whether primary contact |
+
+### SeoQuestion Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | Integer | Primary key |
+| name | String | Question text |
+| answer_type | String | Answer type: `text`, `textarea`, `number`, `date`, `dropdown` |
+| dropdown_options | JSON | Array of options when answer_type is `dropdown` |
+| is_active | Boolean | Whether question is active |
+| created_by | Integer | Foreign key to users table |
+| created_at | Timestamp | Creation timestamp |
+| updated_at | Timestamp | Last update timestamp |
+
+### SeoQuestionAnswer Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | Integer | Primary key |
+| seo_details_id | Integer | Foreign key to seo_details table |
+| seo_question_id | Integer | Foreign key to seo_questions table |
+| answer | Text | Answer text |
+| comments | Text | Optional comments on the answer |
+| created_at | Timestamp | Creation timestamp |
+| updated_at | Timestamp | Last update timestamp |
 
 ## Error Responses
 

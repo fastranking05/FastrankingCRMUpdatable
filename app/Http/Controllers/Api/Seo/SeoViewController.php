@@ -15,7 +15,7 @@ class SeoViewController extends BaseApiController
     /**
      * Get comprehensive SEO view with all details
      * Combines business details, auth persons, comments, and SEO details
-     * 
+     *
      * Manager (Digital Marketing): Can see own + team members' data
      * Executive (Digital Marketing): Can see only own data
      * Admin: Can see all data
@@ -25,7 +25,7 @@ class SeoViewController extends BaseApiController
         $user = auth()->user();
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
-            'questionAnswers.question:id,name',
+            'questionAnswers.question:id,name,answer_type,dropdown_options',
             'followupBusiness' => function ($query) {
                 $query->with([
                     'authPersons' => function ($query) {
@@ -65,7 +65,7 @@ class SeoViewController extends BaseApiController
             $business = null;
             if ($seoDetail->followupBusiness) {
                 $followupBusiness = $seoDetail->followupBusiness;
-                
+
                 // Format auth persons
                 $authPersons = $followupBusiness->authPersons->map(function ($person) {
                     return [
@@ -143,7 +143,9 @@ class SeoViewController extends BaseApiController
                     'id' => $answer->id,
                     'question' => $answer->question ? [
                         'id' => $answer->question->id,
-                        'name' => $answer->question->name
+                        'name' => $answer->question->name,
+                        'answer_type' => $answer->question->answer_type,
+                        'dropdown_options' => $answer->question->dropdown_options,
                     ] : null,
                     'answer' => $answer->answer,
                     'comments' => $answer->comments,
@@ -180,17 +182,17 @@ class SeoViewController extends BaseApiController
 
     /**
      * Get comprehensive SEO view for a specific business
-     * 
+     *
      * @param int $businessId
      * @return JsonResponse
      */
     public function comprehensiveViewByBusiness(int $businessId): JsonResponse
     {
         $user = auth()->user();
-        
+
         $seoDetail = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
-            'questionAnswers.question:id,name',
+            'questionAnswers.question:id,name,answer_type,dropdown_options',
             'followupBusiness' => function ($query) {
                 $query->with([
                     'authPersons' => function ($query) {
@@ -230,7 +232,7 @@ class SeoViewController extends BaseApiController
 
         // Format the comprehensive response (same as above but for single record)
         $followupBusiness = $seoDetail->followupBusiness;
-        
+
         // Format auth persons
         $authPersons = $followupBusiness->authPersons->map(function ($person) {
             return [
@@ -286,7 +288,9 @@ class SeoViewController extends BaseApiController
                 'id' => $answer->id,
                 'question' => $answer->question ? [
                     'id' => $answer->question->id,
-                    'name' => $answer->question->name
+                    'name' => $answer->question->name,
+                    'answer_type' => $answer->question->answer_type,
+                    'dropdown_options' => $answer->question->dropdown_options,
                 ] : null,
                 'answer' => $answer->answer,
                 'comments' => $answer->comments,

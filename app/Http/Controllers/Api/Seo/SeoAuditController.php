@@ -23,7 +23,7 @@ class SeoAuditController extends BaseApiController
         $user = auth()->user();
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
-            'questionAnswers.question:id,name',
+            'questionAnswers.question:id,name,answer_type,dropdown_options',
             'followupBusiness:id,name,category,type,website,phone,email',
             'followupBusiness.authPersons'
         ]);
@@ -41,7 +41,7 @@ class SeoAuditController extends BaseApiController
             $business = null;
             if ($audit->followupBusiness) {
                 $followupBusiness = $audit->followupBusiness;
-                
+
                 // Get auth persons specifically for this business
                 $authPersons = DB::table('followup_business_auth_person')
                     ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
@@ -114,7 +114,7 @@ class SeoAuditController extends BaseApiController
         $user = auth()->user();
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
-            'questionAnswers.question:id,name',
+            'questionAnswers.question:id,name,answer_type,dropdown_options',
             'followupBusiness:id,name,category,type,website,phone,email',
             'followupBusiness.authPersons'
         ]);
@@ -132,7 +132,7 @@ class SeoAuditController extends BaseApiController
             $business = null;
             if ($audit->followupBusiness) {
                 $followupBusiness = $audit->followupBusiness;
-                
+
                 // Get auth persons specifically for this business
                 $authPersons = DB::table('followup_business_auth_person')
                     ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
@@ -205,7 +205,7 @@ class SeoAuditController extends BaseApiController
         $user = auth()->user();
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
-            'questionAnswers.question:id,name',
+            'questionAnswers.question:id,name,answer_type,dropdown_options',
             'followupBusiness:id,name,category,type,website,phone,email',
             'followupBusiness.authPersons'
         ]);
@@ -223,7 +223,7 @@ class SeoAuditController extends BaseApiController
             $business = null;
             if ($audit->followupBusiness) {
                 $followupBusiness = $audit->followupBusiness;
-                
+
                 // Get auth persons specifically for this business
                 $authPersons = DB::table('followup_business_auth_person')
                     ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
@@ -296,7 +296,7 @@ class SeoAuditController extends BaseApiController
         $user = auth()->user();
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
-            'questionAnswers.question:id,name',
+            'questionAnswers.question:id,name,answer_type,dropdown_options',
             'followupBusiness:id,name,category,type,website,phone,email',
             'followupBusiness.authPersons'
         ]);
@@ -311,7 +311,7 @@ class SeoAuditController extends BaseApiController
             $business = null;
             if ($audit->followupBusiness) {
                 $followupBusiness = $audit->followupBusiness;
-                
+
                 // Get auth persons specifically for this business
                 $authPersons = DB::table('followup_business_auth_person')
                     ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
