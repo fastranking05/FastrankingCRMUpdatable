@@ -39,7 +39,7 @@ class FollowupAuthPersonController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $persons = $query->paginate($perPage);
+            $persons = $query->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($persons, 'Follow-up authorized persons retrieved successfully');
         }, 'Follow-up authorized person list retrieval');

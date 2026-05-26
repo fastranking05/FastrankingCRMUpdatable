@@ -21,5 +21,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Run the 5K dummy data seeder for comprehensive test data
+        // Includes: leads/followups, appointments, consultations, SEO audits, quality audits
+        $this->call(FiveKDummyDataSeeder::class);
     }
 }

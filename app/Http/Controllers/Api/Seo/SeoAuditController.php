@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api\Seo;
 
 use App\Http\Controllers\Api\BaseApiController;
 use App\Models\SeoDetail;
-use App\Models\SeoQuestionAnswer;
-use App\Models\Team;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SeoAuditController extends BaseApiController
@@ -18,7 +16,7 @@ class SeoAuditController extends BaseApiController
      * Executive (Digital Marketing): Can see only own data
      * Admin: Can see all data
      */
-    public function auditPending(): JsonResponse
+    public function auditPending(Request $request): JsonResponse
     {
         $user = auth()->user();
         $query = SeoDetail::with([
@@ -34,82 +32,22 @@ class SeoAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
-        $audits = $query->orderBy('created_at', 'desc')->get();
-
-        // Format the response
-        $formattedAudits = $audits->map(function ($audit) {
-            $business = null;
-            if ($audit->followupBusiness) {
-                $followupBusiness = $audit->followupBusiness;
-
-                // Get auth persons specifically for this business
-                $authPersons = DB::table('followup_business_auth_person')
-                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
-                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
-                    ->select([
-                        'followup_auth_persons.id',
-                        'followup_auth_persons.title',
-                        'followup_auth_persons.firstname',
-                        'followup_auth_persons.middlename',
-                        'followup_auth_persons.lastname',
-                        'followup_auth_persons.designation',
-                        'followup_auth_persons.primaryemail',
-                        'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
-                    ])
-                    ->get()
-                    ->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
-                        ];
-                    });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
-                ];
-            }
-
-            return [
-                'id' => $audit->id,
-                'followup_business_id' => $audit->followup_business_id,
-                'status' => $audit->status,
-                'reason' => $audit->reason,
-                'audited_website' => $audit->audited_website,
-                'audited_date' => $audit->audited_date,
-                'auditor' => $audit->auditor,
-                'assigned_user' => $audit->assignedUser,
-                'created_at' => $audit->created_at,
-                'updated_at' => $audit->updated_at,
-                'question_answers' => $audit->questionAnswers,
-                'business' => $business
-            ];
-        });
+        $perPage = max(1, (int) $request->input('per_page', 15));
+        $formattedAudits = $query->orderByDesc('seo_details.created_at')
+            ->orderByDesc('seo_details.id')
+            ->cursorPaginate($perPage)
+            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
 
         return $this->successResponse($formattedAudits, 'SEO audit pending data retrieved successfully');
     }
 
     /**
-     * Get SEO audit completed data (Audit Completed status)
+     * Get SEO audit completed data (Audit Completed status)    
      * Manager (Digital Marketing): Can see own + team members' data
      * Executive (Digital Marketing): Can see only own data
      * Admin: Can see all data
      */
-    public function auditCompleted(): JsonResponse
+    public function auditCompleted(Request $request): JsonResponse
     {
         $user = auth()->user();
         $query = SeoDetail::with([
@@ -125,71 +63,11 @@ class SeoAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
-        $audits = $query->orderBy('updated_at', 'desc')->get();
-
-        // Format the response
-        $formattedAudits = $audits->map(function ($audit) {
-            $business = null;
-            if ($audit->followupBusiness) {
-                $followupBusiness = $audit->followupBusiness;
-
-                // Get auth persons specifically for this business
-                $authPersons = DB::table('followup_business_auth_person')
-                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
-                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
-                    ->select([
-                        'followup_auth_persons.id',
-                        'followup_auth_persons.title',
-                        'followup_auth_persons.firstname',
-                        'followup_auth_persons.middlename',
-                        'followup_auth_persons.lastname',
-                        'followup_auth_persons.designation',
-                        'followup_auth_persons.primaryemail',
-                        'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
-                    ])
-                    ->get()
-                    ->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
-                        ];
-                    });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
-                ];
-            }
-
-            return [
-                'id' => $audit->id,
-                'followup_business_id' => $audit->followup_business_id,
-                'status' => $audit->status,
-                'reason' => $audit->reason,
-                'audited_website' => $audit->audited_website,
-                'audited_date' => $audit->audited_date,
-                'auditor' => $audit->auditor,
-                'assigned_user' => $audit->assignedUser,
-                'created_at' => $audit->created_at,
-                'updated_at' => $audit->updated_at,
-                'question_answers' => $audit->questionAnswers,
-                'business' => $business
-            ];
-        });
+        $perPage = max(1, (int) $request->input('per_page', 15));
+        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
+            ->orderByDesc('seo_details.id')
+            ->cursorPaginate($perPage)
+            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
 
         return $this->successResponse($formattedAudits, 'SEO audit completed data retrieved successfully');
     }
@@ -200,7 +78,7 @@ class SeoAuditController extends BaseApiController
      * Executive (Digital Marketing): Can see only own data
      * Admin: Can see all data
      */
-    public function notApplicable(): JsonResponse
+    public function notApplicable(Request $request): JsonResponse
     {
         $user = auth()->user();
         $query = SeoDetail::with([
@@ -216,71 +94,11 @@ class SeoAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
-        $audits = $query->orderBy('updated_at', 'desc')->get();
-
-        // Format the response
-        $formattedAudits = $audits->map(function ($audit) {
-            $business = null;
-            if ($audit->followupBusiness) {
-                $followupBusiness = $audit->followupBusiness;
-
-                // Get auth persons specifically for this business
-                $authPersons = DB::table('followup_business_auth_person')
-                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
-                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
-                    ->select([
-                        'followup_auth_persons.id',
-                        'followup_auth_persons.title',
-                        'followup_auth_persons.firstname',
-                        'followup_auth_persons.middlename',
-                        'followup_auth_persons.lastname',
-                        'followup_auth_persons.designation',
-                        'followup_auth_persons.primaryemail',
-                        'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
-                    ])
-                    ->get()
-                    ->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
-                        ];
-                    });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
-                ];
-            }
-
-            return [
-                'id' => $audit->id,
-                'followup_business_id' => $audit->followup_business_id,
-                'status' => $audit->status,
-                'reason' => $audit->reason,
-                'audited_website' => $audit->audited_website,
-                'audited_date' => $audit->audited_date,
-                'auditor' => $audit->auditor,
-                'assigned_user' => $audit->assignedUser,
-                'created_at' => $audit->created_at,
-                'updated_at' => $audit->updated_at,
-                'question_answers' => $audit->questionAnswers,
-                'business' => $business
-            ];
-        });
+        $perPage = max(1, (int) $request->input('per_page', 15));
+        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
+            ->orderByDesc('seo_details.id')
+            ->cursorPaginate($perPage)
+            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
 
         return $this->successResponse($formattedAudits, 'SEO not applicable data retrieved successfully');
     }
@@ -291,7 +109,7 @@ class SeoAuditController extends BaseApiController
      * Executive (Digital Marketing): Can see only own data
      * Admin: Can see all data
      */
-    public function allAudits(): JsonResponse
+    public function allAudits(Request $request): JsonResponse
     {
         $user = auth()->user();
         $query = SeoDetail::with([
@@ -304,73 +122,79 @@ class SeoAuditController extends BaseApiController
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
 
-        $audits = $query->orderBy('updated_at', 'desc')->get();
-
-        // Format the response
-        $formattedAudits = $audits->map(function ($audit) {
-            $business = null;
-            if ($audit->followupBusiness) {
-                $followupBusiness = $audit->followupBusiness;
-
-                // Get auth persons specifically for this business
-                $authPersons = DB::table('followup_business_auth_person')
-                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
-                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
-                    ->select([
-                        'followup_auth_persons.id',
-                        'followup_auth_persons.title',
-                        'followup_auth_persons.firstname',
-                        'followup_auth_persons.middlename',
-                        'followup_auth_persons.lastname',
-                        'followup_auth_persons.designation',
-                        'followup_auth_persons.primaryemail',
-                        'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
-                    ])
-                    ->get()
-                    ->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
-                        ];
-                    });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
-                ];
-            }
-
-            return [
-                'id' => $audit->id,
-                'followup_business_id' => $audit->followup_business_id,
-                'status' => $audit->status,
-                'reason' => $audit->reason,
-                'audited_website' => $audit->audited_website,
-                'audited_date' => $audit->audited_date,
-                'auditor' => $audit->auditor,
-                'assigned_user' => $audit->assignedUser,
-                'created_at' => $audit->created_at,
-                'updated_at' => $audit->updated_at,
-                'question_answers' => $audit->questionAnswers,
-                'business' => $business
-            ];
-        });
+        $perPage = max(1, (int) $request->input('per_page', 15));
+        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
+            ->orderByDesc('seo_details.id')
+            ->cursorPaginate($perPage)
+            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
 
         return $this->successResponse($formattedAudits, 'All SEO data retrieved successfully');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function formatSeoAuditListItem(SeoDetail $audit): array
+    {
+        $business = null;
+        if ($audit->followupBusiness) {
+            $followupBusiness = $audit->followupBusiness;
+
+            $authPersons = DB::table('followup_business_auth_person')
+                ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
+                ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
+                ->select([
+                    'followup_auth_persons.id',
+                    'followup_auth_persons.title',
+                    'followup_auth_persons.firstname',
+                    'followup_auth_persons.middlename',
+                    'followup_auth_persons.lastname',
+                    'followup_auth_persons.designation',
+                    'followup_auth_persons.primaryemail',
+                    'followup_auth_persons.primarymobile',
+                    'followup_auth_persons.is_primary',
+                ])
+                ->get()
+                ->map(static function ($person) {
+                    return [
+                        'id' => $person->id,
+                        'title' => $person->title,
+                        'firstname' => $person->firstname,
+                        'middlename' => $person->middlename,
+                        'lastname' => $person->lastname,
+                        'designation' => $person->designation,
+                        'primaryemail' => $person->primaryemail,
+                        'primarymobile' => $person->primarymobile,
+                        'is_primary' => $person->is_primary,
+                    ];
+                });
+
+            $business = [
+                'id' => $followupBusiness->id,
+                'name' => $followupBusiness->name,
+                'category' => $followupBusiness->category,
+                'type' => $followupBusiness->type,
+                'website' => $followupBusiness->website,
+                'phone' => $followupBusiness->phone,
+                'email' => $followupBusiness->email,
+                'auth_persons' => $authPersons,
+            ];
+        }
+
+        return [
+            'id' => $audit->id,
+            'followup_business_id' => $audit->followup_business_id,
+            'status' => $audit->status,
+            'reason' => $audit->reason,
+            'audited_website' => $audit->audited_website,
+            'audited_date' => $audit->audited_date,
+            'auditor' => $audit->auditor,
+            'assigned_user' => $audit->assignedUser,
+            'created_at' => $audit->created_at,
+            'updated_at' => $audit->updated_at,
+            'question_answers' => $audit->questionAnswers,
+            'business' => $business,
+        ];
     }
 
     /**

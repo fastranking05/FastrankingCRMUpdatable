@@ -91,8 +91,9 @@ class SeoFilterController extends BaseApiController
                 $query->where('audited_website', 'like', '%' . $request->input('audited_website') . '%');
             }
 
-            $seoRecords = $query->orderBy('updated_at', 'desc')
-                ->paginate($request->input('per_page', 15));
+            $seoRecords = $query->orderByDesc('seo_details.updated_at')
+                ->orderByDesc('seo_details.id')
+                ->cursorPaginate($request->input('per_page', 50));
 
             return $this->successResponse($seoRecords, 'SEO records retrieved successfully');
         }, 'SEO filtering');

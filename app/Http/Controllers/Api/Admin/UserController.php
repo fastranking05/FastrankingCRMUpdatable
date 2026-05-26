@@ -40,7 +40,7 @@ class UserController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $users = $query->paginate($perPage);
+            $users = $query->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($users, 'Users retrieved successfully');
         }, 'User list retrieval');

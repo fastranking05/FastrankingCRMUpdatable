@@ -37,12 +37,12 @@ class EmailController extends BaseApiController
             $query->where('created_by', $request->created_by);
         }
 
-        // Order by latest
-        $query->orderBy('created_at', 'desc');
+        // Order by latest (qualified for cursor stability)
+        $query->orderByDesc('emails.created_at')->orderByDesc('emails.id');
 
         // Pagination
         $perPage = $request->get('per_page', 15);
-        $emails = $query->paginate($perPage);
+        $emails = $query->cursorPaginate($perPage);
 
         return $this->successResponse($emails, 'Emails retrieved successfully');
     }
@@ -80,11 +80,11 @@ class EmailController extends BaseApiController
             $query = $this->applyRequestFilters($query, $request);
 
             // Order by created_at descending
-            $query->orderBy('created_at', 'desc');
+            $query->orderByDesc('emails.created_at')->orderByDesc('emails.id');
 
             // Paginate results
             $perPage = $request->get('per_page', 15);
-            $emails = $query->paginate($perPage);
+            $emails = $query->cursorPaginate($perPage);
 
             return $this->successResponse([
                 'emails' => $emails,
@@ -130,11 +130,11 @@ class EmailController extends BaseApiController
             $query = $this->applyRequestFilters($query, $request);
 
             // Order by created_at descending
-            $query->orderBy('created_at', 'desc');
+            $query->orderByDesc('emails.created_at')->orderByDesc('emails.id');
 
             // Paginate results
             $perPage = $request->get('per_page', 15);
-            $emails = $query->paginate($perPage);
+            $emails = $query->cursorPaginate($perPage);
 
             return $this->successResponse([
                 'emails' => $emails,

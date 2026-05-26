@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class FollowupBusiness extends Model
 {
@@ -25,9 +26,36 @@ class FollowupBusiness extends Model
     ];
 
     protected $casts = [
+        'latest_followup_date' => 'date',
+        'latest_followup_time' => 'datetime:H:i:s',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * Recompute denormalized sort columns from followup_details (latest by date, then time).
+     * Used for cursor pagination on list endpoints and kept in sync via FollowupDetailObserver.
+     */
+    public static function refreshLatestFollowupSortFromDetails(int $businessId): void
+    {
+        $detail = FollowupDetail::query()
+            ->where('followup_business_id', $businessId)
+            ->orderByDesc('date')
+            ->orderByDesc('time')
+            ->first();
+
+        static::withoutEvents(function () use ($businessId, $detail): void {
+            DB::table('followup_businesses')
+                ->where('id', $businessId)
+                ->update([
+                    'latest_followup_date' => $detail?->date?->format('Y-m-d'),
+                    'latest_followup_time' => ($detail !== null && $detail->time !== null)
+                        ? $detail->time->format('H:i:s')
+                        : null,
+                    'updated_at' => now(),
+                ]);
+        });
+    }
 
     public function creator(): BelongsTo
     {

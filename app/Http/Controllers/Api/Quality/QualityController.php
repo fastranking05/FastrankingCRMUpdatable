@@ -31,8 +31,6 @@ class QualityController extends BaseApiController
     /**
      * Display a listing of quality records.
      */
-    // app/Http/Controllers/Api/Quality/QualityController.php
-
     public function index(Request $request): JsonResponse
     {
         // 1. Start with the latest quality record per appointment
@@ -85,64 +83,14 @@ class QualityController extends BaseApiController
         // 3. Apply all filters using the model scope
         $query->filter($filters);
 
-        // 4. Order and get results
-        $qualities = $query->orderBy('created_at', 'desc')->get();
+        // 4. Order and paginate (cursor-safe column names)
+        $perPage = max(1, (int) $request->input('per_page', 15));
+        $qualities = $query->orderByDesc('qualities.created_at')
+            ->orderByDesc('qualities.id')
+            ->cursorPaginate($perPage)
+            ->through(fn (Quality $quality) => $this->transformQualityIndexItem($quality));
 
-        // 5. Transform data (your existing transformation logic stays the same)
-        $transformedData = $qualities->map(function ($quality) {
-            return [
-                'id' => $quality->id,
-                'appointment_id' => $quality->appointment_id,
-                'auditstatus' => $quality->auditstatus,
-                'status' => $quality->status,
-                'score' => $quality->score,
-                'assigned_user' => [
-                    'id' => $quality->assignedUser->id ?? null,
-                    'first_name' => $quality->assignedUser->first_name ?? null,
-                    'last_name' => $quality->assignedUser->last_name ?? null,
-                    'email' => $quality->assignedUser->email ?? null,
-                ],
-                'meeting_link' => $quality->meeting_link,
-                'created_at' => $quality->created_at,
-                'updated_at' => $quality->updated_at,
-                'answers' => $quality->answers->map(fn($answer) => [
-                    'id' => $answer->id,
-                    'question_id' => $answer->question_id,
-                    'answer' => $answer->answer,
-                    'score' => $answer->score,
-                ])->toArray(),
-                'business' => $quality->appointment->followupBusiness ? [
-                    'id' => $quality->appointment->followupBusiness->id,
-                    'name' => $quality->appointment->followupBusiness->name,
-                    'category' => $quality->appointment->followupBusiness->category,
-                    'type' => $quality->appointment->followupBusiness->type,
-                    'website' => $quality->appointment->followupBusiness->website,
-                    'phone' => $quality->appointment->followupBusiness->phone,
-                    'email' => $quality->appointment->followupBusiness->email,
-                    'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(fn($person) => [
-                        'id' => $person->id,
-                        'title' => $person->title,
-                        'firstname' => $person->firstname,
-                        'middlename' => $person->middlename,
-                        'lastname' => $person->lastname,
-                        'designation' => $person->designation,
-                        'primaryemail' => $person->primaryemail,
-                        'primarymobile' => $person->primarymobile,
-                        'is_primary' => $person->pivot->is_primary ?? 0,
-                    ])->toArray(),
-                ] : null,
-                'appointment_date' => $quality->appointment->date,
-                'appointment_source' => $quality->appointment->source,
-                'appointment_current_status' => $quality->appointment->current_status,
-                'appointment_slot' => $quality->appointment->timeSlot ? [
-                    'id' => $quality->appointment->timeSlot->id,
-                    'start_time' => $quality->appointment->timeSlot->start_time,
-                    'end_time' => $quality->appointment->timeSlot->end_time,
-                ] : null,
-            ];
-        })->toArray();
-
-        return $this->successResponse($transformedData, 'All quality data retrieved successfully');
+        return $this->successResponse($qualities, 'All quality data retrieved successfully');
     }
 
     /**
@@ -454,13 +402,70 @@ class QualityController extends BaseApiController
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    private function transformQualityIndexItem(Quality $quality): array
+    {
+        return [
+            'id' => $quality->id,
+            'appointment_id' => $quality->appointment_id,
+            'auditstatus' => $quality->auditstatus,
+            'status' => $quality->status,
+            'score' => $quality->score,
+            'assigned_user' => [
+                'id' => $quality->assignedUser->id ?? null,
+                'first_name' => $quality->assignedUser->first_name ?? null,
+                'last_name' => $quality->assignedUser->last_name ?? null,
+                'email' => $quality->assignedUser->email ?? null,
+            ],
+            'meeting_link' => $quality->meeting_link,
+            'created_at' => $quality->created_at,
+            'updated_at' => $quality->updated_at,
+            'answers' => $quality->answers->map(fn ($answer) => [
+                'id' => $answer->id,
+                'question_id' => $answer->question_id,
+                'answer' => $answer->answers,
+                'score' => $answer->score,
+            ])->toArray(),
+            'business' => $quality->appointment?->followupBusiness ? [
+                'id' => $quality->appointment->followupBusiness->id,
+                'name' => $quality->appointment->followupBusiness->name,
+                'category' => $quality->appointment->followupBusiness->category,
+                'type' => $quality->appointment->followupBusiness->type,
+                'website' => $quality->appointment->followupBusiness->website,
+                'phone' => $quality->appointment->followupBusiness->phone,
+                'email' => $quality->appointment->followupBusiness->email,
+                'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(fn ($person) => [
+                    'id' => $person->id,
+                    'title' => $person->title,
+                    'firstname' => $person->firstname,
+                    'middlename' => $person->middlename,
+                    'lastname' => $person->lastname,
+                    'designation' => $person->designation,
+                    'primaryemail' => $person->primaryemail,
+                    'primarymobile' => $person->primarymobile,
+                    'is_primary' => $person->pivot->is_primary ?? 0,
+                ])->toArray(),
+            ] : null,
+            'appointment_date' => $quality->appointment?->date,
+            'appointment_source' => $quality->appointment?->source,
+            'appointment_current_status' => $quality->appointment?->current_status,
+            'appointment_slot' => ($quality->appointment && $quality->appointment->timeSlot) ? [
+                'id' => $quality->appointment->timeSlot->id,
+                'start_time' => $quality->appointment->timeSlot->start_time,
+                'end_time' => $quality->appointment->timeSlot->end_time,
+            ] : null,
+        ];
+    }
+
+    /**
      * Get my quality assignments (for logged in QC user)
      */
     public function myAssignments(Request $request): JsonResponse
     {
         $query = Quality::with([
             'appointment:id,date,followup_business_id',
-            'appointment.business:id,name',
+            'appointment.followupBusiness:id,name',
             'answers:id,quality_id,question_id,answers',
         ])->where('assigned_user', auth()->id());
 
@@ -472,8 +477,9 @@ class QualityController extends BaseApiController
             $query->where('auditstatus', $request->auditstatus);
         }
 
-        $qualities = $query->orderBy('created_at', 'desc')
-            ->paginate($request->get('per_page', 15));
+        $qualities = $query->orderByDesc('qualities.created_at')
+            ->orderByDesc('qualities.id')
+            ->cursorPaginate($request->get('per_page', 15));
 
         return $this->successResponse($qualities, 'My quality assignments retrieved successfully');
     }

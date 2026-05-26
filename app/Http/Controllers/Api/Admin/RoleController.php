@@ -30,7 +30,7 @@ class RoleController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $roles = $query->orderBy('created_at', 'desc')->paginate($perPage);
+            $roles = $query->orderBy('created_at', 'desc')->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($roles, 'Roles retrieved successfully');
         }, 'Fetch roles list', ['filters' => $request->all()]);

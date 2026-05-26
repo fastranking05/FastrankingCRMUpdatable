@@ -33,4 +33,10 @@ class SeoQuestionAnswer extends Model
     {
         return $this->belongsTo(SeoQuestion::class, 'seo_question_id');
     }
+
+    /** Alias for eager loads that use `question` (same as seoQuestion()). */
+    public function question(): BelongsTo
+    {
+        return $this->belongsTo(SeoQuestion::class, 'seo_question_id');
+    }
 }

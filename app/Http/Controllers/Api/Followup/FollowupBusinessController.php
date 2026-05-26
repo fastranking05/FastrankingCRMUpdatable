@@ -35,7 +35,7 @@ class FollowupBusinessController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $businesses = $query->paginate($perPage);
+            $businesses = $query->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($businesses, 'Follow-up businesses retrieved successfully');
         }, 'Follow-up business list retrieval');

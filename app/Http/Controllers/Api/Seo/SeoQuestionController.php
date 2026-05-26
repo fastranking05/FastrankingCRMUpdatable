@@ -28,8 +28,9 @@ class SeoQuestionController extends BaseApiController
             $query->where('name', 'like', '%' . $search . '%');
         }
 
-        $questions = $query->orderBy('created_at', 'desc')
-            ->paginate($request->get('per_page', 50));
+        $questions = $query->orderByDesc('seo_questions.created_at')
+            ->orderByDesc('seo_questions.id')
+            ->cursorPaginate($request->get('per_page', 50));
 
         return $this->successResponse($questions, 'SEO questions retrieved successfully');
     }

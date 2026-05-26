@@ -376,9 +376,10 @@ class DirectAppointmentController extends BaseApiController
             $query->whereIn('status', $request->input('statuses'));
         }
 
-        $appointments = $query->orderBy('date', 'asc')
-            ->orderBy('time_slot_id', 'asc')
-            ->paginate($request->input('per_page', 15));
+        $appointments = $query->orderBy('appointments.date', 'asc')
+            ->orderBy('appointments.time_slot_id', 'asc')
+            ->orderBy('appointments.id', 'asc')
+            ->cursorPaginate($request->input('per_page', 15));
 
         return $this->successResponse($appointments, 'Direct appointments retrieved successfully');
     }

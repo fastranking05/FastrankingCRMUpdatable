@@ -130,10 +130,10 @@ class LeadsController extends BaseApiController
         $query = $this->getLeadsBaseQuery();
         $query = $this->applyRoleBasedFilters($query, $user);
         $query = $this->applyRequestFilters($query, $request);
-        $query->orderBy('created_at', 'desc');
+        $query->orderByDesc('followup_businesses.created_at')->orderByDesc('followup_businesses.id');
 
-        $perPage = $request->get('per_page', 15);
-        $leads = $query->paginate($perPage);
+        $perPage = $request->get('per_page', 50);
+        $leads = $query->cursorPaginate($perPage);
 
         return $this->successResponse([
             'leads' => $leads,
@@ -155,10 +155,10 @@ class LeadsController extends BaseApiController
         $query = $this->getLeadsBaseQuery();
         $query->where('created_by', $user->id);
         $query = $this->applyRequestFilters($query, $request);
-        $query->orderBy('created_at', 'desc');
+        $query->orderByDesc('followup_businesses.created_at')->orderByDesc('followup_businesses.id');
 
-        $perPage = $request->get('per_page', 15);
-        $leads = $query->paginate($perPage);
+        $perPage = $request->get('per_page', 50);
+        $leads = $query->cursorPaginate($perPage);
 
         return $this->successResponse([
             'leads' => $leads,

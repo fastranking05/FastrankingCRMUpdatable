@@ -30,7 +30,7 @@ class ModuleController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $modules = $query->orderBy('created_at', 'desc')->paginate($perPage);
+            $modules = $query->orderBy('created_at', 'desc')->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($modules, 'Modules retrieved successfully');
         }, 'Fetch modules list', ['filters' => $request->all()]);

@@ -30,7 +30,7 @@ class TeamController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $teams = $query->orderBy('created_at', 'desc')->paginate($perPage);
+            $teams = $query->orderBy('created_at', 'desc')->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($teams, 'Teams retrieved successfully');
         }, 'Fetch teams list', ['filters' => $request->all()]);

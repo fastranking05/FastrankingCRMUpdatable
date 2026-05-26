@@ -45,13 +45,14 @@ class AppointmentListingController extends BaseApiController
             // Apply additional filters from request
             $query = $this->applyRequestFilters($query, $request);
 
-            // Order by date descending
-            $query->orderBy('date', 'desc')
-                  ->orderBy('created_at', 'desc');
+            // Order by date descending (qualified for cursor stability)
+            $query->orderByDesc('appointments.date')
+                  ->orderByDesc('appointments.created_at')
+                  ->orderByDesc('appointments.id');
 
             // Paginate results
-            $perPage = $request->get('per_page', 15);
-            $appointments = $query->paginate($perPage);
+            $perPage = $request->get('per_page', 50);
+            $appointments = $query->cursorPaginate($perPage);
 
             return $this->successResponse([
                 'appointments' => $appointments,
@@ -96,13 +97,14 @@ class AppointmentListingController extends BaseApiController
             // Apply additional filters from request
             $query = $this->applyRequestFilters($query, $request);
 
-            // Order by date descending
-            $query->orderBy('date', 'desc')
-                  ->orderBy('created_at', 'desc');
+            // Order by date descending (qualified for cursor stability)
+            $query->orderByDesc('appointments.date')
+                  ->orderByDesc('appointments.created_at')
+                  ->orderByDesc('appointments.id');
 
             // Paginate results
             $perPage = $request->get('per_page', 15);
-            $appointments = $query->paginate($perPage);
+            $appointments = $query->cursorPaginate($perPage);
 
             return $this->successResponse([
                 'appointments' => $appointments,
@@ -154,12 +156,13 @@ class AppointmentListingController extends BaseApiController
             $query = $this->applyRequestFilters($query, $request, ['date_from', 'date_to']);
 
             // Order by time slot (ascending for today's schedule)
-            $query->orderBy('date', 'asc')
-                  ->orderBy('time_slot_id', 'asc');
+            $query->orderBy('appointments.date', 'asc')
+                  ->orderBy('appointments.time_slot_id', 'asc')
+                  ->orderBy('appointments.id', 'asc');
 
             // Paginate results
             $perPage = $request->get('per_page', 15);
-            $appointments = $query->paginate($perPage);
+            $appointments = $query->cursorPaginate($perPage);
 
             return $this->successResponse([
                 'appointments' => $appointments,

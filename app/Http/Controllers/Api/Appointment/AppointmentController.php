@@ -265,7 +265,10 @@ class AppointmentController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $appointments = $query->orderBy('date', 'desc')->orderBy('time_slot_id', 'asc')->paginate($perPage);
+            $appointments = $query->orderByDesc('appointments.date')
+                ->orderBy('appointments.time_slot_id', 'asc')
+                ->orderByDesc('appointments.id')
+                ->cursorPaginate($perPage);
 
             return $this->successResponse($appointments, 'Appointments retrieved successfully');
         }, 'Appointments list retrieval');

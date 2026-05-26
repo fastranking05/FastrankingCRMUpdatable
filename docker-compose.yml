@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: fastrankingcrm_app
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/var/www/html
+
+    depends_on:
+      - mysql
+
+    working_dir: /var/www/html
+
+  mysql:
+    image: mysql:8.0
+
+    container_name: fastrankingcrm_mysql
+
+    restart: unless-stopped
+
+    ports:
+      - "3307:3306"
+
+    environment:
+      MYSQL_DATABASE: fastrankingcrm
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

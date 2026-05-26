@@ -43,7 +43,7 @@ class FollowupDetailController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $details = $query->orderBy('date', 'desc')->orderBy('time', 'desc')->paginate($perPage);
+            $details = $query->orderBy('date', 'desc')->orderBy('time', 'desc')->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($details, 'Follow-up details retrieved successfully');
         }, 'Follow-up detail list retrieval');

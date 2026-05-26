@@ -36,9 +36,9 @@ class ConsultationController extends BaseApiController
     {
         $user = auth()->user();
         
-        // Get user's role and department
-        $userRole = $user->roles->first()->name ?? null;
-        $userDepartment = $user->departments->first()->name ?? null;
+        // Get user's role and department (null-safe: collections may be empty)
+        $userRole = $user->roles->first()?->name;
+        $userDepartment = $user->departments->first()?->name;
         
         // If user is executive and in sales department, show only assigned consultations
         if ($userRole === 'executive' && $userDepartment === 'Sales') {
@@ -55,6 +55,68 @@ class ConsultationController extends BaseApiController
         }
         
         return $query;
+    }
+
+    /**
+     * Shape for POST/GET filtered consultation listings (aligned with legacy map output).
+     *
+     * @return array<string, mixed>
+     */
+    private function transformConsultationFilterItem(Consultation $consultation): array
+    {
+        return [
+            'id' => $consultation->id,
+            'appointment_id' => $consultation->appointment_id,
+            'status' => $consultation->status,
+            'custom_status' => $consultation->custom_status,
+            'reason' => $consultation->reason,
+            'assigned_user' => [
+                'id' => $consultation->assignedUser->id ?? null,
+                'first_name' => $consultation->assignedUser->first_name ?? null,
+                'last_name' => $consultation->assignedUser->last_name ?? null,
+                'email' => $consultation->assignedUser->email ?? null,
+            ],
+            'meeting_date' => $consultation->meeting_date,
+            'meeting_slot' => $consultation->meetingSlot ? [
+                'id' => $consultation->meetingSlot->id,
+                'start_time' => $consultation->meetingSlot->start_time,
+                'end_time' => $consultation->meetingSlot->end_time,
+            ] : null,
+            'conducted_date' => $consultation->conducted_date,
+            'is_customer_available' => $consultation->is_customer_available,
+            'created_at' => $consultation->created_at,
+            'updated_at' => $consultation->updated_at,
+            'business' => $consultation->appointment?->followupBusiness ? [
+                'id' => $consultation->appointment->followupBusiness->id,
+                'name' => $consultation->appointment->followupBusiness->name,
+                'category' => $consultation->appointment->followupBusiness->category,
+                'type' => $consultation->appointment->followupBusiness->type,
+                'website' => $consultation->appointment->followupBusiness->website,
+                'phone' => $consultation->appointment->followupBusiness->phone,
+                'email' => $consultation->appointment->followupBusiness->email,
+                'auth_persons' => $consultation->appointment->followupBusiness->authPersons->map(function ($person) {
+                    return [
+                        'id' => $person->id,
+                        'title' => $person->title,
+                        'firstname' => $person->firstname,
+                        'middlename' => $person->middlename,
+                        'lastname' => $person->lastname,
+                        'designation' => $person->designation,
+                        'primaryemail' => $person->primaryemail,
+                        'primarymobile' => $person->primarymobile,
+                        'is_primary' => $person->pivot->is_primary ?? 0,
+                    ];
+                })->toArray(),
+            ] : null,
+            'appointment_date' => $consultation->appointment?->date,
+            'appointment_source' => $consultation->appointment?->source,
+            'appointment_current_status' => $consultation->appointment?->current_status,
+            'appointment_slot' => ($consultation->appointment && $consultation->appointment->timeSlot) ? [
+                'id' => $consultation->appointment->timeSlot->id,
+                'start_time' => $consultation->appointment->timeSlot->start_time,
+                'end_time' => $consultation->appointment->timeSlot->end_time,
+            ] : null,
+        ];
     }
 
     /**
@@ -106,7 +168,9 @@ class ConsultationController extends BaseApiController
             $query->whereDate('created_at', '<=', $request->input('date_to'));
         }
 
-        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+        $consultations = $query->orderByDesc('consultations.created_at')
+            ->orderByDesc('consultations.id')
+            ->cursorPaginate($request->get('per_page', 15));
 
         return $this->successResponse($consultations, 'Consultations retrieved successfully');
     }
@@ -352,7 +416,9 @@ class ConsultationController extends BaseApiController
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+        $consultations = $query->orderByDesc('consultations.created_at')
+            ->orderByDesc('consultations.id')
+            ->cursorPaginate($request->get('per_page', 15));
 
         return $this->successResponse($consultations, 'Scheduled consultations retrieved successfully');
     }
@@ -386,7 +452,9 @@ class ConsultationController extends BaseApiController
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+        $consultations = $query->orderByDesc('consultations.created_at')
+            ->orderByDesc('consultations.id')
+            ->cursorPaginate($request->get('per_page', 15));
 
         return $this->successResponse($consultations, 'Conducted consultations retrieved successfully');
     }
@@ -420,7 +488,9 @@ class ConsultationController extends BaseApiController
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+        $consultations = $query->orderByDesc('consultations.created_at')
+            ->orderByDesc('consultations.id')
+            ->cursorPaginate($request->get('per_page', 15));
 
         return $this->successResponse($consultations, 'Not conducted consultations retrieved successfully');
     }
@@ -459,7 +529,9 @@ class ConsultationController extends BaseApiController
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+        $consultations = $query->orderByDesc('consultations.created_at')
+            ->orderByDesc('consultations.id')
+            ->cursorPaginate($request->get('per_page', 15));
 
         return $this->successResponse($consultations, 'Today\'s consultations retrieved successfully');
     }
@@ -523,67 +595,13 @@ class ConsultationController extends BaseApiController
             $query->where('is_customer_available', $request->input('is_customer_available'));
         }
 
-        $consultations = $query->orderBy('created_at', 'desc')
-            ->get();
+        $perPage = max(1, (int) $request->get('per_page', 15));
+        $consultations = $query->orderByDesc('consultations.created_at')
+            ->orderByDesc('consultations.id')
+            ->cursorPaginate($perPage)
+            ->through(fn (Consultation $consultation) => $this->transformConsultationFilterItem($consultation));
 
-        // Transform data to match desired response format
-        $transformedData = $consultations->map(function ($consultation) {
-            return [
-                'id' => $consultation->id,
-                'appointment_id' => $consultation->appointment_id,
-                'status' => $consultation->status,
-                'custom_status' => $consultation->custom_status,
-                'reason' => $consultation->reason,
-                'assigned_user' => [
-                    'id' => $consultation->assignedUser->id ?? null,
-                    'first_name' => $consultation->assignedUser->first_name ?? null,
-                    'last_name' => $consultation->assignedUser->last_name ?? null,
-                    'email' => $consultation->assignedUser->email ?? null,
-                ],
-                'meeting_date' => $consultation->meeting_date,
-                'meeting_slot' => $consultation->meetingSlot ? [
-                    'id' => $consultation->meetingSlot->id,
-                    'start_time' => $consultation->meetingSlot->start_time,
-                    'end_time' => $consultation->meetingSlot->end_time,
-                ] : null,
-                'conducted_date' => $consultation->conducted_date,
-                'is_customer_available' => $consultation->is_customer_available,
-                'created_at' => $consultation->created_at,
-                'updated_at' => $consultation->updated_at,
-                'business' => $consultation->appointment->followupBusiness ? [
-                    'id' => $consultation->appointment->followupBusiness->id,
-                    'name' => $consultation->appointment->followupBusiness->name,
-                    'category' => $consultation->appointment->followupBusiness->category,
-                    'type' => $consultation->appointment->followupBusiness->type,
-                    'website' => $consultation->appointment->followupBusiness->website,
-                    'phone' => $consultation->appointment->followupBusiness->phone,
-                    'email' => $consultation->appointment->followupBusiness->email,
-                    'auth_persons' => $consultation->appointment->followupBusiness->authPersons->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->pivot->is_primary ?? 0,
-                        ];
-                    })->toArray(),
-                ] : null,
-                'appointment_date' => $consultation->appointment->date,
-                'appointment_source' => $consultation->appointment->source,
-                'appointment_current_status' => $consultation->appointment->current_status,
-                'appointment_slot' => $consultation->appointment->timeSlot ? [
-                    'id' => $consultation->appointment->timeSlot->id,
-                    'start_time' => $consultation->appointment->timeSlot->start_time,
-                    'end_time' => $consultation->appointment->timeSlot->end_time,
-                ] : null,
-            ];
-        })->toArray();
-
-        return $this->successResponse($transformedData, 'All consultation data retrieved successfully');
+        return $this->successResponse($consultations, 'All consultation data retrieved successfully');
     }
 
     /**

@@ -62,9 +62,11 @@ class FollowupController extends BaseApiController
                 });
             }
 
-            // Pagination
+            // Pagination (cursor requires stable ordering)
             $perPage = $request->input('per_page', 15);
-            $followups = $query->paginate($perPage);
+            $followups = $query->orderByDesc('followup_businesses.created_at')
+                ->orderByDesc('followup_businesses.id')
+                ->cursorPaginate($perPage);
 
             return $this->successResponse($followups, 'Follow-up records retrieved successfully');
         }, 'Follow-up list retrieval');
@@ -425,22 +427,11 @@ class FollowupController extends BaseApiController
                 });
             }
 
-            // Sort by latest followup date and time (businesses without followups come last)
-            $query->orderByDesc(
-                FollowupDetail::select('date')
-                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
-                    ->latest('date')
-                    ->limit(1)
-            )->orderByDesc(
-                FollowupDetail::select('time')
-                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
-                    ->latest('time')
-                    ->limit(1)
-            )->orderByDesc('followup_businesses.created_at');
+            // Stable cursor ordering (denormalized on followup_businesses via FollowupDetailObserver)
+            $this->applyFollowupBusinessCursorOrdering($query);
 
-            // Pagination
             $perPage = $request->get('per_page', 15);
-            $followups = $query->paginate($perPage);
+            $followups = $query->cursorPaginate($perPage);
 
             // Add metadata to response
             $response = $followups->toArray();
@@ -493,22 +484,10 @@ class FollowupController extends BaseApiController
                 $query->where('name', 'like', '%' . $request->name . '%');
             }
 
-            // Sort by latest followup date and time (businesses without followups come last)
-            $query->orderByDesc(
-                FollowupDetail::select('date')
-                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
-                    ->latest('date')
-                    ->limit(1)
-            )->orderByDesc(
-                FollowupDetail::select('time')
-                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
-                    ->latest('time')
-                    ->limit(1)
-            )->orderByDesc('followup_businesses.created_at'); // Businesses without followups sorted by creation date
+            $this->applyFollowupBusinessCursorOrdering($query);
 
-            // Pagination
             $perPage = $request->get('per_page', 15);
-            $followups = $query->paginate($perPage);
+            $followups = $query->cursorPaginate($perPage);
 
             return $this->successResponse($followups, 'My follow-ups retrieved successfully');
         }, 'My follow-ups retrieval');
@@ -552,24 +531,23 @@ class FollowupController extends BaseApiController
                 $query->where('name', 'like', '%' . $request->name . '%');
             }
 
-            // Sort by followup date and time (descending)
-            $query->orderByDesc(
-                FollowupDetail::select('date')
-                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
-                    ->latest('date')
-                    ->limit(1)
-            )->orderByDesc(
-                FollowupDetail::select('time')
-                    ->whereColumn('followup_details.followup_business_id', 'followup_businesses.id')
-                    ->latest('time')
-                    ->limit(1)
-            );
+            $this->applyFollowupBusinessCursorOrdering($query);
 
-            // Pagination
             $perPage = $request->get('per_page', 15);
-            $followups = $query->paginate($perPage);
+            $followups = $query->cursorPaginate($perPage);
 
             return $this->successResponse($followups, 'Today\'s follow-ups retrieved successfully');
         }, 'Today\'s follow-ups retrieval');
+    }
+
+    /**
+     * CursorPaginator requires ORDER BY scalar columns only (see migration + FollowupBusiness::refreshLatestFollowupSortFromDetails).
+     */
+    private function applyFollowupBusinessCursorOrdering($query): void
+    {
+        $query->orderByDesc('followup_businesses.latest_followup_date')
+            ->orderByDesc('followup_businesses.latest_followup_time')
+            ->orderByDesc('followup_businesses.created_at')
+            ->orderByDesc('followup_businesses.id');
     }
 }

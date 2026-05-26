@@ -30,7 +30,7 @@ class DepartmentController extends BaseApiController
 
             // Pagination
             $perPage = $request->get('per_page', 15);
-            $departments = $query->orderBy('created_at', 'desc')->paginate($perPage);
+            $departments = $query->orderBy('created_at', 'desc')->orderBy('id', 'desc')->cursorPaginate($perPage);
 
             return $this->successResponse($departments, 'Departments retrieved successfully');
         }, 'Fetch departments list', ['filters' => $request->all()]);
