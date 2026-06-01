@@ -110,7 +110,7 @@ curl -X GET \
 ### 2. Create Consultation (POST)
 **Endpoint:** `POST /api/consultation`
 
-Creates a new consultation record. Optionally adds comments to the associated business. Automatically updates the appointment's `current_status` to match the consultation status.
+Creates a new consultation record. Optionally adds comments to the associated business. Automatically updates the appointment's `current_status` to match the consultation `status`.
 
 #### Request Payload
 ```json
@@ -121,6 +121,8 @@ Creates a new consultation record. Optionally adds comments to the associated bu
   "reason": "Customer requested consultation",
   "reschedule_date": "2026-04-15",
   "reschedule_slot": 1,
+  "meeting_date": "2026-04-15",
+  "meeting_slot": 1,
   "assigned_user": 1,
   "conducted_date": "2026-04-10",
   "is_customer_available": 1,
@@ -146,6 +148,8 @@ Creates a new consultation record. Optionally adds comments to the associated bu
   "status": "required|string|max:50",
   "custom_status": "nullable|string|max:50",
   "reason": "nullable|string",
+  "meeting_date": "nullable|date",
+  "meeting_slot": "nullable|exists:time_slots,id",
   "reschedule_date": "nullable|date",
   "reschedule_slot": "nullable|exists:time_slots,id",
   "assigned_user": "nullable|exists:users,id",
@@ -162,6 +166,8 @@ Creates a new consultation record. Optionally adds comments to the associated bu
 - When a consultation is created, the associated appointment's `current_status` is automatically updated to match the consultation's `status`
 - Comments are automatically linked to the business associated with the appointment
 - Multiple comments can be submitted in a single request
+- The API accepts either `meeting_date`/`meeting_slot` or legacy `reschedule_date`/`reschedule_slot`; if both are sent, `meeting_*` takes priority
+- If the appointment ID does not exist, the API returns `404 Appointment not found`
 
 #### Response Example
 ```json
@@ -171,25 +177,38 @@ Creates a new consultation record. Optionally adds comments to the associated bu
   "data": {
     "id": 1,
     "appointment_id": "FRMID00000001",
-    "status": "Pending",
+    "status": "scheduled",
     "custom_status": "Awaiting Review",
     "reason": "Initial consultation required for quality assessment",
-    "reschedule_date": "2026-04-15",
-    "reschedule_slot": 5,
+    "meeting_date": "2026-04-15T00:00:00.000000Z",
+    "meeting_slot": 5,
     "conducted_date": null,
     "assigned_user": 4,
-    "created_by": 1,
     "is_customer_available": 1,
     "created_at": "2026-04-01T10:00:00.000000Z",
     "updated_at": "2026-04-01T10:00:00.000000Z",
-    "appointment": { ... },
-    "rescheduleSlot": { ... },
-    "closer": null,
-    "assignedUser": { ... },
-    "creator": { ... }
+    "appointment": {
+      "id": "FRMID00000001",
+      "followup_business_id": 1,
+      "date": "2026-04-10",
+      "current_status": "scheduled"
+    },
+    "meetingSlot": {
+      "id": 5,
+      "start_time": "14:00:00",
+      "end_time": "14:30:00"
+    },
+    "assignedUser": {
+      "id": 4,
+      "first_name": "Sandeep",
+      "last_name": "Singh",
+      "username": "sandeep"
+    }
   }
 }
 ```
+
+> **Side effect:** After a successful create, `appointments.current_status` is set to the same value as the consultation's `status` (e.g. `"scheduled"`).
 
 ### 3. Get Single Consultation (GET)
 **Endpoint:** `GET /api/consultation/{id}`
@@ -233,7 +252,7 @@ curl -X GET \
 ### 4. Update Consultation (PUT)
 **Endpoint:** `PUT /api/consultation/{id}`
 
-Updates an existing consultation record.
+Updates an existing consultation record. Automatically updates the linked appointment's `current_status` to match the consultation's `status` after save.
 
 #### Request Payload
 ```json
@@ -247,6 +266,8 @@ Updates an existing consultation record.
   "conducted_date": "2026-04-20"
 }
 ```
+
+> **Side effect:** After a successful update, `appointments.current_status` is set to the consultation's `status` value.
 
 #### Response Example
 ```json

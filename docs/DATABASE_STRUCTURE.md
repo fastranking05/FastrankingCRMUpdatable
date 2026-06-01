@@ -361,6 +361,8 @@ Primary key is **string** (`FRMID…`; length increased by later migration).
 | `is_customer_available` | boolean | default 0 (**after** `2026_04_13_085825_add_is_customer_available_to_consultations_table`) |
 | `created_at`, `updated_at` | timestamp | |
 
+**API note:** `POST /api/consultation` accepts both `meeting_date`/`meeting_slot` and the legacy `reschedule_date`/`reschedule_slot` payload keys. The API stores the values in `meeting_date` and `meeting_slot`. On create, the linked appointment's `current_status` is updated to match the consultation's `status`.
+
 ---
 
 ## Quality audit

@@ -176,6 +176,20 @@ class ConsultationController extends BaseApiController
     }
 
     /**
+     * Set appointments.current_status to match the consultation status.
+     */
+    private function syncAppointmentCurrentStatus(Consultation $consultation): void
+    {
+        if (!$consultation->appointment_id) {
+            return;
+        }
+
+        Appointment::where('id', $consultation->appointment_id)->update([
+            'current_status' => $consultation->status,
+        ]);
+    }
+
+    /**
      * Store a newly created consultation.
      */
     public function store(Request $request): JsonResponse
@@ -187,6 +201,8 @@ class ConsultationController extends BaseApiController
             'reason' => 'nullable|string',
             'meeting_date' => 'nullable|date',
             'meeting_slot' => 'nullable|exists:time_slots,id',
+            'reschedule_date' => 'nullable|date',
+            'reschedule_slot' => 'nullable|exists:time_slots,id',
             'assigned_user' => 'nullable|exists:users,id',
             'conducted_date' => 'nullable|date',
             'is_customer_available' => 'nullable|boolean',
@@ -200,22 +216,26 @@ class ConsultationController extends BaseApiController
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
-        $consultation = Consultation::create([
-            'appointment_id' => $request->appointment_id,
-            'status' => $request->status,
-            'custom_status' => $request->custom_status,
-            'reason' => $request->reason,
-            'meeting_date' => $request->meeting_date,
-            'meeting_slot' => $request->meeting_slot,
-            'assigned_user' => $request->assigned_user,
-            'conducted_date' => $request->conducted_date,
-            'is_customer_available' => $request->is_customer_available ?? 0,
-        ]);
+        $appointment = Appointment::find($request->appointment_id);
+        if (!$appointment) {
+            return $this->errorResponse('Appointment not found', 404);
+        }
 
-        // Create comments if provided
-        if ($request->has('comments') && is_array($request->comments)) {
-            $appointment = Appointment::find($request->appointment_id);
-            if ($appointment && $appointment->followup_business_id) {
+        $consultation = DB::transaction(function () use ($request, $appointment) {
+            $consultation = Consultation::create([
+                'appointment_id' => $request->appointment_id,
+                'status' => $request->status,
+                'custom_status' => $request->custom_status,
+                'reason' => $request->reason,
+                'meeting_date' => $request->meeting_date ?? $request->reschedule_date,
+                'meeting_slot' => $request->meeting_slot ?? $request->reschedule_slot,
+                'assigned_user' => $request->assigned_user,
+                'conducted_date' => $request->conducted_date,
+                'is_customer_available' => $request->is_customer_available ?? 0,
+            ]);
+
+            // Create comments if provided
+            if ($request->has('comments') && is_array($request->comments) && $appointment->followup_business_id) {
                 foreach ($request->comments as $commentData) {
                     Comment::create([
                         'followup_business_id' => $appointment->followup_business_id,
@@ -226,19 +246,16 @@ class ConsultationController extends BaseApiController
                     ]);
                 }
             }
-        }
 
-        // Update appointment current_status with consultation status
-        $appointment = Appointment::find($request->appointment_id);
-        if ($appointment) {
-            $appointment->update([
-                'current_status' => $request->status,
-            ]);
-        }
+            // Keep appointment status in sync with the consultation status
+            $this->syncAppointmentCurrentStatus($consultation);
+
+            return $consultation;
+        });
 
         // Load relationships for response
         $consultation->load([
-            'appointment:id,date,followup_business_id',
+            'appointment:id,date,followup_business_id,current_status',
             'appointment.followupBusiness:id,name',
             'meetingSlot:id,start_time,end_time',
             'assignedUser:id,first_name,last_name,username',
@@ -301,19 +318,25 @@ class ConsultationController extends BaseApiController
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
-        $consultation->update($request->only([
-            'status',
-            'custom_status',
-            'reason',
-            'meeting_date',
-            'meeting_slot',
-            'assigned_user',
-            'conducted_date',
-        ]));
+        $consultation = DB::transaction(function () use ($request, $consultation) {
+            $consultation->update($request->only([
+                'status',
+                'custom_status',
+                'reason',
+                'meeting_date',
+                'meeting_slot',
+                'assigned_user',
+                'conducted_date',
+            ]));
+
+            $this->syncAppointmentCurrentStatus($consultation->fresh());
+
+            return $consultation->fresh();
+        });
 
         // Load relationships for response
         $consultation->load([
-            'appointment:id,date,followup_business_id',
+            'appointment:id,date,followup_business_id,current_status',
             'appointment.followupBusiness:id,name',
             'meetingSlot:id,start_time,end_time',
             'closer:id,first_name,last_name,username',
