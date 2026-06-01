@@ -99,6 +99,11 @@ Route::group([], function () {
     require __DIR__ . '/api/consultation.php';
 });
 
+// Deals Routes
+Route::group([], function () {
+    require __DIR__ . '/api/deals.php';
+});
+
 // User Assignment Routes
 Route::group([], function () {
     require __DIR__ . '/api/user-assignment.php';
