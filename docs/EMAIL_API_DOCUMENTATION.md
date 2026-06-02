@@ -425,6 +425,96 @@ CREATE TABLE emails (
 
 ---
 
+## SMTP setup and troubleshooting
+
+### Brevo SMTP (`smtp-relay.brevo.com`) — current setup
+
+If you use **Brevo** (Sendinblue), `535 Authentication failed` almost always means **`MAIL_USERNAME` is wrong**.
+
+| `.env` key | Correct value |
+|------------|----------------|
+| `MAIL_HOST` | `smtp-relay.brevo.com` |
+| `MAIL_PORT` | `587` (STARTTLS) or `465` (SSL) |
+| `MAIL_USERNAME` | **Brevo SMTP login email** from [Brevo → Settings → SMTP & API](https://app.brevo.com/settings/keys/smtp) — **not** `admin@fastranking.net` |
+| `MAIL_PASSWORD` | Brevo **SMTP key** (`xsmtpsib-...`) — not your Brevo account password |
+| `MAIL_FROM_ADDRESS` | `admin@fastranking.net` (sender — must be verified as sender in Brevo) |
+| `MAIL_EHLO_DOMAIN` | `fastranking.net` (optional, avoids `HELO localhost`) |
+
+Example:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp-relay.brevo.com
+MAIL_PORT=587
+MAIL_USERNAME=you@your-brevo-signup-email.com
+MAIL_PASSWORD=xsmtpsib-your-smtp-key-here
+MAIL_EHLO_DOMAIN=fastranking.net
+MAIL_FROM_ADDRESS=admin@fastranking.net
+MAIL_FROM_NAME="Fast Ranking"
+```
+
+Do **not** set `MAIL_ENCRYPTION=ssl` on port 587. Use port `587` with no scheme override, or port `465` for SSL.
+
+### cPanel / hosting mailbox (non-Brevo)
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=mail.fastranking.net
+MAIL_PORT=587
+MAIL_USERNAME=admin@fastranking.net
+MAIL_PASSWORD="your_actual_mailbox_password"
+MAIL_FROM_ADDRESS=admin@fastranking.net
+MAIL_FROM_NAME="Fastranking CRM"
+```
+
+Use the SMTP host and port from your hosting panel (cPanel / Plesk). Common pairs:
+
+| Port | Encryption |
+|------|------------|
+| `587` | STARTTLS (TLS) |
+| `465` | SSL (`MAIL_SCHEME` auto-uses `smtps` on port 465) |
+
+After any `.env` change:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+```
+
+### Error `535 5.7.8 Authentication failed`
+
+The server rejected the username or password. This is **not** fixed in PHP code — fix credentials in `.env`.
+
+1. **Use the real mailbox password** — the same password you use in Outlook / webmail. SMTP does **not** accept MD5 or any hashed password; only the plain mailbox password works.
+
+2. **Password contains `%`, `#`, `$`, `@`, or spaces** — `.env` may truncate or corrupt the value. Always wrap the password in **double quotes**:
+
+   ```env
+   MAIL_PASSWORD="MyPass%word#2024"
+   ```
+
+   Without quotes, `#` starts a comment and everything after it is ignored. Unquoted `%` can also be parsed incorrectly.
+
+3. **`MAIL_USERNAME`** must be the full email address: `admin@fastranking.net` (not just `admin`).
+
+4. **`MAIL_FROM_ADDRESS`** should match the authenticated mailbox (`admin@fastranking.net`) on many hosts.
+
+5. Confirm the account exists and SMTP is enabled in hosting email settings.
+
+6. If 2FA is enabled on the mailbox, use an **app-specific password** from the provider, not the login password.
+
+### Verify config (without printing the password)
+
+```bash
+php artisan tinker
+>>> config('mail.mailers.smtp.username');
+>>> strlen(config('mail.mailers.smtp.password'));
+```
+
+Compare password length with what you expect. If it is shorter than your real password, fix quoting in `.env` and run `config:clear` again.
+
+---
+
 ## Notes
 
 - All email fields (`to`, `cc`, `bcc`) are stored as JSON arrays to support multiple email addresses
