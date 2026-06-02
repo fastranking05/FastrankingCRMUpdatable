@@ -24,6 +24,7 @@ class LeadsController extends BaseApiController
             'business_name' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
+            'source_name' => 'nullable|string|max:50',
             'website' => 'nullable|url|max:255',
             'phone' => 'nullable|string|unique:followup_businesses,phone',
             'email' => 'nullable|email|max:255',
@@ -63,6 +64,7 @@ class LeadsController extends BaseApiController
                 'name' => $request->business_name,
                 'category' => $request->category,
                 'type' => $request->type,
+                'source_name' => $request->source_name,
                 'website' => $request->website,
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -241,6 +243,7 @@ class LeadsController extends BaseApiController
             'business_name' => 'sometimes|required|string|max:255',
             'category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
+            'source_name' => 'nullable|string|max:50',
             'website' => 'nullable|url|max:255',
             'phone' => 'nullable|string|unique:followup_businesses,phone,' . $id,
             'email' => 'nullable|email|max:255',
@@ -263,6 +266,9 @@ class LeadsController extends BaseApiController
             }
             if ($request->has('type')) {
                 $updateData['type'] = $request->type;
+            }
+            if ($request->has('source_name')) {
+                $updateData['source_name'] = $request->source_name;
             }
             if ($request->has('website')) {
                 $updateData['website'] = $request->website;
@@ -352,6 +358,7 @@ class LeadsController extends BaseApiController
     {
         if ($request->has('category')) $query->where('category', $request->category);
         if ($request->has('type')) $query->where('type', $request->type);
+        if ($request->has('source_name')) $query->where('source_name', $request->source_name);
         if ($request->has('name')) $query->where('name', 'like', '%' . $request->name . '%');
         return $query;
     }

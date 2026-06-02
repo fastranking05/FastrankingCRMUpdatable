@@ -16,6 +16,7 @@ Creates a new lead with business, auth persons, and comments.
   "business_name": "Example Company Ltd",
   "category": "Technology",
   "type": "Software",
+  "source_name": "Website",
   "website": "https://example.com",
   "phone": "+1234567890",
   "email": "contact@example.com",
@@ -76,6 +77,8 @@ Creates a new lead with business, auth persons, and comments.
 }
 ```
 
+`source_name` is optional and supports up to 50 characters.
+
 ---
 
 ## 2. Get All Leads
@@ -92,6 +95,7 @@ Retrieves all leads with role-based hierarchy access.
 - `per_page`: Number of results per page (default: 15)
 - `category`: Filter by category
 - `type`: Filter by type
+- `source_name`: Filter by source name
 - `name`: Search by business name
 
 **Response:**
@@ -118,6 +122,7 @@ Retrieves only leads created by the logged-in user.
 - `per_page`: Number of results per page (default: 15)
 - `category`: Filter by category
 - `type`: Filter by type
+- `source_name`: Filter by source name
 - `name`: Search by business name
 
 **Response:**
@@ -260,6 +265,7 @@ Retrieves detailed information about a specific lead including all related data:
     "name": "ABC Corporation",
     "category": "Technology",
     "type": "Enterprise",
+    "source_name": "Website",
     "website": "https://example.com",
     "phone": "+1234567890",
     "email": "info@example.com",
@@ -413,6 +419,7 @@ Retrieves detailed information about a specific lead including all related data:
 {
   "business_name": "Updated Name",
   "category": "Updated Category",
+  "source_name": "Referral",
   "auth_person_ids": [1, 2]
 }
 ```

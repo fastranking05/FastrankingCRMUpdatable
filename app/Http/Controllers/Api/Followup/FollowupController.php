@@ -123,7 +123,6 @@ class FollowupController extends BaseApiController
             
             // Follow-up Details (array)
             'followup_details' => 'nullable|array',
-            'followup_details.*.source' => 'nullable|string|max:255',
             'followup_details.*.status' => 'nullable|string|max:255',
             'followup_details.*.date' => 'nullable|date',
             'followup_details.*.time' => 'nullable|date_format:H:i',
@@ -226,7 +225,6 @@ class FollowupController extends BaseApiController
         $validator = Validator::make($request->all(), [
             // Follow-up Details (array)
             'followup_details' => 'nullable|array',
-            'followup_details.*.source' => 'nullable|string|max:255',
             'followup_details.*.status' => 'nullable|string|max:255',
             'followup_details.*.date' => 'nullable|date',
             'followup_details.*.time' => 'nullable|date_format:H:i',

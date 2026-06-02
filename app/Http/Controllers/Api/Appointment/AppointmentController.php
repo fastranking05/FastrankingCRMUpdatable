@@ -107,7 +107,6 @@ class AppointmentController extends BaseApiController
             'auth_persons.*.lastname' => 'required|string|max:255',
             'auth_persons.*.primaryemail' => 'required|email',
             'auth_persons.*.primarymobile' => 'required|string',
-            'source' => 'nullable|string|max:255',
             'status' => 'nullable|in:Appointment Booked,Appointment Rebooked',
             'date' => 'required|date|after_or_equal:today',
             'time_slot_id' => 'required|exists:time_slots,id',
@@ -125,7 +124,6 @@ class AppointmentController extends BaseApiController
                 'followup_business_id' => $request->followup_business_id,
                 'business' => $request->business,
                 'auth_persons' => $request->auth_persons,
-                'source' => $request->source,
                 'status' => $request->status ?? 'Appointment Booked',
                 'date' => $request->date,
                 'time_slot_id' => $request->time_slot_id,
@@ -162,7 +160,6 @@ class AppointmentController extends BaseApiController
             'auth_persons.*.lastname' => 'required|string|max:255',
             'auth_persons.*.primaryemail' => 'required|email',
             'auth_persons.*.primarymobile' => 'required|string',
-            'source' => 'nullable|string|max:255',
             'status' => 'nullable|in:Appointment Booked,Appointment Rebooked',
             'date' => 'required|date|after_or_equal:today',
             'time_slot_id' => 'required|exists:time_slots,id',
@@ -178,7 +175,6 @@ class AppointmentController extends BaseApiController
                 'followup_business_id' => $request->followup_business_id,
                 'business' => $request->business,
                 'auth_persons' => $request->auth_persons,
-                'source' => $request->source,
                 'status' => $request->status ?? 'Appointment Booked',
                 'date' => $request->date,
                 'time_slot_id' => $request->time_slot_id,
@@ -322,7 +318,6 @@ class AppointmentController extends BaseApiController
         }
 
         $validator = Validator::make($request->all(), [
-            'source' => 'nullable|string|max:255',
             'status' => 'nullable|in:Appointment Booked,Appointment Rebooked',
             'current_status' => 'nullable|string|max:100',
             'date' => 'nullable|date|after_or_equal:today',
