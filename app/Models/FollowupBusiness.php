@@ -19,6 +19,7 @@ class FollowupBusiness extends Model
         'name',
         'category',
         'type',
+        'source_name',
         'website',
         'phone',
         'email',

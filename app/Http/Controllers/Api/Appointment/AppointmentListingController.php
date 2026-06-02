@@ -353,11 +353,6 @@ class AppointmentListingController extends BaseApiController
             $query->where('current_status', $request->current_status);
         }
 
-        // Source filter
-        if ($request->has('source') && !in_array('source', $excludeFilters)) {
-            $query->where('source', $request->source);
-        }
-
         // Date range filters
         if ($request->has('date_from') && !in_array('date_from', $excludeFilters)) {
             $query->where('date', '>=', $request->date_from);

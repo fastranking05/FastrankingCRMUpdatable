@@ -21,7 +21,6 @@ class Appointment extends Model
     protected $fillable = [
         'id',
         'followup_business_id',
-        'source',
         'status',
         'date',
         'time_slot_id',

@@ -50,7 +50,6 @@ class DirectAppointmentController extends BaseApiController
             'appointment.time_slot_id' => 'required|exists:time_slots,id',
             'appointment.current_status' => 'nullable|string|max:100',
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
-            'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
 
             // Comments (array) - directly linked to business
@@ -74,7 +73,6 @@ class DirectAppointmentController extends BaseApiController
             // Create Appointment
             $appointmentData = $request->appointment;
             $appointmentData['followup_business_id'] = $business->id;
-            $appointmentData['source'] = $appointmentData['source'] ?? 'Direct';
             $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
             $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
             $appointmentData['created_by'] = auth()->id();
@@ -145,7 +143,6 @@ class DirectAppointmentController extends BaseApiController
             'appointment.time_slot_id' => 'required|exists:time_slots,id',
             'appointment.current_status' => 'nullable|string|max:100',
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
-            'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
             
             // Optional new auth persons
@@ -199,7 +196,6 @@ class DirectAppointmentController extends BaseApiController
             // Create Appointment
             $appointmentData = $request->appointment;
             $appointmentData['followup_business_id'] = $business->id;
-            $appointmentData['source'] = $appointmentData['source'] ?? 'Direct';
             $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
             $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
             $appointmentData['created_by'] = auth()->id();
@@ -356,7 +352,7 @@ class DirectAppointmentController extends BaseApiController
             'followupBusiness.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile',
             'timeSlot:id,name,start_time,end_time',
             'creator:id,first_name,last_name'
-        ])->where('source', 'Direct');
+        ]);
 
         // Apply flexible filters using DateRangeFilterService
         $query = $this->dateRangeFilterService->applyFilters($query, $request, [
@@ -432,7 +428,6 @@ class DirectAppointmentController extends BaseApiController
             'timeSlot:id,name,start_time,end_time,duration_minutes,max_concurrent_bookings',
             'creator:id,first_name,last_name'
         ])->where('id', $appointmentId)
-        ->where('source', 'Direct')
         ->first();
 
         if (!$appointment) {
@@ -460,9 +455,7 @@ class DirectAppointmentController extends BaseApiController
         }
 
         return $this->executeTransaction(function () use ($request, $appointmentId) {
-            $appointment = Appointment::where('id', $appointmentId)
-                ->where('source', 'Direct')
-                ->first();
+            $appointment = Appointment::where('id', $appointmentId)->first();
 
             if (!$appointment) {
                 return $this->errorResponse('Direct appointment not found', 404);
@@ -548,7 +541,6 @@ class DirectAppointmentController extends BaseApiController
             'appointment.time_slot_id' => 'nullable|exists:time_slots,id',
             'appointment.current_status' => 'nullable|string|max:100',
             'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
-            'appointment.source' => 'nullable|string|max:255',
             'appointment.notes' => 'nullable|string',
             
             // Comments (array) - directly linked to business
@@ -640,7 +632,6 @@ class DirectAppointmentController extends BaseApiController
             if (!empty($appointmentData)) {
                 // Set required fields for new appointment
                 $appointmentData['followup_business_id'] = $business->id;
-                $appointmentData['source'] = $appointmentData['source'] ?? 'Update';
                 $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
                 $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
                 $appointmentData['created_by'] = auth()->id();
@@ -734,9 +725,7 @@ class DirectAppointmentController extends BaseApiController
     public function cancel(string $appointmentId): JsonResponse
     {
         return $this->executeTransaction(function () use ($appointmentId) {
-            $appointment = Appointment::where('id', $appointmentId)
-                ->where('source', 'Direct')
-                ->first();
+            $appointment = Appointment::where('id', $appointmentId)->first();
 
             if (!$appointment) {
                 return $this->errorResponse('Direct appointment not found', 404);

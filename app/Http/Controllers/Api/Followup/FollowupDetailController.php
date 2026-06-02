@@ -28,11 +28,6 @@ class FollowupDetailController extends BaseApiController
                 $query->where('status', $request->status);
             }
 
-            // Filter by source
-            if ($request->has('source')) {
-                $query->where('source', $request->source);
-            }
-
             // Filter by date range
             if ($request->has('date_from')) {
                 $query->where('date', '>=', $request->date_from);
@@ -56,7 +51,6 @@ class FollowupDetailController extends BaseApiController
     {
         $validator = Validator::make($request->all(), [
             'followup_business_id' => 'required|exists:followup_businesses,id',
-            'source' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:255',
             'date' => 'nullable|date',
             'time' => 'nullable|date_format:H:i',
@@ -107,7 +101,6 @@ class FollowupDetailController extends BaseApiController
 
         $validator = Validator::make($request->all(), [
             'followup_business_id' => 'sometimes|required|exists:followup_businesses,id',
-            'source' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:255',
             'date' => 'nullable|date',
             'time' => 'nullable|date_format:H:i',
