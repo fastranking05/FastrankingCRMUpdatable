@@ -389,3 +389,872 @@
 [2026-06-02 10:39:23] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
 [2026-06-02 10:39:23] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
 [2026-06-02 10:39:24] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:45:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:19] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:19] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:20] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 10:45:21] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:45:25] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:45:27] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:52:47] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:52:49] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 10:52:49] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-02 10:52:49] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 10:52:49] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-02 10:52:50] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 10:52:50] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-02 10:52:50] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 10:52:50] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-02 10:52:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 10:52:51] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-02 10:52:52] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:54:46] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:54:50] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:54:52] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:54:59] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:55:00] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:55:03] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:56:04] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:56:06] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:56:47] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 10:56:48] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:08:00] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:08:00] local.INFO: Lead retrieval successful {"lead_id":5756,"user_id":1} 
+[2026-06-02 11:08:01] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:04] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:05] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:05] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:06] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:08:08] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:38] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:13:38] local.INFO: Lead retrieval successful {"lead_id":5756,"user_id":1} 
+[2026-06-02 11:13:39] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:39] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-02 11:13:42] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-02 11:13:43] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-02 11:13:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:44] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-02 11:13:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:44] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-02 11:13:45] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:45] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-02 11:13:46] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:46] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-02 11:13:46] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-02 11:13:46] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-02 11:13:47] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:52] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:53] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:54] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:55] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:56] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:57] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:58] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:13:59] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"create","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 11:14:04] local.ERROR: Failed to send email {"error":"Failed to authenticate on SMTP server with username \"admin@fastranking.net\" using the following authenticators: \"CRAM-MD5\", \"LOGIN\", \"PLAIN\". Authenticator \"CRAM-MD5\" returned \"Expected response code \"235\" but got code \"535\", with message \"535 5.7.8 Authentication failed\".\". Authenticator \"LOGIN\" returned \"Expected response code \"235\" but got code \"535\", with message \"535 5.7.8 Authentication failed\".\". Authenticator \"PLAIN\" returned \"Expected response code \"235\" but got code \"535\", with message \"535 5.7.8 Authentication failed\".\".","trace":"#0 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\EsmtpTransport.php(199): Symfony\\Component\\Mailer\\Transport\\Smtp\\EsmtpTransport->handleAuth(Array)
+#1 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\EsmtpTransport.php(150): Symfony\\Component\\Mailer\\Transport\\Smtp\\EsmtpTransport->doEhloCommand()
+#2 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(244): Symfony\\Component\\Mailer\\Transport\\Smtp\\EsmtpTransport->executeCommand('HELO localhost\\r...', Array)
+#3 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(270): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->doHeloCommand()
+#4 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(200): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->start()
+#5 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\AbstractTransport.php(69): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->doSend(Object(Symfony\\Component\\Mailer\\SentMessage))
+#6 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(138): Symfony\\Component\\Mailer\\Transport\\AbstractTransport->send(Object(Symfony\\Component\\Mime\\Email), Object(Symfony\\Component\\Mailer\\DelayedEnvelope))
+#7 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(584): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->send(Object(Symfony\\Component\\Mime\\Email), Object(Symfony\\Component\\Mailer\\DelayedEnvelope))
+#8 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(331): Illuminate\\Mail\\Mailer->sendSymfonyMessage(Object(Symfony\\Component\\Mime\\Email))
+#9 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(223): Illuminate\\Mail\\Mailer->send(NULL, Array, Object(Closure))
+#10 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\MailManager.php(623): Illuminate\\Mail\\Mailer->raw('<!DOCTYPE html>...', Object(Closure))
+#11 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(363): Illuminate\\Mail\\MailManager->__call('raw', Array)
+#12 D:\\FastrankingCRMUpdatable\\app\\Http\\Controllers\\Api\\Email\\EmailController.php(219): Illuminate\\Support\\Facades\\Facade::__callStatic('raw', Array)
+#13 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Email\\EmailController->store(Object(Illuminate\\Http\\Request))
+#14 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Email\\EmailController), 'store')
+#15 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(211): Illuminate\\Routing\\Route->runController()
+#16 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(822): Illuminate\\Routing\\Route->run()
+#17 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 D:\\FastrankingCRMUpdatable\\app\\Http\\Middleware\\PermissionMiddleware.php(54): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Email', 'create')
+#20 D:\\FastrankingCRMUpdatable\\vendor\\tymon\\jwt-auth\\src\\Http\\Middleware\\Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#26 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#27 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#28 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#29 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#30 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#31 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#51 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#52 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#53 D:\\FastrankingCRMUpdatable\\public\\index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#54 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('D:\\\\FastrankingC...')
+#55 {main}","request_data":{"followup_business_id":5756,"to":["fastranking05@gmail.com"],"cc":[],"bcc":[],"type":"welcome","dynamic_data":{"contact_name":"Suraj Kumar","business_name":"Bosch Limited","business_phone":"1200025478","business_email":"fastranking05@gmail.com","sender_name":"Your Name","sender_title":"Your Title","appointment_date":null,"appointment_time":null,"appointment_location":null}}} 
+[2026-06-02 11:54:56] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:54:56] local.INFO: Lead retrieval successful {"lead_id":5756,"user_id":1} 
+[2026-06-02 11:54:58] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:01] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:02] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:03] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:03] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:04] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:05] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:05] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:55:54] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:01] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:10] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:11] local.INFO: Lead retrieval successful {"lead_id":3,"user_id":1} 
+[2026-06-02 11:56:12] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:17] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:17] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:19] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:20] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:24] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:24] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-06-02 11:56:25] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:28] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:29] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:29] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:30] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:30] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:31] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:31] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:56:38] local.INFO: Active Sales department users count: 4  
+[2026-06-02 11:56:41] local.INFO: Block slot request {"date":"2026-06-23","time_slot_id":2,"user_id":null,"session_id":"session_1780401400862_ujvhca7gt"} 
+[2026-06-02 11:56:41] local.INFO: Attempting to hold time slot {"date":"2026-06-23","time_slot_id":2,"user_id":null,"session_id":"session_1780401400862_ujvhca7gt"} 
+[2026-06-02 11:56:41] local.INFO: Active Sales department users count: 4  
+[2026-06-02 11:56:41] local.INFO: Time slot held successfully {"booking_id":16,"time_slot_id":2,"expires_at":"2026-06-02 12:11:41"} 
+[2026-06-02 11:56:45] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"create","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-02 11:56:45] local.INFO: Quality record created for appointment: FRMID00001579, assigned to user: 4  
+[2026-06-02 11:56:45] local.INFO: SEO record created for appointment: FRMID00001579, business: 2, assigned to user: 3  
+[2026-06-02 11:56:45] local.INFO: Direct appointment creation successful {"user_id":1} 
+[2026-06-02 11:56:47] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 11:56:47] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-06-02 11:56:48] local.INFO: Release slot request {"block_id":"16","user_id":null} 
+[2026-06-02 11:56:48] local.INFO: Attempting to release slot {"block_id":"16"} 
+[2026-06-02 11:56:48] local.INFO: Temporary booking found and deleted {"booking_id":16,"time_slot_id":2,"date":"2026-06-23 00:00:00"} 
+[2026-06-02 11:57:29] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:29] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:30] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:30] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:31] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:31] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:31] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:57:32] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 11:59:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:08] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 12:50:10] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 12:50:10] local.INFO: Lead retrieval successful {"lead_id":5756,"user_id":1} 
+[2026-06-02 12:50:11] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:14] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:17] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:17] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:19] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 12:50:22] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"create","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 12:50:25] local.ERROR: Failed to send email {"error":"Failed to authenticate on SMTP server with username \"admin@fastranking.net\" using the following authenticators: \"CRAM-MD5\", \"LOGIN\", \"PLAIN\". Authenticator \"CRAM-MD5\" returned \"Expected response code \"235\" but got code \"535\", with message \"535 5.7.8 Authentication failed\".\". Authenticator \"LOGIN\" returned \"Expected response code \"235\" but got code \"535\", with message \"535 5.7.8 Authentication failed\".\". Authenticator \"PLAIN\" returned \"Expected response code \"235\" but got code \"535\", with message \"535 5.7.8 Authentication failed\".\".","trace":"#0 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\EsmtpTransport.php(199): Symfony\\Component\\Mailer\\Transport\\Smtp\\EsmtpTransport->handleAuth(Array)
+#1 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\EsmtpTransport.php(150): Symfony\\Component\\Mailer\\Transport\\Smtp\\EsmtpTransport->doEhloCommand()
+#2 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(244): Symfony\\Component\\Mailer\\Transport\\Smtp\\EsmtpTransport->executeCommand('HELO localhost\\r...', Array)
+#3 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(270): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->doHeloCommand()
+#4 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(200): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->start()
+#5 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\AbstractTransport.php(69): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->doSend(Object(Symfony\\Component\\Mailer\\SentMessage))
+#6 D:\\FastrankingCRMUpdatable\\vendor\\symfony\\mailer\\Transport\\Smtp\\SmtpTransport.php(138): Symfony\\Component\\Mailer\\Transport\\AbstractTransport->send(Object(Symfony\\Component\\Mime\\Email), Object(Symfony\\Component\\Mailer\\DelayedEnvelope))
+#7 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(584): Symfony\\Component\\Mailer\\Transport\\Smtp\\SmtpTransport->send(Object(Symfony\\Component\\Mime\\Email), Object(Symfony\\Component\\Mailer\\DelayedEnvelope))
+#8 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(331): Illuminate\\Mail\\Mailer->sendSymfonyMessage(Object(Symfony\\Component\\Mime\\Email))
+#9 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(223): Illuminate\\Mail\\Mailer->send(NULL, Array, Object(Closure))
+#10 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\MailManager.php(623): Illuminate\\Mail\\Mailer->raw('<!DOCTYPE html>...', Object(Closure))
+#11 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(363): Illuminate\\Mail\\MailManager->__call('raw', Array)
+#12 D:\\FastrankingCRMUpdatable\\app\\Http\\Controllers\\Api\\Email\\EmailController.php(219): Illuminate\\Support\\Facades\\Facade::__callStatic('raw', Array)
+#13 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Email\\EmailController->store(Object(Illuminate\\Http\\Request))
+#14 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Email\\EmailController), 'store')
+#15 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(211): Illuminate\\Routing\\Route->runController()
+#16 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(822): Illuminate\\Routing\\Route->run()
+#17 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#18 D:\\FastrankingCRMUpdatable\\app\\Http\\Middleware\\PermissionMiddleware.php(54): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Email', 'create')
+#20 D:\\FastrankingCRMUpdatable\\vendor\\tymon\\jwt-auth\\src\\Http\\Middleware\\Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#22 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#23 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#26 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#27 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#28 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#29 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#30 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#31 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#51 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#52 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#53 D:\\FastrankingCRMUpdatable\\public\\index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#54 D:\\FastrankingCRMUpdatable\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(23): require_once('D:\\\\FastrankingC...')
+#55 {main}","request_data":{"followup_business_id":5756,"to":["fastranking05@gmail.com"],"cc":[],"bcc":[],"type":"welcome","dynamic_data":{"contact_name":"Suraj Kumar","business_name":"Bosch Limited","business_phone":"1200025478","business_email":"fastranking05@gmail.com","sender_name":"Your Name","sender_title":"Your Title","appointment_date":null,"appointment_time":null,"appointment_location":null}}} 
+[2026-06-02 12:55:44] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"create","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 12:55:47] local.INFO: Email sent successfully {"email_id":2,"to":["fastranking05@gmail.com"],"subject":"Follow-up Email","created_by":1} 
+[2026-06-02 12:55:50] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 12:55:50] local.INFO: Lead retrieval successful {"lead_id":5756,"user_id":1} 
+[2026-06-02 12:57:38] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"create","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 12:57:41] local.INFO: Email sent successfully {"email_id":3,"to":["fastranking08@gmail.com"],"subject":"Follow-up Email","created_by":1} 
+[2026-06-02 12:57:44] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 12:57:44] local.INFO: Lead retrieval successful {"lead_id":5756,"user_id":1} 
+[2026-06-02 12:59:06] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 12:59:09] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 12:59:09] local.INFO: Admin accessing all emails {"user_id":1} 
+[2026-06-02 12:59:38] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-02 13:01:19] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-02 13:01:21] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-02 13:01:22] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-02 13:01:22] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-06-02 13:01:31] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-02 13:01:31] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-02 13:01:31] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-06-02 13:02:16] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-02 13:02:17] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-02 13:02:17] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-06-02 13:02:35] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:35] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:36] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:36] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:38] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-02 13:02:39] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:01] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-04 14:37:01] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-04 14:37:01] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-04 14:37:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:01] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:01] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-04 14:37:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:02] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:02] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:18] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:23] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:25] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:25] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:26] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:27] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:37:29] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:37:43] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:37:43] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:37:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:51] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:51] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:51] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:52] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:52] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:52] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:52] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:52] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:52] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-04 14:37:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:53] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:54] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:54] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-04 14:37:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:37:55] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:37:58] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:38:02] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:38:05] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:38:09] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:38:10] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:38:20] local.DEBUG: Permission check result {"user_id":1,"module":"Email","permission":"read","has_permission":true,"user_roles":[1],"module_id":3} 
+[2026-06-04 14:38:25] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-04 14:38:25] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-04 14:38:25] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-06-04 14:38:28] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-04 14:38:28] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-04 14:38:28] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-06-04 14:38:34] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-04 14:38:34] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-04 14:38:34] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-04 14:38:34] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-04 14:38:34] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-04 14:38:35] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-06-04 14:38:35] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:38:38] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:38:38] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:38:39] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:38:40] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:38:41] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:43] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:47] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"create","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:38:59] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:00] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:39:00] local.INFO: Lead retrieval successful {"lead_id":5706,"user_id":1} 
+[2026-06-04 14:39:10] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-04 14:39:10] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-06-04 14:39:12] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-04"} 
+[2026-06-04 14:39:12] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 4)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:14] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-05"} 
+[2026-06-04 14:39:14] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 0)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:15] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-06"} 
+[2026-06-04 14:39:15] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 2)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:16] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-13"} 
+[2026-06-04 14:39:16] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 3)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:16] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-12"} 
+[2026-06-04 14:39:16] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 0)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:17] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-11"} 
+[2026-06-04 14:39:17] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 1)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:17] local.INFO: Consultation Query Debug {"current_user_id":1,"user_roles":["Admin"],"is_admin_or_director":true,"is_executive":false,"is_manager":false,"allowed_user_ids":[],"date":"2026-06-10"} 
+[2026-06-04 14:39:17] local.ERROR: Attempt to read property "id" on int {"userId":1,"exception":"[object] (ErrorException(code: 0): Attempt to read property \"id\" on int at /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php:475)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#1 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(475): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}(2, 'Attempt to read...', '/Users/kumar/Fa...', 475)
+#2 [internal function]: App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->{closure:App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController::getScheduleDetails():453}(Object(App\\Models\\Consultation), 0)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(840): array_map(Object(Closure), Array, Array)
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(829): Illuminate\\Support\\Arr::map(Array, Object(Closure))
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php(421): Illuminate\\Support\\Collection->map(Object(Closure))
+#6 /Users/kumar/FastrankingCRMUpdatable/app/Http/Controllers/Api/UserBlockcanlender/UserBlockCalendarController.php(453): Illuminate\\Database\\Eloquent\\Collection->map(Object(Closure))
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController->getScheduleDetails(Object(Illuminate\\Http\\Request))
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\UserBlockcanlender\\UserBlockCalendarController), 'getScheduleDeta...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}(Object(Illuminate\\Http\\Request))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#22 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->{closure:Illuminate\\Foundation\\Http\\Kernel::dispatchToRouter():197}(Object(Illuminate\\Http\\Request))
+#23 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}(Object(Illuminate\\Http\\Request))
+#24 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#27 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#30 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#32 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#34 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#36 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#38 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#40 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->{closure:{closure:Illuminate\\Pipeline\\Pipeline::carry():194}:195}(Object(Illuminate\\Http\\Request))
+#42 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#43 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#44 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#45 /Users/kumar/FastrankingCRMUpdatable/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#46 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/Users/kumar/Fa...')
+#47 {main}
+"} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:21] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 14:39:24] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 14:39:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:39:26] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:39:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:39:26] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:39:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:39:26] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:39:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:39:26] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:39:26] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:39:26] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-04 14:39:29] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 14:39:29] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-04 14:39:34] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 15:42:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:53] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-04 15:42:53] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-04 15:42:53] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-04 15:42:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:53] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:53] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-04 15:42:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:54] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-04 15:42:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:54] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-04 15:42:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:54] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-04 15:42:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-04 15:42:55] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-04 15:43:03] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 15:43:07] local.INFO: Lead retrieval successful {"lead_id":2665,"user_id":1} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:07] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:14] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-04 15:43:14] local.INFO: Lead retrieval successful {"lead_id":2755,"user_id":1} 
+[2026-06-04 15:43:14] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:14] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:15] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-04 15:43:31] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:43:36] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"session_1780587816853_wbh83tn6r"} 
+[2026-06-04 15:43:36] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"session_1780587816853_wbh83tn6r"} 
+[2026-06-04 15:43:36] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:43:36] local.INFO: Time slot held successfully {"booking_id":17,"time_slot_id":3,"expires_at":"2026-06-04 15:58:36"} 
+[2026-06-04 15:43:49] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:24] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:30] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:30] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"test_probe_1"} 
+[2026-06-04 15:47:30] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"test_probe_1"} 
+[2026-06-04 15:47:30] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:30] local.INFO: Time slot held successfully {"booking_id":18,"time_slot_id":3,"expires_at":"2026-06-04 16:02:30"} 
+[2026-06-04 15:47:30] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:33] local.INFO: Release slot request {"block_id":"18","user_id":null} 
+[2026-06-04 15:47:33] local.INFO: Attempting to release slot {"block_id":"18"} 
+[2026-06-04 15:47:33] local.INFO: Temporary booking found and deleted {"booking_id":18,"time_slot_id":3,"date":"2026-06-09 00:00:00"} 
+[2026-06-04 15:47:33] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:36] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:36] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:36] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:40] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:40] local.INFO: Block slot request {"date":"2026-06-10","time_slot_id":3,"user_id":null,"session_id":"test_probe_2"} 
+[2026-06-04 15:47:40] local.INFO: Attempting to hold time slot {"date":"2026-06-10","time_slot_id":3,"user_id":null,"session_id":"test_probe_2"} 
+[2026-06-04 15:47:40] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:40] local.INFO: Time slot held successfully {"booking_id":19,"time_slot_id":3,"expires_at":"2026-06-04 16:02:40"} 
+[2026-06-04 15:47:40] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:40] local.INFO: Block slot request {"date":"2026-06-10","time_slot_id":3,"user_id":null,"session_id":"test_probe_3"} 
+[2026-06-04 15:47:40] local.INFO: Attempting to hold time slot {"date":"2026-06-10","time_slot_id":3,"user_id":null,"session_id":"test_probe_3"} 
+[2026-06-04 15:47:40] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:40] local.INFO: Time slot held successfully {"booking_id":20,"time_slot_id":3,"expires_at":"2026-06-04 16:02:40"} 
+[2026-06-04 15:47:40] local.INFO: Active Sales department users count: 4  
+[2026-06-04 15:47:45] local.INFO: Release slot request {"block_id":"19","user_id":null} 
+[2026-06-04 15:47:45] local.INFO: Attempting to release slot {"block_id":"19"} 
+[2026-06-04 15:47:45] local.INFO: Temporary booking found and deleted {"booking_id":19,"time_slot_id":3,"date":"2026-06-10 00:00:00"} 
+[2026-06-04 15:47:45] local.INFO: Release slot request {"block_id":"20","user_id":null} 
+[2026-06-04 15:47:45] local.INFO: Attempting to release slot {"block_id":"20"} 
+[2026-06-04 15:47:45] local.INFO: Temporary booking found and deleted {"booking_id":20,"time_slot_id":3,"date":"2026-06-10 00:00:00"} 
+[2026-06-04 15:47:46] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:16] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:19] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:24] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"session_1780590144448_qppa4numm"} 
+[2026-06-04 16:22:24] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"session_1780590144448_qppa4numm"} 
+[2026-06-04 16:22:24] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:24] local.INFO: Time slot held successfully {"booking_id":21,"time_slot_id":3,"expires_at":"2026-06-04 16:37:24"} 
+[2026-06-04 16:22:36] local.INFO: Release slot request {"block_id":"17","user_id":null} 
+[2026-06-04 16:22:36] local.INFO: Attempting to release slot {"block_id":"17"} 
+[2026-06-04 16:22:36] local.INFO: Temporary booking found and deleted {"booking_id":17,"time_slot_id":3,"date":"2026-06-09 00:00:00"} 
+[2026-06-04 16:22:36] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":2,"user_id":null,"session_id":"session_1780590156562_qv4lwgibi"} 
+[2026-06-04 16:22:36] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":2,"user_id":null,"session_id":"session_1780590156562_qv4lwgibi"} 
+[2026-06-04 16:22:36] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:36] local.INFO: Time slot held successfully {"booking_id":22,"time_slot_id":2,"expires_at":"2026-06-04 16:37:36"} 
+[2026-06-04 16:22:41] local.INFO: Release slot request {"block_id":"22","user_id":null} 
+[2026-06-04 16:22:41] local.INFO: Attempting to release slot {"block_id":"22"} 
+[2026-06-04 16:22:41] local.INFO: Temporary booking found and deleted {"booking_id":22,"time_slot_id":2,"date":"2026-06-09 00:00:00"} 
+[2026-06-04 16:22:41] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:44] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:52] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"session_1780590172503_9ulf1dbcm"} 
+[2026-06-04 16:22:52] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":3,"user_id":null,"session_id":"session_1780590172503_9ulf1dbcm"} 
+[2026-06-04 16:22:52] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:22:52] local.INFO: Time slot held successfully {"booking_id":23,"time_slot_id":3,"expires_at":"2026-06-04 16:37:52"} 
+[2026-06-04 16:23:00] local.INFO: Release slot request {"block_id":"23","user_id":null} 
+[2026-06-04 16:23:00] local.INFO: Attempting to release slot {"block_id":"23"} 
+[2026-06-04 16:23:00] local.INFO: Temporary booking found and deleted {"booking_id":23,"time_slot_id":3,"date":"2026-06-09 00:00:00"} 
+[2026-06-04 16:23:00] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":5,"user_id":null,"session_id":"session_1780590180237_xo0riys77"} 
+[2026-06-04 16:23:00] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":5,"user_id":null,"session_id":"session_1780590180237_xo0riys77"} 
+[2026-06-04 16:23:00] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:23:00] local.INFO: Time slot held successfully {"booking_id":24,"time_slot_id":5,"expires_at":"2026-06-04 16:38:00"} 
+[2026-06-04 16:23:08] local.INFO: Release slot request {"block_id":"21","user_id":null} 
+[2026-06-04 16:23:08] local.INFO: Attempting to release slot {"block_id":"21"} 
+[2026-06-04 16:23:08] local.INFO: Temporary booking found and deleted {"booking_id":21,"time_slot_id":3,"date":"2026-06-09 00:00:00"} 
+[2026-06-04 16:23:08] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:23:12] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:23:17] local.INFO: Block slot request {"date":"2026-06-09","time_slot_id":5,"user_id":null,"session_id":"session_1780590197148_irg1g5y3h"} 
+[2026-06-04 16:23:17] local.INFO: Attempting to hold time slot {"date":"2026-06-09","time_slot_id":5,"user_id":null,"session_id":"session_1780590197148_irg1g5y3h"} 
+[2026-06-04 16:23:17] local.INFO: Active Sales department users count: 4  
+[2026-06-04 16:23:17] local.INFO: Time slot held successfully {"booking_id":25,"time_slot_id":5,"expires_at":"2026-06-04 16:38:17"} 
+[2026-06-04 16:23:20] local.INFO: Release slot request {"block_id":"25","user_id":null} 
+[2026-06-04 16:23:20] local.INFO: Attempting to release slot {"block_id":"25"} 
+[2026-06-04 16:23:20] local.INFO: Temporary booking found and deleted {"booking_id":25,"time_slot_id":5,"date":"2026-06-09 00:00:00"} 

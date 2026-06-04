@@ -36,34 +36,18 @@ class SimpleTimeSlotController
             
             $slots = [];
             foreach ($activeSlots as $slot) {
-                // Check if slot is blocked by existing temporary bookings
-                $isBlockedByTempBooking = $slot->temporaryBookings()
-                    ->where('date', $request->date)
-                    ->where('expires_at', '>', now())
-                    ->exists();
-
-                // Check if slot is available considering blocking
+                // Temp bookings are already included in currentBookings — use capacity only
                 $currentBookings = $this->getCurrentBookingsCount($slot->id, $request->date);
-                $isAvailable = ($currentBookings < $maxConcurrentBookings) && !$isBlockedByTempBooking;
+                $remaining = max(0, $maxConcurrentBookings - $currentBookings);
+                $isFullyBooked = $currentBookings >= $maxConcurrentBookings;
 
-                if ($isAvailable) {
-                    $slots[] = [
-                        'id' => $slot->id,
-                        'name' => $slot->name,
-                        'time' => date('g:i A', strtotime($slot->start_time->format('H:i'))),
-                        'available' => $maxConcurrentBookings - $currentBookings,
-                        'blocked' => false
-                    ];
-                } else {
-                    // Show slot as blocked if not available
-                    $slots[] = [
-                        'id' => $slot->id,
-                        'name' => $slot->name,
-                        'time' => date('g:i A', strtotime($slot->start_time->format('H:i'))),
-                        'available' => 0,
-                        'blocked' => true
-                    ];
-                }
+                $slots[] = [
+                    'id' => $slot->id,
+                    'name' => $slot->name,
+                    'time' => date('g:i A', strtotime($slot->start_time->format('H:i'))),
+                    'available' => $remaining,
+                    'blocked' => $isFullyBooked,
+                ];
             }
 
             return response()->json([
