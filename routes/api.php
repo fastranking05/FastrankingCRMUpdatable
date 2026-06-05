@@ -114,6 +114,11 @@ Route::group([], function () {
     require __DIR__ . '/api/filters.php';
 });
 
+// Global Search Routes (Elasticsearch)
+Route::group([], function () {
+    require __DIR__ . '/api/search.php';
+});
+
 // User Block Calendar Routes
 Route::group([], function () {
     require __DIR__ . '/api/admin/UserBlockcanlender/user-block-calendar.php';

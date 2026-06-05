@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+Route::post('/validate-username', [AuthController::class, 'validateUsername'])->name('auth.validate-username');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 // Protected auth routes (require JWT)
