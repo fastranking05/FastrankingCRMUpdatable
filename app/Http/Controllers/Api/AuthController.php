@@ -12,6 +12,38 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends BaseApiController
 {
     /**
+     * Validate login identifier (username, email, or mobile) before password step.
+     */
+    public function validateUsername(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'login' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', 422, $validator->errors());
+        }
+
+        $login = $request->login;
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : (is_numeric($login) ? 'mobile' : 'username');
+
+        $user = User::where($field, $login)->first();
+
+        if (!$user) {
+            return $this->errorResponse('Invalid username', 404);
+        }
+
+        if ($user->status !== 'active') {
+            return $this->errorResponse('Account is inactive or suspended', 403);
+        }
+
+        return $this->successResponse([
+            'login' => $login,
+            'first_name' => $user->first_name,
+        ], 'Username verified');
+    }
+
+    /**
      * Login user and get JWT token
      */
     public function login(Request $request): JsonResponse
