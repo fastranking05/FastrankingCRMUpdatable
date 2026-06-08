@@ -119,6 +119,11 @@ Route::group([], function () {
     require __DIR__ . '/api/search.php';
 });
 
+// AI Chat Routes (Ollama)
+Route::group([], function () {
+    require __DIR__ . '/api/chat.php';
+});
+
 // User Block Calendar Routes
 Route::group([], function () {
     require __DIR__ . '/api/admin/UserBlockcanlender/user-block-calendar.php';
