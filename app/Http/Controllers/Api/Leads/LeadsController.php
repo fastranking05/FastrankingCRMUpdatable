@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\Leads;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
 use App\Models\Comment;
 use App\Models\User;
+use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Validator;
 
 class LeadsController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
+    public function __construct(
+        private readonly DateRangeFilterService $dateRangeFilterService
+    ) {
+    }
+
     /**
      * Create lead with business, auth persons, and comments
      */
@@ -131,16 +140,18 @@ class LeadsController extends BaseApiController
         $user->load(['roles', 'teams', 'departments']);
         $query = $this->getLeadsBaseQuery();
         $query = $this->applyRoleBasedFilters($query, $user);
+        $query = $this->applyLastThreeMonthsFilter($query, 'followup_businesses.created_at');
         $query = $this->applyRequestFilters($query, $request);
         $query->orderByDesc('followup_businesses.created_at')->orderByDesc('followup_businesses.id');
 
-        $perPage = $request->get('per_page', 50);
-        $leads = $query->cursorPaginate($perPage);
+        $leads = $query->get();
 
         return $this->successResponse([
             'leads' => $leads,
+            'total' => $leads->count(),
+            ...$this->lastThreeMonthsDateRange(),
             'user_role' => $this->getUserRoleInfo($user),
-            'access_level' => $this->determineAccessLevel($user)
+            'access_level' => $this->determineAccessLevel($user),
         ], 'All leads retrieved successfully');
     }
 
@@ -156,16 +167,18 @@ class LeadsController extends BaseApiController
 
         $query = $this->getLeadsBaseQuery();
         $query->where('created_by', $user->id);
+        $query = $this->applyLastThreeMonthsFilter($query, 'followup_businesses.created_at');
         $query = $this->applyRequestFilters($query, $request);
         $query->orderByDesc('followup_businesses.created_at')->orderByDesc('followup_businesses.id');
 
-        $perPage = $request->get('per_page', 50);
-        $leads = $query->cursorPaginate($perPage);
+        $leads = $query->get();
 
         return $this->successResponse([
             'leads' => $leads,
+            'total' => $leads->count(),
+            ...$this->lastThreeMonthsDateRange(),
             'created_by' => $user->id,
-            'user_name' => $user->first_name . ' ' . $user->last_name
+            'user_name' => $user->first_name . ' ' . $user->last_name,
         ], 'My leads retrieved successfully');
     }
 
@@ -187,6 +200,123 @@ class LeadsController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
         return $this->getAllLeads($request);
+    }
+
+    /**
+     * Filter leads with flexible date, user, search, and field filters.
+     */
+    public function filterLeads(Request $request): JsonResponse
+    {
+        return $this->executeTransaction(function () use ($request) {
+            $user = auth()->user();
+            if (!$user) {
+                return $this->errorResponse('Unauthorized', 401);
+            }
+
+            $user->load(['roles', 'teams', 'departments']);
+
+            $query = FollowupBusiness::with([
+                'creator:id,first_name,last_name',
+                'authPersons',
+                'followupDetails',
+                'comments' => function ($commentQuery) {
+                    $commentQuery->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+                },
+            ]);
+
+            $scope = $request->input('scope', 'all');
+            if ($scope === 'my') {
+                $query->where('created_by', $user->id);
+            } else {
+                $query = $this->applyRoleBasedFilters($query, $user);
+            }
+
+            $query = $this->dateRangeFilterService->applyFilters($query, $request, [
+                'date_column' => $request->input('date_column', 'created_at'),
+                'user_column' => 'created_by',
+                'search_columns' => ['name', 'category', 'type', 'email', 'phone', 'source_name'],
+                'skip_status_filter' => true,
+            ]);
+
+            if ($request->has('category')) {
+                $query->where('category', $request->input('category'));
+            }
+
+            if ($request->has('type')) {
+                $query->where('type', $request->input('type'));
+            }
+
+            if ($request->has('source_name')) {
+                $query->where('source_name', $request->input('source_name'));
+            }
+
+            if ($request->has('status')) {
+                $query->whereHas('followupDetails', function ($statusQuery) use ($request) {
+                    $statusQuery->where('status', $request->input('status'));
+                });
+            }
+
+            $perPage = $request->input('per_page', 15);
+            $leads = $query->orderByDesc('followup_businesses.created_at')
+                ->orderByDesc('followup_businesses.id')
+                ->cursorPaginate($perPage);
+
+            return $this->successResponse($leads, 'Leads retrieved successfully');
+        }, 'Leads filter retrieval');
+    }
+
+    /**
+     * Get filter options for leads.
+     */
+    public function getFilterOptions(): JsonResponse
+    {
+        $sourceNames = FollowupBusiness::query()
+            ->whereNotNull('source_name')
+            ->where('source_name', '!=', '')
+            ->distinct()
+            ->orderBy('source_name')
+            ->pluck('source_name')
+            ->values()
+            ->toArray();
+
+        $filterOptions = [
+            'date_filters' => DateRangeFilterService::getDateFilterOptions(),
+            'date_columns' => DateRangeFilterService::getDateColumns('leads'),
+            'scope_options' => [
+                'all' => 'All leads (role-based access)',
+                'my' => 'My leads only',
+            ],
+            'category_options' => [
+                'Technology Services',
+                'Healthcare',
+                'Finance',
+                'Education',
+                'Retail',
+                'Manufacturing',
+                'Other',
+            ],
+            'type_options' => [
+                'Enterprise Client',
+                'SME',
+                'Startup',
+                'Individual',
+                'Government',
+                'Non-Profit',
+            ],
+            'source_name_options' => $sourceNames,
+            'status_options' => [
+                'New',
+                'Contacted',
+                'Interested',
+                'Not Interested',
+                'Follow-up Scheduled',
+                'Appointment Booked',
+                'Converted',
+                'Lost',
+            ],
+        ];
+
+        return $this->successResponse($filterOptions, 'Filter options retrieved successfully');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Consultation;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\Consultation;
 use App\Models\Appointment;
 use App\Models\User;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 
 class ConsultationController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
     private UserAssignmentService $userAssignmentService;
     private DateRangeFilterService $dateRangeFilterService;
 
@@ -435,15 +438,15 @@ class ConsultationController extends BaseApiController
 
         // Apply user role-based filtering
         $this->applyUserRoleFilter($query);
+        $this->applyLastThreeMonthsFilter($query, 'consultations.created_at');
 
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderByDesc('consultations.created_at')
-            ->orderByDesc('consultations.id')
-            ->cursorPaginate($request->get('per_page', 15));
-
-        return $this->successResponse($consultations, 'Scheduled consultations retrieved successfully');
+        return $this->successResponse(
+            $this->buildConsultationListResponse($query),
+            'Scheduled consultations retrieved successfully'
+        );
     }
 
     /**
@@ -471,15 +474,15 @@ class ConsultationController extends BaseApiController
 
         // Apply user role-based filtering
         $this->applyUserRoleFilter($query);
+        $this->applyLastThreeMonthsFilter($query, 'consultations.created_at');
 
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderByDesc('consultations.created_at')
-            ->orderByDesc('consultations.id')
-            ->cursorPaginate($request->get('per_page', 15));
-
-        return $this->successResponse($consultations, 'Conducted consultations retrieved successfully');
+        return $this->successResponse(
+            $this->buildConsultationListResponse($query),
+            'Conducted consultations retrieved successfully'
+        );
     }
 
     /**
@@ -507,15 +510,15 @@ class ConsultationController extends BaseApiController
 
         // Apply user role-based filtering
         $this->applyUserRoleFilter($query);
+        $this->applyLastThreeMonthsFilter($query, 'consultations.created_at');
 
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
-        $consultations = $query->orderByDesc('consultations.created_at')
-            ->orderByDesc('consultations.id')
-            ->cursorPaginate($request->get('per_page', 15));
-
-        return $this->successResponse($consultations, 'Not conducted consultations retrieved successfully');
+        return $this->successResponse(
+            $this->buildConsultationListResponse($query),
+            'Not conducted consultations retrieved successfully'
+        );
     }
 
     /**
@@ -548,15 +551,31 @@ class ConsultationController extends BaseApiController
 
         // Apply user role-based filtering
         $this->applyUserRoleFilter($query);
+        $this->applyLastThreeMonthsFilter($query, 'consultations.created_at');
 
         // Get latest consultation per appointment
         $this->getLatestConsultations($query);
 
+        return $this->successResponse(
+            $this->buildConsultationListResponse($query),
+            'Today\'s consultations retrieved successfully'
+        );
+    }
+
+    /**
+     * @return array{consultations: \Illuminate\Support\Collection, total: int, date_from: string, date_to: string}
+     */
+    private function buildConsultationListResponse($query): array
+    {
         $consultations = $query->orderByDesc('consultations.created_at')
             ->orderByDesc('consultations.id')
-            ->cursorPaginate($request->get('per_page', 15));
+            ->get();
 
-        return $this->successResponse($consultations, 'Today\'s consultations retrieved successfully');
+        return [
+            'consultations' => $consultations,
+            'total' => $consultations->count(),
+            ...$this->lastThreeMonthsDateRange(),
+        ];
     }
 
     /**

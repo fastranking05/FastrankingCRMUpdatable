@@ -81,7 +81,32 @@ Creates a new lead with business, auth persons, and comments.
 
 ---
 
-## 2. Get All Leads
+## 2. Leads Filter APIs
+
+Flexible filtering (same pattern as Appointments and Follow-Up).
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/filter-options` | Get filter dropdown options |
+| POST | `/leads-filter` | Filter leads with POST body |
+
+**Full documentation:** [LEADS_FILTER_API_DOCUMENTATION.md](./LEADS_FILTER_API_DOCUMENTATION.md)
+
+**Quick example:**
+```json
+POST /api/leads/leads-filter
+{
+  "scope": "all",
+  "date_filter": "this_month",
+  "category": "Technology Services",
+  "search": "ABC",
+  "per_page": 15
+}
+```
+
+---
+
+## 3. Get All Leads
 **GET** `/all-leads`
 
 Retrieves all leads with role-based hierarchy access.
@@ -113,7 +138,7 @@ Retrieves all leads with role-based hierarchy access.
 
 ---
 
-## 3. Get My Leads
+## 4. Get My Leads
 **GET** `/my-leads`
 
 Retrieves only leads created by the logged-in user.
@@ -140,7 +165,7 @@ Retrieves only leads created by the logged-in user.
 
 ---
 
-## 3. Get All Business Names
+## 5. Get All Business Names
 **GET** `/business-names`
 
 Retrieves a list of all business names and IDs from the followup business table.
@@ -171,7 +196,7 @@ Retrieves a list of all business names and IDs from the followup business table.
 
 ---
 
-## 4. Check Duplicate Lead Data
+## 6. Check Duplicate Lead Data
 **POST** `/check-duplicate`
 
 Checks for duplicate lead data in the system before creating a new lead. This endpoint verifies if any of the provided business or authorized person contact information already exists in the database.
@@ -244,7 +269,7 @@ This endpoint should be called before creating a new lead to prevent duplicate e
 
 ---
 
-## 5. Get Lead Details
+## 7. Get Lead Details
 **GET** `/{id}`
 
 Retrieves detailed information about a specific lead including all related data:
@@ -411,7 +436,7 @@ Retrieves detailed information about a specific lead including all related data:
 
 ---
 
-## 6. Update Lead
+## 8. Update Lead
 **PUT** `/{id}`
 
 **Request Body:**
@@ -435,7 +460,7 @@ Retrieves detailed information about a specific lead including all related data:
 
 ---
 
-## 7. Delete Lead
+## 9. Delete Lead
 **DELETE** `/{id}`
 
 **Response:**

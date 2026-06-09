@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Quality;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\Quality;
 use App\Models\Team;
 use App\Models\User;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class QualityAuditController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
     /**
      * Get audit pending quality data (unqualified status)
      * Manager (Quality Control): Can see own + team members' data
@@ -28,88 +31,22 @@ class QualityAuditController extends BaseApiController
         ]);
 
         // Filter by unqualified status
-        $query->where('auditstatus', 'unqualified');
+        $query->where('auditstatus', 'pending');
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'qualities.created_at');
 
         // Get latest quality per appointment
         $this->getLatestQualities($query);
 
-        $audits = $query->orderBy('created_at', 'desc')->get();
+        $formattedAudits = $this->formatQualityAudits($query->orderBy('created_at', 'desc')->get());
 
-        // Format the response to remove unwanted fields and ensure unique data
-        $formattedAudits = $audits->map(function ($audit) {
-            $business = null;
-            if ($audit->appointment && $audit->appointment->followupBusiness) {
-                $followupBusiness = $audit->appointment->followupBusiness;
-                
-                // Get auth persons specifically for this business
-                $authPersons = DB::table('followup_business_auth_person')
-                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
-                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
-                    ->select([
-                        'followup_auth_persons.id',
-                        'followup_auth_persons.title',
-                        'followup_auth_persons.firstname',
-                        'followup_auth_persons.middlename',
-                        'followup_auth_persons.lastname',
-                        'followup_auth_persons.designation',
-                        'followup_auth_persons.primaryemail',
-                        'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
-                    ])
-                    ->get()
-                    ->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
-                        ];
-                    });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
-                ];
-            }
-
-            return [
-                'id' => $audit->id,
-                'appointment_id' => $audit->appointment_id,
-                'auditstatus' => $audit->auditstatus,
-                'status' => $audit->status,
-                'score' => $audit->score,
-                'assigned_user' => $audit->assignedUser,
-                'meeting_link' => $audit->meeting_link,
-                'created_at' => $audit->created_at,
-                'updated_at' => $audit->updated_at,
-                'answers' => $audit->answers,
-                'business' => $business,
-                'appointment_date' => $audit->appointment ? $audit->appointment->date : null,
-                'appointment_source' => $audit->appointment ? $audit->appointment->source : null,
-                'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
-                'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
-                    'id' => $audit->appointment->timeSlot->id,
-                    'start_time' => $audit->appointment->timeSlot->start_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->start_time)) : null,
-                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null
-                ] : null
-            ];
-        });
-
-        return $this->successResponse($formattedAudits, 'Audit pending quality data retrieved successfully');
+        return $this->successResponse([
+            'audits' => $formattedAudits,
+            'total' => $formattedAudits->count(),
+            ...$this->lastThreeMonthsDateRange(),
+        ], 'Audit pending quality data retrieved successfully');
     }
 
     /**
@@ -132,84 +69,18 @@ class QualityAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'qualities.created_at');
 
         // Get latest quality per appointment
         $this->getLatestQualities($query);
 
-        $audits = $query->orderBy('created_at', 'desc')->get();
+        $formattedAudits = $this->formatQualityAudits($query->orderBy('created_at', 'desc')->get());
 
-        // Format the response to remove unwanted fields and ensure unique data
-        $formattedAudits = $audits->map(function ($audit) {
-            $business = null;
-            if ($audit->appointment && $audit->appointment->followupBusiness) {
-                $followupBusiness = $audit->appointment->followupBusiness;
-                
-                // Get auth persons specifically for this business
-                $authPersons = DB::table('followup_business_auth_person')
-                    ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
-                    ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
-                    ->select([
-                        'followup_auth_persons.id',
-                        'followup_auth_persons.title',
-                        'followup_auth_persons.firstname',
-                        'followup_auth_persons.middlename',
-                        'followup_auth_persons.lastname',
-                        'followup_auth_persons.designation',
-                        'followup_auth_persons.primaryemail',
-                        'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
-                    ])
-                    ->get()
-                    ->map(function ($person) {
-                        return [
-                            'id' => $person->id,
-                            'title' => $person->title,
-                            'firstname' => $person->firstname,
-                            'middlename' => $person->middlename,
-                            'lastname' => $person->lastname,
-                            'designation' => $person->designation,
-                            'primaryemail' => $person->primaryemail,
-                            'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
-                        ];
-                    });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
-                ];
-            }
-
-            return [
-                'id' => $audit->id,
-                'appointment_id' => $audit->appointment_id,
-                'auditstatus' => $audit->auditstatus,
-                'status' => $audit->status,
-                'score' => $audit->score,
-                'assigned_user' => $audit->assignedUser,
-                'meeting_link' => $audit->meeting_link,
-                'created_at' => $audit->created_at,
-                'updated_at' => $audit->updated_at,
-                'answers' => $audit->answers,
-                'business' => $business,
-                'appointment_date' => $audit->appointment ? $audit->appointment->date : null,
-                'appointment_source' => $audit->appointment ? $audit->appointment->source : null,
-                'appointment_current_status' => $audit->appointment ? $audit->appointment->current_status : null,
-                'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
-                    'id' => $audit->appointment->timeSlot->id,
-                    'start_time' => $audit->appointment->timeSlot->start_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->start_time)) : null,
-                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null
-                ] : null
-            ];
-        });
-
-        return $this->successResponse($formattedAudits, 'Audit completed quality data retrieved successfully');
+        return $this->successResponse([
+            'audits' => $formattedAudits,
+            'total' => $formattedAudits->count(),
+            ...$this->lastThreeMonthsDateRange(),
+        ], 'Audit completed quality data retrieved successfully');
     }
 
     /**
@@ -230,19 +101,30 @@ class QualityAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'qualities.created_at');
 
         // Get latest quality per appointment
         $this->getLatestQualities($query);
 
-        $audits = $query->orderBy('created_at', 'desc')->get();
+        $formattedAudits = $this->formatQualityAudits($query->orderBy('created_at', 'desc')->get());
 
-        // Format the response to remove unwanted fields and ensure unique data
-        $formattedAudits = $audits->map(function ($audit) {
+        return $this->successResponse([
+            'audits' => $formattedAudits,
+            'total' => $formattedAudits->count(),
+            ...$this->lastThreeMonthsDateRange(),
+        ], 'All quality data retrieved successfully');
+    }
+
+    /**
+     * @param  \Illuminate\Support\Collection<int, Quality>  $audits
+     */
+    private function formatQualityAudits($audits)
+    {
+        return $audits->map(function ($audit) {
             $business = null;
             if ($audit->appointment && $audit->appointment->followupBusiness) {
                 $followupBusiness = $audit->appointment->followupBusiness;
-                
-                // Get auth persons specifically for this business
+
                 $authPersons = DB::table('followup_business_auth_person')
                     ->join('followup_auth_persons', 'followup_auth_persons.id', '=', 'followup_business_auth_person.followup_auth_person_id')
                     ->where('followup_business_auth_person.followup_business_id', $followupBusiness->id)
@@ -255,7 +137,7 @@ class QualityAuditController extends BaseApiController
                         'followup_auth_persons.designation',
                         'followup_auth_persons.primaryemail',
                         'followup_auth_persons.primarymobile',
-                        'followup_auth_persons.is_primary'
+                        'followup_auth_persons.is_primary',
                     ])
                     ->get()
                     ->map(function ($person) {
@@ -268,7 +150,7 @@ class QualityAuditController extends BaseApiController
                             'designation' => $person->designation,
                             'primaryemail' => $person->primaryemail,
                             'primarymobile' => $person->primarymobile,
-                            'is_primary' => $person->is_primary
+                            'is_primary' => $person->is_primary,
                         ];
                     });
 
@@ -280,7 +162,7 @@ class QualityAuditController extends BaseApiController
                     'website' => $followupBusiness->website,
                     'phone' => $followupBusiness->phone,
                     'email' => $followupBusiness->email,
-                    'auth_persons' => $authPersons
+                    'auth_persons' => $authPersons,
                 ];
             }
 
@@ -302,12 +184,10 @@ class QualityAuditController extends BaseApiController
                 'appointment_slot' => $audit->appointment && $audit->appointment->timeSlot ? [
                     'id' => $audit->appointment->timeSlot->id,
                     'start_time' => $audit->appointment->timeSlot->start_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->start_time)) : null,
-                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null
-                ] : null
+                    'end_time' => $audit->appointment->timeSlot->end_time ? date('H:i:s', strtotime($audit->appointment->timeSlot->end_time)) : null,
+                ] : null,
             ];
         });
-
-        return $this->successResponse($formattedAudits, 'All quality data retrieved successfully');
     }
 
     /**

@@ -29,6 +29,10 @@ A comprehensive, reusable filter system that provides flexible date range filter
 - `GET /api/followup/filter-options` - Get filter configuration
 - `POST /api/followup/followup-filter` - List followup records with filters
 
+### Leads Module
+- `GET /api/leads/filter-options` - Get filter configuration
+- `POST /api/leads/leads-filter` - List leads with filters
+
 ## 🔒 Secure POST Filter APIs - Complete Reference
 
 ### 📋 Appointments Module
@@ -698,6 +702,65 @@ Authorization: Bearer YOUR_JWT_TOKEN
 }
 ```
 
+### 📋 Leads Module
+
+#### 1. Get Filter Options
+```http
+GET /api/leads/filter-options
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Response includes:** `date_filters`, `date_columns`, `scope_options`, `category_options`, `type_options`, `source_name_options`, `status_options`
+
+#### 2. Filter Leads
+```http
+POST /api/leads/leads-filter
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+```
+
+**Request Payload Examples:**
+
+**Basic date filter:**
+```json
+{
+  "scope": "all",
+  "date_filter": "this_month",
+  "date_column": "created_at",
+  "per_page": 15
+}
+```
+
+**My leads only:**
+```json
+{
+  "scope": "my",
+  "per_page": 15
+}
+```
+
+**Source filter:**
+```json
+{
+  "source_name": "Website",
+  "per_page": 15
+}
+```
+
+**Combined filters:**
+```json
+{
+  "scope": "all",
+  "date_filter": "this_month",
+  "category": "Healthcare",
+  "source_name": "Referral",
+  "search": "clinic",
+  "per_page": 20
+}
+```
+
+> Full reference: [LEADS_FILTER_API_DOCUMENTATION.md](./LEADS_FILTER_API_DOCUMENTATION.md)
+
 ## 🔧 Universal Filter Parameters
 
 ### Date Filter Options:
@@ -756,6 +819,18 @@ curl -X POST \
      -H "Authorization: Bearer YOUR_JWT_TOKEN" \
      -d '{"date_filter":"this_month","category":"Technology Services"}' \
      http://localhost:8000/api/followup/followup-filter
+
+# Test Leads Filter Options
+curl -X GET \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     http://localhost:8000/api/leads/filter-options
+
+# Test Leads Filter
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     -d '{"scope":"all","date_filter":"this_month","search":"ABC"}' \
+     http://localhost:8000/api/leads/leads-filter
 ```
 
 ## Filter Parameters

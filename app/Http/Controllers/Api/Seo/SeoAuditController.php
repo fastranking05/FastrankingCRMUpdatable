@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Seo;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\SeoDetail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class SeoAuditController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
     /**
      * Get SEO audit pending data (Pending status)
      * Manager (Digital Marketing): Can see own + team members' data
@@ -31,14 +34,12 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.created_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
-
-        return $this->successResponse($formattedAudits, 'SEO audit pending data retrieved successfully');
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.created_at')->orderByDesc('seo_details.id')),
+            'SEO audit pending data retrieved successfully'
+        );
     }
 
     /**
@@ -62,14 +63,12 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
-
-        return $this->successResponse($formattedAudits, 'SEO audit completed data retrieved successfully');
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.updated_at')->orderByDesc('seo_details.id')),
+            'SEO audit completed data retrieved successfully'
+        );
     }
 
     /**
@@ -93,14 +92,12 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
-
-        return $this->successResponse($formattedAudits, 'SEO not applicable data retrieved successfully');
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.updated_at')->orderByDesc('seo_details.id')),
+            'SEO not applicable data retrieved successfully'
+        );
     }
 
     /**
@@ -121,14 +118,26 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.updated_at')->orderByDesc('seo_details.id')),
+            'All SEO data retrieved successfully'
+        );
+    }
 
-        return $this->successResponse($formattedAudits, 'All SEO data retrieved successfully');
+    /**
+     * @return array{audits: \Illuminate\Support\Collection, total: int, date_from: string, date_to: string}
+     */
+    private function buildSeoAuditListResponse($query): array
+    {
+        $audits = $query->get()->map(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
+
+        return [
+            'audits' => $audits,
+            'total' => $audits->count(),
+            ...$this->lastThreeMonthsDateRange(),
+        ];
     }
 
     /**

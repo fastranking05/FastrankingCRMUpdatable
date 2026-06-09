@@ -12,7 +12,7 @@ class QualityAssignmentService
 {
     private const QUALITY_CONTROL_DEPT_NAME = 'Quality Control';
     private const DEFAULT_STATUS = 'QA-Pending';
-    private const DEFAULT_AUDIT_STATUS = 'unqualified';
+    private const DEFAULT_AUDIT_STATUS = 'pending';
 
     /**
      * Automatically assign a Quality Control record to an appointment

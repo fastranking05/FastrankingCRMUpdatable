@@ -490,7 +490,7 @@ class QualityController extends BaseApiController
     public function update(Request $request, int $id): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'auditstatus' => 'sometimes|in:qualified,unqualified',
+            'auditstatus' => 'sometimes|in:qualified,unqualified,pending',
             'status' => 'sometimes|string',
             'meeting_link' => 'nullable|url',
             'score' => 'nullable|numeric|min:0|max:100',

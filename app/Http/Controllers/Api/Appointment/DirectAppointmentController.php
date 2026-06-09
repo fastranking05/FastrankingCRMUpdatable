@@ -74,7 +74,7 @@ class DirectAppointmentController extends BaseApiController
             $appointmentData = $request->appointment;
             $appointmentData['followup_business_id'] = $business->id;
             $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
-            $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
+            $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Appointment Booked';
             $appointmentData['created_by'] = auth()->id();
 
             // Check time slot availability

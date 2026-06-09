@@ -113,18 +113,6 @@ class CursorPaginationEndpointsTest extends TestCase
         $this->assertApiSuccessWithCursor($this->getJson('/api/followup'));
     }
 
-    public function test_leads_all_leads_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Leads']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/leads/all-leads'), 'leads');
-    }
-
-    public function test_leads_my_leads_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Leads']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/leads/my-leads'), 'leads');
-    }
-
     public function test_emails_index_cursor_shape(): void
     {
         $this->actingAsUserWithModuleRead(['Email']);
@@ -149,18 +137,6 @@ class CursorPaginationEndpointsTest extends TestCase
         $this->assertApiSuccessWithCursor($this->getJson('/api/appointments'));
     }
 
-    public function test_appointments_all_listing_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Appointment']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/appointments/all-appointments'), 'appointments');
-    }
-
-    public function test_appointments_my_listing_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Appointment']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/appointments/my-appointments'), 'appointments');
-    }
-
     public function test_appointments_today_listing_cursor_shape(): void
     {
         $this->actingAsUserWithModuleRead(['Appointment']);
@@ -177,30 +153,6 @@ class CursorPaginationEndpointsTest extends TestCase
     {
         $this->actingAsUserWithModuleRead(['Consultation']);
         $this->assertApiSuccessWithCursor($this->getJson('/api/consultation/filter'));
-    }
-
-    public function test_consultation_scheduled_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Consultation']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/consultation/scheduled'));
-    }
-
-    public function test_consultation_conducted_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Consultation']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/consultation/conducted'));
-    }
-
-    public function test_consultation_not_conducted_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Consultation']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/consultation/not-conducted'));
-    }
-
-    public function test_consultation_today_cursor_shape(): void
-    {
-        $this->actingAsUserWithModuleRead(['Consultation']);
-        $this->assertApiSuccessWithCursor($this->getJson('/api/consultation/today'));
     }
 
     public function test_quality_index_cursor_shape(): void
