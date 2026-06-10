@@ -75,7 +75,13 @@ Creates a new follow-up authorized person record.
   "middlename": "Michael",
   "lastname": "Doe",
   "is_primary": true,
-  "designation": "CEO",
+  "job_title": "CEO",
+  "seniority_level": "Executive",
+  "extension": "101",
+  "linkedin_profile": "https://linkedin.com/in/johndoe",
+  "facebook_profile": "https://facebook.com/johndoe",
+  "preferred_contact_method": "email",
+  "preferred_contact_time": "Weekdays 9am-5pm",
   "gender": "male",
   "dob": "1980-01-15",
   "primaryphone": "+1234567890",
@@ -94,7 +100,13 @@ Creates a new follow-up authorized person record.
 - `middlename`: nullable, string, max 255 characters
 - `lastname`: required, string, max 255 characters
 - `is_primary`: nullable, boolean
-- `designation`: nullable, string, max 255 characters
+- `job_title`: nullable, string, max 255 characters
+- `seniority_level`: nullable, string, max 100 characters
+- `extension`: nullable, string, max 50 characters
+- `linkedin_profile`: nullable, url, max 255 characters
+- `facebook_profile`: nullable, url, max 255 characters
+- `preferred_contact_method`: nullable, string, max 100 characters
+- `preferred_contact_time`: nullable, string (varchar), max 255 characters
 - `gender`: nullable, must be one of: male, female, other
 - `dob`: nullable, date
 - `primaryphone`: nullable, string, unique
@@ -117,7 +129,13 @@ Creates a new follow-up authorized person record.
     "middlename": "Michael",
     "lastname": "Doe",
     "is_primary": true,
-    "designation": "CEO",
+    "job_title": "CEO",
+    "seniority_level": "Executive",
+    "extension": "101",
+    "linkedin_profile": "https://linkedin.com/in/johndoe",
+    "facebook_profile": "https://facebook.com/johndoe",
+    "preferred_contact_method": "email",
+    "preferred_contact_time": "Weekdays 9am-5pm",
     "gender": "male",
     "dob": "1980-01-15",
     "primaryphone": "+1234567890",

@@ -50,7 +50,7 @@ class FollowupController extends BaseApiController
             $query = $this->dateRangeFilterService->applyFilters($query, $request, [
                 'date_column' => 'created_at',
                 'user_column' => 'created_by',
-                'search_columns' => ['name', 'category', 'type', 'email', 'phone'],
+                'search_columns' => ['name', 'trading_name', 'company_registration_number', 'address', 'category', 'sub_category', 'type', 'source_name', 'sub_source'],
                 'skip_status_filter' => true,
             ]);
 

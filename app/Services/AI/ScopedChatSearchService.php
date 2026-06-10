@@ -144,8 +144,8 @@ class ScopedChatSearchService
                 ->where(fn (Builder $q) => $q
                     ->where('name', 'like', $like)
                     ->orWhere('category', 'like', $like)
-                    ->orWhere('phone', 'like', $like)
-                    ->orWhere('email', 'like', $like))
+                    ->orWhere('type', 'like', $like)
+                    ->orWhere('website', 'like', $like))
                 ->latest('updated_at'),
             SearchEntityType::CONTACT => fn (string $like) => FollowupAuthPerson::query()
                 ->where(fn (Builder $q) => $q

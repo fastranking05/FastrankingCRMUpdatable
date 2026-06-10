@@ -411,8 +411,6 @@ class FiveKDummyDataSeeder extends Seeder
             'category' => $cat,
             'type' => $type,
             'website' => 'https://www.' . $this->websiteDomains[$domainIdx] . $num . '.com',
-            'phone' => '+1' . str_pad(mt_rand(3000000000, 9999999999), 10, '0', STR_PAD_LEFT),
-            'email' => 'contact' . $num . '@' . $this->websiteDomains[$domainIdx] . $num . '.com',
             'created_by' => $this->user->id,
             'created_at' => $this->randomDate('2024-01-01', '2026-05-19'),
             'updated_at' => now(),
@@ -437,7 +435,7 @@ class FiveKDummyDataSeeder extends Seeder
             'middlename' => ($j % 3 === 0) ? chr(65 + ($idx % 26)) : null,
             'lastname' => $lastName,
             'is_primary' => $j === 0 ? 1 : 0,
-            'designation' => $this->designations[($idx + $j) % count($this->designations)],
+            'job_title' => $this->designations[($idx + $j) % count($this->designations)],
             'gender' => $gender,
             'dob' => $this->randomDob(),
             'primaryphone' => '+1' . str_pad(mt_rand(3000000000, 9999999999), 10, '0', STR_PAD_LEFT),
@@ -746,7 +744,7 @@ class FiveKDummyDataSeeder extends Seeder
             echo "  Website: {$sample->website}\n";
             echo "  Auth Persons: " . $sample->authPersons->count() . "\n";
             foreach ($sample->authPersons->take(2) as $p) {
-                echo "    - {$p->full_name} ({$p->designation})\n";
+                echo "    - {$p->full_name} ({$p->job_title})\n";
             }
         }
 

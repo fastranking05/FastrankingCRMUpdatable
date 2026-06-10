@@ -69,8 +69,6 @@ class DealsController extends BaseApiController
                 'category' => $deal->followupBusiness->category,
                 'type' => $deal->followupBusiness->type,
                 'website' => $deal->followupBusiness->website,
-                'phone' => $deal->followupBusiness->phone,
-                'email' => $deal->followupBusiness->email,
             ] : null,
             'contact' => $authPerson ? [
                 'id' => $authPerson->id,
@@ -81,7 +79,7 @@ class DealsController extends BaseApiController
                 'name' => trim($authPerson->firstname.' '.$authPerson->lastname),
                 'email' => $authPerson->primaryemail,
                 'phone' => $authPerson->primarymobile ?? $authPerson->primaryphone,
-                'designation' => $authPerson->designation,
+                'job_title' => $authPerson->job_title,
             ] : null,
             'owner' => $deal->creator ? [
                 'id' => $deal->creator->id,
@@ -263,15 +261,13 @@ class DealsController extends BaseApiController
             $query->where('name', 'like', '%'.$request->input('search').'%');
         }
 
-        $businesses = $query->get(['id', 'name', 'category', 'type', 'website', 'phone', 'email'])
+        $businesses = $query->get(['id', 'name', 'category', 'type', 'website'])
             ->map(fn (FollowupBusiness $business) => [
                 'id' => $business->id,
                 'name' => $business->name,
                 'category' => $business->category,
                 'type' => $business->type,
                 'website' => $business->website,
-                'phone' => $business->phone,
-                'email' => $business->email,
             ])
             ->values();
 
@@ -303,8 +299,8 @@ class DealsController extends BaseApiController
                 'name' => trim($person->firstname.' '.$person->lastname),
                 'email' => $person->primaryemail,
                 'phone' => $person->primarymobile ?? $person->primaryphone,
-                'designation' => $person->designation,
-            ];
+                'job_title' => $person->job_title,
+            ] + $person->profileFieldsForResponse();
         })->values();
 
         return $this->successResponse($persons, 'Business contacts retrieved successfully');

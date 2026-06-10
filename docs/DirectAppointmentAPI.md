@@ -35,7 +35,7 @@ Creates a new appointment along with a new business and auth persons.
             "firstname": "John",
             "lastname": "Doe",
             "is_primary": true,
-            "designation": "CEO",
+            "job_title": "CEO",
             "gender": "male",
             "dob": "1980-05-15",
             "primaryphone": "+1234567890",
@@ -103,7 +103,7 @@ Creates an appointment for an existing business.
             "title": "Ms.",
             "firstname": "Jane",
             "lastname": "Smith",
-            "designation": "Manager",
+            "job_title": "Manager",
             "primaryemail": "jane.smith@abccorp.com"
         }
     ]
@@ -332,7 +332,7 @@ curl -X POST http://localhost:8000/api/direct-appointments \
             "title": "Dr.",
             "firstname": "Sarah",
             "lastname": "Wilson",
-            "designation": "Medical Director",
+            "job_title": "Medical Director",
             "primaryemail": "sarah.wilson@newclient.com",
             "primarymobile": "+1234567891"
         }

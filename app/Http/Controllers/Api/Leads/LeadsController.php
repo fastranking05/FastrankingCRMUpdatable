@@ -31,12 +31,18 @@ class LeadsController extends BaseApiController
         $validator = Validator::make($request->all(), [
             // Business details
             'business_name' => 'required|string|max:255',
+            'trading_name' => 'nullable|string|max:255',
+            'company_registration_number' => 'nullable|string|max:100',
+            'address' => 'nullable|string|max:1000',
+            'company_size' => 'nullable|string|max:100',
             'category' => 'nullable|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
             'source_name' => 'nullable|string|max:50',
+            'sub_source' => 'nullable|string|max:50',
+            'annual_revenue' => 'nullable|numeric|min:0',
+            'number_of_locations' => 'nullable|integer|min:0',
             'website' => 'nullable|url|max:255',
-            'phone' => 'nullable|string|unique:followup_businesses,phone',
-            'email' => 'nullable|email|max:255',
             
             // Auth persons array
             'auth_persons' => 'required|array',
@@ -45,7 +51,7 @@ class LeadsController extends BaseApiController
             'auth_persons.*.middlename' => 'nullable|string|max:255',
             'auth_persons.*.lastname' => 'required|string|max:255',
             'auth_persons.*.is_primary' => 'nullable|boolean',
-            'auth_persons.*.designation' => 'nullable|string|max:255',
+            'auth_persons.*.job_title' => 'nullable|string|max:255',
             'auth_persons.*.gender' => 'nullable|in:male,female,other',
             'auth_persons.*.dob' => 'nullable|date',
             'auth_persons.*.primaryphone' => 'nullable|string',
@@ -61,7 +67,7 @@ class LeadsController extends BaseApiController
             'comments.*.comment' => 'required|string',
             'comments.*.old_status' => 'nullable|string|max:255',
             'comments.*.new_status' => 'nullable|string|max:255',
-        ]);
+        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
@@ -71,25 +77,31 @@ class LeadsController extends BaseApiController
             // Create business
             $business = FollowupBusiness::create([
                 'name' => $request->business_name,
+                'trading_name' => $request->trading_name,
+                'company_registration_number' => $request->company_registration_number,
+                'address' => $request->address,
+                'company_size' => $request->company_size,
                 'category' => $request->category,
+                'sub_category' => $request->sub_category,
                 'type' => $request->type,
                 'source_name' => $request->source_name,
+                'sub_source' => $request->sub_source,
+                'annual_revenue' => $request->annual_revenue,
+                'number_of_locations' => $request->number_of_locations,
                 'website' => $request->website,
-                'phone' => $request->phone,
-                'email' => $request->email,
                 'created_by' => auth()->id(),
             ]);
 
             // Create auth persons and attach to business
             $authPersonIds = [];
             foreach ($request->auth_persons as $authPersonData) {
-                $authPerson = FollowupAuthPerson::create([
+                $authPerson = FollowupAuthPerson::create(array_merge([
                     'title' => $authPersonData['title'] ?? null,
                     'firstname' => $authPersonData['firstname'],
                     'middlename' => $authPersonData['middlename'] ?? null,
                     'lastname' => $authPersonData['lastname'],
                     'is_primary' => $authPersonData['is_primary'] ?? false,
-                    'designation' => $authPersonData['designation'] ?? null,
+                    'job_title' => $authPersonData['job_title'] ?? null,
                     'gender' => $authPersonData['gender'] ?? null,
                     'dob' => $authPersonData['dob'] ?? null,
                     'primaryphone' => $authPersonData['primaryphone'] ?? null,
@@ -99,7 +111,7 @@ class LeadsController extends BaseApiController
                     'primaryemail' => $authPersonData['primaryemail'],
                     'altemail' => $authPersonData['altemail'] ?? null,
                     'created_by' => auth()->id(),
-                ]);
+                ], FollowupAuthPerson::profileFieldsFromArray($authPersonData)));
 
                 $authPersonIds[] = $authPerson->id;
             }
@@ -124,7 +136,7 @@ class LeadsController extends BaseApiController
             $business->load(['creator:id,first_name,last_name', 'authPersons']);
 
             return $this->successResponse($business, 'Lead created successfully', 201);
-        }, 'Lead creation', $request->only(['business_name', 'email']));
+        }, 'Lead creation', $request->only(['business_name']));
     }
 
     /**
@@ -234,7 +246,7 @@ class LeadsController extends BaseApiController
             $query = $this->dateRangeFilterService->applyFilters($query, $request, [
                 'date_column' => $request->input('date_column', 'created_at'),
                 'user_column' => 'created_by',
-                'search_columns' => ['name', 'category', 'type', 'email', 'phone', 'source_name'],
+                'search_columns' => ['name', 'trading_name', 'company_registration_number', 'address', 'category', 'sub_category', 'type', 'source_name', 'sub_source'],
                 'skip_status_filter' => true,
             ]);
 
@@ -248,6 +260,10 @@ class LeadsController extends BaseApiController
 
             if ($request->has('source_name')) {
                 $query->where('source_name', $request->input('source_name'));
+            }
+
+            if ($request->has('sub_source')) {
+                $query->where('sub_source', $request->input('sub_source'));
             }
 
             if ($request->has('status')) {
@@ -371,12 +387,18 @@ class LeadsController extends BaseApiController
 
         $validator = Validator::make($request->all(), [
             'business_name' => 'sometimes|required|string|max:255',
+            'trading_name' => 'nullable|string|max:255',
+            'company_registration_number' => 'nullable|string|max:100',
+            'address' => 'nullable|string|max:1000',
+            'company_size' => 'nullable|string|max:100',
             'category' => 'nullable|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
             'source_name' => 'nullable|string|max:50',
+            'sub_source' => 'nullable|string|max:50',
+            'annual_revenue' => 'nullable|numeric|min:0',
+            'number_of_locations' => 'nullable|integer|min:0',
             'website' => 'nullable|url|max:255',
-            'phone' => 'nullable|string|unique:followup_businesses,phone,' . $id,
-            'email' => 'nullable|email|max:255',
             'auth_person_ids' => 'nullable|array',
             'auth_person_ids.*' => 'exists:followup_auth_persons,id',
         ]);
@@ -391,8 +413,23 @@ class LeadsController extends BaseApiController
             if ($request->has('business_name')) {
                 $updateData['name'] = $request->business_name;
             }
+            if ($request->has('trading_name')) {
+                $updateData['trading_name'] = $request->trading_name;
+            }
+            if ($request->has('company_registration_number')) {
+                $updateData['company_registration_number'] = $request->company_registration_number;
+            }
+            if ($request->has('address')) {
+                $updateData['address'] = $request->address;
+            }
+            if ($request->has('company_size')) {
+                $updateData['company_size'] = $request->company_size;
+            }
             if ($request->has('category')) {
                 $updateData['category'] = $request->category;
+            }
+            if ($request->has('sub_category')) {
+                $updateData['sub_category'] = $request->sub_category;
             }
             if ($request->has('type')) {
                 $updateData['type'] = $request->type;
@@ -400,14 +437,17 @@ class LeadsController extends BaseApiController
             if ($request->has('source_name')) {
                 $updateData['source_name'] = $request->source_name;
             }
+            if ($request->has('sub_source')) {
+                $updateData['sub_source'] = $request->sub_source;
+            }
+            if ($request->has('annual_revenue')) {
+                $updateData['annual_revenue'] = $request->annual_revenue;
+            }
+            if ($request->has('number_of_locations')) {
+                $updateData['number_of_locations'] = $request->number_of_locations;
+            }
             if ($request->has('website')) {
                 $updateData['website'] = $request->website;
-            }
-            if ($request->has('phone')) {
-                $updateData['phone'] = $request->phone;
-            }
-            if ($request->has('email')) {
-                $updateData['email'] = $request->email;
             }
 
             $business->update($updateData);
@@ -446,7 +486,7 @@ class LeadsController extends BaseApiController
 
     private function getLeadsBaseQuery()
     {
-        return FollowupBusiness::with(['creator:id,first_name,last_name', 'authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile,is_primary', 'comments']);
+        return FollowupBusiness::with(['creator:id,first_name,last_name', 'authPersons:id,title,firstname,lastname,job_title,primaryemail,primarymobile,is_primary', 'comments']);
     }
 
     private function applyRoleBasedFilters($query, User $user)
@@ -489,6 +529,7 @@ class LeadsController extends BaseApiController
         if ($request->has('category')) $query->where('category', $request->category);
         if ($request->has('type')) $query->where('type', $request->type);
         if ($request->has('source_name')) $query->where('source_name', $request->source_name);
+        if ($request->has('sub_source')) $query->where('sub_source', $request->sub_source);
         if ($request->has('name')) $query->where('name', 'like', '%' . $request->name . '%');
         return $query;
     }
@@ -504,8 +545,6 @@ class LeadsController extends BaseApiController
     public function checkDuplicate(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'business_phone' => 'nullable|string',
-            'business_email' => 'nullable|email',
             'auth_person_phone' => 'nullable|string',
             'auth_person_mobile' => 'nullable|string',
             'auth_person_email' => 'nullable|email',
@@ -516,30 +555,6 @@ class LeadsController extends BaseApiController
         }
 
         $duplicates = [];
-
-        // Check business phone
-        if ($request->has('business_phone') && !empty($request->business_phone)) {
-            $businessPhone = FollowupBusiness::where('phone', $request->business_phone)->first();
-            if ($businessPhone) {
-                $duplicates['business_phone'] = [
-                    'exists' => true,
-                    'lead_id' => $businessPhone->id,
-                    'business_name' => $businessPhone->name,
-                ];
-            }
-        }
-
-        // Check business email
-        if ($request->has('business_email') && !empty($request->business_email)) {
-            $businessEmail = FollowupBusiness::where('email', $request->business_email)->first();
-            if ($businessEmail) {
-                $duplicates['business_email'] = [
-                    'exists' => true,
-                    'lead_id' => $businessEmail->id,
-                    'business_name' => $businessEmail->name,
-                ];
-            }
-        }
 
         // Check auth person phone (primaryphone or altphone)
         if ($request->has('auth_person_phone') && !empty($request->auth_person_phone)) {

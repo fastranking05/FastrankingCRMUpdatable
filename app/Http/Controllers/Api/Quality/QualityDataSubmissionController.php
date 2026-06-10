@@ -48,11 +48,10 @@ class QualityDataSubmissionController extends BaseApiController
             'meetinglink' => 'nullable|string',
             'score' => 'nullable|numeric|min:0|max:100',
             'appointment_id' => 'required|exists:appointments,id',
-            'appointment_current_status' => 'nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled,Scheduled,scheduled',
+            'appointment_current_status' => 'nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled,Scheduled,scheduled,QA-Pending,QA-Approved,QA-Hold,QA-Reject,QA-Rework',
             
-            // Quality answers
+            // Quality answers (linked to the quality record created in this request)
             'answers' => 'required|array|min:1',
-            'answers.*.quality_id' => 'required|exists:qualities,id',
             'answers.*.question_id' => 'required|exists:quality_questions,id',
             'answers.*.answer' => 'required|in:yes,no,partially done,not applicable',
             
@@ -157,12 +156,12 @@ class QualityDataSubmissionController extends BaseApiController
                     }
                 }
 
-                // Create Quality Answers (with manually provided quality_id)
+                // Create Quality Answers for the newly created quality record
                 $answers = [];
                 foreach ($request->answers as $index => $answerData) {
                     try {
                         $answer = QualityAnswer::create([
-                            'quality_id' => $answerData['quality_id'],
+                            'quality_id' => $quality->id,
                             'question_id' => $answerData['question_id'],
                             'answers' => $answerData['answer'],
                         ]);

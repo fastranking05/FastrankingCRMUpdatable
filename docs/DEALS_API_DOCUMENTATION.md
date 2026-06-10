@@ -152,7 +152,7 @@ curl -X GET \
           "name": "David Chen",
           "email": "david.chen@techsolutions.com",
           "phone": "+1 555-0101",
-          "designation": null
+          "job_title": null
         },
         "owner": {
           "id": 4,
@@ -260,7 +260,7 @@ Business eligible nahi hai to `404`.
       "name": "David Chen",
       "email": "david.chen@techsolutions.com",
       "phone": "+1 555-0101",
-      "designation": null
+      "job_title": null
     }
   ]
 }

@@ -25,7 +25,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -54,7 +54,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -83,7 +83,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -112,7 +112,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -158,7 +158,13 @@ class SeoAuditController extends BaseApiController
                     'followup_auth_persons.firstname',
                     'followup_auth_persons.middlename',
                     'followup_auth_persons.lastname',
-                    'followup_auth_persons.designation',
+                    'followup_auth_persons.job_title',
+                    'followup_auth_persons.seniority_level',
+                    'followup_auth_persons.extension',
+                    'followup_auth_persons.linkedin_profile',
+                    'followup_auth_persons.facebook_profile',
+                    'followup_auth_persons.preferred_contact_method',
+                    'followup_auth_persons.preferred_contact_time',
                     'followup_auth_persons.primaryemail',
                     'followup_auth_persons.primarymobile',
                     'followup_auth_persons.is_primary',
@@ -171,10 +177,16 @@ class SeoAuditController extends BaseApiController
                         'firstname' => $person->firstname,
                         'middlename' => $person->middlename,
                         'lastname' => $person->lastname,
-                        'designation' => $person->designation,
+                        'job_title' => $person->job_title,
                         'primaryemail' => $person->primaryemail,
                         'primarymobile' => $person->primarymobile,
                         'is_primary' => $person->is_primary,
+                        'seniority_level' => $person->seniority_level,
+                        'extension' => $person->extension,
+                        'linkedin_profile' => $person->linkedin_profile,
+                        'facebook_profile' => $person->facebook_profile,
+                        'preferred_contact_method' => $person->preferred_contact_method,
+                        'preferred_contact_time' => $person->preferred_contact_time,
                     ];
                 });
 
@@ -184,8 +196,6 @@ class SeoAuditController extends BaseApiController
                 'category' => $followupBusiness->category,
                 'type' => $followupBusiness->type,
                 'website' => $followupBusiness->website,
-                'phone' => $followupBusiness->phone,
-                'email' => $followupBusiness->email,
                 'auth_persons' => $authPersons,
             ];
         }

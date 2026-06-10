@@ -95,8 +95,6 @@ class ConsultationController extends BaseApiController
                 'category' => $consultation->appointment->followupBusiness->category,
                 'type' => $consultation->appointment->followupBusiness->type,
                 'website' => $consultation->appointment->followupBusiness->website,
-                'phone' => $consultation->appointment->followupBusiness->phone,
-                'email' => $consultation->appointment->followupBusiness->email,
                 'auth_persons' => $consultation->appointment->followupBusiness->authPersons->map(function ($person) {
                     return [
                         'id' => $person->id,
@@ -104,11 +102,11 @@ class ConsultationController extends BaseApiController
                         'firstname' => $person->firstname,
                         'middlename' => $person->middlename,
                         'lastname' => $person->lastname,
-                        'designation' => $person->designation,
+                        'job_title' => $person->job_title,
                         'primaryemail' => $person->primaryemail,
                         'primarymobile' => $person->primarymobile,
                         'is_primary' => $person->pivot->is_primary ?? 0,
-                    ];
+                    ] + $person->profileFieldsForResponse();
                 })->toArray(),
             ] : null,
             'appointment_date' => $consultation->appointment?->date,

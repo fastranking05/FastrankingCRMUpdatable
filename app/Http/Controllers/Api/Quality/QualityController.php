@@ -43,7 +43,7 @@ class QualityController extends BaseApiController
             'appointment.followupBusiness.authPersons',
             'appointment.timeSlot',
             'assignedUser',
-            'answers',
+            'answers.question:id,question,is_active',
         ])->whereIn('id', $latestQualityIds);
 
         // 2. Build filters array from request
@@ -370,6 +370,10 @@ class QualityController extends BaseApiController
             'appointment',
             'appointment.followupBusiness',
             'appointment.followupBusiness.authPersons',
+            'appointment.followupBusiness.comments' => function ($query) {
+                $query->with('creator:id,first_name,last_name')
+                    ->orderByDesc('created_at');
+            },
             'appointment.timeSlot',
             'appointment.creator:id,first_name,middle_name,last_name,username',
             'assignedUser',
@@ -380,16 +384,16 @@ class QualityController extends BaseApiController
             return $this->errorResponse('Quality record not found', 404);
         }
 
-        // Transform the response to change 'creator' to 'appointment_creator'
-        $transformedQuality = $this->transformQualityResponse($quality);
-
-        return $this->successResponse($transformedQuality, 'Quality record retrieved successfully');
+        return $this->successResponse(
+            $this->transformQualityShowResponse($quality),
+            'Quality record retrieved successfully'
+        );
     }
 
     /**
-     * Transform quality response to change creator to appointment_creator
+     * @return array<string, mixed>
      */
-    private function transformQualityResponse($quality): object
+    private function transformQualityShowResponse(Quality $quality): array
     {
         $data = $quality->toArray();
 
@@ -398,7 +402,127 @@ class QualityController extends BaseApiController
             unset($data['appointment']['creator']);
         }
 
-        return (object) $data;
+        $resolvedAnswers = $this->resolveQualityAnswersForShow($quality);
+        $answersByQuestionId = $resolvedAnswers->keyBy('question_id');
+
+        $data['answers'] = $resolvedAnswers->map(function (QualityAnswer $answer) {
+            return [
+                'id' => $answer->id,
+                'quality_id' => $answer->quality_id,
+                'question_id' => $answer->question_id,
+                'answer' => $answer->answers,
+                'answers' => $answer->answers,
+                'question' => $answer->relationLoaded('question') && $answer->question ? [
+                    'id' => $answer->question->id,
+                    'question' => $answer->question->question,
+                    'is_active' => $answer->question->is_active,
+                ] : null,
+                'created_at' => $answer->created_at,
+                'updated_at' => $answer->updated_at,
+            ];
+        })->values()->all();
+
+        $data['question_answers'] = QualityQuestion::query()
+            ->where('is_active', true)
+            ->orderBy('id')
+            ->get(['id', 'question', 'is_active'])
+            ->map(function (QualityQuestion $question) use ($answersByQuestionId, $quality) {
+                $answer = $answersByQuestionId->get($question->id);
+
+                return [
+                    'quality_id' => $quality->id,
+                    'question_id' => $question->id,
+                    'question' => $question->question,
+                    'is_active' => $question->is_active,
+                    'answer_id' => $answer?->id,
+                    'answer' => $answer?->answers,
+                    'answers' => $answer?->answers,
+                    'is_answered' => $answer !== null,
+                    'created_at' => $answer?->created_at,
+                    'updated_at' => $answer?->updated_at,
+                ];
+            })
+            ->values()
+            ->all();
+
+        $businessComments = $this->formatBusinessComments($quality);
+        $data['business_comments'] = $businessComments;
+
+        if (isset($data['appointment']['followup_business'])) {
+            $data['appointment']['followup_business']['comments'] = $businessComments;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private function formatBusinessComments(Quality $quality): array
+    {
+        $business = $quality->appointment?->followupBusiness;
+
+        if (!$business) {
+            return [];
+        }
+
+        $comments = $business->relationLoaded('comments')
+            ? $business->comments
+            : $business->comments()
+                ->with('creator:id,first_name,last_name')
+                ->orderByDesc('created_at')
+                ->get();
+
+        return $comments->map(function ($comment) use ($business) {
+            return [
+                'id' => $comment->id,
+                'followup_business_id' => $business->id,
+                'comment' => $comment->comment,
+                'old_status' => $comment->old_status,
+                'new_status' => $comment->new_status,
+                'created_by' => $comment->created_by,
+                'creator' => $comment->relationLoaded('creator') && $comment->creator ? [
+                    'id' => $comment->creator->id,
+                    'first_name' => $comment->creator->first_name,
+                    'last_name' => $comment->creator->last_name,
+                ] : null,
+                'created_at' => $comment->created_at,
+                'updated_at' => $comment->updated_at,
+            ];
+        })->values()->all();
+    }
+
+    /**
+     * Resolve answers for single-view: current quality first, then same appointment siblings.
+     *
+     * @return \Illuminate\Support\Collection<int, QualityAnswer>
+     */
+    private function resolveQualityAnswersForShow(Quality $quality): \Illuminate\Support\Collection
+    {
+        $answers = $quality->relationLoaded('answers')
+            ? $quality->answers
+            : $quality->answers()->with('question:id,question,is_active')->get();
+
+        if ($answers->isNotEmpty()) {
+            return $answers->sortBy('question_id')->values();
+        }
+
+        if (!$quality->appointment_id) {
+            return collect();
+        }
+
+        $siblingQualityIds = Quality::query()
+            ->where('appointment_id', $quality->appointment_id)
+            ->pluck('id');
+
+        return QualityAnswer::query()
+            ->with('question:id,question,is_active')
+            ->whereIn('quality_id', $siblingQualityIds)
+            ->orderByDesc('updated_at')
+            ->get()
+            ->unique('question_id')
+            ->sortBy('question_id')
+            ->values();
     }
 
     /**
@@ -421,11 +545,16 @@ class QualityController extends BaseApiController
             'meeting_link' => $quality->meeting_link,
             'created_at' => $quality->created_at,
             'updated_at' => $quality->updated_at,
-            'answers' => $quality->answers->map(fn ($answer) => [
+            'answers' => $quality->answers->map(fn (QualityAnswer $answer) => [
                 'id' => $answer->id,
                 'question_id' => $answer->question_id,
                 'answer' => $answer->answers,
-                'score' => $answer->score,
+                'answers' => $answer->answers,
+                'question' => $answer->relationLoaded('question') && $answer->question ? [
+                    'id' => $answer->question->id,
+                    'question' => $answer->question->question,
+                    'is_active' => $answer->question->is_active,
+                ] : null,
             ])->toArray(),
             'business' => $quality->appointment?->followupBusiness ? [
                 'id' => $quality->appointment->followupBusiness->id,
@@ -433,29 +562,42 @@ class QualityController extends BaseApiController
                 'category' => $quality->appointment->followupBusiness->category,
                 'type' => $quality->appointment->followupBusiness->type,
                 'website' => $quality->appointment->followupBusiness->website,
-                'phone' => $quality->appointment->followupBusiness->phone,
-                'email' => $quality->appointment->followupBusiness->email,
                 'auth_persons' => $quality->appointment->followupBusiness->authPersons->map(fn ($person) => [
                     'id' => $person->id,
                     'title' => $person->title,
                     'firstname' => $person->firstname,
                     'middlename' => $person->middlename,
                     'lastname' => $person->lastname,
-                    'designation' => $person->designation,
+                    'job_title' => $person->job_title,
                     'primaryemail' => $person->primaryemail,
                     'primarymobile' => $person->primarymobile,
                     'is_primary' => $person->pivot->is_primary ?? 0,
-                ])->toArray(),
+                ] + $person->profileFieldsForResponse())->toArray(),
             ] : null,
             'appointment_date' => $quality->appointment?->date,
             'appointment_source' => $quality->appointment?->source,
             'appointment_current_status' => $quality->appointment?->current_status,
             'appointment_slot' => ($quality->appointment && $quality->appointment->timeSlot) ? [
                 'id' => $quality->appointment->timeSlot->id,
-                'start_time' => $quality->appointment->timeSlot->start_time,
-                'end_time' => $quality->appointment->timeSlot->end_time,
+                'name' => $quality->appointment->timeSlot->name,
+                'start_time' => $this->formatSlotTime($quality->appointment->timeSlot->start_time),
+                'end_time' => $this->formatSlotTime($quality->appointment->timeSlot->end_time),
             ] : null,
         ];
+    }
+
+    private function formatSlotTime($value): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        if ($value instanceof Carbon) {
+            return $value->format('H:i:s');
+        }
+
+        $timestamp = strtotime((string) $value);
+        return $timestamp ? date('H:i:s', $timestamp) : null;
     }
 
     /**

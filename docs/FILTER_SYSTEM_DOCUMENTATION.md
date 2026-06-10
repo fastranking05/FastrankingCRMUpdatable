@@ -554,7 +554,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
             "firstname": "John",
             "middlename": "A",
             "lastname": "Smith",
-            "designation": "CEO",
+            "job_title": "CEO",
             "primaryemail": "john@abc.com",
             "primarymobile": "+1234567890",
             "is_primary": 1

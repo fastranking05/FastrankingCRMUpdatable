@@ -48,12 +48,18 @@ class FollowupBusinessController extends BaseApiController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
+            'trading_name' => 'nullable|string|max:255',
+            'company_registration_number' => 'nullable|string|max:100',
+            'address' => 'nullable|string|max:1000',
+            'company_size' => 'nullable|string|max:100',
             'category' => 'nullable|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
             'source_name' => 'nullable|string|max:50',
+            'sub_source' => 'nullable|string|max:50',
+            'annual_revenue' => 'nullable|numeric|min:0',
+            'number_of_locations' => 'nullable|integer|min:0',
             'website' => 'nullable|url|max:255',
-            'phone' => 'nullable|string|unique:followup_businesses,phone',
-            'email' => 'nullable|email|max:255',
             'auth_person_ids' => 'nullable|array',
             'auth_person_ids.*' => 'exists:followup_auth_persons,id',
         ]);
@@ -76,7 +82,7 @@ class FollowupBusinessController extends BaseApiController
             $business->load(['creator:id,first_name,last_name', 'authPersons']);
 
             return $this->successResponse($business, 'Follow-up business created successfully', 201);
-        }, 'Follow-up business creation', $request->only(['name', 'email']));
+        }, 'Follow-up business creation', $request->only(['name']));
     }
 
     /**
@@ -108,12 +114,18 @@ class FollowupBusinessController extends BaseApiController
 
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|string|max:255',
+            'trading_name' => 'nullable|string|max:255',
+            'company_registration_number' => 'nullable|string|max:100',
+            'address' => 'nullable|string|max:1000',
+            'company_size' => 'nullable|string|max:100',
             'category' => 'nullable|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
             'source_name' => 'nullable|string|max:50',
+            'sub_source' => 'nullable|string|max:50',
+            'annual_revenue' => 'nullable|numeric|min:0',
+            'number_of_locations' => 'nullable|integer|min:0',
             'website' => 'nullable|url|max:255',
-            'phone' => 'nullable|string|unique:followup_businesses,phone,' . $id,
-            'email' => 'nullable|email|max:255',
             'auth_person_ids' => 'nullable|array',
             'auth_person_ids.*' => 'exists:followup_auth_persons,id',
         ]);

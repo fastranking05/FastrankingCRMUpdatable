@@ -184,8 +184,6 @@ class ConsultationStoreTest extends TestCase
             $table->string('category')->nullable();
             $table->string('type')->nullable();
             $table->string('website')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });

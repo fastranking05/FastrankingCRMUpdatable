@@ -195,8 +195,8 @@ class AppointmentListingController extends BaseApiController
     private function getAppointmentBaseQuery()
     {
         return Appointment::with([
-            'followupBusiness:id,name,category,type,phone,email,website',
-            'followupBusiness.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile,is_primary',
+            'followupBusiness:id,name,category,type,website',
+            'followupBusiness.authPersons:id,title,firstname,lastname,job_title,primaryemail,primarymobile,is_primary',
             'timeSlot:id,name,start_time,end_time,duration_minutes',
             'creator:id,first_name,last_name,user_type'
         ]);

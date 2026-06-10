@@ -19,7 +19,13 @@ class FollowupAuthPerson extends Model
         'middlename',
         'lastname',
         'is_primary',
-        'designation',
+        'job_title',
+        'seniority_level',
+        'extension',
+        'linkedin_profile',
+        'facebook_profile',
+        'preferred_contact_method',
+        'preferred_contact_time',
         'gender',
         'dob',
         'primaryphone',
@@ -53,5 +59,58 @@ class FollowupAuthPerson extends Model
     public function getFullNameAttribute(): string
     {
         return trim("{$this->title} {$this->firstname} {$this->middlename} {$this->lastname}");
+    }
+
+    /**
+     * Validation rules for optional contact profile fields.
+     *
+     * @return array<string, string>
+     */
+    public static function profileFieldValidationRules(string $prefix = ''): array
+    {
+        $field = fn (string $name) => $prefix !== '' ? "{$prefix}.{$name}" : $name;
+
+        return [
+            $field('seniority_level') => 'nullable|string|max:100',
+            $field('extension') => 'nullable|string|max:50',
+            $field('linkedin_profile') => 'nullable|url|max:255',
+            $field('facebook_profile') => 'nullable|url|max:255',
+            $field('preferred_contact_method') => 'nullable|string|max:100',
+            $field('preferred_contact_time') => 'nullable|string|max:255',
+        ];
+    }
+
+    /**
+     * Extract profile field values from request/array data.
+     *
+     * @return array<string, mixed>
+     */
+    public static function profileFieldsFromArray(array $data): array
+    {
+        return array_intersect_key($data, array_flip([
+            'seniority_level',
+            'extension',
+            'linkedin_profile',
+            'facebook_profile',
+            'preferred_contact_method',
+            'preferred_contact_time',
+        ]));
+    }
+
+    /**
+     * Profile fields for API responses.
+     *
+     * @return array<string, mixed>
+     */
+    public function profileFieldsForResponse(): array
+    {
+        return [
+            'seniority_level' => $this->seniority_level,
+            'extension' => $this->extension,
+            'linkedin_profile' => $this->linkedin_profile,
+            'facebook_profile' => $this->facebook_profile,
+            'preferred_contact_method' => $this->preferred_contact_method,
+            'preferred_contact_time' => $this->preferred_contact_time,
+        ];
     }
 }

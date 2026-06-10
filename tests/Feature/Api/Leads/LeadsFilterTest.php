@@ -149,9 +149,8 @@ class LeadsFilterTest extends TestCase
             $table->string('category')->nullable();
             $table->string('type')->nullable();
             $table->string('source_name')->nullable();
+            $table->string('sub_source')->nullable();
             $table->string('website')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
             $table->date('latest_followup_date')->nullable();
             $table->time('latest_followup_time')->nullable();
             $table->unsignedBigInteger('created_by');
@@ -269,8 +268,6 @@ class LeadsFilterTest extends TestCase
             'category' => 'Technology Services',
             'type' => 'SME',
             'source_name' => 'Website',
-            'phone' => '+1111111111',
-            'email' => 'abc@tech.test',
             'created_by' => $this->authenticatedUser->id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -281,8 +278,6 @@ class LeadsFilterTest extends TestCase
             'category' => 'Healthcare',
             'type' => 'Enterprise Client',
             'source_name' => 'Referral',
-            'phone' => '+2222222222',
-            'email' => 'clinic@health.test',
             'created_by' => $this->authenticatedUser->id,
         ]);
         $this->healthLead->forceFill([
@@ -295,8 +290,6 @@ class LeadsFilterTest extends TestCase
             'category' => 'Finance',
             'type' => 'Startup',
             'source_name' => 'Cold Call',
-            'phone' => '+3333333333',
-            'email' => 'other@corp.test',
             'created_by' => $this->otherUser->id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
