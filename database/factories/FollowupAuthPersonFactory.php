@@ -26,7 +26,7 @@ class FollowupAuthPersonFactory extends Factory
             'middlename' => $this->faker->optional()->middleName(),
             'lastname' => $this->faker->lastName(),
             'is_primary' => $this->faker->boolean(20), // 20% chance of being primary
-            'designation' => $this->faker->jobTitle(),
+            'job_title' => $this->faker->jobTitle(),
             'gender' => $gender,
             'dob' => $this->faker->date('Y-m-d', '-18 years'),
             'primaryphone' => $this->faker->unique()->phoneNumber(),

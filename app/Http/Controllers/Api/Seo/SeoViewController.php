@@ -35,7 +35,7 @@ class SeoViewController extends BaseApiController
                             'followup_auth_persons.firstname',
                             'followup_auth_persons.middlename',
                             'followup_auth_persons.lastname',
-                            'followup_auth_persons.designation',
+                            'followup_auth_persons.job_title',
                             'followup_auth_persons.primaryemail',
                             'followup_auth_persons.primarymobile',
                             'followup_auth_persons.is_primary'
@@ -74,11 +74,11 @@ class SeoViewController extends BaseApiController
                         'firstname' => $person->firstname,
                         'middlename' => $person->middlename,
                         'lastname' => $person->lastname,
-                        'designation' => $person->designation,
+                        'job_title' => $person->job_title,
                         'primaryemail' => $person->primaryemail,
                         'primarymobile' => $person->primarymobile,
-                        'is_primary' => $person->is_primary
-                    ];
+                        'is_primary' => $person->is_primary,
+                    ] + $person->profileFieldsForResponse();
                 });
 
                 // Format comments
@@ -121,8 +121,6 @@ class SeoViewController extends BaseApiController
                     'category' => $followupBusiness->category,
                     'type' => $followupBusiness->type,
                     'website' => $followupBusiness->website,
-                    'phone' => $followupBusiness->phone,
-                    'email' => $followupBusiness->email,
                     'created_at' => $followupBusiness->created_at,
                     'updated_at' => $followupBusiness->updated_at,
                     'creator' => $followupBusiness->creator ? [
@@ -202,7 +200,7 @@ class SeoViewController extends BaseApiController
                             'followup_auth_persons.firstname',
                             'followup_auth_persons.middlename',
                             'followup_auth_persons.lastname',
-                            'followup_auth_persons.designation',
+                            'followup_auth_persons.job_title',
                             'followup_auth_persons.primaryemail',
                             'followup_auth_persons.primarymobile',
                             'followup_auth_persons.is_primary'
@@ -241,11 +239,11 @@ class SeoViewController extends BaseApiController
                 'firstname' => $person->firstname,
                 'middlename' => $person->middlename,
                 'lastname' => $person->lastname,
-                'designation' => $person->designation,
+                'job_title' => $person->job_title,
                 'primaryemail' => $person->primaryemail,
                 'primarymobile' => $person->primarymobile,
-                'is_primary' => $person->is_primary
-            ];
+                'is_primary' => $person->is_primary,
+            ] + $person->profileFieldsForResponse();
         });
 
         // Format comments
@@ -305,8 +303,6 @@ class SeoViewController extends BaseApiController
             'category' => $followupBusiness->category,
             'type' => $followupBusiness->type,
             'website' => $followupBusiness->website,
-            'phone' => $followupBusiness->phone,
-            'email' => $followupBusiness->email,
             'created_at' => $followupBusiness->created_at,
             'updated_at' => $followupBusiness->updated_at,
             'creator' => $followupBusiness->creator ? [

@@ -334,7 +334,8 @@ class UserBlockCalendarController extends BaseApiController
 
         // Get appointments for the date with role-based filtering
         $appointmentsQuery = Appointment::with([
-            'followupBusiness:id,name,phone,email',
+            'followupBusiness:id,name',
+            'followupBusiness.authPersons:id,firstname,lastname,primaryemail,primarymobile,primaryphone,is_primary',
             'timeSlot:id,start_time,end_time',
             'creator:id,first_name,last_name,email,username'
         ])
@@ -374,8 +375,9 @@ class UserBlockCalendarController extends BaseApiController
                     'id' => $appointment->id,
                     'followup_business_id' => $appointment->followup_business_id,
                     'business_name' => $appointment->followupBusiness->name ?? null,
-                    'contact_person' => $appointment->followupBusiness->email ?? null,
-                    'contact_number' => $appointment->followupBusiness->phone ?? null,
+                    'contact_person' => $appointment->followupBusiness?->primaryAuthPerson()?->primaryemail,
+                    'contact_number' => $appointment->followupBusiness?->primaryAuthPerson()?->primarymobile
+                        ?? $appointment->followupBusiness?->primaryAuthPerson()?->primaryphone,
                     'date' => $appointment->date,
                     'time_slot' => $appointment->timeSlot ? [
                         'id' => $appointment->timeSlot->id,
@@ -395,10 +397,11 @@ class UserBlockCalendarController extends BaseApiController
 
         // Get consultations for the date with role-based filtering
         $consultationsQuery = Consultation::with([
-            'appointment' => function($query) {
+            'appointment' => function ($query) {
                 $query->with([
-                    'followupBusiness:id,name,phone,email',
-                    'timeSlot:id,start_time,end_time'
+                    'followupBusiness:id,name',
+                    'followupBusiness.authPersons:id,firstname,lastname,primaryemail,primarymobile,primaryphone,is_primary',
+                    'timeSlot:id,start_time,end_time',
                 ]);
             },
             'closer:id,first_name,last_name,username',
@@ -455,8 +458,9 @@ class UserBlockCalendarController extends BaseApiController
                     'id' => $consultation->id,
                     'appointment_id' => $consultation->appointment_id,
                     'business_name' => $consultation->appointment->followupBusiness->name ?? null,
-                    'contact_person' => $consultation->appointment->followupBusiness->email ?? null,
-                    'contact_number' => $consultation->appointment->followupBusiness->phone ?? null,
+                    'contact_person' => $consultation->appointment->followupBusiness?->primaryAuthPerson()?->primaryemail,
+                    'contact_number' => $consultation->appointment->followupBusiness?->primaryAuthPerson()?->primarymobile
+                        ?? $consultation->appointment->followupBusiness?->primaryAuthPerson()?->primaryphone,
                     'date' => $consultation->appointment->date,
                     'time_slot' => $consultation->appointment->timeSlot ? [
                         'id' => $consultation->appointment->timeSlot->id,
@@ -527,7 +531,8 @@ class UserBlockCalendarController extends BaseApiController
 
         // Get scheduled and rescheduled appointments for the date with role-based filtering
         $scheduledAppointmentsQuery = Appointment::with([
-            'followupBusiness:id,name,phone,email',
+            'followupBusiness:id,name',
+            'followupBusiness.authPersons:id,firstname,lastname,primaryemail,primarymobile,primaryphone,is_primary',
             'timeSlot:id,start_time,end_time',
             'creator:id,first_name,last_name,email,username'
         ])
@@ -568,8 +573,9 @@ class UserBlockCalendarController extends BaseApiController
                     'id' => $appointment->id,
                     'followup_business_id' => $appointment->followup_business_id,
                     'business_name' => $appointment->followupBusiness->name ?? null,
-                    'contact_person' => $appointment->followupBusiness->email ?? null,
-                    'contact_number' => $appointment->followupBusiness->phone ?? null,
+                    'contact_person' => $appointment->followupBusiness?->primaryAuthPerson()?->primaryemail,
+                    'contact_number' => $appointment->followupBusiness?->primaryAuthPerson()?->primarymobile
+                        ?? $appointment->followupBusiness?->primaryAuthPerson()?->primaryphone,
                     'date' => $appointment->date,
                     'time_slot' => $appointment->timeSlot ? [
                         'id' => $appointment->timeSlot->id,

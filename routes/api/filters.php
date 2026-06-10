@@ -24,6 +24,11 @@ Route::group([], function () {
     require __DIR__ . '/admin/followup/filters.php';
 });
 
+// Leads Filter Routes
+Route::group([], function () {
+    require __DIR__ . '/admin/leads/filters.php';
+});
+
 // SEO Filter Routes
 Route::group([], function () {
     require __DIR__ . '/admin/seo/filters.php';

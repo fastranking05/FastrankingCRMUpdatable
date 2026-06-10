@@ -1,7 +1,12 @@
 # Single Quality API Documentation
 
 ## Overview
-This API retrieves a single quality record by ID with complete relationship data including appointment details, business information, authorized persons, and quality answers.
+This API retrieves a single quality record by ID with complete relationship data including appointment details, business information, authorized persons, and **question–answer mappings**.
+
+The response includes:
+- **`answers`** — only submitted answers, each with its related question
+- **`question_answers`** — all active quality questions merged with this record’s answers (use this for single-view / audit forms)
+- **`business_comments`** — all comments linked to the appointment’s business (`followup_business_id`), newest first
 
 ## API Endpoint
 
@@ -96,7 +101,7 @@ console.log(data);
             "firstname": "John",
             "middlename": "Michael",
             "lastname": "Doe",
-            "designation": "Chief Executive Officer",
+            "job_title": "Chief Executive Officer",
             "gender": "Male",
             "dob": "1980-01-15",
             "primaryemail": "john.doe@abccorp.com",
@@ -112,7 +117,7 @@ console.log(data);
             "firstname": "Jane",
             "middlename": null,
             "lastname": "Smith",
-            "designation": "Technical Director",
+            "job_title": "Technical Director",
             "gender": "Female",
             "dob": "1985-05-20",
             "primaryemail": "jane.smith@abccorp.com",
@@ -146,42 +151,104 @@ console.log(data);
         "id": 1,
         "quality_id": 1,
         "question_id": 1,
+        "answer": "yes",
         "answers": "yes",
-        "created_by": 4,
-        "created_at": "2026-03-27T14:02:27.000000Z",
-        "updated_at": "2026-03-27T14:02:27.000000Z",
         "question": {
           "id": 1,
           "question": "This is updated question",
-          "description": "Quality assessment question",
-          "is_active": true,
-          "created_by": 1,
-          "created_at": "2026-03-24T16:39:49.000000Z",
-          "updated_at": "2026-03-24T16:39:49.000000Z"
-        }
+          "is_active": true
+        },
+        "created_at": "2026-03-27T14:02:27.000000Z",
+        "updated_at": "2026-03-27T14:02:27.000000Z"
       },
       {
         "id": 2,
         "quality_id": 1,
         "question_id": 3,
+        "answer": "yes",
         "answers": "yes",
-        "created_by": 4,
-        "created_at": "2026-03-27T14:02:27.000000Z",
-        "updated_at": "2026-03-27T14:02:27.000000Z",
         "question": {
           "id": 3,
           "question": "How would you rate our customer service quality?",
-          "description": "Customer service quality assessment",
-          "is_active": true,
-          "created_by": 1,
-          "created_at": "2026-03-24T16:39:49.000000Z",
-          "updated_at": "2026-03-24T16:39:49.000000Z"
-        }
+          "is_active": true
+        },
+        "created_at": "2026-03-27T14:02:27.000000Z",
+        "updated_at": "2026-03-27T14:02:27.000000Z"
+      }
+    ],
+    "question_answers": [
+      {
+        "quality_id": 1,
+        "question_id": 1,
+        "question": "This is updated question",
+        "is_active": true,
+        "answer_id": 1,
+        "answer": "yes",
+        "answers": "yes",
+        "is_answered": true,
+        "created_at": "2026-03-27T14:02:27.000000Z",
+        "updated_at": "2026-03-27T14:02:27.000000Z"
+      },
+      {
+        "quality_id": 1,
+        "question_id": 2,
+        "question": "Was the appointment conducted on time?",
+        "is_active": true,
+        "answer_id": null,
+        "answer": null,
+        "answers": null,
+        "is_answered": false,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "quality_id": 1,
+        "question_id": 3,
+        "question": "How would you rate our customer service quality?",
+        "is_active": true,
+        "answer_id": 2,
+        "answer": "yes",
+        "answers": "yes",
+        "is_answered": true,
+        "created_at": "2026-03-27T14:02:27.000000Z",
+        "updated_at": "2026-03-27T14:02:27.000000Z"
       }
     ]
   }
 }
 ```
+
+### Business comments (`business_comments`)
+
+All comments for the related business are included at the root and under `appointment.followup_business.comments`:
+
+```json
+"business_comments": [
+  {
+    "id": 1,
+    "followup_business_id": 1,
+    "comment": "QA approved after review",
+    "old_status": "QA-Pending",
+    "new_status": "QA-Approved",
+    "created_by": 1,
+    "creator": {
+      "id": 1,
+      "first_name": "Suraj",
+      "last_name": "Kumar"
+    },
+    "created_at": "2026-06-09T10:57:30.000000Z",
+    "updated_at": "2026-06-09T10:57:30.000000Z"
+  }
+]
+```
+
+### Answer field values
+
+Allowed values for `answer` / `answers`:
+- `yes`
+- `no`
+- `partially done`
+- `not applicable`
 
 ### Error Responses
 
@@ -260,7 +327,13 @@ console.log(data);
 | firstname | string | First name |
 | middlename | string | Middle name (nullable) |
 | lastname | string | Last name |
-| designation | string | Job title/position |
+| job_title | string | Job title/position |
+| seniority_level | string | Seniority level |
+| extension | string | Phone extension |
+| linkedin_profile | string | LinkedIn profile URL |
+| facebook_profile | string | Facebook profile URL |
+| preferred_contact_method | string | Preferred contact method |
+| preferred_contact_time | string | Preferred contact time (varchar) |
 | gender | string | Gender |
 | dob | date | Date of birth |
 | primaryemail | string | Primary email |
@@ -275,19 +348,51 @@ console.log(data);
 | end_time | time | End time |
 | is_available | boolean | Availability status |
 
-### Quality Answer Fields
+### Quality Answer Fields (`answers` array)
 | Field | Type | Description |
 |-------|------|-------------|
-| id | integer | Answer ID |
+| id | integer | Answer record ID |
 | quality_id | integer | Quality record ID |
 | question_id | integer | Question ID |
-| answers | string | Answer text |
-| question | object | Question details |
+| answer | string | Submitted answer (`yes`, `no`, `partially done`, `not applicable`) |
+| answers | string | Same as `answer` (kept for backward compatibility) |
+| question | object | Nested question: `id`, `question`, `is_active` |
+| created_at | datetime | When the answer was submitted |
+| updated_at | datetime | When the answer was last updated |
+
+### Question–Answer Mapping Fields (`question_answers` array)
+| Field | Type | Description |
+|-------|------|-------------|
+| quality_id | integer | Quality record ID |
+| question_id | integer | Question ID |
+| question | string | Question text |
+| is_active | boolean | Whether the question is active |
+| answer_id | integer \| null | Answer record ID if submitted |
+| answer | string \| null | Submitted answer if present |
+| answers | string \| null | Same as `answer` (backward compatibility) |
+| is_answered | boolean | `true` if this question has an answer for this quality |
+| created_at | datetime \| null | Answer created timestamp |
+| updated_at | datetime \| null | Answer updated timestamp |
+
+> **Frontend tip:** Use `question_answers` for the single-view screen so every active question is shown, including unanswered ones (`is_answered: false`).
+
+### Business Comment Fields (`business_comments` array)
+| Field | Type | Description |
+|-------|------|-------------|
+| id | integer | Comment ID |
+| followup_business_id | integer | Related business ID |
+| comment | string | Comment text |
+| old_status | string \| null | Previous status |
+| new_status | string \| null | New status |
+| created_by | integer | User ID who created the comment |
+| creator | object \| null | `id`, `first_name`, `last_name` |
+| created_at | datetime | Comment created timestamp |
+| updated_at | datetime | Comment updated timestamp |
 
 ## Use Cases
 
 ### 1. View Quality Details
-Display complete information about a specific quality audit including business context and answers.
+Display complete information about a specific quality audit including business context and mapped question–answers.
 
 ### 2. Quality Management
 Review individual quality records for assessment and decision-making.
@@ -358,8 +463,17 @@ const QualityDetail = ({ qualityId }) => {
       <p>Status: {quality.status}</p>
       <p>Score: {quality.score || 'Not rated'}</p>
       <h3>Business Information</h3>
-      <p>{quality.appointment.followupBusiness.name}</p>
-      {/* Render more details */}
+      <p>{quality.appointment?.followupBusiness?.name}</p>
+
+      <h3>Question &amp; Answers</h3>
+      <ul>
+        {(quality.question_answers || []).map((item) => (
+          <li key={item.question_id}>
+            <strong>{item.question}</strong>
+            <span> — {item.is_answered ? item.answer : 'Not answered'}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
@@ -378,6 +492,15 @@ const QualityDetail = ({ qualityId }) => {
       <h3>Business Information</h3>
       <p>{{ quality.appointment.followupBusiness.name }}</p>
       <p>{{ quality.appointment.followupBusiness.email }}</p>
+    </div>
+    <div class="question-answers">
+      <h3>Question &amp; Answers</h3>
+      <ul>
+        <li v-for="item in quality.question_answers" :key="item.question_id">
+          <strong>{{ item.question }}</strong>
+          — {{ item.is_answered ? item.answer : 'Not answered' }}
+        </li>
+      </ul>
     </div>
   </div>
   <div v-else-if="loading">
@@ -506,9 +629,11 @@ curl -X GET \
 |---------|------|---------|
 | 1.0 | 2026-03-30 | Initial documentation |
 | 1.1 | 2026-03-30 | Fixed relationship names, added timeSlot |
+| 1.2 | 2026-06-09 | Added `question_answers` mapped array; `answers` now includes nested `question` and `answer` fields |
+| 1.3 | 2026-06-09 | Added `business_comments` mapped by `followup_business_id` |
 
 ---
 
 ## Summary
 
-The Single Quality API provides comprehensive access to individual quality audit records with complete relationship data including business information, authorized persons, appointment details, and quality answers. It's designed for detailed view and management of quality assessments with proper authentication and authorization controls.
+The Single Quality API provides comprehensive access to individual quality audit records with complete relationship data including business information, authorized persons, appointment details, and **mapped question–answers**. Use `question_answers` for single-view/audit forms and `answers` for submitted answer records only. Authentication and `Quality Control,read` permission are required.

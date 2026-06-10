@@ -69,8 +69,6 @@ class FollowupTestDataSeeder extends Seeder
                     'category' => $faker->randomElement(['Technology', 'Healthcare', 'Finance', 'Education', 'Retail', 'Manufacturing']),
                     'type' => $faker->randomElement(['Standard', 'Premium', 'Enterprise']),
                     'website' => $faker->url(),
-                    'phone' => $faker->unique()->phoneNumber(),
-                    'email' => $faker->unique()->companyEmail(),
                     'created_by' => $user->id,
                 ]);
 
@@ -88,7 +86,7 @@ class FollowupTestDataSeeder extends Seeder
                         'middlename' => $faker->optional(0.3)->firstName(),
                         'lastname' => $faker->lastName(),
                         'is_primary' => $j === 1, // First person is primary
-                        'designation' => $faker->jobTitle(),
+                        'job_title' => $faker->jobTitle(),
                         'gender' => $gender,
                         'dob' => $faker->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
                         'primaryphone' => $faker->unique()->phoneNumber(),
@@ -188,7 +186,7 @@ class FollowupTestDataSeeder extends Seeder
         echo "\nSample auth persons created:\n";
         $sampleAuthPersons = FollowupAuthPerson::take(5)->get();
         foreach ($sampleAuthPersons as $person) {
-            echo "- {$person->title} {$person->firstname} {$person->lastname} ({$person->designation})\n";
+            echo "- {$person->title} {$person->firstname} {$person->lastname} ({$person->job_title})\n";
         }
         
         echo "\nSample follow-up details created:\n";

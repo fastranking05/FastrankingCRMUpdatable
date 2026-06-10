@@ -228,8 +228,6 @@ class DealsFormTest extends TestCase
             $table->string('category')->nullable();
             $table->string('type')->nullable();
             $table->string('website')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
@@ -240,7 +238,7 @@ class DealsFormTest extends TestCase
             $table->string('firstname')->nullable();
             $table->string('middlename')->nullable();
             $table->string('lastname')->nullable();
-            $table->string('designation')->nullable();
+            $table->string('job_title')->nullable();
             $table->string('primaryemail')->nullable();
             $table->string('primarymobile')->nullable();
             $table->string('primaryphone')->nullable();

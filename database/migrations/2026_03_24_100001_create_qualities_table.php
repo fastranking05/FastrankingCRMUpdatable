@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('qualities', function (Blueprint $table) {
             $table->id();
             $table->string('appointment_id', 13)->required();
-            $table->enum('auditstatus', ['qualified', 'unqualified'])->default('unqualified')->required();
+            $table->enum('auditstatus', ['qualified', 'unqualified', 'pending'])->default('unqualified')->required();
             $table->string('status')->default('QA-Pending')->required();
             $table->unsignedBigInteger('assigned_user')->required();
             $table->string('meeting_link')->nullable();

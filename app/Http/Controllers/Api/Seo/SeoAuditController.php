@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Seo;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\SeoDetail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class SeoAuditController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
     /**
      * Get SEO audit pending data (Pending status)
      * Manager (Digital Marketing): Can see own + team members' data
@@ -22,7 +25,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -31,14 +34,12 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.created_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
-
-        return $this->successResponse($formattedAudits, 'SEO audit pending data retrieved successfully');
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.created_at')->orderByDesc('seo_details.id')),
+            'SEO audit pending data retrieved successfully'
+        );
     }
 
     /**
@@ -53,7 +54,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -62,14 +63,12 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
-
-        return $this->successResponse($formattedAudits, 'SEO audit completed data retrieved successfully');
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.updated_at')->orderByDesc('seo_details.id')),
+            'SEO audit completed data retrieved successfully'
+        );
     }
 
     /**
@@ -84,7 +83,7 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
@@ -93,14 +92,12 @@ class SeoAuditController extends BaseApiController
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
-
-        return $this->successResponse($formattedAudits, 'SEO not applicable data retrieved successfully');
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.updated_at')->orderByDesc('seo_details.id')),
+            'SEO not applicable data retrieved successfully'
+        );
     }
 
     /**
@@ -115,20 +112,32 @@ class SeoAuditController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness:id,name,category,type,website,phone,email',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.authPersons'
         ]);
 
         // Apply role-based filtering
         $this->applyRoleBasedFiltering($query, $user);
+        $this->applyLastThreeMonthsFilter($query, 'seo_details.created_at');
 
-        $perPage = max(1, (int) $request->input('per_page', 15));
-        $formattedAudits = $query->orderByDesc('seo_details.updated_at')
-            ->orderByDesc('seo_details.id')
-            ->cursorPaginate($perPage)
-            ->through(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
+        return $this->successResponse(
+            $this->buildSeoAuditListResponse($query->orderByDesc('seo_details.updated_at')->orderByDesc('seo_details.id')),
+            'All SEO data retrieved successfully'
+        );
+    }
 
-        return $this->successResponse($formattedAudits, 'All SEO data retrieved successfully');
+    /**
+     * @return array{audits: \Illuminate\Support\Collection, total: int, date_from: string, date_to: string}
+     */
+    private function buildSeoAuditListResponse($query): array
+    {
+        $audits = $query->get()->map(fn (SeoDetail $audit) => $this->formatSeoAuditListItem($audit));
+
+        return [
+            'audits' => $audits,
+            'total' => $audits->count(),
+            ...$this->lastThreeMonthsDateRange(),
+        ];
     }
 
     /**
@@ -149,7 +158,13 @@ class SeoAuditController extends BaseApiController
                     'followup_auth_persons.firstname',
                     'followup_auth_persons.middlename',
                     'followup_auth_persons.lastname',
-                    'followup_auth_persons.designation',
+                    'followup_auth_persons.job_title',
+                    'followup_auth_persons.seniority_level',
+                    'followup_auth_persons.extension',
+                    'followup_auth_persons.linkedin_profile',
+                    'followup_auth_persons.facebook_profile',
+                    'followup_auth_persons.preferred_contact_method',
+                    'followup_auth_persons.preferred_contact_time',
                     'followup_auth_persons.primaryemail',
                     'followup_auth_persons.primarymobile',
                     'followup_auth_persons.is_primary',
@@ -162,10 +177,16 @@ class SeoAuditController extends BaseApiController
                         'firstname' => $person->firstname,
                         'middlename' => $person->middlename,
                         'lastname' => $person->lastname,
-                        'designation' => $person->designation,
+                        'job_title' => $person->job_title,
                         'primaryemail' => $person->primaryemail,
                         'primarymobile' => $person->primarymobile,
                         'is_primary' => $person->is_primary,
+                        'seniority_level' => $person->seniority_level,
+                        'extension' => $person->extension,
+                        'linkedin_profile' => $person->linkedin_profile,
+                        'facebook_profile' => $person->facebook_profile,
+                        'preferred_contact_method' => $person->preferred_contact_method,
+                        'preferred_contact_time' => $person->preferred_contact_time,
                     ];
                 });
 
@@ -175,8 +196,6 @@ class SeoAuditController extends BaseApiController
                 'category' => $followupBusiness->category,
                 'type' => $followupBusiness->type,
                 'website' => $followupBusiness->website,
-                'phone' => $followupBusiness->phone,
-                'email' => $followupBusiness->email,
                 'auth_persons' => $authPersons,
             ];
         }

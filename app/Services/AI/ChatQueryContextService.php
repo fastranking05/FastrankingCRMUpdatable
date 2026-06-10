@@ -109,7 +109,7 @@ class ChatQueryContextService
 
         $lead = $this->scopeService
             ->scopeQuery(FollowupBusiness::query(), $user)
-            ->select('id', 'name', 'category', 'type', 'phone', 'email', 'website', 'created_by', 'created_at')
+            ->select('id', 'name', 'category', 'type', 'website', 'created_by', 'created_at')
             ->orderByDesc('created_at')
             ->first();
 
@@ -122,8 +122,6 @@ class ChatQueryContextService
             'business_name' => $lead->name,
             'category' => $lead->category,
             'type' => $lead->type,
-            'phone' => $lead->phone,
-            'email' => $lead->email,
             'website' => $lead->website,
             'created_by' => $lead->created_by,
             'created_at' => $lead->created_at?->toDateTimeString(),

@@ -56,7 +56,7 @@ class FollowupAuthPersonController extends BaseApiController
             'middlename' => 'nullable|string|max:255',
             'lastname' => 'required|string|max:255',
             'is_primary' => 'nullable|boolean',
-            'designation' => 'nullable|string|max:255',
+            'job_title' => 'nullable|string|max:255',
             'gender' => 'nullable|in:male,female,other',
             'dob' => 'nullable|date',
             'primaryphone' => 'nullable|string|unique:followup_auth_persons,primaryphone',
@@ -67,7 +67,7 @@ class FollowupAuthPersonController extends BaseApiController
             'altemail' => 'nullable|email|unique:followup_auth_persons,altemail',
             'business_ids' => 'nullable|array',
             'business_ids.*' => 'exists:followup_businesses,id',
-        ]);
+        ] + FollowupAuthPerson::profileFieldValidationRules());
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
@@ -123,7 +123,7 @@ class FollowupAuthPersonController extends BaseApiController
             'middlename' => 'nullable|string|max:255',
             'lastname' => 'sometimes|required|string|max:255',
             'is_primary' => 'nullable|boolean',
-            'designation' => 'nullable|string|max:255',
+            'job_title' => 'nullable|string|max:255',
             'gender' => 'nullable|in:male,female,other',
             'dob' => 'nullable|date',
             'primaryphone' => 'nullable|string|unique:followup_auth_persons,primaryphone,' . $id,
@@ -134,7 +134,7 @@ class FollowupAuthPersonController extends BaseApiController
             'altemail' => 'nullable|email|unique:followup_auth_persons,altemail,' . $id,
             'business_ids' => 'nullable|array',
             'business_ids.*' => 'exists:followup_businesses,id',
-        ]);
+        ] + FollowupAuthPerson::profileFieldValidationRules());
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
