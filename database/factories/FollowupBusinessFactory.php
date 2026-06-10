@@ -25,8 +25,6 @@ class FollowupBusinessFactory extends Factory
             'category' => $this->faker->randomElement(['Technology', 'Healthcare', 'Finance', 'Education']),
             'type' => $this->faker->randomElement(['Standard', 'Premium', 'Enterprise']),
             'website' => $this->faker->url(),
-            'phone' => $this->faker->phoneNumber(),
-            'email' => $this->faker->companyEmail(),
             'created_by' => User::factory(),
         ];
     }

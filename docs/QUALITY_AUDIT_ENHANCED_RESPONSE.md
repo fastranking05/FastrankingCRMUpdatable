@@ -31,12 +31,14 @@ The Quality Audit APIs have been enhanced to include business data and authorize
           "id": 1,
           "quality_id": 1,
           "question_id": 1,
+          "answer": "yes",
           "answers": "yes",
           "created_at": "2026-03-27T14:02:27.000000Z",
           "updated_at": "2026-03-27T14:02:27.000000Z",
           "question": {
             "id": 1,
-            "question": "This is updated question"
+            "question": "This is updated question",
+            "is_active": true
           }
         }
       ],
@@ -55,7 +57,7 @@ The Quality Audit APIs have been enhanced to include business data and authorize
             "firstname": "John",
             "middlename": "Michael",
             "lastname": "Doe",
-            "designation": "CEO",
+            "job_title": "CEO",
             "primaryemail": "john.doe@techsolutions.com",
             "primarymobile": "+1-555-0123-4567",
             "is_primary": true
@@ -66,7 +68,7 @@ The Quality Audit APIs have been enhanced to include business data and authorize
             "firstname": "Sarah",
             "middlename": "Ann",
             "lastname": "Smith",
-            "designation": "CTO",
+            "job_title": "CTO",
             "primaryemail": "sarah.smith@techsolutions.com",
             "primarymobile": "+1-555-0123-4568",
             "is_primary": false
@@ -123,7 +125,7 @@ The Quality Audit APIs have been enhanced to include business data and authorize
 - **id:** Person ID
 - **title:** Title (Mr., Ms., etc.)
 - **firstname/middlename/lastname:** Person's name
-- **designation:** Job title/position
+- **job_title:** Job title/position
 - **primaryemail:** Primary email address
 - **primarymobile:** Primary mobile number
 - **is_primary:** Whether this is the primary contact
@@ -134,11 +136,21 @@ The Quality Audit APIs have been enhanced to include business data and authorize
 
 ## API Endpoints
 
-All three endpoints now return the enhanced response format:
+All three list endpoints return the enhanced response format:
 
 1. **GET** `/api/quality-audit/audit-pending` - Unqualified audits
 2. **GET** `/api/quality-audit/audit-completed` - Qualified audits
 3. **GET** `/api/quality-audit/all` - All audits
+
+### Single quality view (detail screen)
+
+For one quality record with full question–answer mapping, use:
+
+- **GET** `/api/quality/quality/{id}` — see [SINGLE_QUALITY_API_DOCUMENTATION.md](./SINGLE_QUALITY_API_DOCUMENTATION.md)
+
+The single-view response includes:
+- **`answers`** — submitted answers with nested `question`
+- **`question_answers`** — all active questions merged with answers (`is_answered` flag for the audit form UI)
 
 ## Benefits
 

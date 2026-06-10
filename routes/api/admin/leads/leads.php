@@ -14,6 +14,8 @@ Route::get('/leads/business-names', [LeadsController::class, 'getAllBusinessName
 
 Route::middleware(['jwt.auth'])->prefix('leads')->name('leads.')->group(function () {
     Route::middleware('permission:Leads,read')->group(function () {
+        Route::get('/filter-options', [LeadsController::class, 'getFilterOptions'])->name('filter-options');
+        Route::post('/leads-filter', [LeadsController::class, 'filterLeads'])->name('leads-filter');
         Route::get('/all-leads', [LeadsController::class, 'getAllLeads'])->name('all-leads');
         Route::get('/my-leads', [LeadsController::class, 'getMyLeads'])->name('my-leads');
         Route::get('/', [LeadsController::class, 'index'])->name('index');

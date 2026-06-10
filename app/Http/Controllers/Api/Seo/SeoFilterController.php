@@ -31,8 +31,8 @@ class SeoFilterController extends BaseApiController
             $query = SeoDetail::with([
                 'assignedUser:id,first_name,last_name,email',
                 'questionAnswers.question:id,name',
-                'followupBusiness:id,name,category,type,website,phone,email',
-                'followupBusiness.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile'
+                'followupBusiness:id,name,category,type,website',
+                'followupBusiness.authPersons:id,title,firstname,lastname,job_title,primaryemail,primarymobile'
             ]);
 
             // Apply role-based filtering

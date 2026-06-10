@@ -86,7 +86,7 @@ class TestSeoApis extends Command
             $query = SeoDetail::with([
                 'assignedUser:id,first_name,last_name,email',
                 'questionAnswers.question:id,name',
-                'followupBusiness:id,name,category,type,website,phone,email'
+                'followupBusiness:id,name,category,type,website'
             ]);
 
             $results = $query->limit(1)->get();

@@ -104,7 +104,7 @@ The API implements role-based access control similar to the Quality module:
                         "firstname": "John",
                         "middlename": "",
                         "lastname": "Doe",
-                        "designation": "CEO",
+                        "job_title": "CEO",
                         "primaryemail": "john@example.com",
                         "primarymobile": "+1234567890",
                         "is_primary": true
@@ -221,7 +221,7 @@ The API implements role-based access control similar to the Quality module:
                         "firstname": "John",
                         "middlename": "",
                         "lastname": "Doe",
-                        "designation": "CEO",
+                        "job_title": "CEO",
                         "primaryemail": "john@example.com",
                         "primarymobile": "+1234567890",
                         "is_primary": true
@@ -421,7 +421,7 @@ The API implements role-based access control similar to the Quality module:
 | firstname | String | First name |
 | middlename | String | Middle name |
 | lastname | String | Last name |
-| designation | String | Job designation |
+| job_title | String | Job title |
 | primaryemail | String | Primary email |
 | primarymobile | String | Primary mobile |
 | is_primary | Boolean | Whether primary contact |

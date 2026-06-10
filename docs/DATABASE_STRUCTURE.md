@@ -208,9 +208,8 @@ Same pattern: `user_id`, `role_id`, unique `(user_id, role_id)`, FK cascade.
 |--------|------|----------------------|
 | `id` | bigIncrements | |
 | `name` | string | indexed with category, type |
-| `category`, `type` | string, nullable | |
-| `website`, `email` | string, nullable | |
-| `phone` | string, unique, nullable | |
+| `category`, `type`, `source_name`, `sub_source` | string, nullable | `source_name` / `sub_source` max 50 |
+| `website` | string, nullable | |
 | `created_by` | unsignedBigInteger | FK → `users`, `CASCADE` |
 | `latest_followup_date`, `latest_followup_time` | date / time, nullable | Denormalized from latest row in `followup_details` (`date`/`time`), for cursor-safe list ordering; synced by `FollowupDetailObserver` + `php artisan followup:sync-latest-sort`. |
 | `created_at`, `updated_at` | timestamp | MySQL defaults: `CURRENT_TIMESTAMP` / `ON UPDATE` |
@@ -220,7 +219,7 @@ Same pattern: `user_id`, `role_id`, unique `(user_id, role_id)`, FK cascade.
 | Column | Type | Constraints / notes |
 |--------|------|----------------------|
 | `id` | bigIncrements | |
-| `title`, `middlename`, `designation` | string, nullable | |
+| `title`, `middlename`, `job_title`, `seniority_level`, `extension`, `linkedin_profile`, `facebook_profile`, `preferred_contact_method`, `preferred_contact_time` | string, nullable | `preferred_contact_time` is varchar |
 | `firstname`, `lastname` | string | |
 | `is_primary` | boolean | default false, indexed |
 | `gender` | enum(`male`,`female`,`other`), nullable | |

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Appointment;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\Appointment;
 use App\Models\Department;
 use App\Models\User;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Log;
 
 class AppointmentListingController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
     /**
      * Get all appointments with role-based hierarchy access
      * 
@@ -44,20 +47,20 @@ class AppointmentListingController extends BaseApiController
 
             // Apply additional filters from request
             $query = $this->applyRequestFilters($query, $request);
+            $query = $this->applyLastThreeMonthsFilter($query, 'appointments.created_at');
 
-            // Order by date descending (qualified for cursor stability)
             $query->orderByDesc('appointments.date')
                   ->orderByDesc('appointments.created_at')
                   ->orderByDesc('appointments.id');
 
-            // Paginate results
-            $perPage = $request->get('per_page', 50);
-            $appointments = $query->cursorPaginate($perPage);
+            $appointments = $query->get();
 
             return $this->successResponse([
                 'appointments' => $appointments,
+                'total' => $appointments->count(),
+                ...$this->lastThreeMonthsDateRange(),
                 'user_role' => $this->getUserRoleInfo($user),
-                'access_level' => $this->determineAccessLevel($user)
+                'access_level' => $this->determineAccessLevel($user),
             ], 'Appointments retrieved successfully');
 
         } catch (\Exception $e) {
@@ -96,20 +99,20 @@ class AppointmentListingController extends BaseApiController
 
             // Apply additional filters from request
             $query = $this->applyRequestFilters($query, $request);
+            $query = $this->applyLastThreeMonthsFilter($query, 'appointments.created_at');
 
-            // Order by date descending (qualified for cursor stability)
             $query->orderByDesc('appointments.date')
                   ->orderByDesc('appointments.created_at')
                   ->orderByDesc('appointments.id');
 
-            // Paginate results
-            $perPage = $request->get('per_page', 15);
-            $appointments = $query->cursorPaginate($perPage);
+            $appointments = $query->get();
 
             return $this->successResponse([
                 'appointments' => $appointments,
+                'total' => $appointments->count(),
+                ...$this->lastThreeMonthsDateRange(),
                 'created_by' => $user->id,
-                'user_name' => $user->first_name . ' ' . $user->last_name
+                'user_name' => $user->first_name . ' ' . $user->last_name,
             ], 'My appointments retrieved successfully');
 
         } catch (\Exception $e) {
@@ -192,8 +195,8 @@ class AppointmentListingController extends BaseApiController
     private function getAppointmentBaseQuery()
     {
         return Appointment::with([
-            'followupBusiness:id,name,category,type,phone,email,website',
-            'followupBusiness.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile,is_primary',
+            'followupBusiness:id,name,category,type,website',
+            'followupBusiness.authPersons:id,title,firstname,lastname,job_title,primaryemail,primarymobile,is_primary',
             'timeSlot:id,name,start_time,end_time,duration_minutes',
             'creator:id,first_name,last_name,user_type'
         ]);

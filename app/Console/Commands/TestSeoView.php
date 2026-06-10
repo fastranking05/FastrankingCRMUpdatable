@@ -157,7 +157,7 @@ class TestSeoView extends Command
                     if ($business->authPersons->count() > 0) {
                         $authPerson = $business->authPersons->first();
                         $this->line("  Auth Person Details:");
-                        $authFields = ['id', 'title', 'firstname', 'lastname', 'designation', 'primaryemail', 'primarymobile'];
+                        $authFields = ['id', 'title', 'firstname', 'lastname', 'job_title', 'primaryemail', 'primarymobile'];
                         foreach ($authFields as $field) {
                             $this->line("    ✓ {$field}: " . gettype($authPerson->$field ?? null));
                         }

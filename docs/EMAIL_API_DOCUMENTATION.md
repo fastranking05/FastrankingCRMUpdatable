@@ -177,8 +177,8 @@ The following dynamic data is automatically available for use in the template (u
 
 **Business Data:**
 - `business_name`: Company name
-- `business_email`: Company email
-- `business_phone`: Company phone
+- `business_email`: Primary authorized person email (from auth person)
+- `business_phone`: Primary authorized person phone/mobile (from auth person)
 - `business_category`: Business category
 - `business_type`: Business type
 - `business_website`: Company website
@@ -188,7 +188,7 @@ The following dynamic data is automatically available for use in the template (u
 - `contact_email`: Primary contact email
 - `contact_phone`: Primary contact phone
 - `contact_mobile`: Primary contact mobile
-- `contact_designation`: Contact person designation
+- `contact_job_title`: Contact person job title
 
 **Custom Data:**
 - Any additional key-value pairs provided in `dynamic_data` field

@@ -184,25 +184,22 @@ class EmailController extends BaseApiController
             // Prepare dynamic data with business information
             $dynamicData = $request->dynamic_data ?? [];
             $dynamicData['business_name'] = $business->name ?? '';
-            $dynamicData['business_email'] = $business->email ?? '';
-            $dynamicData['business_phone'] = $business->phone ?? '';
             $dynamicData['business_category'] = $business->category ?? '';
             $dynamicData['business_type'] = $business->type ?? '';
             $dynamicData['business_website'] = $business->website ?? '';
 
-            // Add auth person information if available
-            if ($business && $business->authPersons && $business->authPersons->isNotEmpty()) {
-                $primaryAuthPerson = $business->authPersons->where('is_primary', true)->first();
-                if (!$primaryAuthPerson) {
-                    $primaryAuthPerson = $business->authPersons->first();
-                }
-                if ($primaryAuthPerson) {
-                    $dynamicData['contact_name'] = $primaryAuthPerson->firstname . ' ' . $primaryAuthPerson->lastname;
-                    $dynamicData['contact_email'] = $primaryAuthPerson->primaryemail ?? '';
-                    $dynamicData['contact_phone'] = $primaryAuthPerson->primaryphone ?? '';
-                    $dynamicData['contact_mobile'] = $primaryAuthPerson->primarymobile ?? '';
-                    $dynamicData['contact_designation'] = $primaryAuthPerson->designation ?? '';
-                }
+            $primaryAuthPerson = $business?->primaryAuthPerson();
+            if ($primaryAuthPerson) {
+                $dynamicData['business_email'] = $primaryAuthPerson->primaryemail ?? '';
+                $dynamicData['business_phone'] = $primaryAuthPerson->primaryphone ?? $primaryAuthPerson->primarymobile ?? '';
+                $dynamicData['contact_name'] = $primaryAuthPerson->firstname . ' ' . $primaryAuthPerson->lastname;
+                $dynamicData['contact_email'] = $primaryAuthPerson->primaryemail ?? '';
+                $dynamicData['contact_phone'] = $primaryAuthPerson->primaryphone ?? '';
+                $dynamicData['contact_mobile'] = $primaryAuthPerson->primarymobile ?? '';
+                $dynamicData['contact_job_title'] = $primaryAuthPerson->job_title ?? '';
+            } else {
+                $dynamicData['business_email'] = '';
+                $dynamicData['business_phone'] = '';
             }
 
             // Replace placeholders in template with dynamic data
@@ -353,7 +350,7 @@ class EmailController extends BaseApiController
     private function getEmailBaseQuery()
     {
         return Email::with([
-            'followupBusiness:id,name,category,type,phone,email,website',
+            'followupBusiness:id,name,category,type,website',
             'creator:id,first_name,last_name,user_type'
         ]);
     }

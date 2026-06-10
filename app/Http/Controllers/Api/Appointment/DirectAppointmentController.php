@@ -74,7 +74,7 @@ class DirectAppointmentController extends BaseApiController
             $appointmentData = $request->appointment;
             $appointmentData['followup_business_id'] = $business->id;
             $appointmentData['status'] = $appointmentData['status'] ?? 'Appointment Booked';
-            $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Booked';
+            $appointmentData['current_status'] = $appointmentData['current_status'] ?? 'Appointment Booked';
             $appointmentData['created_by'] = auth()->id();
 
             // Check time slot availability
@@ -152,7 +152,7 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.middlename' => 'nullable|string|max:255',
             'auth_persons.*.lastname' => 'required|string|max:255',
             'auth_persons.*.is_primary' => 'nullable|boolean',
-            'auth_persons.*.designation' => 'nullable|string|max:255',
+            'auth_persons.*.job_title' => 'nullable|string|max:255',
             'auth_persons.*.gender' => 'nullable|in:male,female,other',
             'auth_persons.*.dob' => 'nullable|date',
             'auth_persons.*.primaryphone' => 'nullable|string|unique:followup_auth_persons,primaryphone',
@@ -161,7 +161,7 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.altmobile' => 'nullable|string|unique:followup_auth_persons,altmobile',
             'auth_persons.*.primaryemail' => 'required|email|unique:followup_auth_persons,primaryemail',
             'auth_persons.*.altemail' => 'nullable|email|unique:followup_auth_persons,altemail',
-        ]);
+        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
@@ -348,8 +348,8 @@ class DirectAppointmentController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
         $query = Appointment::with([
-            'followupBusiness:id,name,category,type,phone,email',
-            'followupBusiness.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile',
+            'followupBusiness:id,name,category,type',
+            'followupBusiness.authPersons:id,title,firstname,lastname,job_title,primaryemail,primarymobile',
             'timeSlot:id,name,start_time,end_time',
             'creator:id,first_name,last_name'
         ]);
@@ -419,9 +419,9 @@ class DirectAppointmentController extends BaseApiController
     public function show(string $appointmentId): JsonResponse
     {
         $appointment = Appointment::with([
-            'followupBusiness:id,name,category,type,phone,email,website',
+            'followupBusiness:id,name,category,type,website',
             'followupBusiness.creator:id,first_name,last_name',
-            'followupBusiness.authPersons:id,title,firstname,lastname,designation,gender,dob,primaryphone,altphone,primarymobile,altmobile,primaryemail,altemail',
+            'followupBusiness.authPersons:id,title,firstname,lastname,job_title,gender,dob,primaryphone,altphone,primarymobile,altmobile,primaryemail,altemail',
             'followupBusiness.comments' => function ($query) {
                 $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
             },
@@ -488,8 +488,8 @@ class DirectAppointmentController extends BaseApiController
             $appointment->update($appointmentData);
 
             $appointment->load([
-                'business:id,name,category,type,phone,email',
-                'business.authPersons:id,title,firstname,lastname,designation,primaryemail,primarymobile',
+                'business:id,name,category,type',
+                'business.authPersons:id,title,firstname,lastname,job_title,primaryemail,primarymobile',
                 'timeSlot:id,name,start_time,end_time',
                 'creator:id,first_name,last_name'
             ]);
@@ -512,11 +512,18 @@ class DirectAppointmentController extends BaseApiController
             
             // Optional business update
             'business.name' => 'nullable|string|max:255',
+            'business.trading_name' => 'nullable|string|max:255',
+            'business.company_registration_number' => 'nullable|string|max:100',
+            'business.address' => 'nullable|string|max:1000',
+            'business.company_size' => 'nullable|string|max:100',
             'business.category' => 'nullable|string|max:255',
+            'business.sub_category' => 'nullable|string|max:255',
             'business.type' => 'nullable|string|max:255',
+            'business.source_name' => 'nullable|string|max:50',
+            'business.sub_source' => 'nullable|string|max:50',
+            'business.annual_revenue' => 'nullable|numeric|min:0',
+            'business.number_of_locations' => 'nullable|integer|min:0',
             'business.website' => 'nullable|url|max:255',
-            'business.phone' => 'nullable|string',
-            'business.email' => 'nullable|email',
             
             // Optional auth persons update
             'auth_persons' => 'nullable|array',
@@ -526,7 +533,7 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.middlename' => 'nullable|string|max:255',
             'auth_persons.*.lastname' => 'sometimes|required|string|max:255',
             'auth_persons.*.is_primary' => 'nullable|boolean',
-            'auth_persons.*.designation' => 'nullable|string|max:255',
+            'auth_persons.*.job_title' => 'nullable|string|max:255',
             'auth_persons.*.gender' => 'nullable|in:male,female,other',
             'auth_persons.*.dob' => 'nullable|date',
             'auth_persons.*.primaryphone' => 'nullable|string',
@@ -536,19 +543,12 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.primaryemail' => 'sometimes|required|email',
             'auth_persons.*.altemail' => 'nullable|email',
             
-            // Optional appointment details for creating new appointment
-            'appointment.date' => 'nullable|date|after_or_equal:today',
-            'appointment.time_slot_id' => 'nullable|exists:time_slots,id',
-            'appointment.current_status' => 'nullable|string|max:100',
-            'appointment.status' => 'nullable|string|in:Appointment Booked,Appointment Rebooked',
-            'appointment.notes' => 'nullable|string',
-            
             // Comments (array) - directly linked to business
             'comments' => 'nullable|array',
             'comments.*.comment' => 'sometimes|required|string',
             'comments.*.old_status' => 'nullable|string|max:255',
             'comments.*.new_status' => 'nullable|string|max:255',
-        ]);
+        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());

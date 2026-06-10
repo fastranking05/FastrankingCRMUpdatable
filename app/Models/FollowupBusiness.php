@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class FollowupBusiness extends Model
@@ -17,16 +18,24 @@ class FollowupBusiness extends Model
 
     protected $fillable = [
         'name',
+        'trading_name',
+        'company_registration_number',
+        'address',
+        'company_size',
         'category',
+        'sub_category',
         'type',
         'source_name',
+        'sub_source',
+        'annual_revenue',
+        'number_of_locations',
         'website',
-        'phone',
-        'email',
         'created_by',
     ];
 
     protected $casts = [
+        'annual_revenue' => 'decimal:2',
+        'number_of_locations' => 'integer',
         'latest_followup_date' => 'date',
         'latest_followup_time' => 'datetime:H:i:s',
         'created_at' => 'datetime',
@@ -100,5 +109,19 @@ class FollowupBusiness extends Model
     public function seoDetails(): HasMany
     {
         return $this->hasMany(SeoDetail::class, 'followup_business_id');
+    }
+
+    public function businessService(): HasOne
+    {
+        return $this->hasOne(BusinessService::class, 'followup_business_id');
+    }
+
+    public function primaryAuthPerson(): ?FollowupAuthPerson
+    {
+        $persons = $this->relationLoaded('authPersons')
+            ? $this->authPersons
+            : $this->authPersons()->get();
+
+        return $persons->firstWhere('is_primary', true) ?? $persons->first();
     }
 }

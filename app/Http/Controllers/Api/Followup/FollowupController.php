@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Followup;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupDetail;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 
 class FollowupController extends BaseApiController
 {
+    use AppliesLastThreeMonthsFilter;
+
     protected $qualityAssignmentService;
     protected $dateRangeFilterService;
 
@@ -47,7 +50,8 @@ class FollowupController extends BaseApiController
             $query = $this->dateRangeFilterService->applyFilters($query, $request, [
                 'date_column' => 'created_at',
                 'user_column' => 'created_by',
-                'search_columns' => ['name', 'category', 'type', 'email', 'phone']
+                'search_columns' => ['name', 'trading_name', 'company_registration_number', 'address', 'category', 'sub_category', 'type', 'source_name', 'sub_source'],
+                'skip_status_filter' => true,
             ]);
 
             // Apply additional specific filters
@@ -425,25 +429,26 @@ class FollowupController extends BaseApiController
                 });
             }
 
-            // Stable cursor ordering (denormalized on followup_businesses via FollowupDetailObserver)
+            $query = $this->applyLastThreeMonthsFilter($query, 'followup_businesses.created_at');
+
             $this->applyFollowupBusinessCursorOrdering($query);
 
-            $perPage = $request->get('per_page', 15);
-            $followups = $query->cursorPaginate($perPage);
+            $followups = $query->get();
 
-            // Add metadata to response
-            $response = $followups->toArray();
-            $response['access_info'] = [
-                'access_level' => $accessLevel,
-                'user_roles' => $roleNames,
-                'user_departments' => $departmentNames,
-                'is_admin' => $isAdmin,
-                'is_manager_lead_gen' => $isManager && $isLeadGenerationDept,
-                'is_executive_lead_gen' => $isExecutive && $isLeadGenerationDept,
-                'team_count' => count($teamIds),
-            ];
-
-            return $this->successResponse($response, 'Follow-up records retrieved successfully');
+            return $this->successResponse([
+                'followups' => $followups,
+                'total' => $followups->count(),
+                ...$this->lastThreeMonthsDateRange(),
+                'access_info' => [
+                    'access_level' => $accessLevel,
+                    'user_roles' => $roleNames,
+                    'user_departments' => $departmentNames,
+                    'is_admin' => $isAdmin,
+                    'is_manager_lead_gen' => $isManager && $isLeadGenerationDept,
+                    'is_executive_lead_gen' => $isExecutive && $isLeadGenerationDept,
+                    'team_count' => count($teamIds),
+                ],
+            ], 'Follow-up records retrieved successfully');
         }, 'All follow-ups retrieval');
     }
 
@@ -482,12 +487,17 @@ class FollowupController extends BaseApiController
                 $query->where('name', 'like', '%' . $request->name . '%');
             }
 
+            $query = $this->applyLastThreeMonthsFilter($query, 'followup_businesses.created_at');
+
             $this->applyFollowupBusinessCursorOrdering($query);
 
-            $perPage = $request->get('per_page', 15);
-            $followups = $query->cursorPaginate($perPage);
+            $followups = $query->get();
 
-            return $this->successResponse($followups, 'My follow-ups retrieved successfully');
+            return $this->successResponse([
+                'followups' => $followups,
+                'total' => $followups->count(),
+                ...$this->lastThreeMonthsDateRange(),
+            ], 'My follow-ups retrieved successfully');
         }, 'My follow-ups retrieval');
     }
 

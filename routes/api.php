@@ -31,6 +31,7 @@ Route::group([], function () {
 Route::group([], function () {
     require __DIR__ . '/api/admin/business-categories.php';
     require __DIR__ . '/api/admin/business-types.php';
+    require __DIR__ . '/api/admin/services.php';
 });
 
 // Follow-Up Module Routes

@@ -178,6 +178,7 @@ class DateRangeFilterService
         $statusColumn = $options['status_column'] ?? 'status';
         $searchColumns = $options['search_columns'] ?? [];
         $skipDateFilter = $options['skip_date_filter'] ?? false;
+        $skipStatusFilter = $options['skip_status_filter'] ?? false;
 
         // Apply date filter (unless skipped)
         if (!$skipDateFilter) {
@@ -187,8 +188,10 @@ class DateRangeFilterService
         // Apply user filter
         $query = $this->applyUserFilter($query, $request, $userColumn);
 
-        // Apply status filter
-        $query = $this->applyStatusFilter($query, $request, $statusColumn);
+        // Apply status filter (unless skipped — e.g. status lives on a related table)
+        if (!$skipStatusFilter) {
+            $query = $this->applyStatusFilter($query, $request, $statusColumn);
+        }
 
         // Apply search filter
         if (!empty($searchColumns)) {
@@ -233,6 +236,10 @@ class DateRangeFilterService
                 'updated_at' => 'Updated Date'
             ],
             'followup' => [
+                'created_at' => 'Created Date',
+                'updated_at' => 'Updated Date'
+            ],
+            'leads' => [
                 'created_at' => 'Created Date',
                 'updated_at' => 'Updated Date'
             ],

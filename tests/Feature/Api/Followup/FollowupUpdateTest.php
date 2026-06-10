@@ -97,8 +97,6 @@ class FollowupUpdateTest extends TestCase
                 'category' => 'Technology Services',
                 'type' => 'Premium',
                 'website' => 'https://updated.com',
-                'phone' => '+9876543210',
-                'email' => 'updated@corp.com',
             ],
             'auth_persons' => [
                 [
@@ -230,8 +228,6 @@ class FollowupUpdateTest extends TestCase
                 'category' => 'Technology Services',
                 'type' => 'Enterprise',
                 'website' => 'https://appointment.com',
-                'phone' => '+9876543210',
-                'email' => 'appointment@corp.com',
             ],
             'auth_persons' => [
                 [
