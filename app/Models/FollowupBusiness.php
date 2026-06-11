@@ -14,6 +14,8 @@ class FollowupBusiness extends Model
 {
     use HasFactory;
 
+    public const PRIORITIES = ['low', 'medium', 'high', 'urgent'];
+
     protected $table = 'followup_businesses';
 
     protected $fillable = [
@@ -27,6 +29,7 @@ class FollowupBusiness extends Model
         'type',
         'source_name',
         'sub_source',
+        'priority',
         'annual_revenue',
         'number_of_locations',
         'website',
@@ -41,6 +44,21 @@ class FollowupBusiness extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * Core business profile relations for single-view APIs.
+     *
+     * @return array<int|string, mixed>
+     */
+    public static function profileRelations(): array
+    {
+        return [
+            'creator:id,first_name,last_name',
+            'authPersons',
+            'businessService.primaryService:id,name',
+            'leadQualification',
+        ];
+    }
 
     /**
      * Recompute denormalized sort columns from followup_details (latest by date, then time).
@@ -111,9 +129,19 @@ class FollowupBusiness extends Model
         return $this->hasMany(SeoDetail::class, 'followup_business_id');
     }
 
+    public function deals(): HasMany
+    {
+        return $this->hasMany(Deal::class, 'followup_business_id');
+    }
+
     public function businessService(): HasOne
     {
         return $this->hasOne(BusinessService::class, 'followup_business_id');
+    }
+
+    public function leadQualification(): HasOne
+    {
+        return $this->hasOne(LeadQualification::class, 'followup_business_id');
     }
 
     public function primaryAuthPerson(): ?FollowupAuthPerson

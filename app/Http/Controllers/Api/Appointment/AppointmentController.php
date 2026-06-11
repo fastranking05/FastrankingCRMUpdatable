@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Appointment;
 use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Controllers\Api\Followup\FollowupController;
 use App\Models\Appointment;
+use App\Models\FollowupBusiness;
+use App\Support\FollowupBusinessProfile;
 use App\Models\AppointmentSetting;
 use App\Models\Consultation;
 use App\Models\Comment;
@@ -291,11 +293,13 @@ class AppointmentController extends BaseApiController
     {
         return $this->executeTransaction(function () use ($id) {
             $appointment = Appointment::with([
-                'followupBusiness',
-                'followupBusiness.authPersons',
-                'followupBusiness.creator:id,first_name,last_name,email,username',
-                'followupBusiness.comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name,email,username')->orderBy('created_at', 'desc');
+                'followupBusiness' => function ($query) {
+                    $query->with(array_merge(FollowupBusiness::profileRelations(), [
+                        'comments' => function ($commentQuery) {
+                            $commentQuery->with('creator:id,first_name,last_name,email,username')
+                                ->orderByDesc('created_at');
+                        },
+                    ]));
                 },
                 'timeSlot:id,name,start_time,end_time',
                 'creator:id,first_name,last_name,email,username',
@@ -316,7 +320,16 @@ class AppointmentController extends BaseApiController
                 return $this->errorResponse('Appointment not found', 404);
             }
 
-            return $this->successResponse($appointment, 'Appointment retrieved successfully');
+            $payload = $appointment->toArray();
+            $business = $appointment->followupBusiness;
+            $payload = FollowupBusinessProfile::attach(
+                $payload,
+                $business,
+                'followup_business',
+                $business?->relationLoaded('comments') ? ['comments' => $business->comments] : []
+            );
+
+            return $this->successResponse($payload, 'Appointment retrieved successfully');
         }, 'Appointment retrieval', ['appointment_id' => $id]);
     }
 

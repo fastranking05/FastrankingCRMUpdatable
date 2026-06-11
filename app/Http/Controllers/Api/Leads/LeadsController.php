@@ -6,9 +6,12 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
+use App\Models\BusinessService;
+use App\Models\LeadQualification;
 use App\Models\Comment;
 use App\Models\User;
 use App\Services\DateRangeFilterService;
+use App\Support\FollowupBusinessProfile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +43,7 @@ class LeadsController extends BaseApiController
             'type' => 'nullable|string|max:255',
             'source_name' => 'nullable|string|max:50',
             'sub_source' => 'nullable|string|max:50',
+            'priority' => 'nullable|in:low,medium,high,urgent',
             'annual_revenue' => 'nullable|numeric|min:0',
             'number_of_locations' => 'nullable|integer|min:0',
             'website' => 'nullable|url|max:255',
@@ -67,7 +71,9 @@ class LeadsController extends BaseApiController
             'comments.*.comment' => 'required|string',
             'comments.*.old_status' => 'nullable|string|max:255',
             'comments.*.new_status' => 'nullable|string|max:255',
-        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
+        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*')
+            + BusinessService::validationRules()
+            + LeadQualification::validationRules());
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
@@ -86,6 +92,7 @@ class LeadsController extends BaseApiController
                 'type' => $request->type,
                 'source_name' => $request->source_name,
                 'sub_source' => $request->sub_source,
+                'priority' => $request->priority,
                 'annual_revenue' => $request->annual_revenue,
                 'number_of_locations' => $request->number_of_locations,
                 'website' => $request->website,
@@ -132,8 +139,19 @@ class LeadsController extends BaseApiController
                 }
             }
 
-            // Load relationships for response
-            $business->load(['creator:id,first_name,last_name', 'authPersons']);
+            // Create business service profile if provided
+            if ($request->has('business_service') && is_array($request->business_service)
+                && BusinessService::hasPayloadData($request->business_service)) {
+                BusinessService::createForBusiness($business->id, $request->business_service);
+            }
+
+            // Create lead qualification profile if provided
+            if ($request->has('lead_qualification') && is_array($request->lead_qualification)
+                && LeadQualification::hasPayloadData($request->lead_qualification)) {
+                LeadQualification::createForBusiness($business->id, $request->lead_qualification);
+            }
+
+            $business->load($this->leadDetailRelations());
 
             return $this->successResponse($business, 'Lead created successfully', 201);
         }, 'Lead creation', $request->only(['business_name']));
@@ -266,6 +284,10 @@ class LeadsController extends BaseApiController
                 $query->where('sub_source', $request->input('sub_source'));
             }
 
+            if ($request->has('priority')) {
+                $query->where('priority', $request->input('priority'));
+            }
+
             if ($request->has('status')) {
                 $query->whereHas('followupDetails', function ($statusQuery) use ($request) {
                     $statusQuery->where('status', $request->input('status'));
@@ -320,6 +342,7 @@ class LeadsController extends BaseApiController
                 'Non-Profit',
             ],
             'source_name_options' => $sourceNames,
+            'priority_options' => FollowupBusiness::PRIORITIES,
             'status_options' => [
                 'New',
                 'Contacted',
@@ -341,36 +364,23 @@ class LeadsController extends BaseApiController
     public function show(int $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $business = FollowupBusiness::with([
-                'creator:id,first_name,last_name',
-                'authPersons',
-                'comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                },
-                'followupDetails',
-                'emails' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                },
-                'appointments' => function ($query) {
-                    $query->with([
-                        'timeSlot:id,name,start_time,end_time,duration_minutes',
-                        'creator:id,first_name,last_name',
-                        'quality',
-                        'consultations' => function ($consultationQuery) {
-                            $consultationQuery->with([
-                                'meetingSlot:id,start_time,end_time',
-                                'assignedUser:id,first_name,last_name,username'
-                            ])->orderBy('created_at', 'desc');
-                        }
-                    ])->orderBy('date', 'desc')->orderBy('time_slot_id', 'desc');
-                }
-            ])->find($id);
+            $business = FollowupBusiness::with($this->leadDetailRelations())->find($id);
 
             if (!$business) {
                 return $this->errorResponse('Lead not found', 404);
             }
 
-            return $this->successResponse($business, 'Lead retrieved successfully');
+            return $this->successResponse(
+                FollowupBusinessProfile::leadShowPayload($business, [
+                    'comments' => $business->comments,
+                    'followup_details' => $business->followupDetails,
+                    'emails' => $business->emails,
+                    'appointments' => $business->appointments,
+                    'deals' => $business->deals,
+                    'seo_details' => $business->seoDetails,
+                ]),
+                'Lead retrieved successfully'
+            );
         }, 'Lead retrieval', ['lead_id' => $id]);
     }
 
@@ -396,6 +406,7 @@ class LeadsController extends BaseApiController
             'type' => 'nullable|string|max:255',
             'source_name' => 'nullable|string|max:50',
             'sub_source' => 'nullable|string|max:50',
+            'priority' => 'nullable|in:low,medium,high,urgent',
             'annual_revenue' => 'nullable|numeric|min:0',
             'number_of_locations' => 'nullable|integer|min:0',
             'website' => 'nullable|url|max:255',
@@ -440,6 +451,9 @@ class LeadsController extends BaseApiController
             if ($request->has('sub_source')) {
                 $updateData['sub_source'] = $request->sub_source;
             }
+            if ($request->has('priority')) {
+                $updateData['priority'] = $request->priority;
+            }
             if ($request->has('annual_revenue')) {
                 $updateData['annual_revenue'] = $request->annual_revenue;
             }
@@ -482,6 +496,49 @@ class LeadsController extends BaseApiController
 
             return $this->successResponse(null, 'Lead deleted successfully');
         }, 'Lead deletion', ['lead_id' => $id]);
+    }
+
+    /**
+     * @return array<int|string, mixed>
+     */
+    private function leadDetailRelations(): array
+    {
+        return array_merge(FollowupBusiness::profileRelations(), [
+            'comments' => function ($query) {
+                $query->with('creator:id,first_name,last_name')->orderByDesc('created_at');
+            },
+            'followupDetails' => function ($query) {
+                $query->with('creator:id,first_name,last_name')
+                    ->orderByDesc('date')
+                    ->orderByDesc('time');
+            },
+            'emails' => function ($query) {
+                $query->with('creator:id,first_name,last_name')->orderByDesc('created_at');
+            },
+            'appointments' => function ($query) {
+                $query->with([
+                    'timeSlot:id,name,start_time,end_time,duration_minutes',
+                    'creator:id,first_name,last_name',
+                    'quality',
+                    'consultations' => function ($consultationQuery) {
+                        $consultationQuery->with([
+                            'meetingSlot:id,start_time,end_time',
+                            'assignedUser:id,first_name,last_name,username',
+                        ])->orderByDesc('created_at');
+                    },
+                ])->orderByDesc('date')->orderByDesc('time_slot_id');
+            },
+            'deals' => function ($query) {
+                $query->with([
+                    'authPerson:id,title,firstname,lastname,primaryemail,primarymobile',
+                    'creator:id,first_name,last_name',
+                ])->orderByDesc('created_at');
+            },
+            'seoDetails' => function ($query) {
+                $query->with('assignedUser:id,first_name,last_name,username')
+                    ->orderByDesc('created_at');
+            },
+        ]);
     }
 
     private function getLeadsBaseQuery()
@@ -530,6 +587,7 @@ class LeadsController extends BaseApiController
         if ($request->has('type')) $query->where('type', $request->type);
         if ($request->has('source_name')) $query->where('source_name', $request->source_name);
         if ($request->has('sub_source')) $query->where('sub_source', $request->sub_source);
+        if ($request->has('priority')) $query->where('priority', $request->priority);
         if ($request->has('name')) $query->where('name', 'like', '%' . $request->name . '%');
         return $query;
     }

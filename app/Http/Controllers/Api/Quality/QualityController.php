@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Quality;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Models\FollowupBusiness;
+use App\Support\FollowupBusinessProfile;
 use App\Models\Quality;
 use App\Models\QualityAnswer;
 use App\Models\QualityQuestion;
@@ -368,11 +370,13 @@ class QualityController extends BaseApiController
     {
         $quality = Quality::with([
             'appointment',
-            'appointment.followupBusiness',
-            'appointment.followupBusiness.authPersons',
-            'appointment.followupBusiness.comments' => function ($query) {
-                $query->with('creator:id,first_name,last_name')
-                    ->orderByDesc('created_at');
+            'appointment.followupBusiness' => function ($query) {
+                $query->with(array_merge(FollowupBusiness::profileRelations(), [
+                    'comments' => function ($commentQuery) {
+                        $commentQuery->with('creator:id,first_name,last_name')
+                            ->orderByDesc('created_at');
+                    },
+                ]));
             },
             'appointment.timeSlot',
             'appointment.creator:id,first_name,middle_name,last_name,username',
@@ -448,8 +452,13 @@ class QualityController extends BaseApiController
         $businessComments = $this->formatBusinessComments($quality);
         $data['business_comments'] = $businessComments;
 
-        if (isset($data['appointment']['followup_business'])) {
-            $data['appointment']['followup_business']['comments'] = $businessComments;
+        if ($quality->appointment !== null) {
+            $data['appointment'] = FollowupBusinessProfile::attach(
+                $data['appointment'] ?? [],
+                $quality->appointment->followupBusiness,
+                'followup_business',
+                ['comments' => $businessComments]
+            );
         }
 
         return $data;

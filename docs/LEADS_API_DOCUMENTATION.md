@@ -8,7 +8,7 @@
 ## 1. Create Lead
 **POST** `/`
 
-Creates a new lead with business, auth persons, and comments.
+Creates a new lead with business, auth persons, comments, and optional service and qualification profiles.
 
 **Request Body:**
 ```json
@@ -23,6 +23,7 @@ Creates a new lead with business, auth persons, and comments.
   "type": "Software",
   "source_name": "Website",
   "sub_source": "Google Ads",
+  "priority": "high",
   "annual_revenue": 500000.00,
   "number_of_locations": 3,
   "website": "https://example.com",
@@ -82,7 +83,22 @@ Creates a new lead with business, auth persons, and comments.
       "comment": "Follow-up scheduled for next week",
       "followup_business_id": 123
     }
-  ]
+  ],
+  "business_service": {
+    "interested_services": [1, 2, 4],
+    "primary_service_id": 1,
+    "current_agency": "ABC Marketing Ltd",
+    "current_monthly_spend": 2500.00,
+    "planned_monthly_budget": 5000.00,
+    "existing_website_platform": "WordPress"
+  },
+  "lead_qualification": {
+    "temperature": "hot",
+    "budget": true,
+    "authority": false,
+    "need": true,
+    "timeline": false
+  }
 }
 ```
 
@@ -109,6 +125,7 @@ Creates a new lead with business, auth persons, and comments.
 | `type` | string | No | Business type (max 255) |
 | `source_name` | string | No | Lead source (max 50) |
 | `sub_source` | string | No | Lead sub-source (max 50) |
+| `priority` | string | No | Lead priority: `low`, `medium`, `high`, or `urgent` |
 | `annual_revenue` | number | No | Annual revenue (min 0) |
 | `number_of_locations` | integer | No | Number of locations (min 0) |
 | `website` | url | No | Business website |
@@ -144,6 +161,31 @@ All auth person fields except `firstname`, `lastname`, and `primaryemail` are op
 
 All business fields except `business_name` are optional (nullable).
 
+**Business service fields (within `business_service` object):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `interested_services` | array of integers | No | Service IDs the lead is interested in (must exist in `services` table) |
+| `primary_service_id` | integer | No | Primary service ID (must exist in `services` table) |
+| `current_agency` | string | No | Current marketing/SEO agency (max 255) |
+| `current_monthly_spend` | number | No | Current monthly spend (min 0) |
+| `planned_monthly_budget` | number | No | Planned monthly budget (min 0) |
+| `existing_website_platform` | string | No | Existing website platform, e.g. WordPress, Shopify (max 255) |
+
+The entire `business_service` object is optional. If omitted or all fields are empty, no `business_services` row is created. On create, `followup_business_id` is set automatically from the new lead.
+
+**Lead qualification fields (within `lead_qualification` object):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `temperature` | string | No | Lead temperature, e.g. `hot`, `warm`, `cold` (max 255) |
+| `budget` | boolean | No | BANT: budget confirmed (`true`/`false` or `1`/`0`) |
+| `authority` | boolean | No | BANT: decision-maker identified (`true`/`false` or `1`/`0`) |
+| `need` | boolean | No | BANT: business need confirmed (`true`/`false` or `1`/`0`) |
+| `timeline` | boolean | No | BANT: timeline confirmed (`true`/`false` or `1`/`0`) |
+
+The entire `lead_qualification` object is optional. If omitted or all fields are empty, no `lead_qualifications` row is created. On create, `followup_business_id` is set automatically from the new lead. Omitted boolean fields default to `false` when a qualification row is created.
+
 ---
 
 ## 2. Leads Filter APIs
@@ -164,10 +206,13 @@ POST /api/leads/leads-filter
   "scope": "all",
   "date_filter": "this_month",
   "category": "Technology Services",
+  "priority": "high",
   "search": "ABC",
   "per_page": 15
 }
 ```
+
+`GET /filter-options` includes `priority_options`: `["low", "medium", "high", "urgent"]`
 
 ---
 
@@ -187,6 +232,7 @@ Retrieves all leads with role-based hierarchy access.
 - `type`: Filter by type
 - `source_name`: Filter by source name
 - `sub_source`: Filter by sub-source
+- `priority`: Filter by priority (`low`, `medium`, `high`, `urgent`)
 - `name`: Search by business name
 
 **Response:**
@@ -215,6 +261,7 @@ Retrieves only leads created by the logged-in user.
 - `type`: Filter by type
 - `source_name`: Filter by source name
 - `sub_source`: Filter by sub-source
+- `priority`: Filter by priority (`low`, `medium`, `high`, `urgent`)
 - `name`: Search by business name
 
 **Response:**
@@ -335,13 +382,31 @@ This endpoint should be called before creating a new lead to prevent duplicate e
 ## 7. Get Lead Details
 **GET** `/{id}`
 
-Retrieves detailed information about a specific lead including all related data:
-- Business details
-- Authorized persons
+Retrieves complete lead information including all related data:
+- Business details (including `priority`)
+- Authorized persons (full profile)
+- Business service profile (with `primary_service` and `interested_services_list`)
+- Lead qualification profile (BANT + temperature)
 - Comments (with creators)
-- Follow-up details
+- Follow-up details (with creators)
 - Emails (with creators)
 - Appointments (with time slots, creators, quality assessments, and consultations)
+- Deals (with auth person and creator)
+- SEO details (with assigned user)
+
+**Mandatory business profile (always in single-view response):**
+
+These keys are **always present** at the root of `data` (same structure used by Appointment, Follow-up, Quality, Consultation, and SEO single views — nested as `followup_business` or `business_details` where applicable):
+
+| Key | Always present | Notes |
+|-----|----------------|-------|
+| Business scalar fields | Yes | `id`, `name`, `trading_name`, `priority`, `source_name`, etc. |
+| `creator` | Yes | `null` if missing |
+| `auth_persons` | Yes | Array (empty `[]` if none) |
+| `business_service` | Yes | Object when saved; otherwise `null` |
+| `lead_qualification` | Yes | Object when saved; otherwise `null` |
+
+Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **in addition** to this mandatory block.
 
 **Response:**
 ```json
@@ -360,6 +425,7 @@ Retrieves detailed information about a specific lead including all related data:
     "type": "Enterprise",
     "source_name": "Website",
     "sub_source": "Google Ads",
+    "priority": "high",
     "annual_revenue": "750000.00",
     "number_of_locations": 5,
     "website": "https://example.com",
@@ -371,7 +437,7 @@ Retrieves detailed information about a specific lead including all related data:
       "first_name": "Admin",
       "last_name": "User"
     },
-    "authPersons": [
+    "auth_persons": [
       {
         "id": 1,
         "title": "Mr.",
@@ -405,6 +471,39 @@ Retrieves detailed information about a specific lead including all related data:
         }
       }
     ],
+    "business_service": {
+      "id": 1,
+      "followup_business_id": 1,
+      "interested_services": "1,2,4",
+      "interested_service_ids": [1, 2, 4],
+      "primary_service_id": 1,
+      "current_agency": "ABC Marketing Ltd",
+      "current_monthly_spend": "2500.00",
+      "planned_monthly_budget": "5000.00",
+      "existing_website_platform": "WordPress",
+      "created_at": "2026-04-28T10:00:00.000000Z",
+      "updated_at": "2026-04-28T10:00:00.000000Z",
+      "primary_service": {
+        "id": 1,
+        "name": "SEO"
+      },
+      "interested_services_list": [
+        { "id": 1, "name": "SEO" },
+        { "id": 2, "name": "PPC" },
+        { "id": 4, "name": "Web Design" }
+      ]
+    },
+    "lead_qualification": {
+      "id": 1,
+      "followup_business_id": 1,
+      "temperature": "hot",
+      "budget": true,
+      "authority": false,
+      "need": true,
+      "timeline": false,
+      "created_at": "2026-04-28T10:00:00.000000Z",
+      "updated_at": "2026-04-28T10:00:00.000000Z"
+    },
     "comments": [
       {
         "id": 1,
@@ -504,6 +603,48 @@ Retrieves detailed information about a specific lead including all related data:
           }
         ]
       }
+    ],
+    "deals": [
+      {
+        "id": "FRDID00000001",
+        "followup_business_id": 1,
+        "name": "SEO Retainer",
+        "deal_stage": "Proposal",
+        "probability": "75.00",
+        "priority": "high",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "auth_person": {
+          "id": 1,
+          "title": "Mr.",
+          "firstname": "John",
+          "lastname": "Doe",
+          "primaryemail": "john.doe@example.com",
+          "primarymobile": "+1-555-0201"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User"
+        }
+      }
+    ],
+    "seo_details": [
+      {
+        "id": 1,
+        "followup_business_id": 1,
+        "status": "Completed",
+        "audited_website": "https://example.com",
+        "audited_date": "2026-04-28",
+        "assigned_user": 2,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "assignedUser": {
+          "id": 2,
+          "first_name": "SEO",
+          "last_name": "Analyst",
+          "username": "seo_analyst"
+        }
+      }
     ]
   }
 }
@@ -527,6 +668,7 @@ Retrieves detailed information about a specific lead including all related data:
   "type": "Enterprise",
   "source_name": "Referral",
   "sub_source": "Partner Network",
+  "priority": "urgent",
   "annual_revenue": 1200000.00,
   "number_of_locations": 8,
   "website": "https://updated-example.com",
