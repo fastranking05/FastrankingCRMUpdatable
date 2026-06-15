@@ -113,7 +113,7 @@ class GlobalChatDataService
         $summaries = [];
 
         foreach ($readableEntities as $entityType) {
-            $modelClass = config('elasticsearch.entity_types.' . $entityType . '.model');
+            $modelClass = config('global_search.entity_types.' . $entityType . '.model');
 
             if (!$modelClass || !class_exists($modelClass)) {
                 continue;

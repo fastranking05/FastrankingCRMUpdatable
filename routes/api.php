@@ -115,7 +115,7 @@ Route::group([], function () {
     require __DIR__ . '/api/filters.php';
 });
 
-// Global Search Routes (Elasticsearch)
+// Global Search Routes (Typesense + Laravel Scout)
 Route::group([], function () {
     require __DIR__ . '/api/search.php';
 });

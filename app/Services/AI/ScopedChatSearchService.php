@@ -55,7 +55,7 @@ class ScopedChatSearchService
                 $results[] = [
                     'entity_type' => $document['entity_type'],
                     'entity_type_label' => config('ai.entities.' . $document['entity_type'] . '.label')
-                        ?? config('elasticsearch.entity_types.' . $document['entity_type'] . '.label'),
+                        ?? config('global_search.entity_types.' . $document['entity_type'] . '.label'),
                     'entity_id' => $document['entity_id'],
                     'title' => $document['title'],
                     'subtitle' => $document['subtitle'],
@@ -83,7 +83,7 @@ class ScopedChatSearchService
     public function recent(User $user, string $entityType, int $limit): array
     {
         $config = config('ai.entities.' . $entityType);
-        $modelClass = config('elasticsearch.entity_types.' . $entityType . '.model');
+        $modelClass = config('global_search.entity_types.' . $entityType . '.model');
 
         if (!$config || !$modelClass || !class_exists($modelClass)) {
             return [];

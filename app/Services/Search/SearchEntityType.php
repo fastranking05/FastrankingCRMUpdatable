@@ -16,7 +16,7 @@ final class SearchEntityType
 
     public static function all(): array
     {
-        return array_keys(config('elasticsearch.entity_types', []));
+        return array_keys(config('global_search.entity_types', []));
     }
 
     public static function documentId(string $entityType, string|int $entityId): string
