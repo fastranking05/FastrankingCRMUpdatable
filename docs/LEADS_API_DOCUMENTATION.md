@@ -10,6 +10,8 @@
 
 Creates a new lead with business, auth persons, comments, and optional service and qualification profiles.
 
+> **Payload schema:** Create (Section 1) and Update (Section 8) accept the **same fields and nested objects**. On update, send only the sections you want to change; validation rules are identical except `business_name` and `auth_persons` are optional on update.
+
 **Request Body:**
 ```json
 {
@@ -102,7 +104,8 @@ Creates a new lead with business, auth persons, comments, and optional service a
 }
 ```
 
-**Response:**
+**Response:** Same structure as **Get Lead Details** (Section 7), including the mandatory business profile block.
+
 ```json
 {
   "success": true,
@@ -156,8 +159,18 @@ Contact phone and email are stored on **auth persons** (`primaryphone`, `primary
 | `altmobile` | string | No | Alternate mobile |
 | `primaryemail` | email | Yes | Primary email |
 | `altemail` | email | No | Alternate email |
+| `id` | integer | Update only | Existing auth person ID (omit on create; include on update to modify existing contact) |
 
 All auth person fields except `firstname`, `lastname`, and `primaryemail` are optional (nullable).
+
+**Comment fields (within `comments` array):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `comment` | string | Yes | Comment text |
+| `old_status` | string | No | Previous status (max 255) |
+| `new_status` | string | No | New status (max 255) |
+| `followup_business_id` | integer | No | Defaults to the lead/business ID if omitted |
 
 All business fields except `business_name` are optional (nullable).
 
@@ -313,24 +326,33 @@ Retrieves a list of all business names and IDs from the followup business table.
 ## 6. Check Duplicate Lead Data
 **POST** `/check-duplicate`
 
-Checks for duplicate authorized person contact information before creating a new lead.
+Checks for duplicate lead data before creating or updating a lead. At least **one** field must be sent in the request.
 
-**Authentication:** Required (JWT)
+**Authentication:** Required (JWT)  
 **Permission:** `Leads,read`
 
 **Request Body:**
 ```json
 {
-  "auth_person_phone": "+1234567890",
-  "auth_person_mobile": "+1122334455",
-  "auth_person_email": "john.doe@example.com"
+  "business_name": "Example Company Ltd",
+  "website": "https://example.com",
+  "phone": "+1234567890",
+  "mobile": "+1122334455",
+  "email": "john.doe@example.com"
 }
 ```
 
-**Request Parameters (all optional):**
-- `auth_person_phone` (string): Authorized person phone number (checks both primaryphone and altphone fields)
-- `auth_person_mobile` (string): Authorized person mobile number (checks both primarymobile and altmobile fields)
-- `auth_person_email` (email): Authorized person email address (checks both primaryemail and altemail fields)
+**Request Parameters (send at least one):**
+
+| Field | Type | Checks against |
+|-------|------|----------------|
+| `business_name` | string | `followup_businesses.name` and `trading_name` (case-insensitive, trimmed) |
+| `website` | url | `followup_businesses.website` (normalized: lowercase, trailing `/` ignored) |
+| `phone` | string | Auth person `primaryphone` and `altphone` |
+| `mobile` | string | Auth person `primarymobile` and `altmobile` |
+| `email` | email | Auth person `primaryemail` and `altemail` (case-insensitive) |
+
+**Legacy aliases (still supported):** `auth_person_phone` → `phone`, `auth_person_mobile` → `mobile`, `auth_person_email` → `email`
 
 **Response (No Duplicates Found):**
 ```json
@@ -352,30 +374,55 @@ Checks for duplicate authorized person contact information before creating a new
   "data": {
     "has_duplicates": true,
     "duplicates": {
-      "auth_person_email": {
+      "business_name": {
+        "exists": true,
+        "lead_id": 123,
+        "business_name": "ABC Corporation"
+      },
+      "website": {
+        "exists": true,
+        "lead_id": 123,
+        "business_name": "ABC Corporation",
+        "website": "https://example.com"
+      },
+      "email": {
         "exists": true,
         "lead_id": 456,
         "business_name": "XYZ Industries",
         "auth_person_name": "John Doe"
       },
-      "auth_person_phone": {
+      "phone": {
         "exists": true,
         "lead_id": 123,
         "business_name": "ABC Corporation",
         "auth_person_name": "Jane Smith"
+      },
+      "mobile": {
+        "exists": true,
+        "lead_id": 789,
+        "business_name": "Another Co",
+        "auth_person_name": "Alex Lee"
       }
     }
   }
 }
 ```
 
-**Response Fields:**
-- `has_duplicates` (boolean): Indicates whether any duplicates were found
-- `duplicates` (object): Contains details of each duplicate found (auth person phone, mobile, or email)
-  - Includes `exists`, `lead_id`, `business_name`, and `auth_person_name` where applicable
+**Duplicate result fields:**
 
-**Usage Example:**
-This endpoint should be called before creating a new lead to prevent duplicate entries. If duplicates are found, the frontend can display appropriate warnings to the user.
+| Key in `duplicates` | Always includes | Also includes when relevant |
+|---------------------|-----------------|-----------------------------|
+| `business_name` | `exists`, `lead_id`, `business_name` | — |
+| `website` | `exists`, `lead_id`, `business_name` | `website` |
+| `phone` | `exists`, `lead_id`, `business_name` | `auth_person_name` |
+| `mobile` | `exists`, `lead_id`, `business_name` | `auth_person_name` |
+| `email` | `exists`, `lead_id`, `business_name` | `auth_person_name` |
+
+**Validation errors (422):**
+- No fields provided
+- Invalid `email` or `website` format
+
+**Usage:** Call before lead create/update to warn users about existing business names, websites, or contact details already linked to another lead.
 
 ---
 
@@ -655,7 +702,16 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
 ## 8. Update Lead
 **PUT** `/{id}`
 
-**Request Body (all fields optional except when provided):**
+Updates an existing lead using the **exact same payload fields as Create Lead** (Section 1). Send only the sections you want to change.
+
+**Field reference:** Use the same tables as Section 1 for:
+- Business fields
+- `auth_persons` (add optional `id` when updating an existing contact)
+- `comments`
+- `business_service`
+- `lead_qualification`
+
+**Request Body** (same shape as create; example shows full payload):
 ```json
 {
   "business_name": "Updated Name",
@@ -672,18 +728,116 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
   "annual_revenue": 1200000.00,
   "number_of_locations": 8,
   "website": "https://updated-example.com",
-  "auth_person_ids": [1, 2]
+  "auth_persons": [
+    {
+      "id": 1,
+      "title": "Mr",
+      "firstname": "John",
+      "middlename": "Robert",
+      "lastname": "Doe",
+      "is_primary": true,
+      "job_title": "CEO",
+      "seniority_level": "Executive",
+      "extension": "101",
+      "linkedin_profile": "https://linkedin.com/in/johndoe",
+      "facebook_profile": "https://facebook.com/johndoe",
+      "preferred_contact_method": "email",
+      "preferred_contact_time": "Weekdays 9am-5pm",
+      "gender": "male",
+      "dob": "1980-01-15",
+      "primaryphone": "+1234567890",
+      "altphone": "+0987654321",
+      "primarymobile": "+1122334455",
+      "altmobile": "+5544332211",
+      "primaryemail": "john.doe@example.com",
+      "altemail": "john.alternate@example.com"
+    },
+    {
+      "title": "Ms",
+      "firstname": "Jane",
+      "middlename": "Anne",
+      "lastname": "Smith",
+      "is_primary": false,
+      "job_title": "Operations Manager",
+      "seniority_level": "Manager",
+      "extension": "102",
+      "linkedin_profile": "https://linkedin.com/in/janesmith",
+      "facebook_profile": null,
+      "preferred_contact_method": "mobile",
+      "preferred_contact_time": "Weekdays 10am-4pm",
+      "gender": "female",
+      "dob": "1985-03-20",
+      "primaryphone": "+1234567891",
+      "altphone": null,
+      "primarymobile": "+1122334456",
+      "altmobile": null,
+      "primaryemail": "jane.smith@example.com",
+      "altemail": null
+    }
+  ],
+  "comments": [
+    {
+      "comment": "Updated lead details after discovery call",
+      "old_status": "contacted",
+      "new_status": "qualified"
+    }
+  ],
+  "business_service": {
+    "interested_services": [1, 3],
+    "primary_service_id": 3,
+    "current_agency": "New Agency Ltd",
+    "current_monthly_spend": 3000.00,
+    "planned_monthly_budget": 6000.00,
+    "existing_website_platform": "Shopify"
+  },
+  "lead_qualification": {
+    "temperature": "warm",
+    "budget": true,
+    "authority": true,
+    "need": true,
+    "timeline": false
+  }
 }
 ```
 
-Only include the fields you want to update. All business detail fields are nullable.
+**Create vs update (same fields, different rules):**
 
-**Response:**
+| Field / section | Create | Update |
+|-----------------|--------|--------|
+| `business_name` | Required | Optional (`sometimes` — only validated when sent) |
+| All other business fields | Optional | Optional — partial update |
+| `auth_persons` | Required array | Optional array — omit to leave contacts unchanged |
+| `auth_persons[].id` | Not used | Optional — include to update existing contact |
+| `comments` | Optional — creates rows | Optional — appends new rows |
+| `business_service` | Optional — creates row | Optional — upserts row |
+| `lead_qualification` | Optional — creates row | Optional — upserts row |
+
+**Update behaviour:**
+
+| Section | On update |
+|---------|-----------|
+| Business fields | Only sent fields are changed |
+| `auth_persons` | Upsert: `id` = update; no `id` = create. Contacts not in the array are detached |
+| `comments` | Appends new rows (does not replace existing) |
+| `business_service` | Upserts the single row for this lead |
+| `lead_qualification` | Upserts the single row for this lead |
+
+**Response:** Same structure as **Get Lead Details** (Section 7), including the mandatory business profile block (`auth_persons`, `business_service`, `lead_qualification`).
+
 ```json
 {
   "success": true,
   "message": "Lead updated successfully",
-  "data": {...}
+  "data": {
+    "id": 1,
+    "name": "Updated Name",
+    "priority": "urgent",
+    "auth_persons": [...],
+    "business_service": {...},
+    "lead_qualification": {...},
+    "comments": [...],
+    "followup_details": [...]
+  }
 }
 ```
 

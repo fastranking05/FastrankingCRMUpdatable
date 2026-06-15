@@ -96,10 +96,15 @@ class BusinessService extends Model
 
     public static function createForBusiness(int $followupBusinessId, array $data): self
     {
-        return self::create(array_merge(
+        return self::updateOrCreate(
             ['followup_business_id' => $followupBusinessId],
             self::fieldsFromArray($data)
-        ));
+        );
+    }
+
+    public static function upsertForBusiness(int $followupBusinessId, array $data): self
+    {
+        return self::createForBusiness($followupBusinessId, $data);
     }
 
     public function followupBusiness(): BelongsTo
