@@ -3,9 +3,9 @@
 namespace App\Services\AI;
 
 use App\Models\FollowupBusiness;
-use App\Models\Quality;
 use App\Models\SeoDetail;
 use App\Models\User;
+use App\Services\AI\Security\ChatInputSanitizer;
 use Illuminate\Support\Facades\DB;
 
 class GlobalChatDataService
@@ -14,6 +14,8 @@ class GlobalChatDataService
         private readonly UserDataScopeService $scopeService,
         private readonly ScopedChatSearchService $searchService,
         private readonly ChatQueryContextService $queryContext,
+        private readonly ChatInputSanitizer $inputSanitizer,
+        private readonly ChatQualityContextService $qualityContext,
     ) {}
 
     /**
@@ -48,6 +50,10 @@ class GlobalChatDataService
 
         if (!$this->queryContext->isGreeting($message) && !$this->queryContext->isAnalyticsQuestion($message)) {
             $searchTerm = $this->extractSearchTerm($message);
+
+            if ($searchTerm !== null) {
+                $searchTerm = $this->inputSanitizer->sanitizeSearchTerm($searchTerm);
+            }
 
             if ($searchTerm !== null) {
                 $payload['search'] = [
@@ -132,14 +138,13 @@ class GlobalChatDataService
         }
 
         if ($this->scopeService->hasModulePermission($user, 'Quality Control', 'read')) {
-            $scope = $this->scopeService->resolve($user);
-            $qualityQuery = Quality::query();
+            $qualityStats = $this->qualityContext->buildStats($user);
 
-            if (!$scope->isAdmin()) {
-                $qualityQuery->whereIn('assigned_user', $scope->allowedUserIds);
+            if ($qualityStats !== null) {
+                $summaries['Quality Audits (total)'] = $qualityStats['total_latest_per_appointment'];
+                $summaries['Quality Audits (QA-Approved)'] = $qualityStats['qa_approved_count'];
+                $summaries['Quality Audits (audit qualified)'] = $qualityStats['audit_qualified_count'];
             }
-
-            $summaries['Quality Audits'] = $qualityQuery->count();
         }
 
         if ($this->scopeService->hasModulePermission($user, 'SEO', 'read')) {

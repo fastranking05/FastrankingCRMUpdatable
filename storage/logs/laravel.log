@@ -13044,3 +13044,49 @@ Stack trace:
 [2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
 [2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
 [2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 11:05:00] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:00] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:00] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:00] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 11:05:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:02] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-15 11:05:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:02] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-15 11:05:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-15 11:05:02] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:05:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-15 11:05:05] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":2,"has_search":false} 
+[2026-06-15 11:05:57] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":37,"has_search":false} 
+[2026-06-15 11:06:25] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 11:06:25] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 11:06:48] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":22,"has_search":false} 
+[2026-06-15 11:07:29] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":76,"has_search":true} 
+[2026-06-15 11:08:14] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":55,"has_search":false} 
+[2026-06-15 11:08:28] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-15 11:08:28] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-15 11:08:28] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-15 11:08:28] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-15 11:08:28] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-15 11:08:29] local.DEBUG: Permission check result {"user_id":1,"module":"Quality Control","permission":"read","has_permission":true,"user_roles":[1],"module_id":6} 
+[2026-06-15 11:08:55] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":50,"has_search":false} 
+[2026-06-15 11:24:27] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":50,"has_search":false} 
+[2026-06-15 11:24:43] local.DEBUG: Permission check result {"user_id":1,"module":"SEO","permission":"read","has_permission":true,"user_roles":[1],"module_id":7} 
+[2026-06-15 11:24:43] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:24:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:24:45] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 11:25:02] local.INFO: ai.chat.request {"user_id":1,"access_level":"admin","readable_modules":["Administration","Leads","Email","Follow-Up","Appointment","Quality Control","SEO","Consultation","Deals"],"message_length":45,"has_search":false} 
