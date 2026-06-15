@@ -1,9 +1,10 @@
 # Single Quality API Documentation
 
 ## Overview
-This API retrieves a single quality record by ID with complete relationship data including appointment details, business information, authorized persons, and **question–answer mappings**.
+This API retrieves a single quality record by ID with complete relationship data including appointment details, full business profile, authorized persons, and **question–answer mappings**.
 
 The response includes:
+- **`appointment.followup_business`** — **mandatory** business profile block (always present when appointment has a business): business details (including `priority`), `creator`, `auth_persons` (array), `business_service` (object or `null`), `lead_qualification` (object or `null`, temperature + BANT)
 - **`answers`** — only submitted answers, each with its related question
 - **`question_answers`** — all active quality questions merged with this record’s answers (use this for single-view / audit forms)
 - **`business_comments`** — all comments linked to the appointment’s business (`followup_business_id`), newest first
@@ -83,18 +84,46 @@ console.log(data);
       "created_by": 1,
       "created_at": "2026-03-24T16:39:49.000000Z",
       "updated_at": "2026-03-24T16:39:49.000000Z",
-      "followupBusiness": {
+      "followup_business": {
         "id": 1,
         "name": "ABC Corporation",
+        "trading_name": "ABC Trading",
         "category": "Technology Services",
+        "sub_category": "SaaS",
         "type": "Enterprise Client",
+        "source_name": "Website",
+        "sub_source": "Google Ads",
+        "priority": "high",
         "website": "https://abccorp.com",
-        "phone": "+2541220036",
-        "email": "contact@abccorp.com",
+        "annual_revenue": "750000.00",
+        "number_of_locations": 5,
         "created_by": 1,
         "created_at": "2026-03-24T16:39:49.000000Z",
         "updated_at": "2026-03-24T16:39:49.000000Z",
-        "authPersons": [
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User"
+        },
+        "business_service": {
+          "id": 1,
+          "interested_service_ids": [1, 2],
+          "interested_services_list": [
+            { "id": 1, "name": "SEO" },
+            { "id": 2, "name": "PPC" }
+          ],
+          "primary_service_id": 1,
+          "primary_service": { "id": 1, "name": "SEO" }
+        },
+        "lead_qualification": {
+          "id": 1,
+          "temperature": "hot",
+          "budget": true,
+          "authority": false,
+          "need": true,
+          "timeline": false
+        },
+        "auth_persons": [
           {
             "id": 1,
             "title": "Mr.",
@@ -304,20 +333,31 @@ Allowed values for `answer` / `answers`:
 | date | date | Appointment date |
 | time_slot_id | integer | Time slot ID |
 | current_status | string | Current appointment status |
-| followupBusiness | object | Business information |
-| timeSlot | object | Time slot information |
+| followup_business | object | Full business profile (see Business Fields) |
+| time_slot | object | Time slot information |
 
-### Business Fields
+### Business Fields (`appointment.followup_business`)
 | Field | Type | Description |
 |-------|------|-------------|
 | id | integer | Business ID |
 | name | string | Business name |
+| trading_name | string | Trading name |
+| company_registration_number | string | Company registration number |
+| address | string | Business address |
+| company_size | string | Company size |
 | category | string | Business category |
+| sub_category | string | Business sub-category |
 | type | string | Business type |
+| source_name | string | Lead source |
+| sub_source | string | Lead sub-source |
+| priority | string | Lead priority: `low`, `medium`, `high`, `urgent` |
+| annual_revenue | decimal | Annual revenue |
+| number_of_locations | integer | Number of locations |
 | website | string | Business website |
-| phone | string | Business phone |
-| email | string | Business email |
-| authPersons | array | Array of authorized persons |
+| creator | object | User who created the lead |
+| auth_persons | array | Authorized persons (full profile) |
+| business_service | object | Service profile with `primary_service` and `interested_services_list` |
+| lead_qualification | object | Qualification profile: `temperature`, `budget`, `authority`, `need`, `timeline` |
 
 ### Authorized Person Fields
 | Field | Type | Description |
@@ -631,9 +671,10 @@ curl -X GET \
 | 1.1 | 2026-03-30 | Fixed relationship names, added timeSlot |
 | 1.2 | 2026-06-09 | Added `question_answers` mapped array; `answers` now includes nested `question` and `answer` fields |
 | 1.3 | 2026-06-09 | Added `business_comments` mapped by `followup_business_id` |
+| 1.4 | 2026-06-11 | Single view includes full `followup_business` profile: `business_service`, `lead_qualification`, and complete business fields |
 
 ---
 
 ## Summary
 
-The Single Quality API provides comprehensive access to individual quality audit records with complete relationship data including business information, authorized persons, appointment details, and **mapped question–answers**. Use `question_answers` for single-view/audit forms and `answers` for submitted answer records only. Authentication and `Quality Control,read` permission are required.
+The Single Quality API provides comprehensive access to individual quality audit records with complete relationship data including full business profile (`business_service`, `lead_qualification`, auth persons), appointment details, and **mapped question–answers**. Use `question_answers` for single-view/audit forms and `answers` for submitted answer records only. Authentication and `Quality Control,read` permission are required.

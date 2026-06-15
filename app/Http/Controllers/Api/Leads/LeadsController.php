@@ -6,9 +6,12 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupAuthPerson;
+use App\Models\BusinessService;
+use App\Models\LeadQualification;
 use App\Models\Comment;
 use App\Models\User;
 use App\Services\DateRangeFilterService;
+use App\Support\FollowupBusinessProfile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,90 +31,24 @@ class LeadsController extends BaseApiController
      */
     public function store(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            // Business details
-            'business_name' => 'required|string|max:255',
-            'trading_name' => 'nullable|string|max:255',
-            'company_registration_number' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:1000',
-            'company_size' => 'nullable|string|max:100',
-            'category' => 'nullable|string|max:255',
-            'sub_category' => 'nullable|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'source_name' => 'nullable|string|max:50',
-            'sub_source' => 'nullable|string|max:50',
-            'annual_revenue' => 'nullable|numeric|min:0',
-            'number_of_locations' => 'nullable|integer|min:0',
-            'website' => 'nullable|url|max:255',
-            
-            // Auth persons array
-            'auth_persons' => 'required|array',
-            'auth_persons.*.title' => 'nullable|string|max:50',
-            'auth_persons.*.firstname' => 'required|string|max:255',
-            'auth_persons.*.middlename' => 'nullable|string|max:255',
-            'auth_persons.*.lastname' => 'required|string|max:255',
-            'auth_persons.*.is_primary' => 'nullable|boolean',
-            'auth_persons.*.job_title' => 'nullable|string|max:255',
-            'auth_persons.*.gender' => 'nullable|in:male,female,other',
-            'auth_persons.*.dob' => 'nullable|date',
-            'auth_persons.*.primaryphone' => 'nullable|string',
-            'auth_persons.*.altphone' => 'nullable|string',
-            'auth_persons.*.primarymobile' => 'nullable|string',
-            'auth_persons.*.altmobile' => 'nullable|string',
-            'auth_persons.*.primaryemail' => 'required|email',
-            'auth_persons.*.altemail' => 'nullable|email',
-            
-            // Comments array
-            'comments' => 'nullable|array',
-            'comments.*.followup_business_id' => 'nullable|exists:followup_businesses,id',
-            'comments.*.comment' => 'required|string',
-            'comments.*.old_status' => 'nullable|string|max:255',
-            'comments.*.new_status' => 'nullable|string|max:255',
-        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
+        $validator = Validator::make($request->all(), $this->leadPayloadValidationRules(isUpdate: false));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
         return $this->executeTransaction(function () use ($request) {
-            // Create business
-            $business = FollowupBusiness::create([
-                'name' => $request->business_name,
-                'trading_name' => $request->trading_name,
-                'company_registration_number' => $request->company_registration_number,
-                'address' => $request->address,
-                'company_size' => $request->company_size,
-                'category' => $request->category,
-                'sub_category' => $request->sub_category,
-                'type' => $request->type,
-                'source_name' => $request->source_name,
-                'sub_source' => $request->sub_source,
-                'annual_revenue' => $request->annual_revenue,
-                'number_of_locations' => $request->number_of_locations,
-                'website' => $request->website,
-                'created_by' => auth()->id(),
-            ]);
+            $business = FollowupBusiness::create(array_merge(
+                $this->businessAttributesFromRequest($request),
+                ['created_by' => auth()->id()]
+            ));
 
             // Create auth persons and attach to business
             $authPersonIds = [];
             foreach ($request->auth_persons as $authPersonData) {
-                $authPerson = FollowupAuthPerson::create(array_merge([
-                    'title' => $authPersonData['title'] ?? null,
-                    'firstname' => $authPersonData['firstname'],
-                    'middlename' => $authPersonData['middlename'] ?? null,
-                    'lastname' => $authPersonData['lastname'],
-                    'is_primary' => $authPersonData['is_primary'] ?? false,
-                    'job_title' => $authPersonData['job_title'] ?? null,
-                    'gender' => $authPersonData['gender'] ?? null,
-                    'dob' => $authPersonData['dob'] ?? null,
-                    'primaryphone' => $authPersonData['primaryphone'] ?? null,
-                    'altphone' => $authPersonData['altphone'] ?? null,
-                    'primarymobile' => $authPersonData['primarymobile'] ?? null,
-                    'altmobile' => $authPersonData['altmobile'] ?? null,
-                    'primaryemail' => $authPersonData['primaryemail'],
-                    'altemail' => $authPersonData['altemail'] ?? null,
-                    'created_by' => auth()->id(),
-                ], FollowupAuthPerson::profileFieldsFromArray($authPersonData)));
+                $authPerson = FollowupAuthPerson::create(
+                    $this->authPersonAttributesFromRequest($authPersonData, true)
+                );
 
                 $authPersonIds[] = $authPerson->id;
             }
@@ -132,10 +69,23 @@ class LeadsController extends BaseApiController
                 }
             }
 
-            // Load relationships for response
-            $business->load(['creator:id,first_name,last_name', 'authPersons']);
+            // Create business service profile if provided
+            if ($request->has('business_service') && is_array($request->business_service)
+                && BusinessService::hasPayloadData($request->business_service)) {
+                BusinessService::createForBusiness($business->id, $request->business_service);
+            }
 
-            return $this->successResponse($business, 'Lead created successfully', 201);
+            // Create lead qualification profile if provided
+            if ($request->has('lead_qualification') && is_array($request->lead_qualification)
+                && LeadQualification::hasPayloadData($request->lead_qualification)) {
+                LeadQualification::createForBusiness($business->id, $request->lead_qualification);
+            }
+
+            return $this->successResponse(
+                $this->leadResponsePayload($business),
+                'Lead created successfully',
+                201
+            );
         }, 'Lead creation', $request->only(['business_name']));
     }
 
@@ -266,6 +216,10 @@ class LeadsController extends BaseApiController
                 $query->where('sub_source', $request->input('sub_source'));
             }
 
+            if ($request->has('priority')) {
+                $query->where('priority', $request->input('priority'));
+            }
+
             if ($request->has('status')) {
                 $query->whereHas('followupDetails', function ($statusQuery) use ($request) {
                     $statusQuery->where('status', $request->input('status'));
@@ -320,6 +274,7 @@ class LeadsController extends BaseApiController
                 'Non-Profit',
             ],
             'source_name_options' => $sourceNames,
+            'priority_options' => FollowupBusiness::PRIORITIES,
             'status_options' => [
                 'New',
                 'Contacted',
@@ -341,36 +296,16 @@ class LeadsController extends BaseApiController
     public function show(int $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $business = FollowupBusiness::with([
-                'creator:id,first_name,last_name',
-                'authPersons',
-                'comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                },
-                'followupDetails',
-                'emails' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                },
-                'appointments' => function ($query) {
-                    $query->with([
-                        'timeSlot:id,name,start_time,end_time,duration_minutes',
-                        'creator:id,first_name,last_name',
-                        'quality',
-                        'consultations' => function ($consultationQuery) {
-                            $consultationQuery->with([
-                                'meetingSlot:id,start_time,end_time',
-                                'assignedUser:id,first_name,last_name,username'
-                            ])->orderBy('created_at', 'desc');
-                        }
-                    ])->orderBy('date', 'desc')->orderBy('time_slot_id', 'desc');
-                }
-            ])->find($id);
+            $business = FollowupBusiness::find($id);
 
             if (!$business) {
                 return $this->errorResponse('Lead not found', 404);
             }
 
-            return $this->successResponse($business, 'Lead retrieved successfully');
+            return $this->successResponse(
+                $this->leadResponsePayload($business),
+                'Lead retrieved successfully'
+            );
         }, 'Lead retrieval', ['lead_id' => $id]);
     }
 
@@ -385,81 +320,49 @@ class LeadsController extends BaseApiController
             return $this->errorResponse('Lead not found', 404);
         }
 
-        $validator = Validator::make($request->all(), [
-            'business_name' => 'sometimes|required|string|max:255',
-            'trading_name' => 'nullable|string|max:255',
-            'company_registration_number' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:1000',
-            'company_size' => 'nullable|string|max:100',
-            'category' => 'nullable|string|max:255',
-            'sub_category' => 'nullable|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'source_name' => 'nullable|string|max:50',
-            'sub_source' => 'nullable|string|max:50',
-            'annual_revenue' => 'nullable|numeric|min:0',
-            'number_of_locations' => 'nullable|integer|min:0',
-            'website' => 'nullable|url|max:255',
-            'auth_person_ids' => 'nullable|array',
-            'auth_person_ids.*' => 'exists:followup_auth_persons,id',
-        ]);
+        $validator = Validator::make($request->all(), $this->leadPayloadValidationRules(isUpdate: true));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
         return $this->executeTransaction(function () use ($request, $business) {
-            $updateData = [];
-            
-            if ($request->has('business_name')) {
-                $updateData['name'] = $request->business_name;
-            }
-            if ($request->has('trading_name')) {
-                $updateData['trading_name'] = $request->trading_name;
-            }
-            if ($request->has('company_registration_number')) {
-                $updateData['company_registration_number'] = $request->company_registration_number;
-            }
-            if ($request->has('address')) {
-                $updateData['address'] = $request->address;
-            }
-            if ($request->has('company_size')) {
-                $updateData['company_size'] = $request->company_size;
-            }
-            if ($request->has('category')) {
-                $updateData['category'] = $request->category;
-            }
-            if ($request->has('sub_category')) {
-                $updateData['sub_category'] = $request->sub_category;
-            }
-            if ($request->has('type')) {
-                $updateData['type'] = $request->type;
-            }
-            if ($request->has('source_name')) {
-                $updateData['source_name'] = $request->source_name;
-            }
-            if ($request->has('sub_source')) {
-                $updateData['sub_source'] = $request->sub_source;
-            }
-            if ($request->has('annual_revenue')) {
-                $updateData['annual_revenue'] = $request->annual_revenue;
-            }
-            if ($request->has('number_of_locations')) {
-                $updateData['number_of_locations'] = $request->number_of_locations;
-            }
-            if ($request->has('website')) {
-                $updateData['website'] = $request->website;
+            $updateData = $this->businessAttributesFromRequest($request, onlyProvided: true);
+
+            if ($updateData !== []) {
+                $business->update($updateData);
             }
 
-            $business->update($updateData);
-
-            // Sync authorized persons if provided
-            if ($request->has('auth_person_ids')) {
-                $business->authPersons()->sync($request->auth_person_ids);
+            if ($request->has('auth_persons') && is_array($request->auth_persons)) {
+                $this->syncAuthPersonsForLead($business, $request->auth_persons);
             }
 
-            $business->load(['creator:id,first_name,last_name', 'authPersons']);
+            if ($request->has('comments') && is_array($request->comments)) {
+                foreach ($request->comments as $commentData) {
+                    Comment::create([
+                        'followup_business_id' => $commentData['followup_business_id'] ?? $business->id,
+                        'comment' => $commentData['comment'],
+                        'old_status' => $commentData['old_status'] ?? null,
+                        'new_status' => $commentData['new_status'] ?? null,
+                        'created_by' => auth()->id(),
+                    ]);
+                }
+            }
 
-            return $this->successResponse($business, 'Lead updated successfully');
+            if ($request->has('business_service') && is_array($request->business_service)
+                && BusinessService::hasPayloadData($request->business_service)) {
+                BusinessService::upsertForBusiness($business->id, $request->business_service);
+            }
+
+            if ($request->has('lead_qualification') && is_array($request->lead_qualification)
+                && LeadQualification::hasPayloadData($request->lead_qualification)) {
+                LeadQualification::upsertForBusiness($business->id, $request->lead_qualification);
+            }
+
+            return $this->successResponse(
+                $this->leadResponsePayload($business->fresh()),
+                'Lead updated successfully'
+            );
         }, 'Lead update', ['lead_id' => $business->id]);
     }
 
@@ -482,6 +385,222 @@ class LeadsController extends BaseApiController
 
             return $this->successResponse(null, 'Lead deleted successfully');
         }, 'Lead deletion', ['lead_id' => $id]);
+    }
+
+    /**
+     * Shared validation for create and update lead payloads.
+     *
+     * @return array<string, string>
+     */
+    private function leadPayloadValidationRules(bool $isUpdate = false): array
+    {
+        $rules = [
+            'business_name' => ($isUpdate ? 'sometimes|' : '').'required|string|max:255',
+            'trading_name' => 'nullable|string|max:255',
+            'company_registration_number' => 'nullable|string|max:100',
+            'address' => 'nullable|string|max:1000',
+            'company_size' => 'nullable|string|max:100',
+            'category' => 'nullable|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
+            'type' => 'nullable|string|max:255',
+            'source_name' => 'nullable|string|max:50',
+            'sub_source' => 'nullable|string|max:50',
+            'priority' => 'nullable|in:low,medium,high,urgent',
+            'annual_revenue' => 'nullable|numeric|min:0',
+            'number_of_locations' => 'nullable|integer|min:0',
+            'website' => 'nullable|url|max:255',
+            'auth_persons' => ($isUpdate ? 'nullable' : 'required').'|array',
+            'auth_persons.*.title' => 'nullable|string|max:50',
+            'auth_persons.*.firstname' => 'required|string|max:255',
+            'auth_persons.*.middlename' => 'nullable|string|max:255',
+            'auth_persons.*.lastname' => 'required|string|max:255',
+            'auth_persons.*.is_primary' => 'nullable|boolean',
+            'auth_persons.*.job_title' => 'nullable|string|max:255',
+            'auth_persons.*.gender' => 'nullable|in:male,female,other',
+            'auth_persons.*.dob' => 'nullable|date',
+            'auth_persons.*.primaryphone' => 'nullable|string',
+            'auth_persons.*.altphone' => 'nullable|string',
+            'auth_persons.*.primarymobile' => 'nullable|string',
+            'auth_persons.*.altmobile' => 'nullable|string',
+            'auth_persons.*.primaryemail' => 'required|email',
+            'auth_persons.*.altemail' => 'nullable|email',
+            'comments' => 'nullable|array',
+            'comments.*.followup_business_id' => 'nullable|exists:followup_businesses,id',
+            'comments.*.comment' => 'required|string',
+            'comments.*.old_status' => 'nullable|string|max:255',
+            'comments.*.new_status' => 'nullable|string|max:255',
+        ];
+
+        if ($isUpdate) {
+            $rules['auth_persons.*.id'] = 'nullable|exists:followup_auth_persons,id';
+        }
+
+        return $rules
+            + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*')
+            + BusinessService::validationRules()
+            + LeadQualification::validationRules();
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function businessAttributesFromRequest(Request $request, bool $onlyProvided = false): array
+    {
+        $fieldMap = [
+            'business_name' => 'name',
+            'trading_name' => 'trading_name',
+            'company_registration_number' => 'company_registration_number',
+            'address' => 'address',
+            'company_size' => 'company_size',
+            'category' => 'category',
+            'sub_category' => 'sub_category',
+            'type' => 'type',
+            'source_name' => 'source_name',
+            'sub_source' => 'sub_source',
+            'priority' => 'priority',
+            'annual_revenue' => 'annual_revenue',
+            'number_of_locations' => 'number_of_locations',
+            'website' => 'website',
+        ];
+
+        $attributes = [];
+
+        foreach ($fieldMap as $requestKey => $column) {
+            if ($onlyProvided && !$request->has($requestKey)) {
+                continue;
+            }
+
+            $attributes[$column] = $request->input($requestKey);
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * @param  array<int, array<string, mixed>>  $authPersonsData
+     */
+    private function syncAuthPersonsForLead(FollowupBusiness $business, array $authPersonsData): void
+    {
+        $currentAuthPersonIds = $business->authPersons()->pluck('followup_auth_persons.id')->all();
+        $newAuthPersonIds = [];
+
+        foreach ($authPersonsData as $authPersonData) {
+            if (!empty($authPersonData['id'])) {
+                $authPerson = FollowupAuthPerson::find($authPersonData['id']);
+                if ($authPerson === null || !$business->authPersons()->where('followup_auth_persons.id', $authPerson->id)->exists()) {
+                    continue;
+                }
+
+                $authPerson->update($this->authPersonAttributesFromRequest($authPersonData));
+                $newAuthPersonIds[] = $authPerson->id;
+
+                continue;
+            }
+
+            $authPerson = FollowupAuthPerson::create($this->authPersonAttributesFromRequest($authPersonData, true));
+            $newAuthPersonIds[] = $authPerson->id;
+        }
+
+        $idsToDetach = array_diff($currentAuthPersonIds, $newAuthPersonIds);
+        foreach ($idsToDetach as $authPersonId) {
+            $business->authPersons()->detach($authPersonId);
+
+            $personToDelete = FollowupAuthPerson::find($authPersonId);
+            if ($personToDelete !== null && $personToDelete->businesses()->count() === 0) {
+                $personToDelete->delete();
+            }
+        }
+
+        $business->authPersons()->sync($newAuthPersonIds);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function authPersonAttributesFromRequest(array $authPersonData, bool $isNew = false): array
+    {
+        $attributes = array_merge([
+            'title' => $authPersonData['title'] ?? null,
+            'firstname' => $authPersonData['firstname'],
+            'middlename' => $authPersonData['middlename'] ?? null,
+            'lastname' => $authPersonData['lastname'],
+            'is_primary' => $authPersonData['is_primary'] ?? false,
+            'job_title' => $authPersonData['job_title'] ?? null,
+            'gender' => $authPersonData['gender'] ?? null,
+            'dob' => $authPersonData['dob'] ?? null,
+            'primaryphone' => $authPersonData['primaryphone'] ?? null,
+            'altphone' => $authPersonData['altphone'] ?? null,
+            'primarymobile' => $authPersonData['primarymobile'] ?? null,
+            'altmobile' => $authPersonData['altmobile'] ?? null,
+            'primaryemail' => $authPersonData['primaryemail'],
+            'altemail' => $authPersonData['altemail'] ?? null,
+        ], FollowupAuthPerson::profileFieldsFromArray($authPersonData));
+
+        if ($isNew) {
+            $attributes['created_by'] = auth()->id();
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function leadResponsePayload(FollowupBusiness $business): array
+    {
+        $business->load($this->leadDetailRelations());
+
+        return FollowupBusinessProfile::leadShowPayload($business, [
+            'comments' => $business->comments,
+            'followup_details' => $business->followupDetails,
+            'emails' => $business->emails,
+            'appointments' => $business->appointments,
+            'deals' => $business->deals,
+            'seo_details' => $business->seoDetails,
+        ]);
+    }
+
+    /**
+     * @return array<int|string, mixed>
+     */
+    private function leadDetailRelations(): array
+    {
+        return array_merge(FollowupBusiness::profileRelations(), [
+            'comments' => function ($query) {
+                $query->with('creator:id,first_name,last_name')->orderByDesc('created_at');
+            },
+            'followupDetails' => function ($query) {
+                $query->with('creator:id,first_name,last_name')
+                    ->orderByDesc('date')
+                    ->orderByDesc('time');
+            },
+            'emails' => function ($query) {
+                $query->with('creator:id,first_name,last_name')->orderByDesc('created_at');
+            },
+            'appointments' => function ($query) {
+                $query->with([
+                    'timeSlot:id,name,start_time,end_time,duration_minutes',
+                    'creator:id,first_name,last_name',
+                    'quality',
+                    'consultations' => function ($consultationQuery) {
+                        $consultationQuery->with([
+                            'meetingSlot:id,start_time,end_time',
+                            'assignedUser:id,first_name,last_name,username',
+                        ])->orderByDesc('created_at');
+                    },
+                ])->orderByDesc('date')->orderByDesc('time_slot_id');
+            },
+            'deals' => function ($query) {
+                $query->with([
+                    'authPerson:id,title,firstname,lastname,primaryemail,primarymobile',
+                    'creator:id,first_name,last_name',
+                ])->orderByDesc('created_at');
+            },
+            'seoDetails' => function ($query) {
+                $query->with('assignedUser:id,first_name,last_name,username')
+                    ->orderByDesc('created_at');
+            },
+        ]);
     }
 
     private function getLeadsBaseQuery()
@@ -530,6 +649,7 @@ class LeadsController extends BaseApiController
         if ($request->has('type')) $query->where('type', $request->type);
         if ($request->has('source_name')) $query->where('source_name', $request->source_name);
         if ($request->has('sub_source')) $query->where('sub_source', $request->sub_source);
+        if ($request->has('priority')) $query->where('priority', $request->priority);
         if ($request->has('name')) $query->where('name', 'like', '%' . $request->name . '%');
         return $query;
     }
@@ -540,11 +660,16 @@ class LeadsController extends BaseApiController
     }
 
     /**
-     * Check for duplicate lead data
+     * Check for duplicate lead data (business name, website, phone, mobile, email).
      */
     public function checkDuplicate(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
+            'business_name' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
+            'phone' => 'nullable|string',
+            'mobile' => 'nullable|string',
+            'email' => 'nullable|email',
             'auth_person_phone' => 'nullable|string',
             'auth_person_mobile' => 'nullable|string',
             'auth_person_email' => 'nullable|email',
@@ -554,61 +679,160 @@ class LeadsController extends BaseApiController
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
+        $businessName = $this->filledDuplicateValue($request, 'business_name');
+        $website = $this->filledDuplicateValue($request, 'website');
+        $phone = $this->filledDuplicateValue($request, 'phone')
+            ?? $this->filledDuplicateValue($request, 'auth_person_phone');
+        $mobile = $this->filledDuplicateValue($request, 'mobile')
+            ?? $this->filledDuplicateValue($request, 'auth_person_mobile');
+        $email = $this->filledDuplicateValue($request, 'email')
+            ?? $this->filledDuplicateValue($request, 'auth_person_email');
+
+        if ($businessName === null && $website === null && $phone === null && $mobile === null && $email === null) {
+            return $this->errorResponse('Validation failed', 422, [
+                'fields' => ['At least one of business_name, website, phone, mobile, or email is required.'],
+            ]);
+        }
+
         $duplicates = [];
 
-        // Check auth person phone (primaryphone or altphone)
-        if ($request->has('auth_person_phone') && !empty($request->auth_person_phone)) {
-            $authPersonPhone = FollowupAuthPerson::where('primaryphone', $request->auth_person_phone)
-                ->orWhere('altphone', $request->auth_person_phone)
+        if ($businessName !== null) {
+            $normalizedName = $this->normalizeBusinessName($businessName);
+            $business = FollowupBusiness::query()
+                ->where(function ($query) use ($normalizedName) {
+                    $query->whereRaw('LOWER(TRIM(name)) = ?', [$normalizedName])
+                        ->orWhereRaw('LOWER(TRIM(trading_name)) = ?', [$normalizedName]);
+                })
                 ->first();
-            if ($authPersonPhone) {
-                $business = $authPersonPhone->businesses()->first();
-                $duplicates['auth_person_phone'] = [
-                    'exists' => true,
-                    'lead_id' => $business ? $business->id : null,
-                    'business_name' => $business ? $business->name : null,
-                    'auth_person_name' => $authPersonPhone->firstname . ' ' . $authPersonPhone->lastname,
-                ];
+
+            if ($business !== null) {
+                $duplicates['business_name'] = $this->duplicateResultForBusiness($business);
             }
         }
 
-        // Check auth person mobile (primarymobile or altmobile)
-        if ($request->has('auth_person_mobile') && !empty($request->auth_person_mobile)) {
-            $authPersonMobile = FollowupAuthPerson::where('primarymobile', $request->auth_person_mobile)
-                ->orWhere('altmobile', $request->auth_person_mobile)
-                ->first();
-            if ($authPersonMobile) {
-                $business = $authPersonMobile->businesses()->first();
-                $duplicates['auth_person_mobile'] = [
-                    'exists' => true,
-                    'lead_id' => $business ? $business->id : null,
-                    'business_name' => $business ? $business->name : null,
-                    'auth_person_name' => $authPersonMobile->firstname . ' ' . $authPersonMobile->lastname,
-                ];
+        if ($website !== null) {
+            $normalizedWebsite = $this->normalizeWebsite($website);
+            $business = FollowupBusiness::query()
+                ->whereNotNull('website')
+                ->where('website', '!=', '')
+                ->get()
+                ->first(fn (FollowupBusiness $candidate) => $this->normalizeWebsite($candidate->website) === $normalizedWebsite);
+
+            if ($business !== null) {
+                $duplicates['website'] = $this->duplicateResultForBusiness($business, includeWebsite: true);
             }
         }
 
-        // Check auth person email (primaryemail or altemail)
-        if ($request->has('auth_person_email') && !empty($request->auth_person_email)) {
-            $authPersonEmail = FollowupAuthPerson::where('primaryemail', $request->auth_person_email)
-                ->orWhere('altemail', $request->auth_person_email)
-                ->first();
-            if ($authPersonEmail) {
-                $business = $authPersonEmail->businesses()->first();
-                $duplicates['auth_person_email'] = [
-                    'exists' => true,
-                    'lead_id' => $business ? $business->id : null,
-                    'business_name' => $business ? $business->name : null,
-                    'auth_person_name' => $authPersonEmail->firstname . ' ' . $authPersonEmail->lastname,
-                ];
+        if ($phone !== null) {
+            $authPerson = $this->findAuthPersonByContact('phone', $phone);
+            if ($authPerson !== null) {
+                $duplicates['phone'] = $this->duplicateResultForAuthPerson($authPerson);
             }
         }
 
-        $hasDuplicates = !empty($duplicates);
+        if ($mobile !== null) {
+            $authPerson = $this->findAuthPersonByContact('mobile', $mobile);
+            if ($authPerson !== null) {
+                $duplicates['mobile'] = $this->duplicateResultForAuthPerson($authPerson);
+            }
+        }
+
+        if ($email !== null) {
+            $authPerson = $this->findAuthPersonByContact('email', strtolower($email));
+            if ($authPerson !== null) {
+                $duplicates['email'] = $this->duplicateResultForAuthPerson($authPerson);
+            }
+        }
+
+        $hasDuplicates = $duplicates !== [];
 
         return $this->successResponse([
             'has_duplicates' => $hasDuplicates,
             'duplicates' => $duplicates,
         ], $hasDuplicates ? 'Duplicates found' : 'No duplicates found');
+    }
+
+    private function filledDuplicateValue(Request $request, string $key): ?string
+    {
+        if (!$request->has($key)) {
+            return null;
+        }
+
+        $value = trim((string) $request->input($key));
+
+        return $value === '' ? null : $value;
+    }
+
+    private function normalizeWebsite(?string $website): ?string
+    {
+        if ($website === null) {
+            return null;
+        }
+
+        $normalized = strtolower(rtrim(trim($website), '/'));
+
+        return $normalized === '' ? null : $normalized;
+    }
+
+    private function normalizeBusinessName(string $businessName): string
+    {
+        return strtolower(trim($businessName));
+    }
+
+    private function findAuthPersonByContact(string $type, string $value): ?FollowupAuthPerson
+    {
+        return FollowupAuthPerson::query()
+            ->where(function ($query) use ($type, $value) {
+                if ($type === 'phone') {
+                    $query->where('primaryphone', $value)
+                        ->orWhere('altphone', $value);
+
+                    return;
+                }
+
+                if ($type === 'mobile') {
+                    $query->where('primarymobile', $value)
+                        ->orWhere('altmobile', $value);
+
+                    return;
+                }
+
+                $query->whereRaw('LOWER(primaryemail) = ?', [$value])
+                    ->orWhereRaw('LOWER(altemail) = ?', [$value]);
+            })
+            ->first();
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function duplicateResultForBusiness(FollowupBusiness $business, bool $includeWebsite = false): array
+    {
+        $result = [
+            'exists' => true,
+            'lead_id' => $business->id,
+            'business_name' => $business->name,
+        ];
+
+        if ($includeWebsite) {
+            $result['website'] = $business->website;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function duplicateResultForAuthPerson(FollowupAuthPerson $authPerson): array
+    {
+        $business = $authPerson->businesses()->first();
+
+        return [
+            'exists' => true,
+            'lead_id' => $business?->id,
+            'business_name' => $business?->name,
+            'auth_person_name' => trim($authPerson->firstname.' '.$authPerson->lastname),
+        ];
     }
 }

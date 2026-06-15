@@ -144,7 +144,7 @@ The API implements role-based access control similar to the Quality module:
 
 **Endpoint:** `GET /api/seo-view/comprehensive`
 
-**Description:** Retrieves comprehensive SEO data including business details, auth persons, comments, and SEO details
+**Description:** Retrieves comprehensive SEO data including full business profile (`business_details`), auth persons, business service, lead qualification, comments, appointments, and SEO details
 
 **Response Format:**
 ```json
@@ -201,11 +201,20 @@ The API implements role-based access control similar to the Quality module:
             "business_details": {
                 "id": 1,
                 "name": "Example Business",
+                "trading_name": "Example Trading",
+                "company_registration_number": "12345678",
+                "address": "123 Main Street",
+                "company_size": "11-50",
                 "category": "Technology",
+                "sub_category": "SaaS",
                 "type": "Company",
+                "source_name": "Website",
+                "sub_source": "Google Ads",
+                "priority": "high",
+                "annual_revenue": "500000.00",
+                "number_of_locations": 3,
                 "website": "https://example.com",
-                "phone": "+1234567890",
-                "email": "business@example.com",
+                "created_by": 1,
                 "created_at": "2026-05-12T09:00:00.000000Z",
                 "updated_at": "2026-05-12T09:00:00.000000Z",
                 "creator": {
@@ -227,6 +236,24 @@ The API implements role-based access control similar to the Quality module:
                         "is_primary": true
                     }
                 ],
+                "business_service": {
+                    "id": 1,
+                    "interested_service_ids": [1, 2],
+                    "interested_services_list": [
+                        { "id": 1, "name": "SEO" },
+                        { "id": 2, "name": "PPC" }
+                    ],
+                    "primary_service_id": 1,
+                    "primary_service": { "id": 1, "name": "SEO" }
+                },
+                "lead_qualification": {
+                    "id": 1,
+                    "temperature": "hot",
+                    "budget": true,
+                    "authority": false,
+                    "need": true,
+                    "timeline": false
+                },
                 "comments": [
                     {
                         "id": 1,
@@ -267,9 +294,40 @@ The API implements role-based access control similar to the Quality module:
 
 **Endpoint:** `GET /api/seo-view/business/{businessId}`
 
-**Description:** Retrieves comprehensive SEO data for a specific business
+**Description:** Retrieves comprehensive SEO data for a specific business (single-view).
 
-**Response Format:** Same as comprehensive view, but for single business only
+**Mandatory `business_details` block:** always includes business fields, `creator`, `auth_persons` (array), `business_service` (object or `null`), and `lead_qualification` (object or `null`). `comments` and `appointments` are returned in addition. When `business_service` is present, it includes `primary_service` and `interested_services_list`.
+
+**Response Format:** Same structure as comprehensive view, but returns a single record for one business:
+
+```json
+{
+    "success": true,
+    "message": "Comprehensive SEO view for business retrieved successfully",
+    "data": {
+        "seo_details": { ... },
+        "business_details": {
+            "id": 1,
+            "name": "Example Business",
+            "priority": "high",
+            "auth_persons": [...],
+            "business_service": {
+                "interested_services_list": [{ "id": 1, "name": "SEO" }],
+                "primary_service": { "id": 1, "name": "SEO" }
+            },
+            "lead_qualification": {
+                "temperature": "hot",
+                "budget": true,
+                "authority": false,
+                "need": true,
+                "timeline": false
+            },
+            "comments": [...],
+            "appointments": [...]
+        }
+    }
+}
+```
 
 ### 7. Get SEO Filter Options
 

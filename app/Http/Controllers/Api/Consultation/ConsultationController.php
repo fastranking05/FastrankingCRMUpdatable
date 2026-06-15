@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Http\Controllers\Concerns\AppliesLastThreeMonthsFilter;
 use App\Models\Consultation;
 use App\Models\Appointment;
+use App\Models\FollowupBusiness;
+use App\Support\FollowupBusinessProfile;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Comment;
@@ -273,8 +275,13 @@ class ConsultationController extends BaseApiController
         $consultation = Consultation::with([
             'appointment' => function($query) {
                 $query->with([
-                    'followupBusiness' => function($query) {
-                        $query->with(['authPersons', 'comments']);
+                    'followupBusiness' => function ($businessQuery) {
+                        $businessQuery->with(array_merge(FollowupBusiness::profileRelations(), [
+                            'comments' => function ($commentQuery) {
+                                $commentQuery->with('creator:id,first_name,last_name,email,username')
+                                    ->orderByDesc('created_at');
+                            },
+                        ]));
                     },
                     'timeSlot',
                     'quality',
@@ -291,7 +298,19 @@ class ConsultationController extends BaseApiController
             return $this->errorResponse('Consultation not found', 404);
         }
 
-        return $this->successResponse($consultation, 'Consultation retrieved successfully');
+        $payload = $consultation->toArray();
+        $business = $consultation->appointment?->followupBusiness;
+
+        if (isset($payload['appointment']) && is_array($payload['appointment'])) {
+            $payload['appointment'] = FollowupBusinessProfile::attach(
+                $payload['appointment'],
+                $business,
+                'followup_business',
+                $business?->relationLoaded('comments') ? ['comments' => $business->comments] : []
+            );
+        }
+
+        return $this->successResponse($payload, 'Consultation retrieved successfully');
     }
 
     /**

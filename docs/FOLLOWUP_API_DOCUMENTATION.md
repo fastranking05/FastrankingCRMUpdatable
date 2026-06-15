@@ -214,7 +214,59 @@ Adds follow-up details and comments to an existing business.
 
 ---
 
-## 4. Update Follow-Up Details and Comments
+## 4. Get Follow-Up Record (Single View)
+**GET** `/followup/{id}`
+
+Retrieves a complete follow-up record for a business.
+
+**Mandatory business profile (always at root of `data`):** business fields, `creator`, `auth_persons`, `business_service` (`null` if not set), `lead_qualification` (`null` if not set). `followup_details` and `comments` are returned in addition.
+
+Includes:
+- Full business details (including `priority`)
+- Authorized persons (full profile)
+- Business service profile (`business_service` with `primary_service` and `interested_services_list`)
+- Lead qualification profile (`lead_qualification` — temperature + BANT)
+- Follow-up details (with creators)
+- Comments (with creators)
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Follow-up record retrieved successfully",
+  "data": {
+    "id": 1,
+    "name": "ABC Corporation",
+    "trading_name": "ABC Trading",
+    "priority": "high",
+    "source_name": "Website",
+    "sub_source": "Google Ads",
+    "creator": { "id": 1, "first_name": "Admin", "last_name": "User" },
+    "auth_persons": [...],
+    "business_service": {
+      "interested_service_ids": [1, 2, 4],
+      "interested_services_list": [
+        { "id": 1, "name": "SEO" },
+        { "id": 2, "name": "PPC" }
+      ],
+      "primary_service": { "id": 1, "name": "SEO" }
+    },
+    "lead_qualification": {
+      "temperature": "hot",
+      "budget": true,
+      "authority": false,
+      "need": true,
+      "timeline": false
+    },
+    "followup_details": [...],
+    "comments": [...]
+  }
+}
+```
+
+---
+
+## 5. Update Follow-Up Details and Comments
 **PUT** `/followup/{id}`
 
 Updates follow-up details and comments for an existing business.
@@ -259,7 +311,10 @@ Updates follow-up details and comments for an existing business.
   "data": {
     "id": 1,
     "name": "ABC Corporation",
-    "followupDetails": [...],
+    "auth_persons": [...],
+    "business_service": {...},
+    "lead_qualification": {...},
+    "followup_details": [...],
     "comments": [...]
   }
 }

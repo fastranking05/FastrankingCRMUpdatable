@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Seo;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Models\FollowupBusiness;
 use App\Models\SeoDetail;
+use App\Support\FollowupBusinessProfile;
 use App\Models\SeoQuestionAnswer;
 use App\Models\Team;
 use App\Models\User;
@@ -26,33 +28,7 @@ class SeoViewController extends BaseApiController
         $query = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness' => function ($query) {
-                $query->with([
-                    'authPersons' => function ($query) {
-                        $query->select([
-                            'followup_auth_persons.id',
-                            'followup_auth_persons.title',
-                            'followup_auth_persons.firstname',
-                            'followup_auth_persons.middlename',
-                            'followup_auth_persons.lastname',
-                            'followup_auth_persons.job_title',
-                            'followup_auth_persons.primaryemail',
-                            'followup_auth_persons.primarymobile',
-                            'followup_auth_persons.is_primary'
-                        ]);
-                    },
-                    'comments' => function ($query) {
-                        $query->with('creator:id,first_name,last_name,email')
-                              ->orderBy('created_at', 'desc');
-                    },
-                    'creator:id,first_name,last_name,email',
-                    'appointments' => function ($query) {
-                        $query->with('timeSlot:id,start_time,end_time')
-                              ->orderBy('date', 'desc')
-                              ->limit(5); // Latest 5 appointments
-                    }
-                ]);
-            }
+            'followupBusiness' => $this->followupBusinessEagerLoad(5),
         ]);
 
         // Apply role-based filtering
@@ -62,78 +38,9 @@ class SeoViewController extends BaseApiController
 
         // Format the comprehensive response
         $formattedData = $seoRecords->map(function ($seoDetail) {
-            $business = null;
-            if ($seoDetail->followupBusiness) {
-                $followupBusiness = $seoDetail->followupBusiness;
-
-                // Format auth persons
-                $authPersons = $followupBusiness->authPersons->map(function ($person) {
-                    return [
-                        'id' => $person->id,
-                        'title' => $person->title,
-                        'firstname' => $person->firstname,
-                        'middlename' => $person->middlename,
-                        'lastname' => $person->lastname,
-                        'job_title' => $person->job_title,
-                        'primaryemail' => $person->primaryemail,
-                        'primarymobile' => $person->primarymobile,
-                        'is_primary' => $person->is_primary,
-                    ] + $person->profileFieldsForResponse();
-                });
-
-                // Format comments
-                $comments = $followupBusiness->comments->map(function ($comment) {
-                    return [
-                        'id' => $comment->id,
-                        'comment' => $comment->comment,
-                        'old_status' => $comment->old_status,
-                        'new_status' => $comment->new_status,
-                        'created_at' => $comment->created_at,
-                        'updated_at' => $comment->updated_at,
-                        'creator' => $comment->creator ? [
-                            'id' => $comment->creator->id,
-                            'first_name' => $comment->creator->first_name,
-                            'last_name' => $comment->creator->last_name,
-                            'email' => $comment->creator->email
-                        ] : null
-                    ];
-                });
-
-                // Format appointments
-                $appointments = $followupBusiness->appointments->map(function ($appointment) {
-                    return [
-                        'id' => $appointment->id,
-                        'date' => $appointment->date,
-                        'current_status' => $appointment->current_status,
-                        'source' => $appointment->source,
-                        'time_slot' => $appointment->timeSlot ? [
-                            'id' => $appointment->timeSlot->id,
-                            'start_time' => $appointment->timeSlot->start_time ? date('H:i:s', strtotime($appointment->timeSlot->start_time)) : null,
-                            'end_time' => $appointment->timeSlot->end_time ? date('H:i:s', strtotime($appointment->timeSlot->end_time)) : null
-                        ] : null,
-                        'created_at' => $appointment->created_at
-                    ];
-                });
-
-                $business = [
-                    'id' => $followupBusiness->id,
-                    'name' => $followupBusiness->name,
-                    'category' => $followupBusiness->category,
-                    'type' => $followupBusiness->type,
-                    'website' => $followupBusiness->website,
-                    'created_at' => $followupBusiness->created_at,
-                    'updated_at' => $followupBusiness->updated_at,
-                    'creator' => $followupBusiness->creator ? [
-                        'id' => $followupBusiness->creator->id,
-                        'first_name' => $followupBusiness->creator->first_name,
-                        'last_name' => $followupBusiness->creator->last_name,
-                        'email' => $followupBusiness->creator->email
-                    ] : null,
-                    'auth_persons' => $authPersons,
-                    'comments' => $comments,
-                    'appointments' => $appointments
-                ];
-            }
+            $business = $seoDetail->followupBusiness
+                ? $this->formatBusinessDetailsForSeo($seoDetail->followupBusiness)
+                : null;
 
             // Format question answers
             $questionAnswers = $seoDetail->questionAnswers->map(function ($answer) {
@@ -191,32 +98,7 @@ class SeoViewController extends BaseApiController
         $seoDetail = SeoDetail::with([
             'assignedUser:id,first_name,last_name,email',
             'questionAnswers.question:id,name,answer_type,dropdown_options',
-            'followupBusiness' => function ($query) {
-                $query->with([
-                    'authPersons' => function ($query) {
-                        $query->select([
-                            'followup_auth_persons.id',
-                            'followup_auth_persons.title',
-                            'followup_auth_persons.firstname',
-                            'followup_auth_persons.middlename',
-                            'followup_auth_persons.lastname',
-                            'followup_auth_persons.job_title',
-                            'followup_auth_persons.primaryemail',
-                            'followup_auth_persons.primarymobile',
-                            'followup_auth_persons.is_primary'
-                        ]);
-                    },
-                    'comments' => function ($query) {
-                        $query->with('creator:id,first_name,last_name,email')
-                              ->orderBy('created_at', 'desc');
-                    },
-                    'creator:id,first_name,last_name,email',
-                    'appointments' => function ($query) {
-                        $query->with('timeSlot:id,start_time,end_time')
-                              ->orderBy('date', 'desc');
-                    }
-                ]);
-            }
+            'followupBusiness' => $this->followupBusinessEagerLoad(),
         ])->where('followup_business_id', $businessId)->first();
 
         if (!$seoDetail) {
@@ -228,57 +110,7 @@ class SeoViewController extends BaseApiController
             return $this->errorResponse('You do not have permission to access this SEO record', 403);
         }
 
-        // Format the comprehensive response (same as above but for single record)
         $followupBusiness = $seoDetail->followupBusiness;
-
-        // Format auth persons
-        $authPersons = $followupBusiness->authPersons->map(function ($person) {
-            return [
-                'id' => $person->id,
-                'title' => $person->title,
-                'firstname' => $person->firstname,
-                'middlename' => $person->middlename,
-                'lastname' => $person->lastname,
-                'job_title' => $person->job_title,
-                'primaryemail' => $person->primaryemail,
-                'primarymobile' => $person->primarymobile,
-                'is_primary' => $person->is_primary,
-            ] + $person->profileFieldsForResponse();
-        });
-
-        // Format comments
-        $comments = $followupBusiness->comments->map(function ($comment) {
-            return [
-                'id' => $comment->id,
-                'comment' => $comment->comment,
-                'old_status' => $comment->old_status,
-                'new_status' => $comment->new_status,
-                'created_at' => $comment->created_at,
-                'updated_at' => $comment->updated_at,
-                'creator' => $comment->creator ? [
-                    'id' => $comment->creator->id,
-                    'first_name' => $comment->creator->first_name,
-                    'last_name' => $comment->creator->last_name,
-                    'email' => $comment->creator->email
-                ] : null
-            ];
-        });
-
-        // Format appointments
-        $appointments = $followupBusiness->appointments->map(function ($appointment) {
-            return [
-                'id' => $appointment->id,
-                'date' => $appointment->date,
-                'current_status' => $appointment->current_status,
-                'source' => $appointment->source,
-                'time_slot' => $appointment->timeSlot ? [
-                    'id' => $appointment->timeSlot->id,
-                    'start_time' => $appointment->timeSlot->start_time ? date('H:i:s', strtotime($appointment->timeSlot->start_time)) : null,
-                    'end_time' => $appointment->timeSlot->end_time ? date('H:i:s', strtotime($appointment->timeSlot->end_time)) : null
-                ] : null,
-                'created_at' => $appointment->created_at
-            ];
-        });
 
         // Format question answers
         $questionAnswers = $seoDetail->questionAnswers->map(function ($answer) {
@@ -297,24 +129,7 @@ class SeoViewController extends BaseApiController
             ];
         });
 
-        $business = [
-            'id' => $followupBusiness->id,
-            'name' => $followupBusiness->name,
-            'category' => $followupBusiness->category,
-            'type' => $followupBusiness->type,
-            'website' => $followupBusiness->website,
-            'created_at' => $followupBusiness->created_at,
-            'updated_at' => $followupBusiness->updated_at,
-            'creator' => $followupBusiness->creator ? [
-                'id' => $followupBusiness->creator->id,
-                'first_name' => $followupBusiness->creator->first_name,
-                'last_name' => $followupBusiness->creator->last_name,
-                'email' => $followupBusiness->creator->email
-            ] : null,
-            'auth_persons' => $authPersons,
-            'comments' => $comments,
-            'appointments' => $appointments
-        ];
+        $business = $this->formatBusinessDetailsForSeo($followupBusiness);
 
         $comprehensiveData = [
             'seo_details' => [
@@ -407,6 +222,72 @@ class SeoViewController extends BaseApiController
         }
 
         return false;
+    }
+
+    /**
+     * @return \Closure
+     */
+    private function followupBusinessEagerLoad(?int $appointmentsLimit = null): \Closure
+    {
+        return function ($query) use ($appointmentsLimit) {
+            $query->with(array_merge(FollowupBusiness::profileRelations(), [
+                'comments' => function ($commentQuery) {
+                    $commentQuery->with('creator:id,first_name,last_name,email')
+                        ->orderByDesc('created_at');
+                },
+                'appointments' => function ($appointmentQuery) use ($appointmentsLimit) {
+                    $appointmentQuery->with('timeSlot:id,start_time,end_time')
+                        ->orderByDesc('date');
+
+                    if ($appointmentsLimit !== null) {
+                        $appointmentQuery->limit($appointmentsLimit);
+                    }
+                },
+            ]));
+        };
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function formatBusinessDetailsForSeo(FollowupBusiness $followupBusiness): array
+    {
+        $comments = $followupBusiness->comments->map(function ($comment) {
+            return [
+                'id' => $comment->id,
+                'comment' => $comment->comment,
+                'old_status' => $comment->old_status,
+                'new_status' => $comment->new_status,
+                'created_at' => $comment->created_at,
+                'updated_at' => $comment->updated_at,
+                'creator' => $comment->creator ? [
+                    'id' => $comment->creator->id,
+                    'first_name' => $comment->creator->first_name,
+                    'last_name' => $comment->creator->last_name,
+                    'email' => $comment->creator->email,
+                ] : null,
+            ];
+        });
+
+        $appointments = $followupBusiness->appointments->map(function ($appointment) {
+            return [
+                'id' => $appointment->id,
+                'date' => $appointment->date,
+                'current_status' => $appointment->current_status,
+                'source' => $appointment->source,
+                'time_slot' => $appointment->timeSlot ? [
+                    'id' => $appointment->timeSlot->id,
+                    'start_time' => $appointment->timeSlot->start_time ? date('H:i:s', strtotime($appointment->timeSlot->start_time)) : null,
+                    'end_time' => $appointment->timeSlot->end_time ? date('H:i:s', strtotime($appointment->timeSlot->end_time)) : null,
+                ] : null,
+                'created_at' => $appointment->created_at,
+            ];
+        });
+
+        return FollowupBusinessProfile::forResponse($followupBusiness, [
+            'comments' => $comments->values()->all(),
+            'appointments' => $appointments->values()->all(),
+        ]) ?? [];
     }
 
     /**

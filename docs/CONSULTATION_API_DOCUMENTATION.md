@@ -215,6 +215,15 @@ Creates a new consultation record. Optionally adds comments to the associated bu
 
 Retrieves a specific consultation by ID with all relationships.
 
+**Mandatory `appointment.followup_business` block:** always includes business fields, `creator`, `auth_persons`, `business_service` (`null` if not set), and `lead_qualification` (`null` if not set). Consultation and appointment fields are returned in addition.
+
+The nested `appointment.followup_business` includes the full business profile:
+- Business details (including `priority`)
+- `auth_persons` (full profile)
+- `business_service` (with `primary_service` and `interested_services_list`)
+- `lead_qualification` (temperature + BANT)
+- `comments` (with creators)
+
 #### Request Example
 ```bash
 curl -X GET \
@@ -240,10 +249,33 @@ curl -X GET \
     "created_by": 1,
     "created_at": "2026-04-01T10:00:00.000000Z",
     "updated_at": "2026-04-01T10:00:00.000000Z",
-    "appointment": { ... },
-    "rescheduleSlot": { ... },
+    "appointment": {
+      "id": "FRMID00000001",
+      "followup_business_id": 1,
+      "followup_business": {
+        "id": 1,
+        "name": "ABC Corporation",
+        "priority": "high",
+        "auth_persons": [...],
+        "business_service": {
+          "interested_services_list": [{ "id": 1, "name": "SEO" }],
+          "primary_service": { "id": 1, "name": "SEO" }
+        },
+        "lead_qualification": {
+          "temperature": "warm",
+          "budget": true,
+          "authority": true,
+          "need": true,
+          "timeline": false
+        },
+        "comments": [...]
+      },
+      "time_slot": { ... },
+      "quality": { ... }
+    },
+    "reschedule_slot": { ... },
     "closer": { ... },
-    "assignedUser": { ... },
+    "assigned_user": { ... },
     "creator": { ... }
   }
 }

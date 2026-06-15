@@ -72,6 +72,18 @@
 ### 6. Get Appointment Details
 **GET** `/{id}`
 
+Retrieves a single appointment with complete related data.
+
+**Mandatory `followup_business` block (always present when business is linked):** all business fields, `creator`, `auth_persons` (array), `business_service` (object or `null`), `lead_qualification` (object or `null`). Module-specific fields (`time_slot`, `quality`, `consultations`, `comments`, etc.) are returned in addition.
+
+Includes full business profile on `followup_business`:
+- Business details (including `priority`)
+- Authorized persons (full profile)
+- Business service profile (`business_service` with `primary_service` and `interested_services_list`)
+- Lead qualification profile (`lead_qualification` — temperature + BANT)
+- Business comments (with creators)
+- Time slot, creator, quality, and consultations
+
 **Response:**
 ```json
 {
@@ -85,11 +97,32 @@
     "current_status": "Booked",
     "source": "web",
     "status": "Appointment Booked",
-    "followupBusiness": {...},
-    "followupBusiness.authPersons": [...],
-    "followupBusiness.creator": {...},
-    "followupBusiness.comments": [...],
-    "timeSlot": {...},
+    "followup_business": {
+      "id": 1,
+      "name": "ABC Corporation",
+      "trading_name": "ABC Trading",
+      "priority": "high",
+      "source_name": "Website",
+      "sub_source": "Google Ads",
+      "auth_persons": [...],
+      "business_service": {
+        "interested_service_ids": [1, 2, 4],
+        "interested_services_list": [
+          { "id": 1, "name": "SEO" },
+          { "id": 2, "name": "PPC" }
+        ],
+        "primary_service": { "id": 1, "name": "SEO" }
+      },
+      "lead_qualification": {
+        "temperature": "hot",
+        "budget": true,
+        "authority": false,
+        "need": true,
+        "timeline": false
+      },
+      "comments": [...]
+    },
+    "time_slot": {...},
     "creator": {...},
     "quality": {...},
     "consultations": [...]
@@ -128,12 +161,38 @@
 ### 9. Get Direct Appointment
 **GET** `/direct/{appointmentId}`
 
+Returns detailed information about a specific direct appointment. The nested `followup_business` object includes the same full business profile as **Get Appointment Details** (business fields, `auth_persons`, `business_service`, `lead_qualification`, and `comments`).
+
 **Response:**
 ```json
 {
   "success": true,
-  "message": "Appointment retrieved successfully",
-  "data": {...}
+  "message": "Direct appointment retrieved successfully",
+  "data": {
+    "id": "FRMID00000001",
+    "followup_business_id": 1,
+    "date": "2026-04-16",
+    "followup_business": {
+      "id": 1,
+      "name": "ABC Corporation",
+      "priority": "high",
+      "auth_persons": [...],
+      "business_service": {
+        "interested_services_list": [{ "id": 1, "name": "SEO" }],
+        "primary_service": { "id": 1, "name": "SEO" }
+      },
+      "lead_qualification": {
+        "temperature": "warm",
+        "budget": false,
+        "authority": true,
+        "need": true,
+        "timeline": false
+      },
+      "comments": [...]
+    },
+    "time_slot": {...},
+    "creator": {...}
+  }
 }
 ```
 

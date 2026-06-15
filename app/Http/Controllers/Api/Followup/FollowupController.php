@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\Appointment;
 use App\Services\QualityAssignmentService;
 use App\Services\DateRangeFilterService;
+use App\Support\FollowupBusinessProfile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -201,16 +202,15 @@ class FollowupController extends BaseApiController
                 return $this->errorResponse('Follow-up record not found', 404);
             }
 
-            $followup->load([
-                'creator:id,first_name,last_name',
-                'authPersons',
-                'followupDetails',
-                'comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                }
-            ]);
+            $followup->load($this->followupDetailRelations());
 
-            return $this->successResponse($followup, 'Follow-up record retrieved successfully');
+            return $this->successResponse(
+                FollowupBusinessProfile::leadShowPayload($followup, [
+                    'followup_details' => $followup->followupDetails,
+                    'comments' => $followup->comments,
+                ]),
+                'Follow-up record retrieved successfully'
+            );
         }, 'Follow-up retrieval', ['followup_id' => $id]);
     }
 
@@ -278,15 +278,7 @@ class FollowupController extends BaseApiController
                 }
             }
 
-            // Load complete relationship data
-            $followup->load([
-                'creator:id,first_name,last_name',
-                'authPersons',
-                'followupDetails',
-                'comments' => function ($query) {
-                    $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
-                }
-            ]);
+            $followup->load($this->followupDetailRelations());
 
             return $this->successResponse($followup, 'Follow-up details and comments updated successfully');
         }, 'Follow-up update', ['followup_id' => $followup->id]);
@@ -429,8 +421,6 @@ class FollowupController extends BaseApiController
                 });
             }
 
-            $query = $this->applyLastThreeMonthsFilter($query, 'followup_businesses.created_at');
-
             $this->applyFollowupBusinessCursorOrdering($query);
 
             $followups = $query->get();
@@ -438,7 +428,6 @@ class FollowupController extends BaseApiController
             return $this->successResponse([
                 'followups' => $followups,
                 'total' => $followups->count(),
-                ...$this->lastThreeMonthsDateRange(),
                 'access_info' => [
                     'access_level' => $accessLevel,
                     'user_roles' => $roleNames,
@@ -487,8 +476,6 @@ class FollowupController extends BaseApiController
                 $query->where('name', 'like', '%' . $request->name . '%');
             }
 
-            $query = $this->applyLastThreeMonthsFilter($query, 'followup_businesses.created_at');
-
             $this->applyFollowupBusinessCursorOrdering($query);
 
             $followups = $query->get();
@@ -496,7 +483,6 @@ class FollowupController extends BaseApiController
             return $this->successResponse([
                 'followups' => $followups,
                 'total' => $followups->count(),
-                ...$this->lastThreeMonthsDateRange(),
             ], 'My follow-ups retrieved successfully');
         }, 'My follow-ups retrieval');
     }
@@ -546,6 +532,23 @@ class FollowupController extends BaseApiController
 
             return $this->successResponse($followups, 'Today\'s follow-ups retrieved successfully');
         }, 'Today\'s follow-ups retrieval');
+    }
+
+    /**
+     * @return array<int|string, mixed>
+     */
+    private function followupDetailRelations(): array
+    {
+        return array_merge(FollowupBusiness::profileRelations(), [
+            'followupDetails' => function ($query) {
+                $query->with('creator:id,first_name,last_name')
+                    ->orderByDesc('date')
+                    ->orderByDesc('time');
+            },
+            'comments' => function ($query) {
+                $query->with('creator:id,first_name,last_name')->orderByDesc('created_at');
+            },
+        ]);
     }
 
     /**
