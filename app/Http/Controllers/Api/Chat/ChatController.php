@@ -38,10 +38,12 @@ class ChatController extends BaseApiController
 
             $result = $this->chatService->handle(
                 auth()->user(),
-                trim($request->input('message'))
+                (string) $request->input('message')
             );
 
             return $this->successResponse($result, 'Chat response generated successfully');
+        } catch (\InvalidArgumentException $e) {
+            return $this->errorResponse($e->getMessage(), 422);
         } catch (\RuntimeException $e) {
             return $this->errorResponse($e->getMessage(), 503);
         } catch (\Throwable $e) {

@@ -59,7 +59,6 @@ class ScopedChatSearchService
                     'entity_id' => $document['entity_id'],
                     'title' => $document['title'],
                     'subtitle' => $document['subtitle'],
-                    'metadata' => $document['metadata'],
                     'updated_at' => $document['updated_at'],
                 ];
             }
@@ -111,7 +110,6 @@ class ScopedChatSearchService
                     'entity_id' => $document['entity_id'],
                     'title' => $document['title'],
                     'subtitle' => $document['subtitle'],
-                    'metadata' => $document['metadata'],
                 ];
             })
             ->filter()

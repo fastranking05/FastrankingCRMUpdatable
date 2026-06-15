@@ -20,6 +20,51 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Chat security — read-only data access, rate limits, input/output filtering
+    |--------------------------------------------------------------------------
+    */
+    'security' => [
+        'rate_limit_per_minute' => (int) env('AI_CHAT_RATE_LIMIT', 10),
+        'status_rate_limit_per_minute' => (int) env('AI_CHAT_STATUS_RATE_LIMIT', 30),
+        'max_search_term_length' => 100,
+        'audit_log_enabled' => (bool) env('AI_CHAT_AUDIT_LOG', true),
+        'blocked_input_patterns' => [
+            '/\b(drop|delete|truncate|alter|insert|update|grant|revoke)\s+(table|database|from|into)\b/i',
+            '/;\s*--/',
+            '/\/\*.*\*\//',
+            '/\bignore\s+(all\s+)?(previous|above)\s+instructions\b/i',
+            '/\bsystem\s+prompt\b/i',
+        ],
+        'redact_field_names' => [
+            'search_text',
+            'route',
+            'password',
+            'remember_token',
+            'api_token',
+            'primaryemail',
+            'altemail',
+            'primary_email',
+            'alt_email',
+            'primarymobile',
+            'altmobile',
+            'primary_mobile',
+            'alt_mobile',
+            'primaryphone',
+            'altphone',
+            'linkedin_profile',
+            'facebook_profile',
+        ],
+        'mask_field_patterns' => [
+            '/email$/i',
+            '/phone$/i',
+            '/mobile$/i',
+            '/token$/i',
+            '/secret$/i',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Global CRM entities — module permission + hierarchy scope per type
     |--------------------------------------------------------------------------
     */

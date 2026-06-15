@@ -14,6 +14,9 @@ use App\Models\SeoDetail;
 use App\Models\User;
 use App\Observers\FollowupDetailObserver;
 use App\Observers\GlobalSearchObserver;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +34,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('ai-chat', function (Request $request) {
+            return Limit::perMinute((int) config('ai.security.rate_limit_per_minute', 10))
+                ->by((string) ($request->user()?->id ?? $request->ip()));
+        });
+
+        RateLimiter::for('ai-chat-status', function (Request $request) {
+            return Limit::perMinute((int) config('ai.security.status_rate_limit_per_minute', 30))
+                ->by((string) ($request->user()?->id ?? $request->ip()));
+        });
+
         FollowupDetail::observe(FollowupDetailObserver::class);
 
         $globalSearchObserver = GlobalSearchObserver::class;

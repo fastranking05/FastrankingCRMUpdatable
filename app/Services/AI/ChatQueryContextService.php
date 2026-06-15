@@ -14,6 +14,7 @@ class ChatQueryContextService
 {
     public function __construct(
         private readonly UserDataScopeService $scopeService,
+        private readonly ChatQualityContextService $qualityContext,
     ) {}
 
     /**
@@ -46,6 +47,10 @@ class ChatQueryContextService
             $context['seo_audits'] = $this->seoAuditStats($user);
         }
 
+        if ($this->mentionsQuality($normalized)) {
+            $context['quality_audits'] = $this->qualityContext->buildStats($user);
+        }
+
         return $context;
     }
 
@@ -58,7 +63,8 @@ class ChatQueryContextService
             || $this->mentionsAppointmentsToday($normalized)
             || $this->mentionsDealsToday($normalized)
             || $this->mentionsSeoAudits($normalized)
-            || (bool) preg_match('/\b(how many|how much|count|total|number of)\b/', $normalized);
+            || $this->mentionsQuality($normalized)
+            || (bool) preg_match('/\b(how many|how much|count|total|number of|kitne)\b/', $normalized);
     }
 
     public function isGreeting(string $message): bool
@@ -96,6 +102,17 @@ class ChatQueryContextService
     {
         return (bool) preg_match('/\b(seo)\b/', $message)
             || ((bool) preg_match('/\b(audit|audits)\b/', $message) && (bool) preg_match('/\b(pending|seo)\b/', $message));
+    }
+
+    private function mentionsQuality(string $message): bool
+    {
+        if ((bool) preg_match('/\b(seo)\b/', $message)) {
+            return false;
+        }
+
+        return (bool) preg_match('/\b(quality|qa)\b/', $message)
+            || ((bool) preg_match('/\b(approved|approval|qualified|completed)\b/', $message)
+                && (bool) preg_match('/\b(appointment|appointments|audit|audits)\b/', $message));
     }
 
     /**
