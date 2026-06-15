@@ -57,7 +57,7 @@ class GlobalSearchController extends BaseApiController
     }
 
     /**
-     * Elasticsearch connection and index status.
+     * Typesense connection and index status.
      *
      * GET /api/search/status
      */

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Global Search Routes (Elasticsearch)
+| Global Search Routes (Typesense + Laravel Scout)
 |--------------------------------------------------------------------------
 |
 | Unified search across businesses, contacts, deals, appointments, users,

@@ -192,7 +192,7 @@ Sales pipeline CRUD on the `deals` table with business comments. Full documentat
 | PUT | `/api/followup/{id}` | Update follow-up record | Followup,update |
 | DELETE | `/api/followup/{id}` | Delete follow-up record | Followup,delete |
 
-## Global Search Routes (Elasticsearch)
+## Global Search Routes (Typesense + Laravel Scout)
 **Base URL:** `/api/search`
 
 Unified full-text search across businesses, contacts, deals, appointments, users, emails, consultations, SEO audits, and comments. Full documentation: [GLOBAL_SEARCH_API_DOCUMENTATION.md](./GLOBAL_SEARCH_API_DOCUMENTATION.md)
@@ -200,7 +200,7 @@ Unified full-text search across businesses, contacts, deals, appointments, users
 | Method | Endpoint | Description | Permissions |
 |---------|-----------|-------------|--------------|
 | GET | `/api/search` | Global search (`q`, optional `types[]`, `page`, `limit`) | JWT required |
-| GET | `/api/search/status` | Elasticsearch connection and index status | JWT required |
+| GET | `/api/search/status` | Typesense connection and index status | JWT required |
 | POST | `/api/search/reindex` | Rebuild search index from database (`?fresh=1` optional) | JWT required |
 
 ## Public Routes (No Authentication Required)

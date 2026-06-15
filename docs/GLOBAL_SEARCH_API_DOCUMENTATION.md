@@ -4,7 +4,7 @@
 
 Unified search across CRM records: businesses, contacts, deals, appointments, users, emails, consultations, SEO audits, and comments.
 
-Uses **Elasticsearch** when installed locally; otherwise searches the **database** automatically (`search_engine` in response).
+Uses **Typesense** (via Laravel Scout) when a self-hosted Typesense server is available; otherwise searches the **database** automatically (`search_engine` in response).
 
 ## Base URL
 
@@ -35,6 +35,31 @@ Authorization: Bearer {token}
 | `consultation` | Consultation |
 | `seo_audit` | SEO Audit |
 | `comment` | Comment |
+
+---
+
+## Setup (Self-Hosted Typesense)
+
+1. Install and run Typesense locally or on your server ([Typesense install guide](https://typesense.org/docs/guide/install-typesense.html)).
+2. Configure `.env`:
+
+```env
+GLOBAL_SEARCH_ENABLED=true
+GLOBAL_SEARCH_FALLBACK_DATABASE=true
+GLOBAL_SEARCH_COLLECTION=fastranking_global_search
+SCOUT_DRIVER=typesense
+TYPESENSE_API_KEY=your-api-key
+TYPESENSE_HOST=localhost
+TYPESENSE_PORT=8108
+TYPESENSE_PROTOCOL=http
+```
+
+3. Run migrations and build the index:
+
+```bash
+php artisan migrate
+php artisan search:reindex --fresh
+```
 
 ---
 
@@ -73,7 +98,7 @@ curl -X GET \
     "page": 1,
     "limit": 20,
     "total_pages": 1,
-    "search_engine": "database",
+    "search_engine": "typesense",
     "counts_by_type": {
       "business": 2,
       "deal": 3
@@ -105,12 +130,14 @@ curl -X GET \
 }
 ```
 
+When Typesense is unavailable and `GLOBAL_SEARCH_FALLBACK_DATABASE=true`, `search_engine` is `"database"` and `score` / `highlight` may be empty.
+
 #### Errors
 
 | Status | Message |
 |--------|---------|
 | `422` | Invalid search parameters |
-| `503` | Elasticsearch required but unreachable (`ELASTICSEARCH_FALLBACK_DATABASE=false`) |
+| `503` | Typesense required but unreachable (`GLOBAL_SEARCH_FALLBACK_DATABASE=false`) |
 | `500` | Search failed |
 
 ---
@@ -137,9 +164,9 @@ curl -X GET \
     "enabled": true,
     "connected": true,
     "index": "fastranking_global_search",
-    "index_exists": false,
+    "index_exists": true,
     "fallback_to_database": true,
-    "search_engine": "database",
+    "search_engine": "typesense",
     "entity_types": [
       { "key": "business", "label": "Business / Lead" },
       { "key": "deal", "label": "Deal" }
@@ -154,7 +181,7 @@ curl -X GET \
 
 **Endpoint:** `POST /api/search/reindex`
 
-Rebuilds the search index from the database.
+Rebuilds the search index from the database via Laravel Scout.
 
 #### Query Parameters
 
@@ -198,5 +225,20 @@ curl -X POST \
 | Status | Message |
 |--------|---------|
 | `422` | Invalid reindex parameters |
-| `503` | Elasticsearch not reachable |
+| `503` | Typesense not reachable |
 | `500` | Reindex failed |
+
+---
+
+## Indexing
+
+CRM records are synced to Typesense automatically when created, updated, or deleted (via model observers and Laravel Scout).
+
+Manual reindex:
+
+```bash
+php artisan search:reindex
+php artisan search:reindex --fresh
+```
+
+Or use `POST /api/search/reindex`.

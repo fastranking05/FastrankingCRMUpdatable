@@ -4,28 +4,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Elasticsearch Connection
+    | Global Search (Typesense + Laravel Scout)
     |--------------------------------------------------------------------------
     */
 
-    'enabled' => env('ELASTICSEARCH_ENABLED', true),
+    'enabled' => env('GLOBAL_SEARCH_ENABLED', env('ELASTICSEARCH_ENABLED', true)),
 
     /*
-    | When Elasticsearch is down, search falls back to database queries.
-    | Set false to return 503 until Elasticsearch is available.
+    | When Typesense is down, search falls back to database queries.
+    | Set false to return 503 until Typesense is available.
     */
-    'fallback_to_database' => env('ELASTICSEARCH_FALLBACK_DATABASE', true),
+    'fallback_to_database' => env('GLOBAL_SEARCH_FALLBACK_DATABASE', env('ELASTICSEARCH_FALLBACK_DATABASE', true)),
 
-    'hosts' => [
-        env('ELASTICSEARCH_HOST', 'http://127.0.0.1:9200'),
-    ],
+    'collection' => env('GLOBAL_SEARCH_COLLECTION', env('ELASTICSEARCH_INDEX', 'fastranking_global_search')),
 
-    'username' => env('ELASTICSEARCH_USERNAME'),
-    'password' => env('ELASTICSEARCH_PASSWORD'),
-
-    'index' => env('ELASTICSEARCH_INDEX', 'fastranking_global_search'),
-
-    'timeout' => (int) env('ELASTICSEARCH_TIMEOUT', 10),
+    'timeout' => (int) env('GLOBAL_SEARCH_TIMEOUT', 10),
 
     /*
     |--------------------------------------------------------------------------

@@ -25,8 +25,8 @@ class DatabaseGlobalSearchService
     {
         $trimmedQuery = trim($query);
         $limit = min(
-            (int) ($options['limit'] ?? config('elasticsearch.search.default_limit', 20)),
-            (int) config('elasticsearch.search.max_limit', 100)
+            (int) ($options['limit'] ?? config('global_search.search.default_limit', 20)),
+            (int) config('global_search.search.max_limit', 100)
         );
         $page = max(1, (int) ($options['page'] ?? 1));
         $types = $this->normalizeTypes($options['types'] ?? []);
@@ -46,7 +46,7 @@ class DatabaseGlobalSearchService
 
                 $results[] = [
                     'entity_type' => $document['entity_type'],
-                    'entity_type_label' => config('elasticsearch.entity_types.' . $document['entity_type'] . '.label'),
+                    'entity_type_label' => config('global_search.entity_types.' . $document['entity_type'] . '.label'),
                     'entity_id' => $document['entity_id'],
                     'title' => $document['title'],
                     'subtitle' => $document['subtitle'],
@@ -249,7 +249,7 @@ class DatabaseGlobalSearchService
 
     private function availableTypes(): array
     {
-        return collect(config('elasticsearch.entity_types', []))
+        return collect(config('global_search.entity_types', []))
             ->map(fn (array $config, string $key) => [
                 'key' => $key,
                 'label' => $config['label'] ?? $key,
