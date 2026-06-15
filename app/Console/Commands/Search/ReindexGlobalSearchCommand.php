@@ -9,7 +9,7 @@ class ReindexGlobalSearchCommand extends Command
 {
     protected $signature = 'search:reindex {--fresh : Delete and recreate the index before reindexing}';
 
-    protected $description = 'Rebuild the Elasticsearch global search index from database records';
+    protected $description = 'Rebuild the Typesense global search index from database records';
 
     public function handle(GlobalSearchService $globalSearchService): int
     {

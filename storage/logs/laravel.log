@@ -12898,3 +12898,149 @@
 [2026-06-15 09:00:43] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
 [2026-06-15 09:00:44] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
 [2026-06-15 09:00:44] local.DEBUG: Permission check result {"user_id":1,"module":"Consultation","permission":"read","has_permission":true,"user_roles":[1],"module_id":8} 
+[2026-06-15 09:21:46] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:21:49] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:21:52] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:21:54] local.ERROR: Writing to /Users/kumar/.config/psysh/psysh_history is not allowed. {"exception":"[object] (ErrorException(code: 0): Writing to /Users/kumar/.config/psysh/psysh_history is not allowed. at /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/ConfigPaths.php:480)
+[stacktrace]
+#0 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(1024, 'Writing to /Use...', '/Users/kumar/Fa...', 480)
+#1 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(1024, 'Writing to /Use...', '/Users/kumar/Fa...', 480)
+#2 /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/ConfigPaths.php(480): trigger_error('Writing to /Use...', 1024)
+#3 /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/Configuration.php(982): Psy\\ConfigPaths::touchFileWithMkdir('/Users/kumar/.c...')
+#4 /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/Configuration.php(1020): Psy\\Configuration->setHistoryFile('/Users/kumar/.c...')
+#5 /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/Configuration.php(1199): Psy\\Configuration->getHistoryFile()
+#6 /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/Shell.php(187): Psy\\Configuration->getReadline()
+#7 /Users/kumar/FastrankingCRMUpdatable/vendor/psy/psysh/src/Shell.php(1863): Psy\\Shell->boot()
+#8 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/tinker/src/Console/TinkerCommand.php(77): Psy\\Shell->execute('\\n$service = app...')
+#9 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Tinker\\Console\\TinkerCommand->handle()
+#10 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#11 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#12 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#13 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#14 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#15 /Users/kumar/FastrankingCRMUpdatable/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#16 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#17 /Users/kumar/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 /Users/kumar/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 /Users/kumar/FastrankingCRMUpdatable/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#21 /Users/kumar/FastrankingCRMUpdatable/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#22 /Users/kumar/FastrankingCRMUpdatable/artisan(16): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#23 {main}
+"} 
+[2026-06-15 09:22:05] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:22:08] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:22:11] local.WARNING: Typesense collection exists check failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/collections/fastranking_global_search"} 
+[2026-06-15 09:22:14] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:22:16] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 09:22:16] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:16] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:22:18] local.ERROR: Uncaught RuntimeException: Search query must be at least 2 characters. in /Users/kumar/FastrankingCRMUpdatable/app/Services/Search/GlobalSearchService.php:22
+Stack trace:
+#0 Command line code(5): App\Services\Search\GlobalSearchService->search('a', Array)
+#1 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught RuntimeException: Search query must be at least 2 characters. in /Users/kumar/FastrankingCRMUpdatable/app/Services/Search/GlobalSearchService.php:22
+Stack trace:
+#0 Command line code(5): App\\Services\\Search\\GlobalSearchService->search('a', Array)
+#1 {main}
+  thrown at /Users/kumar/FastrankingCRMUpdatable/app/Services/Search/GlobalSearchService.php:22)
+[stacktrace]
+#0 {main}
+"} 
+[2026-06-15 09:22:23] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:22:34] local.WARNING: Typesense collection exists check failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/collections/fastranking_global_search"} 
+[2026-06-15 09:24:20] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:25:12] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:25:39] local.WARNING: Typesense ping failed {"error":"cURL error 7: Failed to connect to localhost port 8108 after 0 ms: Could not connect to server (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) for http://localhost:8108/health"} 
+[2026-06-15 09:32:12] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 09:32:12] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-06-15 09:32:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:12] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-15 09:32:12] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-15 09:32:12] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-15 09:32:12] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 09:32:12] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:13] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:13] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 09:32:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:14] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-15 09:32:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:14] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-15 09:32:14] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:15] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-15 09:32:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 09:32:15] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:09:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:42] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-15 10:09:42] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-15 10:09:42] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-15 10:09:42] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 10:09:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:42] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:42] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-15 10:09:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:44] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:09:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:44] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:09:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:44] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:09:44] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:09:44] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:39:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:54] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-15 10:39:54] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-15 10:39:54] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-15 10:39:54] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 10:39:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:54] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:54] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-15 10:39:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:55] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:39:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:55] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:39:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:55] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:39:55] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:39:55] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:15] local.INFO: User retrieval successful {"user_id":1} 
+[2026-06-15 10:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Appointment","permission":"read","has_permission":true,"user_roles":[1],"module_id":5} 
+[2026-06-15 10:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Follow-Up","permission":"read","has_permission":true,"user_roles":[1],"module_id":4} 
+[2026-06-15 10:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 10:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:15] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:15] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-06-15 10:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:17] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:17] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:17] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:45:17] local.DEBUG: Permission check result {"user_id":1,"module":"Administration","permission":"read","has_permission":true,"user_roles":[1],"module_id":1} 
+[2026-06-15 10:45:17] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Leads","permission":"read","has_permission":true,"user_roles":[1],"module_id":2} 
+[2026-06-15 10:45:37] local.INFO: Lead retrieval successful {"lead_id":2,"user_id":1} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
+[2026-06-15 10:45:37] local.DEBUG: Permission check result {"user_id":1,"module":"Deals","permission":"read","has_permission":true,"user_roles":[1],"module_id":11} 
