@@ -8,6 +8,9 @@ Global CRM chatbot powered by **Ollama** (local, free). Logged-in users can ask 
 - Answers are scoped to the user's **role hierarchy** (admin / manager / executive)
 - Data is filtered by **module read permissions** (`can_read` on each module)
 - The LLM only formats answers; Laravel fetches and filters all data first
+- **Read-only enforced**: chat services cannot run INSERT/UPDATE/DELETE queries
+- **Rate limited**: per-user request throttling on chat endpoints
+- **Input/output sanitization**: blocked SQL/prompt-injection patterns; sensitive fields redacted before LLM
 
 ## Base URL
 
@@ -39,10 +42,12 @@ On every chat request, the backend:
 2. Resolves hierarchy scope (`admin`, `manager`, or `executive`)
 3. Loads all modules the user has `can_read` permission for
 4. Fetches **summaries** (record counts per entity type)
-5. Fetches either:
+5. Fetches **query_context** — exact counts for the question (leads today, QA-approved, SEO pending, etc.)
+6. Fetches either:
    - **Search results** — when the message contains a meaningful keyword/name, or
    - **Recent records** — when the message is generic (e.g. summary, counts)
-6. Sends filtered data to Ollama and returns the generated answer
+7. For count/analytics questions with exact data in `query_context`, returns a **deterministic answer** (no LLM guessing)
+8. Otherwise sends filtered data to Ollama and returns the generated answer
 
 The AI never queries the database directly and cannot see data outside the user's scope.
 
@@ -101,6 +106,9 @@ OLLAMA_TIMEOUT=120
 | `OLLAMA_MODEL` | `qwen2.5:7b` | Model name (`ollama pull <model>`) |
 | `OLLAMA_TIMEOUT` | `120` | HTTP timeout in seconds for Ollama requests |
 | `AI_CHAT_LANGUAGE` | `en` | Reply language: `en` (English), `hi` (Hindi), or `hinglish` |
+| `AI_CHAT_RATE_LIMIT` | `10` | Max chat messages per user per minute |
+| `AI_CHAT_STATUS_RATE_LIMIT` | `30` | Max status checks per user per minute |
+| `AI_CHAT_AUDIT_LOG` | `true` | Log chat requests (user id, modules — not full CRM payload) |
 
 **Prerequisites:**
 
@@ -169,7 +177,9 @@ curl -X POST \
 | Status | Message | Cause |
 |--------|---------|-------|
 | `401` | Unauthorized | Missing or invalid JWT |
-| `422` | Validation failed | `message` missing, too short, or too long |
+| `422` | Validation failed | `message` missing, too short, too long, or blocked content |
+| `403` | Your account is not active… | User status is not `active` |
+| `429` | Too Many Requests | Rate limit exceeded |
 | `503` | AI chat is disabled… | `AI_CHAT_ENABLED=false` |
 | `503` | Ollama is not running… | Ollama app not started |
 | `500` | Chat failed | Unexpected server error |
@@ -222,6 +232,8 @@ curl -X GET \
 |----------|----------------------|
 | `"Mere CRM ka summary batao"` | Summaries + recent records |
 | `"Kitne leads hain?"` | Summaries |
+| `"How many appointments are approved from quality?"` | `query_context.quality_audits` (deterministic count) |
+| `"Kitne QA approved appointments hain?"` | `query_context.quality_audits.qa_approved_count` |
 | `"Tech company dhundho"` | Scoped search across allowed entities |
 | `"Acme ke deals aur appointments?"` | Scoped search |
 | `"Mujhe kya access hai?"` | Access info + readable modules |
@@ -286,7 +298,15 @@ app/Services/AI/
   GlobalChatDataService.php
   ScopedChatSearchService.php
   CrmChatService.php
+  ChatQueryContextService.php
+  Security/
+    ChatReadOnlyDatabaseGuard.php
+    ChatInputSanitizer.php
+    ChatOutboundDataSanitizer.php
   Data/UserDataScope.php
+
+app/Http/Middleware/
+  ChatSecurityMiddleware.php
 
 app/Http/Controllers/Api/Chat/
   ChatController.php
@@ -299,10 +319,18 @@ routes/api/chat.php
 ## Security Notes
 
 - JWT is required on every request
+- Only **active** users can use chat (`status = active`)
 - Module `can_read` permission is checked per entity type
 - Role hierarchy filters all queries before data reaches Ollama
 - The LLM does not receive database credentials or raw SQL
 - If a user lacks permission for a module, the assistant reports that — it does not leak data from other modules
+- **Read-only database guard**: any non-SELECT query during chat data fetch throws an error immediately
+- **No write operations**: chat cannot create, update, or delete CRM records
+- **Rate limiting**: `AI_CHAT_RATE_LIMIT` (default 10/min) on `POST /api/chat`
+- **Input sanitization**: control characters stripped; SQL/prompt-injection patterns blocked
+- **Outbound sanitization**: emails, phones, internal routes, and sensitive metadata redacted before sending to Ollama
+- **Audit logging**: request metadata logged when `AI_CHAT_AUDIT_LOG=true` (not full CRM payload)
+- **Prompt hardening**: system prompt refuses delete/update/create requests and prompt-injection attempts
 
 ---
 

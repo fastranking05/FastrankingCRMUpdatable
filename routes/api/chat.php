@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['jwt.auth'])->prefix('chat')->name('chat.')->group(function () {
-    Route::post('/', [ChatController::class, 'chat'])->name('message');
-    Route::get('/status', [ChatController::class, 'status'])->name('status');
+Route::middleware(['jwt.auth', 'chat.security'])->prefix('chat')->name('chat.')->group(function () {
+    Route::post('/', [ChatController::class, 'chat'])
+        ->middleware('throttle:ai-chat')
+        ->name('message');
+    Route::get('/status', [ChatController::class, 'status'])
+        ->middleware('throttle:ai-chat-status')
+        ->name('status');
 });
