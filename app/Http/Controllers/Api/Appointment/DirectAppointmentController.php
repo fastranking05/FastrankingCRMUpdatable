@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BaseApiController;
 use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\FollowupBusiness;
+use App\Support\FollowupBusinessProfile;
 use App\Models\FollowupAuthPerson;
 use App\Models\TimeSlot;
 use App\Services\AppointmentBookingEngine;
@@ -419,11 +420,13 @@ class DirectAppointmentController extends BaseApiController
     public function show(string $appointmentId): JsonResponse
     {
         $appointment = Appointment::with([
-            'followupBusiness:id,name,category,type,website',
-            'followupBusiness.creator:id,first_name,last_name',
-            'followupBusiness.authPersons:id,title,firstname,lastname,job_title,gender,dob,primaryphone,altphone,primarymobile,altmobile,primaryemail,altemail',
-            'followupBusiness.comments' => function ($query) {
-                $query->with('creator:id,first_name,last_name')->orderBy('created_at', 'desc');
+            'followupBusiness' => function ($query) {
+                $query->with(array_merge(FollowupBusiness::profileRelations(), [
+                    'comments' => function ($commentQuery) {
+                        $commentQuery->with('creator:id,first_name,last_name')
+                            ->orderByDesc('created_at');
+                    },
+                ]));
             },
             'timeSlot:id,name,start_time,end_time,duration_minutes,max_concurrent_bookings',
             'creator:id,first_name,last_name'
@@ -434,7 +437,16 @@ class DirectAppointmentController extends BaseApiController
             return $this->errorResponse('Direct appointment not found', 404);
         }
 
-        return $this->successResponse($appointment, 'Direct appointment retrieved successfully');
+        $payload = $appointment->toArray();
+        $business = $appointment->followupBusiness;
+        $payload = FollowupBusinessProfile::attach(
+            $payload,
+            $business,
+            'followup_business',
+            $business?->relationLoaded('comments') ? ['comments' => $business->comments] : []
+        );
+
+        return $this->successResponse($payload, 'Direct appointment retrieved successfully');
     }
 
     /**

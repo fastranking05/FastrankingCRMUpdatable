@@ -8,7 +8,9 @@
 ## 1. Create Lead
 **POST** `/`
 
-Creates a new lead with business, auth persons, and comments.
+Creates a new lead with business, auth persons, comments, and optional service and qualification profiles.
+
+> **Payload schema:** Create (Section 1) and Update (Section 8) accept the **same fields and nested objects**. On update, send only the sections you want to change; validation rules are identical except `business_name` and `auth_persons` are optional on update.
 
 **Request Body:**
 ```json
@@ -23,6 +25,7 @@ Creates a new lead with business, auth persons, and comments.
   "type": "Software",
   "source_name": "Website",
   "sub_source": "Google Ads",
+  "priority": "high",
   "annual_revenue": 500000.00,
   "number_of_locations": 3,
   "website": "https://example.com",
@@ -82,11 +85,27 @@ Creates a new lead with business, auth persons, and comments.
       "comment": "Follow-up scheduled for next week",
       "followup_business_id": 123
     }
-  ]
+  ],
+  "business_service": {
+    "interested_services": [1, 2, 4],
+    "primary_service_id": 1,
+    "current_agency": "ABC Marketing Ltd",
+    "current_monthly_spend": 2500.00,
+    "planned_monthly_budget": 5000.00,
+    "existing_website_platform": "WordPress"
+  },
+  "lead_qualification": {
+    "temperature": "hot",
+    "budget": true,
+    "authority": false,
+    "need": true,
+    "timeline": false
+  }
 }
 ```
 
-**Response:**
+**Response:** Same structure as **Get Lead Details** (Section 7), including the mandatory business profile block.
+
 ```json
 {
   "success": true,
@@ -109,6 +128,7 @@ Creates a new lead with business, auth persons, and comments.
 | `type` | string | No | Business type (max 255) |
 | `source_name` | string | No | Lead source (max 50) |
 | `sub_source` | string | No | Lead sub-source (max 50) |
+| `priority` | string | No | Lead priority: `low`, `medium`, `high`, or `urgent` |
 | `annual_revenue` | number | No | Annual revenue (min 0) |
 | `number_of_locations` | integer | No | Number of locations (min 0) |
 | `website` | url | No | Business website |
@@ -139,10 +159,45 @@ Contact phone and email are stored on **auth persons** (`primaryphone`, `primary
 | `altmobile` | string | No | Alternate mobile |
 | `primaryemail` | email | Yes | Primary email |
 | `altemail` | email | No | Alternate email |
+| `id` | integer | Update only | Existing auth person ID (omit on create; include on update to modify existing contact) |
 
 All auth person fields except `firstname`, `lastname`, and `primaryemail` are optional (nullable).
 
+**Comment fields (within `comments` array):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `comment` | string | Yes | Comment text |
+| `old_status` | string | No | Previous status (max 255) |
+| `new_status` | string | No | New status (max 255) |
+| `followup_business_id` | integer | No | Defaults to the lead/business ID if omitted |
+
 All business fields except `business_name` are optional (nullable).
+
+**Business service fields (within `business_service` object):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `interested_services` | array of integers | No | Service IDs the lead is interested in (must exist in `services` table) |
+| `primary_service_id` | integer | No | Primary service ID (must exist in `services` table) |
+| `current_agency` | string | No | Current marketing/SEO agency (max 255) |
+| `current_monthly_spend` | number | No | Current monthly spend (min 0) |
+| `planned_monthly_budget` | number | No | Planned monthly budget (min 0) |
+| `existing_website_platform` | string | No | Existing website platform, e.g. WordPress, Shopify (max 255) |
+
+The entire `business_service` object is optional. If omitted or all fields are empty, no `business_services` row is created. On create, `followup_business_id` is set automatically from the new lead.
+
+**Lead qualification fields (within `lead_qualification` object):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `temperature` | string | No | Lead temperature, e.g. `hot`, `warm`, `cold` (max 255) |
+| `budget` | boolean | No | BANT: budget confirmed (`true`/`false` or `1`/`0`) |
+| `authority` | boolean | No | BANT: decision-maker identified (`true`/`false` or `1`/`0`) |
+| `need` | boolean | No | BANT: business need confirmed (`true`/`false` or `1`/`0`) |
+| `timeline` | boolean | No | BANT: timeline confirmed (`true`/`false` or `1`/`0`) |
+
+The entire `lead_qualification` object is optional. If omitted or all fields are empty, no `lead_qualifications` row is created. On create, `followup_business_id` is set automatically from the new lead. Omitted boolean fields default to `false` when a qualification row is created.
 
 ---
 
@@ -164,10 +219,13 @@ POST /api/leads/leads-filter
   "scope": "all",
   "date_filter": "this_month",
   "category": "Technology Services",
+  "priority": "high",
   "search": "ABC",
   "per_page": 15
 }
 ```
+
+`GET /filter-options` includes `priority_options`: `["low", "medium", "high", "urgent"]`
 
 ---
 
@@ -187,6 +245,7 @@ Retrieves all leads with role-based hierarchy access.
 - `type`: Filter by type
 - `source_name`: Filter by source name
 - `sub_source`: Filter by sub-source
+- `priority`: Filter by priority (`low`, `medium`, `high`, `urgent`)
 - `name`: Search by business name
 
 **Response:**
@@ -215,6 +274,7 @@ Retrieves only leads created by the logged-in user.
 - `type`: Filter by type
 - `source_name`: Filter by source name
 - `sub_source`: Filter by sub-source
+- `priority`: Filter by priority (`low`, `medium`, `high`, `urgent`)
 - `name`: Search by business name
 
 **Response:**
@@ -266,24 +326,33 @@ Retrieves a list of all business names and IDs from the followup business table.
 ## 6. Check Duplicate Lead Data
 **POST** `/check-duplicate`
 
-Checks for duplicate authorized person contact information before creating a new lead.
+Checks for duplicate lead data before creating or updating a lead. At least **one** field must be sent in the request.
 
-**Authentication:** Required (JWT)
+**Authentication:** Required (JWT)  
 **Permission:** `Leads,read`
 
 **Request Body:**
 ```json
 {
-  "auth_person_phone": "+1234567890",
-  "auth_person_mobile": "+1122334455",
-  "auth_person_email": "john.doe@example.com"
+  "business_name": "Example Company Ltd",
+  "website": "https://example.com",
+  "phone": "+1234567890",
+  "mobile": "+1122334455",
+  "email": "john.doe@example.com"
 }
 ```
 
-**Request Parameters (all optional):**
-- `auth_person_phone` (string): Authorized person phone number (checks both primaryphone and altphone fields)
-- `auth_person_mobile` (string): Authorized person mobile number (checks both primarymobile and altmobile fields)
-- `auth_person_email` (email): Authorized person email address (checks both primaryemail and altemail fields)
+**Request Parameters (send at least one):**
+
+| Field | Type | Checks against |
+|-------|------|----------------|
+| `business_name` | string | `followup_businesses.name` and `trading_name` (case-insensitive, trimmed) |
+| `website` | url | `followup_businesses.website` (normalized: lowercase, trailing `/` ignored) |
+| `phone` | string | Auth person `primaryphone` and `altphone` |
+| `mobile` | string | Auth person `primarymobile` and `altmobile` |
+| `email` | email | Auth person `primaryemail` and `altemail` (case-insensitive) |
+
+**Legacy aliases (still supported):** `auth_person_phone` → `phone`, `auth_person_mobile` → `mobile`, `auth_person_email` → `email`
 
 **Response (No Duplicates Found):**
 ```json
@@ -305,43 +374,86 @@ Checks for duplicate authorized person contact information before creating a new
   "data": {
     "has_duplicates": true,
     "duplicates": {
-      "auth_person_email": {
+      "business_name": {
+        "exists": true,
+        "lead_id": 123,
+        "business_name": "ABC Corporation"
+      },
+      "website": {
+        "exists": true,
+        "lead_id": 123,
+        "business_name": "ABC Corporation",
+        "website": "https://example.com"
+      },
+      "email": {
         "exists": true,
         "lead_id": 456,
         "business_name": "XYZ Industries",
         "auth_person_name": "John Doe"
       },
-      "auth_person_phone": {
+      "phone": {
         "exists": true,
         "lead_id": 123,
         "business_name": "ABC Corporation",
         "auth_person_name": "Jane Smith"
+      },
+      "mobile": {
+        "exists": true,
+        "lead_id": 789,
+        "business_name": "Another Co",
+        "auth_person_name": "Alex Lee"
       }
     }
   }
 }
 ```
 
-**Response Fields:**
-- `has_duplicates` (boolean): Indicates whether any duplicates were found
-- `duplicates` (object): Contains details of each duplicate found (auth person phone, mobile, or email)
-  - Includes `exists`, `lead_id`, `business_name`, and `auth_person_name` where applicable
+**Duplicate result fields:**
 
-**Usage Example:**
-This endpoint should be called before creating a new lead to prevent duplicate entries. If duplicates are found, the frontend can display appropriate warnings to the user.
+| Key in `duplicates` | Always includes | Also includes when relevant |
+|---------------------|-----------------|-----------------------------|
+| `business_name` | `exists`, `lead_id`, `business_name` | — |
+| `website` | `exists`, `lead_id`, `business_name` | `website` |
+| `phone` | `exists`, `lead_id`, `business_name` | `auth_person_name` |
+| `mobile` | `exists`, `lead_id`, `business_name` | `auth_person_name` |
+| `email` | `exists`, `lead_id`, `business_name` | `auth_person_name` |
+
+**Validation errors (422):**
+- No fields provided
+- Invalid `email` or `website` format
+
+**Usage:** Call before lead create/update to warn users about existing business names, websites, or contact details already linked to another lead.
 
 ---
 
 ## 7. Get Lead Details
 **GET** `/{id}`
 
-Retrieves detailed information about a specific lead including all related data:
-- Business details
-- Authorized persons
+Retrieves complete lead information including all related data:
+- Business details (including `priority`)
+- Authorized persons (full profile)
+- Business service profile (with `primary_service` and `interested_services_list`)
+- Lead qualification profile (BANT + temperature)
 - Comments (with creators)
-- Follow-up details
+- Follow-up details (with creators)
 - Emails (with creators)
 - Appointments (with time slots, creators, quality assessments, and consultations)
+- Deals (with auth person and creator)
+- SEO details (with assigned user)
+
+**Mandatory business profile (always in single-view response):**
+
+These keys are **always present** at the root of `data` (same structure used by Appointment, Follow-up, Quality, Consultation, and SEO single views — nested as `followup_business` or `business_details` where applicable):
+
+| Key | Always present | Notes |
+|-----|----------------|-------|
+| Business scalar fields | Yes | `id`, `name`, `trading_name`, `priority`, `source_name`, etc. |
+| `creator` | Yes | `null` if missing |
+| `auth_persons` | Yes | Array (empty `[]` if none) |
+| `business_service` | Yes | Object when saved; otherwise `null` |
+| `lead_qualification` | Yes | Object when saved; otherwise `null` |
+
+Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **in addition** to this mandatory block.
 
 **Response:**
 ```json
@@ -360,6 +472,7 @@ Retrieves detailed information about a specific lead including all related data:
     "type": "Enterprise",
     "source_name": "Website",
     "sub_source": "Google Ads",
+    "priority": "high",
     "annual_revenue": "750000.00",
     "number_of_locations": 5,
     "website": "https://example.com",
@@ -371,7 +484,7 @@ Retrieves detailed information about a specific lead including all related data:
       "first_name": "Admin",
       "last_name": "User"
     },
-    "authPersons": [
+    "auth_persons": [
       {
         "id": 1,
         "title": "Mr.",
@@ -405,6 +518,39 @@ Retrieves detailed information about a specific lead including all related data:
         }
       }
     ],
+    "business_service": {
+      "id": 1,
+      "followup_business_id": 1,
+      "interested_services": "1,2,4",
+      "interested_service_ids": [1, 2, 4],
+      "primary_service_id": 1,
+      "current_agency": "ABC Marketing Ltd",
+      "current_monthly_spend": "2500.00",
+      "planned_monthly_budget": "5000.00",
+      "existing_website_platform": "WordPress",
+      "created_at": "2026-04-28T10:00:00.000000Z",
+      "updated_at": "2026-04-28T10:00:00.000000Z",
+      "primary_service": {
+        "id": 1,
+        "name": "SEO"
+      },
+      "interested_services_list": [
+        { "id": 1, "name": "SEO" },
+        { "id": 2, "name": "PPC" },
+        { "id": 4, "name": "Web Design" }
+      ]
+    },
+    "lead_qualification": {
+      "id": 1,
+      "followup_business_id": 1,
+      "temperature": "hot",
+      "budget": true,
+      "authority": false,
+      "need": true,
+      "timeline": false,
+      "created_at": "2026-04-28T10:00:00.000000Z",
+      "updated_at": "2026-04-28T10:00:00.000000Z"
+    },
     "comments": [
       {
         "id": 1,
@@ -504,6 +650,48 @@ Retrieves detailed information about a specific lead including all related data:
           }
         ]
       }
+    ],
+    "deals": [
+      {
+        "id": "FRDID00000001",
+        "followup_business_id": 1,
+        "name": "SEO Retainer",
+        "deal_stage": "Proposal",
+        "probability": "75.00",
+        "priority": "high",
+        "created_by": 1,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "auth_person": {
+          "id": 1,
+          "title": "Mr.",
+          "firstname": "John",
+          "lastname": "Doe",
+          "primaryemail": "john.doe@example.com",
+          "primarymobile": "+1-555-0201"
+        },
+        "creator": {
+          "id": 1,
+          "first_name": "Admin",
+          "last_name": "User"
+        }
+      }
+    ],
+    "seo_details": [
+      {
+        "id": 1,
+        "followup_business_id": 1,
+        "status": "Completed",
+        "audited_website": "https://example.com",
+        "audited_date": "2026-04-28",
+        "assigned_user": 2,
+        "created_at": "2026-04-28T10:00:00.000000Z",
+        "assignedUser": {
+          "id": 2,
+          "first_name": "SEO",
+          "last_name": "Analyst",
+          "username": "seo_analyst"
+        }
+      }
     ]
   }
 }
@@ -514,7 +702,16 @@ Retrieves detailed information about a specific lead including all related data:
 ## 8. Update Lead
 **PUT** `/{id}`
 
-**Request Body (all fields optional except when provided):**
+Updates an existing lead using the **exact same payload fields as Create Lead** (Section 1). Send only the sections you want to change.
+
+**Field reference:** Use the same tables as Section 1 for:
+- Business fields
+- `auth_persons` (add optional `id` when updating an existing contact)
+- `comments`
+- `business_service`
+- `lead_qualification`
+
+**Request Body** (same shape as create; example shows full payload):
 ```json
 {
   "business_name": "Updated Name",
@@ -527,21 +724,120 @@ Retrieves detailed information about a specific lead including all related data:
   "type": "Enterprise",
   "source_name": "Referral",
   "sub_source": "Partner Network",
+  "priority": "urgent",
   "annual_revenue": 1200000.00,
   "number_of_locations": 8,
   "website": "https://updated-example.com",
-  "auth_person_ids": [1, 2]
+  "auth_persons": [
+    {
+      "id": 1,
+      "title": "Mr",
+      "firstname": "John",
+      "middlename": "Robert",
+      "lastname": "Doe",
+      "is_primary": true,
+      "job_title": "CEO",
+      "seniority_level": "Executive",
+      "extension": "101",
+      "linkedin_profile": "https://linkedin.com/in/johndoe",
+      "facebook_profile": "https://facebook.com/johndoe",
+      "preferred_contact_method": "email",
+      "preferred_contact_time": "Weekdays 9am-5pm",
+      "gender": "male",
+      "dob": "1980-01-15",
+      "primaryphone": "+1234567890",
+      "altphone": "+0987654321",
+      "primarymobile": "+1122334455",
+      "altmobile": "+5544332211",
+      "primaryemail": "john.doe@example.com",
+      "altemail": "john.alternate@example.com"
+    },
+    {
+      "title": "Ms",
+      "firstname": "Jane",
+      "middlename": "Anne",
+      "lastname": "Smith",
+      "is_primary": false,
+      "job_title": "Operations Manager",
+      "seniority_level": "Manager",
+      "extension": "102",
+      "linkedin_profile": "https://linkedin.com/in/janesmith",
+      "facebook_profile": null,
+      "preferred_contact_method": "mobile",
+      "preferred_contact_time": "Weekdays 10am-4pm",
+      "gender": "female",
+      "dob": "1985-03-20",
+      "primaryphone": "+1234567891",
+      "altphone": null,
+      "primarymobile": "+1122334456",
+      "altmobile": null,
+      "primaryemail": "jane.smith@example.com",
+      "altemail": null
+    }
+  ],
+  "comments": [
+    {
+      "comment": "Updated lead details after discovery call",
+      "old_status": "contacted",
+      "new_status": "qualified"
+    }
+  ],
+  "business_service": {
+    "interested_services": [1, 3],
+    "primary_service_id": 3,
+    "current_agency": "New Agency Ltd",
+    "current_monthly_spend": 3000.00,
+    "planned_monthly_budget": 6000.00,
+    "existing_website_platform": "Shopify"
+  },
+  "lead_qualification": {
+    "temperature": "warm",
+    "budget": true,
+    "authority": true,
+    "need": true,
+    "timeline": false
+  }
 }
 ```
 
-Only include the fields you want to update. All business detail fields are nullable.
+**Create vs update (same fields, different rules):**
 
-**Response:**
+| Field / section | Create | Update |
+|-----------------|--------|--------|
+| `business_name` | Required | Optional (`sometimes` — only validated when sent) |
+| All other business fields | Optional | Optional — partial update |
+| `auth_persons` | Required array | Optional array — omit to leave contacts unchanged |
+| `auth_persons[].id` | Not used | Optional — include to update existing contact |
+| `comments` | Optional — creates rows | Optional — appends new rows |
+| `business_service` | Optional — creates row | Optional — upserts row |
+| `lead_qualification` | Optional — creates row | Optional — upserts row |
+
+**Update behaviour:**
+
+| Section | On update |
+|---------|-----------|
+| Business fields | Only sent fields are changed |
+| `auth_persons` | Upsert: `id` = update; no `id` = create. Contacts not in the array are detached |
+| `comments` | Appends new rows (does not replace existing) |
+| `business_service` | Upserts the single row for this lead |
+| `lead_qualification` | Upserts the single row for this lead |
+
+**Response:** Same structure as **Get Lead Details** (Section 7), including the mandatory business profile block (`auth_persons`, `business_service`, `lead_qualification`).
+
 ```json
 {
   "success": true,
   "message": "Lead updated successfully",
-  "data": {...}
+  "data": {
+    "id": 1,
+    "name": "Updated Name",
+    "priority": "urgent",
+    "auth_persons": [...],
+    "business_service": {...},
+    "lead_qualification": {...},
+    "comments": [...],
+    "followup_details": [...]
+  }
 }
 ```
 

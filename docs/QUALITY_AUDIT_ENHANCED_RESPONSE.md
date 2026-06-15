@@ -149,6 +149,7 @@ For one quality record with full question–answer mapping, use:
 - **GET** `/api/quality/quality/{id}` — see [SINGLE_QUALITY_API_DOCUMENTATION.md](./SINGLE_QUALITY_API_DOCUMENTATION.md)
 
 The single-view response includes:
+- **`appointment.followup_business`** — full business profile: business details, `auth_persons`, `business_service`, `lead_qualification`
 - **`answers`** — submitted answers with nested `question`
 - **`question_answers`** — all active questions merged with answers (`is_answered` flag for the audit form UI)
 

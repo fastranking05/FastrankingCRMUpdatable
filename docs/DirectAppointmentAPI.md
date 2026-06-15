@@ -208,6 +208,57 @@ Returns paginated list of direct appointments with filtering options.
 
 Returns detailed information about a specific appointment.
 
+**Mandatory `followup_business` block:** always includes business fields, `creator`, `auth_persons`, `business_service` (`null` if not set), and `lead_qualification` (`null` if not set). Appointment fields (`time_slot`, `creator`, etc.) are returned in addition.
+
+Includes full business profile on `followup_business`:
+- All business fields (including `priority`, `trading_name`, `source_name`, etc.)
+- `auth_persons` — full contact profile
+- `business_service` — with `primary_service` and `interested_services_list`
+- `lead_qualification` — temperature and BANT fields (`budget`, `authority`, `need`, `timeline`)
+- `comments` — with creators
+
+**Response:**
+```json
+{
+    "success": true,
+    "message": "Direct appointment retrieved successfully",
+    "data": {
+        "id": "FRMID00000001",
+        "followup_business_id": 1,
+        "date": "2026-04-16",
+        "time_slot_id": 1,
+        "current_status": "Booked",
+        "followup_business": {
+            "id": 1,
+            "name": "ABC Corporation",
+            "trading_name": "ABC Trading",
+            "priority": "high",
+            "category": "Technology",
+            "source_name": "Website",
+            "auth_persons": [...],
+            "business_service": {
+                "interested_service_ids": [1, 2],
+                "interested_services_list": [
+                    { "id": 1, "name": "SEO" },
+                    { "id": 2, "name": "PPC" }
+                ],
+                "primary_service": { "id": 1, "name": "SEO" }
+            },
+            "lead_qualification": {
+                "temperature": "hot",
+                "budget": true,
+                "authority": false,
+                "need": true,
+                "timeline": false
+            },
+            "comments": [...]
+        },
+        "time_slot": { "id": 1, "name": "Morning Slot", "start_time": "09:00:00", "end_time": "10:00:00" },
+        "creator": { "id": 1, "first_name": "Admin", "last_name": "User" }
+    }
+}
+```
+
 ### 8. Update Appointment
 **PUT** `/api/appointments/direct/{appointmentId}`
 

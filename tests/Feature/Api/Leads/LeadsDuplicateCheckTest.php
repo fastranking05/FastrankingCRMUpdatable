@@ -27,6 +27,8 @@ class LeadsDuplicateCheckTest extends TestCase
 
         $this->business = FollowupBusiness::create([
             'name' => 'Test Corporation',
+            'trading_name' => 'Test Trading',
+            'website' => 'https://testcorp.com',
             'category' => 'Technology',
             'type' => 'Standard',
             'created_by' => $this->user->id,
@@ -50,13 +52,13 @@ class LeadsDuplicateCheckTest extends TestCase
 
     public function test_duplicate_check_no_duplicates(): void
     {
-        $payload = [
-            'auth_person_phone' => '+9999999998',
-            'auth_person_mobile' => '+9999999997',
-            'auth_person_email' => 'newperson@example.com',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'business_name' => 'Unique Business Ltd',
+            'website' => 'https://unique-example.com',
+            'phone' => '+9999999998',
+            'mobile' => '+9999999997',
+            'email' => 'newperson@example.com',
+        ]);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -64,205 +66,184 @@ class LeadsDuplicateCheckTest extends TestCase
                 'message' => 'No duplicates found',
                 'data' => [
                     'has_duplicates' => false,
-                    'duplicates' => []
-                ]
+                    'duplicates' => [],
+                ],
             ]);
     }
 
-    public function test_duplicate_check_auth_person_phone_primary_duplicate(): void
+    public function test_duplicate_check_business_name_duplicate(): void
     {
-        $payload = [
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'business_name' => 'test corporation',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.has_duplicates', true)
+            ->assertJsonPath('data.duplicates.business_name.exists', true)
+            ->assertJsonPath('data.duplicates.business_name.lead_id', $this->business->id)
+            ->assertJsonPath('data.duplicates.business_name.business_name', 'Test Corporation');
+    }
+
+    public function test_duplicate_check_trading_name_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'business_name' => 'Test Trading',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.business_name.exists', true)
+            ->assertJsonPath('data.duplicates.business_name.lead_id', $this->business->id);
+    }
+
+    public function test_duplicate_check_website_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'website' => 'https://testcorp.com/',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.website.exists', true)
+            ->assertJsonPath('data.duplicates.website.lead_id', $this->business->id)
+            ->assertJsonPath('data.duplicates.website.website', 'https://testcorp.com');
+    }
+
+    public function test_duplicate_check_phone_primary_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'phone' => '+1234567891',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.phone.exists', true)
+            ->assertJsonPath('data.duplicates.phone.lead_id', $this->business->id)
+            ->assertJsonPath('data.duplicates.phone.auth_person_name', 'John Doe');
+    }
+
+    public function test_duplicate_check_phone_alt_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'phone' => '+1234567892',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.phone.exists', true);
+    }
+
+    public function test_duplicate_check_mobile_primary_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'mobile' => '+1234567893',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.mobile.exists', true);
+    }
+
+    public function test_duplicate_check_mobile_alt_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'mobile' => '+1234567894',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.mobile.exists', true);
+    }
+
+    public function test_duplicate_check_email_primary_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'email' => 'john.doe@testcorp.com',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.email.exists', true)
+            ->assertJsonPath('data.duplicates.email.lead_id', $this->business->id)
+            ->assertJsonPath('data.duplicates.email.auth_person_name', 'John Doe');
+    }
+
+    public function test_duplicate_check_email_alt_duplicate(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'email' => 'john.alternate@testcorp.com',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('data.duplicates.email.exists', true);
+    }
+
+    public function test_duplicate_check_supports_legacy_auth_person_field_names(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
             'auth_person_phone' => '+1234567891',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
-
-        $this->assertArrayHasKey('auth_person_phone', $response->json('data.duplicates'));
-        $this->assertEquals(true, $response->json('data.duplicates.auth_person_phone.exists'));
-        $this->assertEquals($this->business->id, $response->json('data.duplicates.auth_person_phone.lead_id'));
-        $this->assertEquals('John Doe', $response->json('data.duplicates.auth_person_phone.auth_person_name'));
-    }
-
-    public function test_duplicate_check_auth_person_phone_alt_duplicate(): void
-    {
-        $payload = [
-            'auth_person_phone' => '+1234567892',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
-
-        $this->assertArrayHasKey('auth_person_phone', $response->json('data.duplicates'));
-        $this->assertEquals(true, $response->json('data.duplicates.auth_person_phone.exists'));
-    }
-
-    public function test_duplicate_check_auth_person_mobile_primary_duplicate(): void
-    {
-        $payload = [
             'auth_person_mobile' => '+1234567893',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
-
-        $this->assertArrayHasKey('auth_person_mobile', $response->json('data.duplicates'));
-        $this->assertEquals(true, $response->json('data.duplicates.auth_person_mobile.exists'));
-    }
-
-    public function test_duplicate_check_auth_person_mobile_alt_duplicate(): void
-    {
-        $payload = [
-            'auth_person_mobile' => '+1234567894',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
-
-        $this->assertArrayHasKey('auth_person_mobile', $response->json('data.duplicates'));
-        $this->assertEquals(true, $response->json('data.duplicates.auth_person_mobile.exists'));
-    }
-
-    public function test_duplicate_check_auth_person_email_primary_duplicate(): void
-    {
-        $payload = [
             'auth_person_email' => 'john.doe@testcorp.com',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
+        ]);
 
         $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
+            ->assertJsonPath('data.has_duplicates', true);
 
-        $this->assertArrayHasKey('auth_person_email', $response->json('data.duplicates'));
-        $this->assertEquals(true, $response->json('data.duplicates.auth_person_email.exists'));
-        $this->assertEquals($this->business->id, $response->json('data.duplicates.auth_person_email.lead_id'));
-        $this->assertEquals('John Doe', $response->json('data.duplicates.auth_person_email.auth_person_name'));
-    }
-
-    public function test_duplicate_check_auth_person_email_alt_duplicate(): void
-    {
-        $payload = [
-            'auth_person_email' => 'john.alternate@testcorp.com',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
-
-        $this->assertArrayHasKey('auth_person_email', $response->json('data.duplicates'));
-        $this->assertEquals(true, $response->json('data.duplicates.auth_person_email.exists'));
+        $duplicates = $response->json('data.duplicates');
+        $this->assertArrayHasKey('phone', $duplicates);
+        $this->assertArrayHasKey('mobile', $duplicates);
+        $this->assertArrayHasKey('email', $duplicates);
     }
 
     public function test_duplicate_check_multiple_duplicates(): void
     {
-        $payload = [
-            'auth_person_phone' => '+1234567891',
-            'auth_person_mobile' => '+1234567893',
-            'auth_person_email' => 'john.doe@testcorp.com',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'business_name' => 'Test Corporation',
+            'website' => 'https://testcorp.com',
+            'phone' => '+1234567891',
+            'mobile' => '+1234567893',
+            'email' => 'john.doe@testcorp.com',
+        ]);
 
         $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'Duplicates found',
-                'data' => [
-                    'has_duplicates' => true,
-                ]
-            ]);
+            ->assertJsonPath('data.has_duplicates', true);
 
         $duplicates = $response->json('data.duplicates');
-        $this->assertCount(3, $duplicates);
-        $this->assertArrayHasKey('auth_person_phone', $duplicates);
-        $this->assertArrayHasKey('auth_person_mobile', $duplicates);
-        $this->assertArrayHasKey('auth_person_email', $duplicates);
+        $this->assertCount(5, $duplicates);
+        $this->assertArrayHasKey('business_name', $duplicates);
+        $this->assertArrayHasKey('website', $duplicates);
+        $this->assertArrayHasKey('phone', $duplicates);
+        $this->assertArrayHasKey('mobile', $duplicates);
+        $this->assertArrayHasKey('email', $duplicates);
     }
 
-    public function test_duplicate_check_empty_request(): void
+    public function test_duplicate_check_empty_request_returns_validation_error(): void
     {
-        $payload = [];
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', []);
 
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'message' => 'No duplicates found',
-                'data' => [
-                    'has_duplicates' => false,
-                    'duplicates' => []
-                ]
-            ]);
+        $response->assertStatus(422);
     }
 
     public function test_duplicate_check_invalid_email(): void
     {
-        $payload = [
-            'auth_person_email' => 'invalid-email',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'email' => 'invalid-email',
+        ]);
 
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['auth_person_email']);
+            ->assertJsonValidationErrors(['email']);
+    }
+
+    public function test_duplicate_check_invalid_website(): void
+    {
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'website' => 'not-a-url',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['website']);
     }
 
     public function test_duplicate_check_requires_authentication(): void
     {
         Sanctum::actingAs(null);
 
-        $payload = [
-            'auth_person_phone' => '+1234567890',
-        ];
-
-        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', $payload);
+        $response = $this->postJson('/api/admin/leads/leads/check-duplicate', [
+            'phone' => '+1234567890',
+        ]);
 
         $response->assertStatus(401);
     }
