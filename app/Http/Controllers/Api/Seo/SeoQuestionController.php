@@ -15,11 +15,17 @@ class SeoQuestionController extends BaseApiController
      */
     public function index(Request $request): JsonResponse
     {
-        $query = SeoQuestion::with('creator:id,first_name,last_name');
+        $query = SeoQuestion::with([
+            'creator:id,first_name,last_name',
+            'category:id,name,is_active',
+        ]);
 
-        // Filter by active status if provided
         if ($request->has('is_active')) {
             $query->where('is_active', $request->boolean('is_active'));
+        }
+
+        if ($request->has('seo_question_category_id')) {
+            $query->where('seo_question_category_id', $request->seo_question_category_id);
         }
 
         // Search functionality
@@ -40,8 +46,10 @@ class SeoQuestionController extends BaseApiController
      */
     public function show(int $id): JsonResponse
     {
-        $question = SeoQuestion::with('creator:id,first_name,last_name')
-            ->find($id);
+        $question = SeoQuestion::with([
+            'creator:id,first_name,last_name',
+            'category:id,name,is_active',
+        ])->find($id);
 
         if (!$question) {
             return $this->errorResponse('SEO question not found', 404);
@@ -57,6 +65,7 @@ class SeoQuestionController extends BaseApiController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:1000',
+            'seo_question_category_id' => 'nullable|integer|exists:seo_question_categories,id',
             'answer_type' => 'required|string|in:text,textarea,number,date,dropdown',
             'dropdown_options' => 'required_if:answer_type,dropdown|array',
             'dropdown_options.*' => 'string|max:255',
@@ -69,14 +78,17 @@ class SeoQuestionController extends BaseApiController
 
         $question = SeoQuestion::create([
             'name' => $request->name,
+            'seo_question_category_id' => $request->seo_question_category_id,
             'answer_type' => $request->answer_type,
             'dropdown_options' => $request->answer_type === 'dropdown' ? $request->dropdown_options : null,
             'is_active' => $request->has('is_active') ? $request->boolean('is_active') : true,
             'created_by' => auth()->id(),
         ]);
 
-        // Load relationships for response
-        $question->load('creator:id,first_name,last_name');
+        $question->load([
+            'creator:id,first_name,last_name',
+            'category:id,name,is_active',
+        ]);
 
         return $this->successResponse($question, 'SEO question created successfully', 201);
     }
@@ -88,6 +100,7 @@ class SeoQuestionController extends BaseApiController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:1000',
+            'seo_question_category_id' => 'nullable|integer|exists:seo_question_categories,id',
             'answer_type' => 'required|string|in:text,textarea,number,date,dropdown',
             'dropdown_options' => 'required_if:answer_type,dropdown|array',
             'dropdown_options.*' => 'string|max:255',
@@ -109,6 +122,10 @@ class SeoQuestionController extends BaseApiController
             'dropdown_options' => $request->answer_type === 'dropdown' ? $request->dropdown_options : null,
         ];
 
+        if ($request->has('seo_question_category_id')) {
+            $updateData['seo_question_category_id'] = $request->seo_question_category_id;
+        }
+
         // Only update is_active if it's provided in the request
         if ($request->has('is_active')) {
             $updateData['is_active'] = $request->boolean('is_active');
@@ -116,8 +133,10 @@ class SeoQuestionController extends BaseApiController
 
         $question->update($updateData);
 
-        // Load relationships for response
-        $question->load('creator:id,first_name,last_name');
+        $question->load([
+            'creator:id,first_name,last_name',
+            'category:id,name,is_active',
+        ]);
 
         return $this->successResponse($question, 'SEO question updated successfully');
     }
@@ -161,7 +180,10 @@ class SeoQuestionController extends BaseApiController
     public function getActive(): JsonResponse
     {
         $questions = SeoQuestion::where('is_active', true)
-            ->with('creator:id,first_name,last_name')
+            ->with([
+                'creator:id,first_name,last_name',
+                'category:id,name,is_active',
+            ])
             ->orderBy('created_at', 'desc')
             ->get();
 

@@ -101,6 +101,7 @@ Includes full business profile on `followup_business`:
       "id": 1,
       "name": "ABC Corporation",
       "trading_name": "ABC Trading",
+      "company_type": "Private Limited",
       "priority": "high",
       "source_name": "Website",
       "sub_source": "Google Ads",
@@ -205,6 +206,7 @@ Returns detailed information about a specific direct appointment. The nested `fo
   "followup_business_id": 1,
   "business": {
     "name": "ABC Corp",
+    "company_type": "Private Limited",
     "category": "Technology",
     "type": "Company",
     "website": "https://abc.com",

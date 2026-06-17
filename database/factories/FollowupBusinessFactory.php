@@ -22,6 +22,7 @@ class FollowupBusinessFactory extends Factory
     {
         return [
             'name' => $this->faker->company(),
+            'company_type' => $this->faker->randomElement(['Private Limited', 'Public Limited', 'LLP', 'Partnership']),
             'category' => $this->faker->randomElement(['Technology', 'Healthcare', 'Finance', 'Education']),
             'type' => $this->faker->randomElement(['Standard', 'Premium', 'Enterprise']),
             'website' => $this->faker->url(),

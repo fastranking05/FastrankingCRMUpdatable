@@ -528,6 +528,7 @@ class DirectAppointmentController extends BaseApiController
             'business.company_registration_number' => 'nullable|string|max:100',
             'business.address' => 'nullable|string|max:1000',
             'business.company_size' => 'nullable|string|max:100',
+            'business.company_type' => 'nullable|string|max:50',
             'business.category' => 'nullable|string|max:255',
             'business.sub_category' => 'nullable|string|max:255',
             'business.type' => 'nullable|string|max:255',

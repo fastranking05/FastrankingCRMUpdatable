@@ -208,7 +208,7 @@ Same pattern: `user_id`, `role_id`, unique `(user_id, role_id)`, FK cascade.
 |--------|------|----------------------|
 | `id` | bigIncrements | |
 | `name` | string | indexed with category, type |
-| `category`, `type`, `source_name`, `sub_source` | string, nullable | `source_name` / `sub_source` max 50 |
+| `category`, `type`, `source_name`, `sub_source`, `company_type` | string, nullable | `company_type` max 50; `source_name` / `sub_source` max 50 |
 | `website` | string, nullable | |
 | `created_by` | unsignedBigInteger | FK → `users`, `CASCADE` |
 | `latest_followup_date`, `latest_followup_time` | date / time, nullable | Denormalized from latest row in `followup_details` (`date`/`time`), for cursor-safe list ordering; synced by `FollowupDetailObserver` + `php artisan followup:sync-latest-sort`. |
