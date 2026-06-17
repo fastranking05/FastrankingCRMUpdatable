@@ -44,6 +44,7 @@ All endpoints require:
 |-----------|------|----------|---------|-------------|
 | `search` | string | No | — | Search questions by name |
 | `is_active` | boolean | No | — | Filter by active status (`1`/`0` or `true`/`false`) |
+| `seo_question_category_id` | integer | No | — | Filter questions by category ID |
 | `per_page` | integer | No | `50` | Number of records per page |
 
 **Example Request:**
@@ -62,6 +63,7 @@ GET /api/seo-questions?search=meta&is_active=1&per_page=20
             {
                 "id": 1,
                 "name": "Does the website have a meta title?",
+                "seo_question_category_id": 1,
                 "answer_type": "text",
                 "dropdown_options": null,
                 "is_active": true,
@@ -72,6 +74,11 @@ GET /api/seo-questions?search=meta&is_active=1&per_page=20
                     "id": 1,
                     "first_name": "Suraj",
                     "last_name": "Kumar"
+                },
+                "category": {
+                    "id": 1,
+                    "name": "On-Page SEO",
+                    "is_active": true
                 }
             },
             {
@@ -214,6 +221,7 @@ GET /api/seo-questions/1
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `name` | string | Yes | — | The question text (max 1000 characters) |
+| `seo_question_category_id` | integer | No | `null` | ID of the category from `seo_question_categories` |
 | `answer_type` | string | Yes | — | Answer input type: `text`, `textarea`, `number`, `date`, `dropdown` |
 | `dropdown_options` | array | Conditional | — | Required when `answer_type` is `dropdown`. Array of option strings |
 | `is_active` | boolean | No | `true` | Whether the question is active |
@@ -222,6 +230,7 @@ GET /api/seo-questions/1
 ```json
 {
     "name": "Does the website have proper heading structure?",
+    "seo_question_category_id": 1,
     "answer_type": "text",
     "is_active": true
 }
@@ -426,6 +435,7 @@ The `seo_questions` table structure:
 |--------|------|-------------|
 | `id` | BIGINT UNSIGNED (PK) | Auto-increment primary key |
 | `name` | VARCHAR(255) | The question text |
+| `seo_question_category_id` | BIGINT UNSIGNED (FK, nullable) | References `seo_question_categories.id` (set to `null` on category delete) |
 | `answer_type` | VARCHAR(255) | Answer input type: `text`, `textarea`, `number`, `date`, `dropdown` (default: `text`) |
 | `dropdown_options` | JSON (nullable) | Array of option strings when `answer_type` is `dropdown` |
 | `is_active` | BOOLEAN | Active status flag (default: `true`) |
@@ -436,6 +446,7 @@ The `seo_questions` table structure:
 ## Related Models
 
 - **SeoQuestion** (`app/Models/SeoQuestion.php`) — The question model
+- **SeoQuestionCategory** (`app/Models/SeoQuestionCategory.php`) — Categories for grouping questions
 - **SeoQuestionAnswer** (`app/Models/SeoQuestionAnswer.php`) — Answers linked to questions during audits
 - **SeoDetail** (`app/Models/SeoDetail.php`) — The SEO audit record that references answers
 
@@ -447,15 +458,18 @@ app/
 │   └── Controllers/
 │       └── Api/
 │           └── Seo/
-│               └── SeoQuestionController.php    # CRUD controller
+│               ├── SeoQuestionController.php    # CRUD controller
+│               └── SeoQuestionCategoryController.php
 ├── Models/
 │   ├── SeoQuestion.php                          # Question model
+│   ├── SeoQuestionCategory.php                  # Category model
 │   └── SeoQuestionAnswer.php                    # Answer model
 routes/
 └── api/
     └── admin/
         └── seo/
-            └── questions.php                    # Route definitions
+            ├── questions.php                    # Question route definitions
+            └── categories.php                   # Category route definitions
 ```
 
 ## Error Handling

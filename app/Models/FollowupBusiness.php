@@ -24,6 +24,7 @@ class FollowupBusiness extends Model
         'company_registration_number',
         'address',
         'company_size',
+        'company_type',
         'category',
         'sub_category',
         'type',

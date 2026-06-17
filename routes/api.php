@@ -88,6 +88,7 @@ Route::group([], function () {
 // SEO Questions Routes
 Route::group([], function () {
     require __DIR__ . '/api/admin/seo/questions.php';
+    require __DIR__ . '/api/admin/seo/categories.php';
 });
 
 // SEO Data Submission Routes

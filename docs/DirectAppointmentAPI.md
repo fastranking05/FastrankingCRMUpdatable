@@ -23,6 +23,7 @@ Creates a new appointment along with a new business and auth persons.
 {
     "business": {
         "name": "ABC Corporation",
+        "company_type": "Private Limited",
         "category": "Technology",
         "type": "Enterprise",
         "website": "https://abccorp.com",
@@ -232,6 +233,7 @@ Includes full business profile on `followup_business`:
             "id": 1,
             "name": "ABC Corporation",
             "trading_name": "ABC Trading",
+            "company_type": "Private Limited",
             "priority": "high",
             "category": "Technology",
             "source_name": "Website",
@@ -373,6 +375,7 @@ curl -X POST http://localhost:8000/api/direct-appointments \
   -d '{
     "business": {
         "name": "New Client Company",
+        "company_type": "Private Limited",
         "category": "Healthcare",
         "type": "Premium",
         "phone": "+1234567890",

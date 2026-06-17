@@ -20,6 +20,7 @@ Creates a new lead with business, auth persons, comments, and optional service a
   "company_registration_number": "12345678",
   "address": "123 Main Street, London, UK",
   "company_size": "11-50",
+  "company_type": "Private Limited",
   "category": "Technology",
   "sub_category": "SaaS",
   "type": "Software",
@@ -123,6 +124,7 @@ Creates a new lead with business, auth persons, comments, and optional service a
 | `company_registration_number` | string | No | Company registration number (max 100) |
 | `address` | string | No | Business address (max 1000) |
 | `company_size` | string | No | Company size, e.g. `1-10`, `11-50` (max 100) |
+| `company_type` | string | No | Company legal type (max 50) |
 | `category` | string | No | Business category (max 255) |
 | `sub_category` | string | No | Business sub-category (max 255) |
 | `type` | string | No | Business type (max 255) |
@@ -467,6 +469,7 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
     "company_registration_number": "12345678",
     "address": "123 Main Street, London, UK",
     "company_size": "51-200",
+    "company_type": "Private Limited",
     "category": "Technology",
     "sub_category": "SaaS",
     "type": "Enterprise",
@@ -719,6 +722,7 @@ Updates an existing lead using the **exact same payload fields as Create Lead** 
   "company_registration_number": "87654321",
   "address": "456 New Road, Manchester, UK",
   "company_size": "201-500",
+  "company_type": "Public Limited",
   "category": "Updated Category",
   "sub_category": "Enterprise Software",
   "type": "Enterprise",
