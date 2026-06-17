@@ -15,6 +15,7 @@ class SeoQuestion extends Model
 
     protected $fillable = [
         'name',
+        'seo_question_category_id',
         'answer_type',
         'dropdown_options',
         'is_active',
@@ -31,6 +32,11 @@ class SeoQuestion extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(SeoQuestionCategory::class, 'seo_question_category_id');
     }
 
     public function questionAnswers(): HasMany

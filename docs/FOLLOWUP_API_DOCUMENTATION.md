@@ -16,6 +16,7 @@ Creates a new follow-up business record.
 ```json
 {
   "name": "ABC Corporation",
+  "company_type": "Private Limited",
   "category": "Technology",
   "type": "Software",
   "website": "https://abccorp.com",
@@ -27,6 +28,7 @@ Creates a new follow-up business record.
 
 **Validation Rules:**
 - `name`: required, string, max 255 characters
+- `company_type`: nullable, string, max 50 characters
 - `category`: nullable, string, max 255 characters
 - `type`: nullable, string, max 255 characters
 - `website`: nullable, url, max 255 characters
@@ -42,6 +44,7 @@ Creates a new follow-up business record.
   "data": {
     "id": 1,
     "name": "ABC Corporation",
+    "company_type": "Private Limited",
     "category": "Technology",
     "type": "Software",
     "website": "https://abccorp.com",
@@ -238,6 +241,7 @@ Includes:
     "id": 1,
     "name": "ABC Corporation",
     "trading_name": "ABC Trading",
+    "company_type": "Private Limited",
     "priority": "high",
     "source_name": "Website",
     "sub_source": "Google Ads",
