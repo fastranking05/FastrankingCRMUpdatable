@@ -343,7 +343,10 @@ Allowed values for `answer` / `answers`:
 | name | string | Business name |
 | trading_name | string | Trading name |
 | company_registration_number | string | Company registration number |
-| address | string | Business address |
+| address_line1 | string | Address line 1 |
+| city | string | City |
+| postcode | string | Postcode |
+| country | string | Country |
 | company_size | string | Company size |
 | category | string | Business category |
 | sub_category | string | Business sub-category |
