@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use App\Models\Module;
-use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DealsModuleSeeder extends Seeder
 {
     /**
-     * Register the Deals module and grant permissions to roles that had
+     * Register the Deals module and grant permissions to departments that had
      * Consultation or legacy Opportunity access.
      */
     public function run(): void
@@ -27,18 +27,18 @@ class DealsModuleSeeder extends Seeder
             ?? Module::where('name', 'Consultation')->first();
 
         if ($sourceModule) {
-            $rolesWithAccess = Role::whereHas('modules', function ($query) use ($sourceModule) {
+            $departmentsWithAccess = Department::whereHas('modules', function ($query) use ($sourceModule) {
                 $query->where('modules.id', $sourceModule->id)
-                    ->where('module_role.can_read', true);
+                    ->where('module_department.can_read', true);
             })->get();
 
-            foreach ($rolesWithAccess as $role) {
-                $sourcePermissions = $role->modules()
+            foreach ($departmentsWithAccess as $department) {
+                $sourcePermissions = $department->modules()
                     ->where('modules.id', $sourceModule->id)
                     ->first()
                     ?->pivot;
 
-                $role->modules()->syncWithoutDetaching([
+                $department->modules()->syncWithoutDetaching([
                     $dealsModule->id => [
                         'can_create' => (bool) ($sourcePermissions->can_create ?? false),
                         'can_read' => (bool) ($sourcePermissions->can_read ?? true),
@@ -48,9 +48,9 @@ class DealsModuleSeeder extends Seeder
                 ]);
             }
         } else {
-            $fallbackRole = Role::where('status', 'active')->first();
-            if ($fallbackRole) {
-                $fallbackRole->modules()->syncWithoutDetaching([
+            $fallbackDepartment = Department::where('status', 'active')->first();
+            if ($fallbackDepartment) {
+                $fallbackDepartment->modules()->syncWithoutDetaching([
                     $dealsModule->id => [
                         'can_create' => false,
                         'can_read' => true,

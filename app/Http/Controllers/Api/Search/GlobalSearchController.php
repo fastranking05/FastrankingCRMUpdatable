@@ -35,12 +35,15 @@ class GlobalSearchController extends BaseApiController
         }
 
         try {
+            $user = auth()->user();
+
             $data = $this->globalSearchService->search(
                 $request->input('q'),
                 [
                     'types' => $request->input('types', []),
                     'page' => $request->input('page', 1),
                     'limit' => $request->input('limit'),
+                    'user_id' => $user?->id,
                 ]
             );
 
@@ -64,7 +67,7 @@ class GlobalSearchController extends BaseApiController
     public function status(): JsonResponse
     {
         return $this->successResponse(
-            $this->globalSearchService->status(),
+            $this->globalSearchService->status(auth()->id()),
             'Search status retrieved successfully'
         );
     }

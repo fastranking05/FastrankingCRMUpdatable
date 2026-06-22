@@ -4,6 +4,7 @@ namespace App\Services\AI;
 
 use App\Models\User;
 use App\Services\AI\Data\UserDataScope;
+use App\Services\Permission\DepartmentModulePermissionService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
@@ -53,33 +54,8 @@ class UserDataScopeService
 
     public function hasModulePermission(User $user, string $moduleName, string $permission): bool
     {
-        $module = DB::table('modules')
-            ->where('name', $moduleName)
-            ->where('status', 'active')
-            ->first();
-
-        if (!$module) {
-            return false;
-        }
-
-        $userRoleIds = DB::table('role_user')
-            ->join('roles', 'role_user.role_id', '=', 'roles.id')
-            ->where('role_user.user_id', $user->id)
-            ->where('roles.status', 'active')
-            ->pluck('roles.id')
-            ->toArray();
-
-        if ($userRoleIds === []) {
-            return false;
-        }
-
-        $permissionField = 'can_' . $permission;
-
-        return DB::table('module_role')
-            ->where('module_id', $module->id)
-            ->whereIn('role_id', $userRoleIds)
-            ->where($permissionField, true)
-            ->exists();
+        return app(DepartmentModulePermissionService::class)
+            ->userHasPermission($user->id, $moduleName, $permission);
     }
 
     private function determineAccessLevel(User $user): string

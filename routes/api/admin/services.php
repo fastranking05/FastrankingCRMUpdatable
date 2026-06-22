@@ -10,11 +10,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['jwt.auth'])->prefix('services')->name('services.')->group(function () {
-    // Read — open to all authenticated users
-    Route::get('/', [ServiceController::class, 'index'])->name('index');
-    Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
-
-    // Manage — requires Administration module permissions
+    Route::middleware('any.module.read')->group(function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
+    });
     Route::middleware('permission:Administration,create')->group(function () {
         Route::post('/', [ServiceController::class, 'store'])->name('store');
     });

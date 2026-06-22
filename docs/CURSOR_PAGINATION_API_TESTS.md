@@ -8,7 +8,7 @@ Helpers for creating users and granting `can_read` on the correct modules:
 
 `tests/Concerns/SetsUpUserWithModuleReadPermissions.php`
 
-JWT and permission middleware are disabled for these tests; the user still has matching rows in `roles`, `modules`, `module_role`, and `role_user` so the setup mirrors production permission checks.
+JWT and permission middleware are disabled for these tests; the user still has matching rows in `departments`, `modules`, `module_department`, and `department_user` so the setup mirrors production permission checks.
 
 ## Why SQLite (default PHPUnit) skips these tests
 

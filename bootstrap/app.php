@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'jwt.auth' => \App\Http\Middleware\JwtMiddleware::class,
             'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+            'any.module.read' => \App\Http\Middleware\AnyModuleReadMiddleware::class,
             'chat.security' => \App\Http\Middleware\ChatSecurityMiddleware::class,
         ]);
     })

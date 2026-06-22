@@ -77,4 +77,23 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Entity Type → CRM Module Permission Map
+    |--------------------------------------------------------------------------
+    | Global search only returns entity types when the user has can_read on
+    | at least one mapped module via their department(s).
+    */
+    'entity_module_map' => [
+        'business' => ['Leads', 'Follow-Up'],
+        'contact' => ['Leads', 'Follow-Up'],
+        'deal' => ['Deals'],
+        'appointment' => ['Appointment'],
+        'user' => ['Administration'],
+        'email' => ['Email'],
+        'consultation' => ['Consultation'],
+        'seo_audit' => ['SEO'],
+        'comment' => ['Leads', 'Follow-Up', 'Deals', 'Appointment'],
+    ],
+
 ];

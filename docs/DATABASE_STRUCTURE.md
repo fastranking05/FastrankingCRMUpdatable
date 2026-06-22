@@ -28,7 +28,7 @@ This document describes the relational schema for **Fastranking CRM** as defined
 | Domain | Core tables |
 |--------|-------------|
 | Auth / sessions | `users`, `password_reset_tokens`, `sessions`, `personal_access_tokens` |
-| Organisation & RBAC | `teams`, `departments`, `roles`, `modules`, pivots (`team_user`, `department_user`, `role_user`, `module_role`) |
+| Organisation & RBAC | `teams`, `departments`, `roles`, `modules`, pivots (`team_user`, `department_user`, `role_user`, `module_department`) |
 | CRM leads | `followup_businesses`, `followup_auth_persons`, `followup_business_auth_person`, `followup_details`, `comments` |
 | Scheduling | `time_slots`, `appointments`, `appointment_temporary_bookings`, `appointment_settings`, `user_block_calender` |
 | Post-booking | `consultations`, `qualities`, `quality_questions`, `quality_answers` |
@@ -188,15 +188,15 @@ Same pattern: `user_id`, `department_id`, unique `(user_id, department_id)`, FK 
 
 Same pattern: `user_id`, `role_id`, unique `(user_id, role_id)`, FK cascade.
 
-### `module_role` (pivot)
+### `module_department` (pivot)
 
 | Column | Type | Constraints |
 |--------|------|-------------|
 | `id` | bigIncrements | |
-| `role_id` | unsignedBigInteger | FK → `roles`, `CASCADE` |
+| `department_id` | unsignedBigInteger | FK → `departments`, `CASCADE` |
 | `module_id` | unsignedBigInteger | FK → `modules`, `CASCADE` |
 | `can_create`, `can_read`, `can_update`, `can_delete` | boolean | default false |
-| Unique | `(role_id, module_id)` | |
+| Unique | `(department_id, module_id)` | |
 
 ---
 
@@ -480,7 +480,7 @@ Directed relationships (**parent → child**, delete behaviour in parentheses):
 
 - **users** → self (`created_by`, SET NULL)
 - **users** ↔ **teams**, **departments**, **roles** (pivots, CASCADE)
-- **roles** ↔ **modules** (**module_role**, CASCADE); permission flags per pair
+- **departments** ↔ **modules** (**module_department**, CASCADE); permission flags per pair
 - **users** creates **teams**, **departments**, **roles**, **modules**, **business_categories**, **business_types** (CASCADE or RESTRICT as per table)
 - **followup_businesses** ← **followup_auth_persons** via pivot; ← **followup_details**, **comments**, **appointments**, **seo_details**, **emails**
 - **time_slots** ← **appointments** (RESTRICT), **appointment_temporary_bookings** (CASCADE), **consultations.meeting_slot** (SET NULL), **user_block_calender.slot_id** (CASCADE)
@@ -505,8 +505,8 @@ erDiagram
     seo_details ||--o{ seo_question_answers : has
     seo_questions ||--o{ seo_question_answers : template
     users ||--o{ role_user : has
-    roles ||--o{ module_role : grants
-    modules ||--o{ module_role : granted_via
+    departments ||--o{ module_department : grants
+    modules ||--o{ module_department : granted_via
 ```
 
 ---
@@ -526,7 +526,7 @@ erDiagram
 | `2026_03_14_114600_create_team_user_table` | `team_user` |
 | `2026_03_14_114601_create_department_user_table` | `department_user` |
 | `2026_03_14_114602_create_role_user_table` | `role_user` |
-| `2026_03_14_114700_create_module_role_table` | `module_role` |
+| `2026_06_17_200000_rename_module_role_to_module_department` | Renames `module_role` → `module_department`, `role_id` → `department_id` |
 | `2026_03_14_150000_create_followup_businesses_table` | `followup_businesses` |
 | `2026_03_14_150100_create_followup_auth_persons_table` | `followup_auth_persons` |
 | `2026_03_14_150200_create_followup_details_table` | `followup_details` |

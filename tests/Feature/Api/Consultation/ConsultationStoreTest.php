@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Api\Consultation;
 
+use App\Models\Department;
 use App\Models\Appointment;
 use App\Models\Consultation;
 use App\Models\FollowupBusiness;
 use App\Models\Module;
-use App\Models\Role;
 use App\Models\TimeSlot;
 use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
@@ -57,14 +57,14 @@ class ConsultationStoreTest extends TestCase
             'created_by' => $this->user->id,
         ]);
 
-        $role = Role::create([
+        $department = Department::create([
             'name' => 'Consultation Creator',
             'description' => 'Can create consultations',
             'status' => 'active',
             'created_by' => $this->user->id,
         ]);
 
-        $role->modules()->syncWithoutDetaching([
+        $department->modules()->syncWithoutDetaching([
             $module->id => [
                 'can_create' => true,
                 'can_read' => true,
@@ -73,7 +73,7 @@ class ConsultationStoreTest extends TestCase
             ],
         ]);
 
-        $this->user->roles()->attach($role->id);
+        $this->user->departments()->attach($department->id);
 
         $this->token = JWTAuth::fromUser($this->user);
 
@@ -115,7 +115,9 @@ class ConsultationStoreTest extends TestCase
             'appointments',
             'time_slots',
             'followup_businesses',
-            'module_role',
+            'module_department',
+            'department_user',
+            'departments',
             'role_user',
             'modules',
             'roles',
@@ -162,15 +164,30 @@ class ConsultationStoreTest extends TestCase
             $table->timestamps();
         });
 
+        Schema::create('departments', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('status');
+            $table->unsignedBigInteger('created_by');
+            $table->timestamps();
+        });
+
+        Schema::create('department_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
+        });
+
         Schema::create('role_user', function (Blueprint $table) {
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
 
-        Schema::create('module_role', function (Blueprint $table) {
+        Schema::create('module_department', function (Blueprint $table) {
             $table->unsignedBigInteger('module_id');
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('department_id');
             $table->boolean('can_create')->default(false);
             $table->boolean('can_read')->default(false);
             $table->boolean('can_update')->default(false);

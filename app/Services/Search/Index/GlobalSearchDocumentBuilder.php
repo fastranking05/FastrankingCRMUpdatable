@@ -12,6 +12,7 @@ use App\Models\FollowupBusiness;
 use App\Models\SeoDetail;
 use App\Models\User;
 use App\Services\Search\SearchEntityType;
+use App\Support\LeadDisplayId;
 use Illuminate\Database\Eloquent\Model;
 
 class GlobalSearchDocumentBuilder
@@ -86,6 +87,8 @@ class GlobalSearchDocumentBuilder
     private function fromBusiness(FollowupBusiness $business): array
     {
         $searchText = implode(' ', array_filter([
+            LeadDisplayId::format($business->id),
+            $business->id,
             $business->name,
             $business->trading_name,
             $business->company_registration_number,
@@ -110,6 +113,7 @@ class GlobalSearchDocumentBuilder
             '/followup/businesses/' . $business->id,
             [
                 'followup_business_id' => $business->id,
+                'lead_display_id' => LeadDisplayId::format($business->id),
                 'trading_name' => $business->trading_name,
                 'company_registration_number' => $business->company_registration_number,
                 'address_line1' => $business->address_line1,
