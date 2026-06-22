@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Api\Leads;
 
+use App\Models\Department;
 use App\Models\FollowupBusiness;
 use App\Models\FollowupDetail;
 use App\Models\Module;
-use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
@@ -52,7 +52,7 @@ class LeadsFilterTest extends TestCase
             'team_user',
             'departments',
             'teams',
-            'module_role',
+            'module_department',
             'role_user',
             'modules',
             'roles',
@@ -105,9 +105,9 @@ class LeadsFilterTest extends TestCase
             $table->timestamps();
         });
 
-        Schema::create('module_role', function (Blueprint $table) {
+        Schema::create('module_department', function (Blueprint $table) {
             $table->unsignedBigInteger('module_id');
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('department_id');
             $table->boolean('can_create')->default(false);
             $table->boolean('can_read')->default(false);
             $table->boolean('can_update')->default(false);
@@ -244,14 +244,14 @@ class LeadsFilterTest extends TestCase
             'created_by' => $this->authenticatedUser->id,
         ]);
 
-        $role = Role::create([
+        $department = Department::create([
             'name' => 'Leads Reader '.$shortSuffix,
             'description' => 'Read leads',
             'status' => 'active',
             'created_by' => $this->authenticatedUser->id,
         ]);
 
-        $role->modules()->syncWithoutDetaching([
+        $department->modules()->syncWithoutDetaching([
             $module->id => [
                 'can_create' => false,
                 'can_read' => true,
@@ -260,7 +260,7 @@ class LeadsFilterTest extends TestCase
             ],
         ]);
 
-        $this->authenticatedUser->roles()->attach($role->id);
+        $this->authenticatedUser->departments()->attach($department->id);
         $this->token = JWTAuth::fromUser($this->authenticatedUser);
 
         $this->techLead = FollowupBusiness::create([

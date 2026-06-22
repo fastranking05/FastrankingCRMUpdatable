@@ -28,10 +28,10 @@ class Module extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function roles(): BelongsToMany
+    public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class)
-            ->using(ModuleRole::class)
+        return $this->belongsToMany(Department::class, 'module_department')
+            ->using(ModuleDepartment::class)
             ->withPivot(['can_create', 'can_read', 'can_update', 'can_delete'])
             ->withTimestamps();
     }

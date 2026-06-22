@@ -16,7 +16,7 @@ class ModuleController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
         return $this->executeTransaction(function () use ($request) {
-            $query = Module::with(['creator:id,first_name,last_name', 'roles:id,name']);
+            $query = Module::with(['creator:id,first_name,last_name', 'departments:id,name']);
 
             // Filter by status
             if ($request->has('status')) {
@@ -69,7 +69,7 @@ class ModuleController extends BaseApiController
     public function show(string $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $module = Module::with(['creator:id,first_name,last_name', 'roles:id,name'])
+            $module = Module::with(['creator:id,first_name,last_name', 'departments:id,name'])
                 ->find($id);
 
             if (!$module) {
@@ -124,7 +124,7 @@ class ModuleController extends BaseApiController
             }
 
             // Detach all roles before deleting
-            $module->roles()->detach();
+            $module->departments()->detach();
 
             $module->delete();
 

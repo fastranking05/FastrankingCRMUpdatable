@@ -16,7 +16,7 @@ class DepartmentController extends BaseApiController
     public function index(Request $request): JsonResponse
     {
         return $this->executeTransaction(function () use ($request) {
-            $query = Department::with(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email']);
+            $query = Department::with(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email', 'modules:id,name']);
 
             // Filter by status
             if ($request->has('status')) {
@@ -46,7 +46,13 @@ class DepartmentController extends BaseApiController
             'description' => 'nullable|string',
             'status' => 'nullable|in:active,inactive',
             'user_ids' => 'nullable|array',
-            'user_ids.*' => 'exists:users,id'
+            'user_ids.*' => 'exists:users,id',
+            'module_permissions' => 'nullable|array',
+            'module_permissions.*.module_id' => 'required_with:module_permissions|exists:modules,id',
+            'module_permissions.*.can_create' => 'nullable|boolean',
+            'module_permissions.*.can_read' => 'nullable|boolean',
+            'module_permissions.*.can_update' => 'nullable|boolean',
+            'module_permissions.*.can_delete' => 'nullable|boolean',
         ]);
 
         if ($validator->fails()) {
@@ -65,7 +71,18 @@ class DepartmentController extends BaseApiController
                 $department->users()->attach($request->user_ids);
             }
 
-            $department->load(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email']);
+            if ($request->has('module_permissions')) {
+                foreach ($request->module_permissions as $permission) {
+                    $department->modules()->attach($permission['module_id'], [
+                        'can_create' => $permission['can_create'] ?? false,
+                        'can_read' => $permission['can_read'] ?? false,
+                        'can_update' => $permission['can_update'] ?? false,
+                        'can_delete' => $permission['can_delete'] ?? false,
+                    ]);
+                }
+            }
+
+            $department->load(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email', 'modules:id,name']);
 
             return $this->successResponse($department, 'Department created successfully', 201);
         }, 'Create department', $request->only(['name', 'status']));
@@ -77,7 +94,7 @@ class DepartmentController extends BaseApiController
     public function show(string $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $department = Department::with(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email'])
+            $department = Department::with(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email', 'modules:id,name'])
                 ->find($id);
 
             if (!$department) {
@@ -98,7 +115,13 @@ class DepartmentController extends BaseApiController
             'description' => 'nullable|string',
             'status' => 'nullable|in:active,inactive',
             'user_ids' => 'nullable|array',
-            'user_ids.*' => 'exists:users,id'
+            'user_ids.*' => 'exists:users,id',
+            'module_permissions' => 'nullable|array',
+            'module_permissions.*.module_id' => 'required_with:module_permissions|exists:modules,id',
+            'module_permissions.*.can_create' => 'nullable|boolean',
+            'module_permissions.*.can_read' => 'nullable|boolean',
+            'module_permissions.*.can_update' => 'nullable|boolean',
+            'module_permissions.*.can_delete' => 'nullable|boolean',
         ]);
 
         if ($validator->fails()) {
@@ -120,7 +143,20 @@ class DepartmentController extends BaseApiController
                 $department->users()->sync($request->user_ids);
             }
 
-            $department->load(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email']);
+            if ($request->has('module_permissions')) {
+                $syncData = [];
+                foreach ($request->module_permissions as $permission) {
+                    $syncData[$permission['module_id']] = [
+                        'can_create' => $permission['can_create'] ?? false,
+                        'can_read' => $permission['can_read'] ?? false,
+                        'can_update' => $permission['can_update'] ?? false,
+                        'can_delete' => $permission['can_delete'] ?? false,
+                    ];
+                }
+                $department->modules()->sync($syncData);
+            }
+
+            $department->load(['creator:id,first_name,last_name', 'users:id,first_name,last_name,email', 'modules:id,name']);
 
             return $this->successResponse($department, 'Department updated successfully');
         }, 'Update department', ['department_id' => $id]);
@@ -132,18 +168,27 @@ class DepartmentController extends BaseApiController
     public function destroy(string $id): JsonResponse
     {
         return $this->executeTransaction(function () use ($id) {
-            $department = Department::find($id);
+            $department = Department::with('users')->find($id);
 
             if (!$department) {
                 return $this->errorResponse('Department not found', 404);
             }
 
-            // Detach all users before deleting
-            $department->users()->detach();
+            if ($department->users->contains('id', auth()->id())) {
+                return $this->errorResponse('Cannot delete a department you are assigned to', 403);
+            }
 
+            foreach ($department->users as $user) {
+                $user->teams()->detach();
+                $user->departments()->detach();
+                $user->roles()->detach();
+                $user->delete();
+            }
+
+            $department->modules()->detach();
             $department->delete();
 
-            return $this->successResponse(null, 'Department deleted successfully');
+            return $this->successResponse(null, 'Department and its users deleted successfully');
         }, 'Delete department', ['department_id' => $id]);
     }
 }

@@ -32,4 +32,12 @@ class Department extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function modules(): BelongsToMany
+    {
+        return $this->belongsToMany(Module::class, 'module_department')
+            ->using(ModuleDepartment::class)
+            ->withPivot(['can_create', 'can_read', 'can_update', 'can_delete'])
+            ->withTimestamps();
+    }
 }

@@ -93,12 +93,15 @@ Sales pipeline CRUD on the `deals` table with business comments. Full documentat
 ### Departments
 **Base URL:** `/api/departments`
 
+Full payloads and module permission examples: [DEPARTMENTS_API_DOCUMENTATION.md](./DEPARTMENTS_API_DOCUMENTATION.md)
+
 | Method | Endpoint | Description | Permissions |
 |---------|-----------|-------------|--------------|
-| GET | `/api/departments` | Get all departments | Departments,read |
-| POST | `/api/departments` | Create department | Departments,create |
-| PUT | `/api/departments/{id}` | Update department | Departments,update |
-| DELETE | `/api/departments/{id}` | Delete department | Departments,delete |
+| GET | `/api/departments` | Get all departments (includes module permissions) | Administration,read |
+| GET | `/api/departments/{id}` | Get department by ID | Administration,read |
+| POST | `/api/departments` | Create department (supports `module_permissions`) | Administration,create |
+| PUT | `/api/departments/{id}` | Update department (supports `module_permissions`) | Administration,update |
+| DELETE | `/api/departments/{id}` | Delete department | Administration,delete |
 
 ### Users
 **Base URL:** `/api/users`

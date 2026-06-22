@@ -9,20 +9,21 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Route::middleware(['jwt.auth'])->prefix('business-categories')->name('business-categories.')->group(function () {
-//     Route::middleware('permission:Administration,create')->group(function () {
-//         Route::get('/', [BusinessCategoryController::class, 'index'])->name('index');
-//         Route::post('/', [BusinessCategoryController::class, 'store'])->name('store');
-//         Route::get('/{id}', [BusinessCategoryController::class, 'show'])->name('show');
-//         Route::put('/{id}', [BusinessCategoryController::class, 'update'])->name('update');
-//         Route::delete('/{id}', [BusinessCategoryController::class, 'destroy'])->name('destroy');
-//     });
-// });
-
 Route::middleware(['jwt.auth'])->prefix('business-categories')->name('business-categories.')->group(function () {
+    Route::middleware('permission:Administration,read')->group(function () {
         Route::get('/', [BusinessCategoryController::class, 'index'])->name('index');
-        Route::post('/', [BusinessCategoryController::class, 'store'])->name('store');
         Route::get('/{id}', [BusinessCategoryController::class, 'show'])->name('show');
+    });
+
+    Route::middleware('permission:Administration,create')->group(function () {
+        Route::post('/', [BusinessCategoryController::class, 'store'])->name('store');
+    });
+
+    Route::middleware('permission:Administration,update')->group(function () {
         Route::put('/{id}', [BusinessCategoryController::class, 'update'])->name('update');
+    });
+
+    Route::middleware('permission:Administration,delete')->group(function () {
         Route::delete('/{id}', [BusinessCategoryController::class, 'destroy'])->name('destroy');
+    });
 });

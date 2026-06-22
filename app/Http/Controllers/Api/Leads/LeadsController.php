@@ -196,7 +196,7 @@ class LeadsController extends BaseApiController
             $query = $this->dateRangeFilterService->applyFilters($query, $request, [
                 'date_column' => $request->input('date_column', 'created_at'),
                 'user_column' => 'created_by',
-                'search_columns' => ['name', 'trading_name', 'company_registration_number', 'address', 'category', 'sub_category', 'type', 'source_name', 'sub_source'],
+                'search_columns' => ['name', 'trading_name', 'company_registration_number', 'address_line1', 'city', 'postcode', 'country', 'category', 'sub_category', 'type', 'source_name', 'sub_source'],
                 'skip_status_filter' => true,
             ]);
 
@@ -398,7 +398,10 @@ class LeadsController extends BaseApiController
             'business_name' => ($isUpdate ? 'sometimes|' : '').'required|string|max:255',
             'trading_name' => 'nullable|string|max:255',
             'company_registration_number' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:1000',
+            'address_line1' => 'nullable|string|max:50',
+            'city' => 'nullable|string|max:50',
+            'postcode' => 'nullable|string|max:50',
+            'country' => 'nullable|string|max:50',
             'company_size' => 'nullable|string|max:100',
             'company_type' => 'nullable|string|max:50',
             'category' => 'nullable|string|max:255',
@@ -451,7 +454,10 @@ class LeadsController extends BaseApiController
             'business_name' => 'name',
             'trading_name' => 'trading_name',
             'company_registration_number' => 'company_registration_number',
-            'address' => 'address',
+            'address_line1' => 'address_line1',
+            'city' => 'city',
+            'postcode' => 'postcode',
+            'country' => 'country',
             'company_size' => 'company_size',
             'company_type' => 'company_type',
             'category' => 'category',

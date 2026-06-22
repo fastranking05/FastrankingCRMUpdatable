@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Services\Permission\DepartmentModulePermissionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -90,6 +91,9 @@ class AuthController extends BaseApiController
         $userData->team_id = $user->teams->isNotEmpty() ? $user->teams->first()->id : null;
         $userData->team_name = $user->teams->isNotEmpty() ? $user->teams->first()->name : null;
 
+        $permissionService = app(DepartmentModulePermissionService::class);
+        $userData->module_permissions = $permissionService->modulePermissionsForUser($user->id);
+
         return $this->successResponse([
             'user' => $userData,
             'token' => $token,
@@ -136,6 +140,24 @@ class AuthController extends BaseApiController
         $user = auth()->user();
         $user->load(['teams', 'departments', 'roles', 'creator:id,first_name,last_name']);
 
-        return $this->successResponse($user->makeHidden(['password']), 'Profile retrieved successfully');
+        $userData = $user->makeHidden(['password']);
+        $permissionService = app(DepartmentModulePermissionService::class);
+        $userData->module_permissions = $permissionService->modulePermissionsForUser($user->id);
+
+        return $this->successResponse($userData, 'Profile retrieved successfully');
+    }
+
+    /**
+     * Get authenticated user's department module permissions.
+     */
+    public function permissions(): JsonResponse
+    {
+        $user = auth()->user();
+        $permissionService = app(DepartmentModulePermissionService::class);
+
+        return $this->successResponse([
+            'modules' => $permissionService->modulePermissionsForUser($user->id),
+            'readable_modules' => $permissionService->readableModuleNamesForUser($user->id),
+        ], 'Permissions retrieved successfully');
     }
 }

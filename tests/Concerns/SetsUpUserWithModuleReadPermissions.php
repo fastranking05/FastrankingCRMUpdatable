@@ -2,8 +2,8 @@
 
 namespace Tests\Concerns;
 
+use App\Models\Department;
 use App\Models\Module;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -12,7 +12,7 @@ trait SetsUpUserWithModuleReadPermissions
     protected User $authenticatedUser;
 
     /**
-     * Bypass JWT/permission middleware, create a user and grant can_read on named modules.
+     * Bypass JWT/permission middleware, create a user and grant can_read on named modules via department.
      */
     protected function actingAsUserWithModuleRead(array $moduleNames = []): User
     {
@@ -37,14 +37,14 @@ trait SetsUpUserWithModuleReadPermissions
             'created_by' => null,
         ]);
 
-        $role = Role::create([
-            'name' => 'Test Role '.$uniqueShort,
+        $department = Department::create([
+            'name' => 'Test Department '.$uniqueShort,
             'description' => null,
             'status' => 'active',
             'created_by' => $this->authenticatedUser->id,
         ]);
 
-        $this->authenticatedUser->roles()->sync([$role->id]);
+        $this->authenticatedUser->departments()->sync([$department->id]);
 
         foreach ($moduleNames as $moduleName) {
             $module = Module::firstOrCreate(
@@ -56,7 +56,7 @@ trait SetsUpUserWithModuleReadPermissions
                 ]
             );
 
-            $role->modules()->syncWithoutDetaching([
+            $department->modules()->syncWithoutDetaching([
                 $module->id => [
                     'can_create' => false,
                     'can_read' => true,

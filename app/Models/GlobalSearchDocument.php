@@ -9,6 +9,14 @@ class GlobalSearchDocument extends Model
 {
     use Searchable;
 
+    public const TITLE_MAX_LENGTH = 255;
+
+    public const SUBTITLE_MAX_LENGTH = 255;
+
+    public const ROUTE_MAX_LENGTH = 255;
+
+    public const SEARCH_TEXT_MAX_LENGTH = 65000;
+
     protected $keyType = 'string';
 
     public $incrementing = false;
@@ -64,15 +72,49 @@ class GlobalSearchDocument extends Model
             ['id' => $documentId],
             [
                 'entity_type' => $document['entity_type'],
-                'entity_id' => $document['entity_id'],
-                'title' => $document['title'],
-                'subtitle' => $document['subtitle'],
-                'search_text' => $document['search_text'],
-                'route' => $document['route'],
-                'metadata' => $document['metadata'],
+                'entity_id' => (string) ($document['entity_id'] ?? ''),
+                'title' => self::truncateString($document['title'] ?? '', self::TITLE_MAX_LENGTH),
+                'subtitle' => self::truncateString($document['subtitle'] ?? null, self::SUBTITLE_MAX_LENGTH),
+                'search_text' => self::truncateString($document['search_text'] ?? null, self::SEARCH_TEXT_MAX_LENGTH),
+                'route' => self::truncateString($document['route'] ?? '', self::ROUTE_MAX_LENGTH),
+                'metadata' => self::sanitizeMetadata($document['metadata'] ?? []),
                 'source_created_at' => $document['created_at'] ?? null,
                 'source_updated_at' => $document['updated_at'] ?? null,
             ]
         );
+    }
+
+    public static function truncateString(?string $value, int $maxLength): ?string
+    {
+        if ($value === null || $value === '') {
+            return $value;
+        }
+
+        if (mb_strlen($value) <= $maxLength) {
+            return $value;
+        }
+
+        return mb_substr($value, 0, $maxLength);
+    }
+
+    /**
+     * @param  array<string, mixed>  $metadata
+     * @return array<string, mixed>
+     */
+    private static function sanitizeMetadata(array $metadata): array
+    {
+        $sanitized = [];
+
+        foreach ($metadata as $key => $value) {
+            if (is_string($value)) {
+                $sanitized[$key] = self::truncateString($value, self::TITLE_MAX_LENGTH);
+
+                continue;
+            }
+
+            $sanitized[$key] = $value;
+        }
+
+        return $sanitized;
     }
 }
