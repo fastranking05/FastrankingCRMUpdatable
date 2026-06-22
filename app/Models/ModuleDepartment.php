@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ModuleRole extends Pivot
+class ModuleDepartment extends Pivot
 {
     use HasFactory;
 
-    protected $table = 'module_role';
+    protected $table = 'module_department';
 
     protected $fillable = [
-        'role_id',
+        'department_id',
         'module_id',
         'can_create',
         'can_read',

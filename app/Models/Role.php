@@ -32,12 +32,4 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
-
-    public function modules(): BelongsToMany
-    {
-        return $this->belongsToMany(Module::class)
-            ->using(ModuleRole::class)
-            ->withPivot(['can_create', 'can_read', 'can_update', 'can_delete'])
-            ->withTimestamps();
-    }
 }

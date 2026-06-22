@@ -45,8 +45,15 @@ class QualityControlSeeder extends Seeder
             ]
         );
 
-        // Attach module to role
-        $qualityRole->modules()->syncWithoutDetaching([$qualityModule->id]);
+        // Attach module to department
+        $qualityDept->modules()->syncWithoutDetaching([
+            $qualityModule->id => [
+                'can_create' => true,
+                'can_read' => true,
+                'can_update' => true,
+                'can_delete' => true,
+            ],
+        ]);
 
         // Create sample quality questions
         $questions = [

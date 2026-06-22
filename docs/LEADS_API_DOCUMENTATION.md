@@ -18,7 +18,10 @@ Creates a new lead with business, auth persons, comments, and optional service a
   "business_name": "Example Company Ltd",
   "trading_name": "Example Trading",
   "company_registration_number": "12345678",
-  "address": "123 Main Street, London, UK",
+  "address_line1": "123 Main Street",
+  "city": "London",
+  "postcode": "SW1A 1AA",
+  "country": "United Kingdom",
   "company_size": "11-50",
   "company_type": "Private Limited",
   "category": "Technology",
@@ -91,9 +94,13 @@ Creates a new lead with business, auth persons, comments, and optional service a
     "interested_services": [1, 2, 4],
     "primary_service_id": 1,
     "current_agency": "ABC Marketing Ltd",
-    "current_monthly_spend": 2500.00,
-    "planned_monthly_budget": 5000.00,
-    "existing_website_platform": "WordPress"
+    "current_monthly_spend": "2500",
+    "planned_monthly_budget": "5000",
+    "existing_website_platform": "WordPress",
+    "previous_experience": 1,
+    "previous_services": [2, 4],
+    "challenges": ["Low traffic", "Poor conversion rate"],
+    "expectation": ["Increase leads", "Improve ROI"]
   },
   "lead_qualification": {
     "temperature": "hot",
@@ -122,7 +129,10 @@ Creates a new lead with business, auth persons, comments, and optional service a
 | `business_name` | string | Yes | Legal / registered business name (max 255) |
 | `trading_name` | string | No | Trading name (max 255) |
 | `company_registration_number` | string | No | Company registration number (max 100) |
-| `address` | string | No | Business address (max 1000) |
+| `address_line1` | string | No | Address line 1 (max 50) |
+| `city` | string | No | City (max 50) |
+| `postcode` | string | No | Postcode (max 50) |
+| `country` | string | No | Country (max 50) |
 | `company_size` | string | No | Company size, e.g. `1-10`, `11-50` (max 100) |
 | `company_type` | string | No | Company legal type (max 50) |
 | `category` | string | No | Business category (max 255) |
@@ -183,9 +193,13 @@ All business fields except `business_name` are optional (nullable).
 | `interested_services` | array of integers | No | Service IDs the lead is interested in (must exist in `services` table) |
 | `primary_service_id` | integer | No | Primary service ID (must exist in `services` table) |
 | `current_agency` | string | No | Current marketing/SEO agency (max 255) |
-| `current_monthly_spend` | number | No | Current monthly spend (min 0) |
-| `planned_monthly_budget` | number | No | Planned monthly budget (min 0) |
+| `current_monthly_spend` | string | No | Current monthly spend (max 30) |
+| `planned_monthly_budget` | string | No | Planned monthly budget (max 30) |
 | `existing_website_platform` | string | No | Existing website platform, e.g. WordPress, Shopify (max 255) |
+| `previous_experience` | integer | No | Whether the lead has previous experience: `0` (no) or `1` (yes) |
+| `previous_services` | array of integers | No | Service IDs for previous services used (must exist in `services` table); stored comma-separated |
+| `challenges` | array of strings | No | Business challenges; stored comma-separated (each item max 255) |
+| `expectation` | array of strings | No | Business expectations; stored comma-separated (each item max 255) |
 
 The entire `business_service` object is optional. If omitted or all fields are empty, no `business_services` row is created. On create, `followup_business_id` is set automatically from the new lead.
 
@@ -467,7 +481,10 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
     "name": "ABC Corporation",
     "trading_name": "ABC Trading",
     "company_registration_number": "12345678",
-    "address": "123 Main Street, London, UK",
+    "address_line1": "123 Main Street",
+    "city": "London",
+    "postcode": "SW1A 1AA",
+    "country": "United Kingdom",
     "company_size": "51-200",
     "company_type": "Private Limited",
     "category": "Technology",
@@ -528,9 +545,16 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
       "interested_service_ids": [1, 2, 4],
       "primary_service_id": 1,
       "current_agency": "ABC Marketing Ltd",
-      "current_monthly_spend": "2500.00",
-      "planned_monthly_budget": "5000.00",
+      "current_monthly_spend": "2500",
+      "planned_monthly_budget": "5000",
       "existing_website_platform": "WordPress",
+      "previous_experience": 1,
+      "previous_services": "2,4",
+      "previous_service_ids": [2, 4],
+      "challenges": "Low traffic,Poor conversion rate",
+      "challenges_list": ["Low traffic", "Poor conversion rate"],
+      "expectation": "Increase leads,Improve ROI",
+      "expectation_list": ["Increase leads", "Improve ROI"],
       "created_at": "2026-04-28T10:00:00.000000Z",
       "updated_at": "2026-04-28T10:00:00.000000Z",
       "primary_service": {
@@ -539,6 +563,10 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
       },
       "interested_services_list": [
         { "id": 1, "name": "SEO" },
+        { "id": 2, "name": "PPC" },
+        { "id": 4, "name": "Web Design" }
+      ],
+      "previous_services_list": [
         { "id": 2, "name": "PPC" },
         { "id": 4, "name": "Web Design" }
       ]
@@ -720,7 +748,10 @@ Updates an existing lead using the **exact same payload fields as Create Lead** 
   "business_name": "Updated Name",
   "trading_name": "Updated Trading Name",
   "company_registration_number": "87654321",
-  "address": "456 New Road, Manchester, UK",
+  "address_line1": "456 New Road",
+  "city": "Manchester",
+  "postcode": "M1 1AE",
+  "country": "United Kingdom",
   "company_size": "201-500",
   "company_type": "Public Limited",
   "category": "Updated Category",
@@ -790,9 +821,13 @@ Updates an existing lead using the **exact same payload fields as Create Lead** 
     "interested_services": [1, 3],
     "primary_service_id": 3,
     "current_agency": "New Agency Ltd",
-    "current_monthly_spend": 3000.00,
-    "planned_monthly_budget": 6000.00,
-    "existing_website_platform": "Shopify"
+    "current_monthly_spend": "3000",
+    "planned_monthly_budget": "6000",
+    "existing_website_platform": "Shopify",
+    "previous_experience": 0,
+    "previous_services": [1, 2],
+    "challenges": ["Brand awareness"],
+    "expectation": ["Monthly reporting", "Dedicated account manager"]
   },
   "lead_qualification": {
     "temperature": "warm",

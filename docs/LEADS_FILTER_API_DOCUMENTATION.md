@@ -113,7 +113,7 @@ Content-Type: application/json
 | `custom_start_date` | date | No | Required with `custom` filter (YYYY-MM-DD) |
 | `custom_end_date` | date | No | Required with `custom` filter (YYYY-MM-DD) |
 | `created_by` | int \| array | No | Filter by user ID(s) who created the lead |
-| `search` | string | No | Search in name, trading_name, company_registration_number, address, category, sub_category, type, source_name, sub_source |
+| `search` | string | No | Search in name, trading_name, company_registration_number, address_line1, city, postcode, country, category, sub_category, type, source_name, sub_source |
 | `category` | string | No | Business category |
 | `type` | string | No | Business type |
 | `source_name` | string | No | Lead source |
@@ -236,7 +236,10 @@ Cursor-paginated list (same shape as appointments/follow-up filter APIs):
         "name": "ABC Corporation",
         "trading_name": "ABC Trading",
         "company_registration_number": "12345678",
-        "address": "123 Main Street, London, UK",
+        "address_line1": "123 Main Street",
+        "city": "London",
+        "postcode": "SW1A 1AA",
+        "country": "United Kingdom",
         "company_size": "11-50",
         "category": "Technology Services",
         "sub_category": "SaaS",

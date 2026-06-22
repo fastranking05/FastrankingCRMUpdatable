@@ -11,7 +11,9 @@ use App\Models\FollowupAuthPerson;
 use App\Models\FollowupBusiness;
 use App\Models\SeoDetail;
 use App\Models\User;
+use App\Services\Permission\DepartmentModulePermissionService;
 use App\Services\Search\Index\GlobalSearchDocumentBuilder;
+use App\Support\LeadDisplayId;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,11 +32,33 @@ class DatabaseGlobalSearchService
         );
         $page = max(1, (int) ($options['page'] ?? 1));
         $types = $this->normalizeTypes($options['types'] ?? []);
+        $userId = isset($options['user_id']) ? (int) $options['user_id'] : null;
+
+        if ($userId !== null) {
+            $types = app(DepartmentModulePermissionService::class)
+                ->allowedSearchEntityTypesForUser($userId, $types);
+        }
+
+        if ($userId !== null && $types === []) {
+            return [
+                'query' => $trimmedQuery,
+                'total' => 0,
+                'page' => $page,
+                'limit' => $limit,
+                'total_pages' => 0,
+                'counts_by_type' => [],
+                'available_types' => [],
+                'search_engine' => 'database',
+                'results' => [],
+            ];
+        }
+
         $like = '%' . $trimmedQuery . '%';
+        $leadId = LeadDisplayId::resolveNumericId($trimmedQuery);
 
         $results = [];
 
-        foreach ($this->searchableTypes($types) as $entityType => $searcher) {
+        foreach ($this->searchableTypes($types, $leadId) as $entityType => $searcher) {
             $models = $searcher($like);
 
             foreach ($models as $model) {
@@ -90,10 +114,10 @@ class DatabaseGlobalSearchService
         ];
     }
 
-    private function searchableTypes(array $types): array
+    private function searchableTypes(array $types, ?int $leadId = null): array
     {
         $all = [
-            SearchEntityType::BUSINESS => fn (string $like) => $this->searchBusinesses($like),
+            SearchEntityType::BUSINESS => fn (string $like) => $this->searchBusinesses($like, $leadId),
             SearchEntityType::CONTACT => fn (string $like) => $this->searchContacts($like),
             SearchEntityType::DEAL => fn (string $like) => $this->searchDeals($like),
             SearchEntityType::APPOINTMENT => fn (string $like) => $this->searchAppointments($like),
@@ -111,16 +135,28 @@ class DatabaseGlobalSearchService
         return array_intersect_key($all, array_flip($types));
     }
 
-    private function searchBusinesses(string $like)
+    private function searchBusinesses(string $like, ?int $leadId = null)
     {
         return FollowupBusiness::query()
-            ->where(fn (Builder $q) => $q
-                ->where('name', 'like', $like)
-                ->orWhere('category', 'like', $like)
-                ->orWhere('type', 'like', $like)
-                ->orWhere('source_name', 'like', $like)
-                ->orWhere('sub_source', 'like', $like)
-                ->orWhere('website', 'like', $like))
+            ->where(function (Builder $q) use ($like, $leadId) {
+                $q->where('name', 'like', $like)
+                    ->orWhere('category', 'like', $like)
+                    ->orWhere('type', 'like', $like)
+                    ->orWhere('source_name', 'like', $like)
+                    ->orWhere('sub_source', 'like', $like)
+                    ->orWhere('website', 'like', $like);
+
+                if ($leadId !== null) {
+                    $q->orWhere('id', $leadId);
+                }
+
+                if (stripos($like, LeadDisplayId::PREFIX) !== false) {
+                    $q->orWhereRaw(
+                        "CONCAT(?, LPAD(CAST(id AS CHAR), ?, '0')) LIKE ?",
+                        [LeadDisplayId::PREFIX, LeadDisplayId::PAD_LENGTH, $like]
+                    );
+                }
+            })
             ->latest('updated_at')
             ->limit(50)
             ->get();

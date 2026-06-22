@@ -6,6 +6,7 @@ use App\Models\FollowupBusiness;
 use App\Models\SeoDetail;
 use App\Models\User;
 use App\Services\AI\Security\ChatInputSanitizer;
+use App\Services\Permission\DepartmentModulePermissionService;
 use Illuminate\Support\Facades\DB;
 
 class GlobalChatDataService
@@ -87,27 +88,9 @@ class GlobalChatDataService
      */
     private function modulePermissions(User $user): array
     {
-        $userRoleIds = DB::table('role_user')
-            ->join('roles', 'role_user.role_id', '=', 'roles.id')
-            ->where('role_user.user_id', $user->id)
-            ->where('roles.status', 'active')
-            ->pluck('roles.id')
-            ->toArray();
-
-        if ($userRoleIds === []) {
-            return [];
-        }
-
-        return DB::table('module_role')
-            ->join('modules', 'module_role.module_id', '=', 'modules.id')
-            ->whereIn('module_role.role_id', $userRoleIds)
-            ->where('modules.status', 'active')
-            ->where('module_role.can_read', true)
-            ->select('modules.name as module')
-            ->distinct()
-            ->get()
-            ->map(fn ($row) => ['module' => $row->module, 'can_read' => true])
-            ->toArray();
+        return collect(
+            app(DepartmentModulePermissionService::class)->readableModuleNamesForUser($user->id)
+        )->map(fn (string $module) => ['module' => $module, 'can_read' => true])->values()->all();
     }
 
     /**
