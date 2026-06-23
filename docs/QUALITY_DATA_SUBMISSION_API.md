@@ -1,47 +1,78 @@
 # Quality Data Submission API
 
 ## Overview
-Single API endpoint for submitting quality data with answers using existing tables (qualities, quality_answers, quality_questions).
+
+Single API endpoint for submitting quality audit data with answers. Uses existing tables (`qualities`, `quality_answers`, `quality_questions`, `comments`, `consultations`).
+
+When `auditstatus` is **`qualified`** (typically submitted with `status: "QA-Approved"`), the system automatically:
+
+1. Assigns a **Sales department** user via **round robin** (with load balancing)
+2. Creates a **consultation** record for that appointment
+3. Generates a **Zoom meeting** using the assigned sales user's matching `zoom_accounts` credentials
+4. Saves the meeting link on the **consultation** record (not on `qualities`)
+5. Sends a **meeting email** to the client's primary contact email
+6. Returns assigned user details and meeting link in `consultation_assignment`
+
+> **Note:** `meetinglink` is no longer accepted in the request. Meeting links are auto-generated via Zoom.
 
 ## Base URL
+
 ```
 /api/quality-data-submission
 ```
 
 ## Authentication & Permissions
-All endpoints require JWT authentication and `Administration,create` permission.
+
+All endpoints require:
+
+- JWT authentication: `Authorization: Bearer {token}`
+- Permission: `Administration,create`
+
+---
+
+## Prerequisites (QA-Approved / Qualified Flow)
+
+Before submitting a qualified audit, ensure:
+
+| Requirement | Description |
+|-------------|-------------|
+| Active Sales department | Department named `Sales` with `status = active` |
+| Active Sales users | At least one active user assigned to Sales department |
+| Zoom account mapping | `zoom_accounts.email` must match the assigned sales user's CRM email |
+| Zoom host email | Same `zoom_accounts.email` is used to verify and create meetings in Zoom |
+| Zoom S2S OAuth | Valid `account_id`, `client_id`, `client_secret` in `zoom_accounts` |
+| Client email | Appointment's business must have a primary contact with valid `primaryemail` (for email notification) |
+| Mail config | SMTP/mail settings configured in `.env` for client emails |
+
+See also: [ZOOM_ACCOUNTS_API_DOCUMENTATION.md](./ZOOM_ACCOUNTS_API_DOCUMENTATION.md)
 
 ---
 
 ## API Endpoints
 
 ### 1. Submit Quality Data with Answers (POST)
+
 **Endpoint:** `POST /api/quality-data-submission`
 
-### Request Payload
+#### Complete Submission (QA-Approved)
 
-#### Complete Submission with Comments and Appointment Status Update
 ```json
 {
   "auditstatus": "qualified",
   "status": "QA-Approved",
-  "meetinglink": "https://meet.example.com/quality-assessment-123",
   "score": 85.50,
   "appointment_id": "FRMID00000001",
   "appointment_current_status": "Conducted",
   "answers": [
     {
-      "quality_id": 1,
       "question_id": 1,
       "answer": "yes"
     },
     {
-      "quality_id": 1,
       "question_id": 3,
       "answer": "yes"
     },
     {
-      "quality_id": 1,
       "question_id": 4,
       "answer": "partially done"
     }
@@ -58,6 +89,7 @@ All endpoints require JWT authentication and `Administration,create` permission.
 ```
 
 #### Minimal Submission
+
 ```json
 {
   "auditstatus": "qualified",
@@ -65,7 +97,6 @@ All endpoints require JWT authentication and `Administration,create` permission.
   "appointment_id": "FRMID00000001",
   "answers": [
     {
-      "quality_id": 1,
       "question_id": 1,
       "answer": "yes"
     }
@@ -73,53 +104,78 @@ All endpoints require JWT authentication and `Administration,create` permission.
 }
 ```
 
-#### Without Meeting Link or Comments
+#### Unqualified Submission (No Sales Assignment)
+
+When `auditstatus` is `unqualified`, no consultation, Zoom meeting, or sales assignment is created.
+
 ```json
 {
   "auditstatus": "unqualified",
-  "status": "Needs Improvement",
+  "status": "QA-Reject",
   "score": 65.25,
   "appointment_id": "FRMID00000001",
   "answers": [
     {
-      "quality_id": 1,
       "question_id": 1,
-      "answer": "Service needs improvement in response time"
+      "answer": "no"
     },
     {
-      "quality_id": 1,
       "question_id": 3,
-      "answer": "Staff training required for better customer handling"
+      "answer": "partially done"
     }
   ]
 }
 ```
 
 ### Validation Rules
-```json
-{
-  "auditstatus": "required|in:qualified,unqualified",
-  "status": "required|string",
-  "meetinglink": "nullable|string",
-  "score": "nullable|numeric|min:0|max:100",
-  "appointment_id": "required|exists:appointments,id",
-  "appointment_current_status": "nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled",
-  "answers": "required|array|min:1",
-  "answers.*.quality_id": "required|exists:qualities,id",
-  "answers.*.question_id": "required|exists:quality_questions,id",
-  "answers.*.answer": "required|in:yes,no,partially done,not applicable",
-  "comments": "nullable|array",
-  "comments.*.followup_business_id": "required_with:comments|exists:followup_businesses,id",
-  "comments.*.comment": "required_with:comments|string",
-  "comments.*.old_status": "required_with:comments|string",
-  "comments.*.new_status": "required_with:comments|string"
-}
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `auditstatus` | string | Yes | `qualified` or `unqualified` |
+| `status` | string | Yes | Quality status (e.g. `QA-Approved`, `QA-Reject`) |
+| `score` | number | No | Score between 0 and 100 |
+| `appointment_id` | string | Yes | Must exist in `appointments` table |
+| `appointment_current_status` | string | No | Updates appointment `current_status` if provided |
+| `answers` | array | Yes | Minimum 1 answer required |
+| `answers.*.question_id` | integer | Yes | Must exist in `quality_questions` |
+| `answers.*.answer` | string | Yes | `yes`, `no`, `partially done`, or `not applicable` |
+| `comments` | array | No | Optional status comments |
+| `comments.*.followup_business_id` | integer | Yes (when comments sent) | Must exist in `followup_businesses` |
+| `comments.*.comment` | string | Yes (when comments sent) | Comment text |
+| `comments.*.old_status` | string | Yes (when comments sent) | Previous status |
+| `comments.*.new_status` | string | Yes (when comments sent) | New status |
+
+**Allowed `appointment_current_status` values:**
+
+`Booked`, `Confirmed`, `In Progress`, `Conducted`, `Not Conducted`, `Rescheduled`, `Cancelled`, `Scheduled`, `scheduled`, `QA-Pending`, `QA-Approved`, `QA-Hold`, `QA-Reject`, `QA-Rework`
+
+### Qualified Submission Flow
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API as Quality Submission API
+    participant Sales as Round Robin Sales User
+    participant Zoom as Zoom API
+    participant Email as Mail Service
+
+    Client->>API: POST auditstatus=qualified
+    API->>API: Create quality record
+    API->>Sales: Assign via round robin
+    API->>API: Create consultation
+    API->>Zoom: Create meeting (sales user's zoom_accounts)
+    Zoom-->>API: join_url
+    API->>API: Save meeting_link on consultation
+    API->>Email: Send meeting email to client
+    API-->>Client: consultation_assignment + meeting_link
 ```
 
-### Success Response (201)
+### Success Response (200)
+
 ```json
 {
   "success": true,
+  "message": "Quality data submitted successfully",
   "data": {
     "quality": {
       "id": 1,
@@ -127,46 +183,30 @@ All endpoints require JWT authentication and `Administration,create` permission.
       "auditstatus": "qualified",
       "status": "QA-Approved",
       "assigned_user": 1,
-      "meeting_link": "https://meet.example.com/quality-assessment-123",
       "score": 85.50,
-      "created_at": "2026-03-27T12:00:00.000000Z",
-      "updated_at": "2026-03-27T12:00:00.000000Z",
+      "created_at": "2026-06-22T12:00:00.000000Z",
+      "updated_at": "2026-06-22T12:00:00.000000Z",
       "assignedUser": {
         "id": 1,
         "first_name": "John",
         "last_name": "Doe"
       },
-      "answers": [
-        {
-          "id": 1,
-          "quality_id": 1,
-          "question_id": 1,
-          "answers": "yes",
-          "created_by": 1,
-          "created_at": "2026-03-27T12:00:00.000000Z",
-          "updated_at": "2026-03-27T12:00:00.000000Z",
-          "question": {
-            "id": 1,
-            "question": "This is updated question",
-            "is_active": true
-          }
-        },
-        {
-          "id": 2,
-          "quality_id": 1,
-          "question_id": 3,
-          "answers": "yes",
-          "created_by": 1,
-          "created_at": "2026-03-27T12:00:00.000000Z",
-          "updated_at": "2026-03-27T12:00:00.000000Z",
-          "question": {
-            "id": 3,
-            "question": "How would you rate our customer service quality?",
-            "is_active": true
-          }
-        }
-      ]
+      "appointment": {
+        "id": "FRMID00000001",
+        "date": "2026-06-20",
+        "current_status": "Conducted"
+      }
     },
+    "answers": [
+      {
+        "id": 1,
+        "quality_id": 1,
+        "question_id": 1,
+        "answers": "yes",
+        "created_at": "2026-06-22T12:00:00.000000Z",
+        "updated_at": "2026-06-22T12:00:00.000000Z"
+      }
+    ],
     "comments": [
       {
         "id": 1,
@@ -175,24 +215,54 @@ All endpoints require JWT authentication and `Administration,create` permission.
         "old_status": "QA-Pending",
         "new_status": "QA-Approved",
         "created_by": 1,
-        "created_at": "2026-03-27T12:00:00.000000Z",
-        "updated_at": "2026-03-27T12:00:00.000000Z"
+        "created_at": "2026-06-22T12:00:00.000000Z",
+        "updated_at": "2026-06-22T12:00:00.000000Z"
       }
     ],
     "appointment_updated": true,
-    "appointment_current_status": "Conducted"
-  },
-  "message": "Quality data submitted successfully"
+    "appointment_current_status": "Conducted",
+    "consultation_assignment": {
+      "consultation_id": 12,
+      "assigned_user_id": 5,
+      "assigned_user_name": "Sarah Smith",
+      "assigned_user_email": "sarah@company.com",
+      "consultation_status": "scheduled",
+      "meeting_link": "https://zoom.us/j/12345678901?pwd=abcdef",
+      "email_sent": true,
+      "client_email": "client@example.com"
+    },
+    "execution_time_ms": 842.15
+  }
 }
 ```
 
+#### `consultation_assignment` fields
+
+| Field | Description |
+|-------|-------------|
+| `consultation_id` | Newly created consultation ID |
+| `assigned_user_id` | Sales user assigned via round robin |
+| `assigned_user_name` | Full name of assigned sales user |
+| `assigned_user_email` | Email of assigned sales user |
+| `consultation_status` | Usually `scheduled` |
+| `meeting_link` | Auto-generated Zoom join URL (stored on `consultations`) |
+| `email_sent` | `true` if client meeting email was sent successfully |
+| `client_email` | Client email address used for notification (nullable if not found) |
+
+> `consultation_assignment` is **`null`** when `auditstatus` is `unqualified`.
+
+---
+
 ### 2. Get Active Questions (GET)
+
 **Endpoint:** `GET /api/quality-data-submission/questions`
 
-### Response (200)
+#### Response (200)
+
 ```json
 {
   "success": true,
+  "message": "Active quality questions retrieved successfully",
   "data": [
     {
       "id": 1,
@@ -203,14 +273,8 @@ All endpoints require JWT authentication and `Administration,create` permission.
       "id": 2,
       "question": "How satisfied are you with our product quality?",
       "is_active": true
-    },
-    {
-      "id": 3,
-      "question": "What improvements would you like to see?",
-      "is_active": true
     }
-  ],
-  "message": "Active quality questions retrieved successfully"
+  ]
 }
 ```
 
@@ -218,330 +282,135 @@ All endpoints require JWT authentication and `Administration,create` permission.
 
 ## Database Tables Used
 
-### qualities Table
-**Fields Stored:**
-- `auditstatus` - "qualified" or "unqualified"
-- `status` - Quality record status
-- `meeting_link` - Meeting URL (from meetinglink field)
-- `score` - Overall score (0-100)
-- `appointment_id` - Foreign key to appointments table (required)
-- `assigned_user` - Current user ID
+### `qualities` table
 
-### appointments Table (Updated)
-**Fields Updated:**
-- `current_status` - Appointment status (optional: Booked, Confirmed, In Progress, Conducted, Not Conducted, Rescheduled, Cancelled)
+| Field | Description |
+|-------|-------------|
+| `auditstatus` | `qualified` or `unqualified` |
+| `status` | Quality record status (e.g. `QA-Approved`) |
+| `score` | Overall score (0–100), optional |
+| `appointment_id` | FK to `appointments` |
+| `assigned_user` | QC user who submitted the audit |
 
-### quality_answers Table
-**Fields Stored:**
-- `quality_id` - Foreign key to qualities table (manually provided)
-- `question_id` - Foreign key to quality_questions table
-- `answers` - Answer text (yes/no/partially done/not applicable)
-- `created_by` - User who submitted the answer
+> **`meeting_link` is not stored on `qualities`.** It was moved to `consultations`.
 
-### quality_questions Table
-**Fields Used:**
-- `id` - Question ID (available: 1, 3, 4, 5)
-- `question` - Question text
-- `is_active` - Only active questions are used
+### `consultations` table (created on qualified submission)
 
-### comments Table (Optional)
-**Fields Stored:**
-- `followup_business_id` - Foreign key to followup_businesses table (manually provided)
-- `comment` - Comment text
-- `old_status` - Previous status
-- `new_status` - New status
-- `created_by` - User who created the comment
+| Field | Description |
+|-------|-------------|
+| `appointment_id` | FK to `appointments` |
+| `status` | `scheduled` |
+| `assigned_user` | Sales user (round robin) |
+| `meeting_date` | From appointment date |
+| `meeting_slot` | From appointment time slot |
+| `meeting_link` | Auto-generated Zoom join URL |
+
+### `appointments` table (optional update)
+
+| Field | Description |
+|-------|-------------|
+| `current_status` | Updated when `appointment_current_status` is sent |
+
+### `quality_answers` table
+
+| Field | Description |
+|-------|-------------|
+| `quality_id` | Auto-linked to the quality record created in this request |
+| `question_id` | FK to `quality_questions` |
+| `answers` | `yes`, `no`, `partially done`, or `not applicable` |
+
+### `comments` table (optional)
+
+| Field | Description |
+|-------|-------------|
+| `followup_business_id` | FK to `followup_businesses` |
+| `comment` | Comment text |
+| `old_status` / `new_status` | Status change tracking |
+| `created_by` | Submitting user |
+
+### `emails` table (on successful client notification)
+
+A record is created with `type: consultation_meeting` when the client meeting email is sent.
 
 ---
 
 ## cURL Examples
 
-### Submit Quality Data
+### Submit QA-Approved Quality Data
+
 ```bash
-curl -X POST \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-     -d '{
-       "auditstatus": "qualified",
-       "status": "QA-Approved",
-       "meetinglink": "https://meet.example.com/quality-assessment-123",
-       "score": 85.50,
-       "appointment_id": "FRMID00000001",
-       "answers": [
-         {
-           "quality_id": 1,
-           "question_id": 1,
-           "answer": "yes"
-         },
-         {
-           "quality_id": 1,
-           "question_id": 3,
-           "answer": "yes"
-         }
-       ],
-       "comments": [
-         {
-           "followup_business_id": 1,
-           "comment": "Quality assessment completed",
-           "old_status": "QA-Pending",
-           "new_status": "QA-Approved"
-         }
-       ]
-     }' \
-     http://localhost:8000/api/quality-data-submission
-```
-
-### Get Active Questions
-```bash
-curl -X GET \
-     -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-     http://localhost:8000/api/quality-data-submission/questions
-```
-
----
-
-## JavaScript/Axios Examples
-
-### Submit Quality Data
-```javascript
-const submitQualityData = async (qualityData) => {
-  try {
-    const response = await axios.post('/api/quality-data-submission', {
-      auditstatus: 'qualified',
-      status: 'QA-Approved',
-      meetinglink: 'https://meet.example.com/quality-assessment-123',
-      score: 85.50,
-      appointment_id: 'FRMID00000001',
-      answers: [
-        {
-          quality_id: 1,
-          question_id: 1,
-          answer: 'yes'
-        },
-        {
-          quality_id: 1,
-          question_id: 3,
-          answer: 'yes'
-        }
-      ],
-      comments: [
-        {
-          followup_business_id: 1,
-          comment: 'Quality assessment completed',
-          old_status: 'QA-Pending',
-          new_status: 'QA-Approved'
-        }
-      ]
-    }, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+curl -X POST http://127.0.0.1:8000/api/quality-data-submission \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "auditstatus": "qualified",
+    "status": "QA-Approved",
+    "score": 85.50,
+    "appointment_id": "FRMID00000001",
+    "appointment_current_status": "Conducted",
+    "answers": [
+      { "question_id": 1, "answer": "yes" },
+      { "question_id": 3, "answer": "yes" }
+    ],
+    "comments": [
+      {
+        "followup_business_id": 1,
+        "comment": "Quality assessment completed",
+        "old_status": "QA-Pending",
+        "new_status": "QA-Approved"
       }
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error submitting quality data:', error.response?.data);
-  }
-};
+    ]
+  }'
 ```
 
 ### Get Active Questions
-```javascript
-const getActiveQuestions = async () => {
-  try {
-    const response = await axios.get('/api/quality-data-submission/questions', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    return response.data.data;
-  } catch (error) {
-    console.error('Error fetching questions:', error);
-  }
-};
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/quality-data-submission/questions \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
 ---
 
-## React Component Example
+## JavaScript / Axios Example
 
-```jsx
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const QualityDataSubmissionForm = () => {
-  const [questions, setQuestions] = useState([]);
-  const [formData, setFormData] = useState({
+```javascript
+const submitQualityData = async () => {
+  const response = await axios.post('/api/quality-data-submission', {
     auditstatus: 'qualified',
-    status: 'Completed',
-    meetinglink: '',
-    score: '',
-    answers: {}
+    status: 'QA-Approved',
+    score: 85.50,
+    appointment_id: 'FRMID00000001',
+    appointment_current_status: 'Conducted',
+    answers: [
+      { question_id: 1, answer: 'yes' },
+      { question_id: 3, answer: 'yes' },
+    ],
+    comments: [
+      {
+        followup_business_id: 1,
+        comment: 'Quality assessment completed',
+        old_status: 'QA-Pending',
+        new_status: 'QA-Approved',
+      },
+    ],
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
-  useEffect(() => {
-    loadQuestions();
-  }, []);
+  const assignment = response.data.data.consultation_assignment;
 
-  const loadQuestions = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get('/api/quality-data-submission/questions', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      
-      setQuestions(response.data.data);
-      
-      // Initialize answers object
-      const initialAnswers = {};
-      response.data.data.forEach(q => {
-        initialAnswers[q.id] = '';
-      });
-      setFormData(prev => ({ ...prev, answers: initialAnswers }));
-    } catch (error) {
-      setError('Failed to load questions');
-    }
-  };
+  if (assignment) {
+    console.log('Assigned to:', assignment.assigned_user_name);
+    console.log('Meeting link:', assignment.meeting_link);
+    console.log('Email sent:', assignment.email_sent);
+  }
 
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleAnswerChange = (questionId, answer) => {
-    setFormData(prev => ({
-      ...prev,
-      answers: { ...prev.answers, [questionId]: answer }
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      const token = localStorage.getItem('token');
-      
-      // Convert answers object to array
-      const answersArray = Object.entries(formData.answers)
-        .filter(([_, answer]) => answer.trim() !== '')
-        .map(([questionId, answer]) => ({
-          question_id: parseInt(questionId),
-          answer: answer
-        }));
-
-      const submissionData = {
-        auditstatus: formData.auditstatus,
-        status: formData.status,
-        meetinglink: formData.meetinglink || null,
-        score: formData.score ? parseFloat(formData.score) : null,
-        answers: answersArray
-      };
-
-      await axios.post('/api/quality-data-submission', submissionData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      alert('Quality data submitted successfully!');
-      // Reset form
-      setFormData({
-        auditstatus: 'qualified',
-        status: 'Completed',
-        meetinglink: '',
-        score: '',
-        answers: {}
-      });
-    } catch (error) {
-      setError(error.response?.data?.message || 'Submission failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="quality-submission-form">
-      <h2>Submit Quality Assessment</h2>
-      
-      {error && <div className="alert alert-danger">{error}</div>}
-      
-      <form onSubmit={handleSubmit}>
-        {/* Quality Fields */}
-        <div className="form-group">
-          <label>Audit Status</label>
-          <select
-            value={formData.auditstatus}
-            onChange={(e) => handleInputChange('auditstatus', e.target.value)}
-            className="form-control"
-            required
-          >
-            <option value="qualified">Qualified</option>
-            <option value="unqualified">Unqualified</option>
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Status</label>
-          <input
-            type="text"
-            value={formData.status}
-            onChange={(e) => handleInputChange('status', e.target.value)}
-            className="form-control"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Meeting Link</label>
-          <input
-            type="text"
-            value={formData.meetinglink}
-            onChange={(e) => handleInputChange('meetinglink', e.target.value)}
-            className="form-control"
-            placeholder="https://meet.example.com/..."
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Score (0-100)</label>
-          <input
-            type="number"
-            value={formData.score}
-            onChange={(e) => handleInputChange('score', e.target.value)}
-            className="form-control"
-            min="0"
-            max="100"
-            step="0.01"
-            placeholder="85.50"
-          />
-        </div>
-
-        {/* Questions Section */}
-        <h3>Quality Questions</h3>
-        {questions.map(question => (
-          <div key={question.id} className="form-group">
-            <label>{question.question}</label>
-            <textarea
-              value={formData.answers[question.id] || ''}
-              onChange={(e) => handleAnswerChange(question.id, e.target.value)}
-              className="form-control"
-              rows="3"
-              required
-            />
-          </div>
-        ))}
-
-        <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit Quality Data'}
-        </button>
-      </form>
-    </div>
-  );
+  return response.data;
 };
-
-export default QualityDataSubmissionForm;
 ```
 
 ---
@@ -549,44 +418,99 @@ export default QualityDataSubmissionForm;
 ## Error Responses
 
 ### Validation Error (422)
+
 ```json
 {
   "success": false,
-  "error": "Validation failed",
+  "message": "Validation failed",
   "errors": {
-    "auditstatus": ["The audit status field is required."],
-    "status": ["The status field is required."],
+    "auditstatus": ["The auditstatus field is required."],
     "answers": ["The answers field is required."]
   }
 }
 ```
 
-### Question Not Found (422)
+### Submission Failed — No Sales Users (500)
+
+Entire transaction is rolled back (quality record is not saved).
+
 ```json
 {
   "success": false,
-  "error": "Validation failed",
+  "message": "An error occurred while processing your request: Failed to assign consultation to Sales user - no active Sales users available",
   "errors": {
-    "answers.0.question_id": ["The selected question id is invalid."]
+    "error_code": "QUALITY_SUBMISSION_FAILED"
   }
 }
 ```
+
+### Submission Failed — Zoom Account Missing (500)
+
+Occurs when assigned sales user has no matching row in `zoom_accounts`.
+
+```json
+{
+  "success": false,
+  "message": "An error occurred while processing your request: No Zoom account found for assigned sales user: sales@company.com",
+  "errors": {
+    "error_code": "QUALITY_SUBMISSION_FAILED"
+  }
+}
+```
+
+### Submission Failed — Zoom API Error (500)
+
+```json
+{
+  "success": false,
+  "message": "An error occurred while processing your request: Failed to create Zoom meeting: Invalid access token.",
+  "errors": {
+    "error_code": "QUALITY_SUBMISSION_FAILED"
+  }
+}
+```
+
+> If Zoom meeting is created but email fails, submission still succeeds with `email_sent: false` in `consultation_assignment`.
+
+---
+
+## Testing Checklist
+
+### Qualified (QA-Approved) flow
+- [ ] Submit with `auditstatus: qualified` and `status: QA-Approved`
+- [ ] Verify `consultation_assignment` is returned
+- [ ] Verify assigned user is from Sales department (round robin)
+- [ ] Verify `meeting_link` is a valid Zoom URL
+- [ ] Verify `meeting_link` saved on `consultations` table (not `qualities`)
+- [ ] Verify client receives meeting email (if mail configured)
+- [ ] Verify `email_sent: true` when email succeeds
+
+### Unqualified flow
+- [ ] Submit with `auditstatus: unqualified`
+- [ ] Verify `consultation_assignment` is `null`
+- [ ] Verify no consultation or Zoom meeting is created
+
+### Failure cases
+- [ ] No active Sales users → submission fails, nothing saved
+- [ ] Sales user without `zoom_accounts` mapping → submission fails
+- [ ] Invalid Zoom credentials → submission fails
+- [ ] Missing client email → submission succeeds, `email_sent: false`
+
+### Prerequisites
+- [ ] Sales department exists and is active
+- [ ] Sales users assigned to department
+- [ ] `zoom_accounts.email` matches each sales user's CRM email
+- [ ] Mail SMTP configured in `.env`
 
 ---
 
 ## Features Summary
 
-✅ **Single API Endpoint** - Submit complete quality data in one call  
-✅ **Uses Existing Tables** - qualities, quality_answers, quality_questions, comments  
-✅ **Transaction Safety** - All-or-nothing data creation  
-✅ **Flexible Fields** - auditstatus, status, meetinglink, score, appointment_id  
-✅ **Multiple Answers** - Support for any number of question answers  
-✅ **Manual quality_id** - Provide specific quality_id in answers  
-✅ **Manual followup_business_id** - Provide specific followup_business_id in comments  
-✅ **Active Questions Only** - Only uses active quality questions (IDs: 1, 3, 4, 5)  
-✅ **Proper Relationships** - Loads related data in response  
-✅ **Comprehensive Validation** - All fields properly validated  
-✅ **Comments Support** - Optional comments with status tracking  
-✅ **Required Appointment** - Links quality assessment to specific appointment  
-
-The Quality Data Submission API provides a complete solution for submitting quality assessments with question answers and comments using existing database tables! 🎯
+- Single API endpoint for complete quality audit submission
+- Automatic Sales assignment via round robin + load balancing on `auditstatus: qualified`
+- Auto Zoom meeting creation using assigned sales user's `zoom_accounts` credentials
+- Client meeting email sent to primary business contact
+- Meeting link stored on `consultations.meeting_link` (removed from `qualities`)
+- Response includes assigned user, meeting link, and email status
+- Transaction safety — failure rolls back quality, consultation, and answers
+- Optional appointment status update and comments support

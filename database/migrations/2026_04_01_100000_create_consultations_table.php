@@ -22,7 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('reschedule_slot')->nullable(); // Foreign key to time_slots table
             $table->unsignedBigInteger('closer')->nullable(); // Foreign key to users table (who closed consultation)
             $table->date('conducted_date')->nullable(); // When consultation was conducted
-            $table->unsignedBigInteger('assigned_user'); // Foreign key to users table (assigned to)
+            $table->unsignedBigInteger('assigned_user')->nullable(); // Foreign key to users table (assigned to)
+            $table->string('meeting_link')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             
@@ -30,7 +31,7 @@ return new class extends Migration
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
             $table->foreign('reschedule_slot')->references('id')->on('time_slots')->onDelete('set null');
             $table->foreign('closer')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('assigned_user')->references('id')->on('users');
+            $table->foreign('assigned_user')->references('id')->on('users')->onDelete('set null');
             
             // Indexes
             $table->index(['appointment_id']);

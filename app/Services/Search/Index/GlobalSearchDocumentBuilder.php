@@ -320,7 +320,7 @@ class GlobalSearchDocumentBuilder
             $consultation->status,
             $consultation->custom_status,
             $consultation->reason,
-            $consultation->closer,
+            $consultation->getAttributeValue('closer'),
         ]));
 
         return $this->baseDocument(

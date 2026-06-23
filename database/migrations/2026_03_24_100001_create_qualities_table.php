@@ -18,7 +18,6 @@ return new class extends Migration
             $table->enum('auditstatus', ['qualified', 'unqualified', 'pending'])->default('unqualified')->required();
             $table->string('status')->default('QA-Pending')->required();
             $table->unsignedBigInteger('assigned_user')->required();
-            $table->string('meeting_link')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 

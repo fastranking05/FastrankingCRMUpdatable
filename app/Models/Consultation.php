@@ -21,7 +21,7 @@ class Consultation extends Model
         'closer',
         'conducted_date',
         'assigned_user',
-        'created_by',
+        'meeting_link',
         'is_customer_available',
     ];
 
@@ -49,9 +49,9 @@ class Consultation extends Model
     }
 
     /**
-     * Get the user who closed this consultation
+     * Get the user who closed this consultation.
      */
-    public function closer(): BelongsTo
+    public function closedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'closer');
     }

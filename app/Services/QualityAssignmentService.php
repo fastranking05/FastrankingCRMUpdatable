@@ -45,7 +45,6 @@ class QualityAssignmentService
                 'auditstatus' => self::DEFAULT_AUDIT_STATUS,
                 'status' => self::DEFAULT_STATUS,
                 'assigned_user' => $assignedUser->id,
-                'meeting_link' => null,
             ]);
 
             Log::info("Quality record created for appointment: {$appointmentId}, assigned to user: {$assignedUser->id}");

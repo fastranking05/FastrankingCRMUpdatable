@@ -45,7 +45,6 @@ class QualityDataSubmissionController extends BaseApiController
             // Quality fields
             'auditstatus' => 'required|in:qualified,unqualified',
             'status' => 'required|string',
-            'meetinglink' => 'nullable|string',
             'score' => 'nullable|numeric|min:0|max:100',
             'appointment_id' => 'required|exists:appointments,id',
             'appointment_current_status' => 'nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled,Scheduled,scheduled,QA-Pending,QA-Approved,QA-Hold,QA-Reject,QA-Rework',
@@ -78,7 +77,6 @@ class QualityDataSubmissionController extends BaseApiController
                 $quality = Quality::create([
                     'auditstatus' => $request->auditstatus,
                     'status' => $request->status,
-                    'meeting_link' => $request->meetinglink,
                     'score' => $request->score,
                     'appointment_id' => $request->appointment_id,
                     'assigned_user' => $userId,
@@ -108,7 +106,11 @@ class QualityDataSubmissionController extends BaseApiController
                             'consultation_id' => $consultation->id,
                             'assigned_user_id' => $assignedUser->id,
                             'assigned_user_name' => $assignedUser->first_name . ' ' . $assignedUser->last_name,
+                            'assigned_user_email' => $assignedUser->email,
                             'consultation_status' => $consultation->status,
+                            'meeting_link' => $assignmentResult['meeting_link'] ?? $consultation->meeting_link,
+                            'email_sent' => $assignmentResult['email_sent'] ?? false,
+                            'client_email' => $assignmentResult['client_email'] ?? null,
                         ];
                         
                         Log::info('Consultation assigned successfully', [
