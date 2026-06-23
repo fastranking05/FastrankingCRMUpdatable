@@ -19,7 +19,6 @@ class Quality extends Model
         'auditstatus',
         'status',
         'assigned_user',
-        'meeting_link',
         'score',
     ];
 

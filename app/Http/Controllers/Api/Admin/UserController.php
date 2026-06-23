@@ -3,6 +3,17 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Models\BusinessCategory;
+use App\Models\BusinessType;
+use App\Models\Consultation;
+use App\Models\Department;
+use App\Models\FollowupBusiness;
+use App\Models\Module;
+use App\Models\Quality;
+use App\Models\Role;
+use App\Models\Service;
+use App\Models\SeoQuestion;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -270,9 +281,39 @@ class UserController extends BaseApiController
             $user->departments()->detach();
             $user->roles()->detach();
 
+            $this->reassignUserReferences($user, auth()->id());
+
             $user->delete();
 
             return $this->successResponse(null, 'User deleted successfully');
         }, 'User deletion', ['user_id' => $id]);
+    }
+
+    /**
+     * Reassign or clear foreign key references before deleting a user.
+     */
+    private function reassignUserReferences(User $user, int $replacementUserId): void
+    {
+        Consultation::where('assigned_user', $user->id)->update(['assigned_user' => null]);
+        Consultation::where('closer', $user->id)->update(['closer' => null]);
+
+        $reassignToReplacement = [
+            [Service::class, 'created_by'],
+            [BusinessType::class, 'created_by'],
+            [BusinessCategory::class, 'created_by'],
+            [FollowupBusiness::class, 'created_by'],
+            [Module::class, 'created_by'],
+            [Role::class, 'created_by'],
+            [Department::class, 'created_by'],
+            [Team::class, 'created_by'],
+            [SeoQuestion::class, 'created_by'],
+            [Quality::class, 'assigned_user'],
+        ];
+
+        foreach ($reassignToReplacement as [$model, $column]) {
+            $model::where($column, $user->id)->update([$column => $replacementUserId]);
+        }
+
+        User::where('created_by', $user->id)->update(['created_by' => null]);
     }
 }

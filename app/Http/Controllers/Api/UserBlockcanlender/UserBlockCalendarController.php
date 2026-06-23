@@ -404,7 +404,7 @@ class UserBlockCalendarController extends BaseApiController
                     'timeSlot:id,start_time,end_time',
                 ]);
             },
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username'
         ])
         ->whereHas('appointment', function($query) use ($date) {
@@ -475,11 +475,11 @@ class UserBlockCalendarController extends BaseApiController
                         'last_name' => $consultation->assignedUser->last_name,
                         'username' => $consultation->assignedUser->username,
                     ] : null,
-                    'closer' => $consultation->closer ? [
-                        'id' => $consultation->closer->id,
-                        'first_name' => $consultation->closer->first_name,
-                        'last_name' => $consultation->closer->last_name,
-                        'username' => $consultation->closer->username,
+                    'closer' => $consultation->closedBy ? [
+                        'id' => $consultation->closedBy->id,
+                        'first_name' => $consultation->closedBy->first_name,
+                        'last_name' => $consultation->closedBy->last_name,
+                        'username' => $consultation->closedBy->username,
                     ] : null,
                 ];
             });

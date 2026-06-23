@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Quality;
 
 use App\Http\Controllers\Api\BaseApiController;
+use App\Models\Consultation;
 use App\Models\FollowupBusiness;
 use App\Support\FollowupBusinessProfile;
 use App\Models\Quality;
@@ -44,6 +45,7 @@ class QualityController extends BaseApiController
             'appointment',
             'appointment.followupBusiness.authPersons',
             'appointment.timeSlot',
+            'appointment.consultations' => fn ($query) => $query->latest('id')->limit(1),
             'assignedUser',
             'answers.question:id,question,is_active',
         ])->whereIn('id', $latestQualityIds);
@@ -551,7 +553,7 @@ class QualityController extends BaseApiController
                 'last_name' => $quality->assignedUser->last_name ?? null,
                 'email' => $quality->assignedUser->email ?? null,
             ],
-            'meeting_link' => $quality->meeting_link,
+            'meeting_link' => $quality->appointment?->consultations->first()?->meeting_link,
             'created_at' => $quality->created_at,
             'updated_at' => $quality->updated_at,
             'answers' => $quality->answers->map(fn (QualityAnswer $answer) => [
@@ -664,14 +666,18 @@ class QualityController extends BaseApiController
             if ($request->has('status')) {
                 $updateData['status'] = $request->status;
             }
-            if ($request->has('meeting_link')) {
-                $updateData['meeting_link'] = $request->meeting_link;
-            }
             if ($request->has('score')) {
                 $updateData['score'] = $request->score;
             }
 
             $quality->update($updateData);
+
+            if ($request->has('meeting_link')) {
+                Consultation::where('appointment_id', $quality->appointment_id)
+                    ->latest('id')
+                    ->limit(1)
+                    ->update(['meeting_link' => $request->meeting_link]);
+            }
 
             return $this->successResponse($quality, 'Quality record updated successfully');
         }, 'Quality update');
