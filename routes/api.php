@@ -25,6 +25,7 @@ Route::group([], function () {
     require __DIR__ . '/api/admin/roles.php';
     require __DIR__ . '/api/admin/teams.php';
     require __DIR__ . '/api/admin/users.php';
+    require __DIR__ . '/api/admin/zoom-accounts.php';
 });
 
 // Business Management Module Routes

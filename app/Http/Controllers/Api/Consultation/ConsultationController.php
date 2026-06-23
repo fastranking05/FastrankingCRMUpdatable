@@ -75,6 +75,7 @@ class ConsultationController extends BaseApiController
             'status' => $consultation->status,
             'custom_status' => $consultation->custom_status,
             'reason' => $consultation->reason,
+            'meeting_link' => $consultation->meeting_link,
             'assigned_user' => [
                 'id' => $consultation->assignedUser->id ?? null,
                 'first_name' => $consultation->assignedUser->first_name ?? null,
@@ -144,7 +145,7 @@ class ConsultationController extends BaseApiController
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ]);
@@ -289,7 +290,7 @@ class ConsultationController extends BaseApiController
                 ]);
             },
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ])->find($id);
@@ -359,7 +360,7 @@ class ConsultationController extends BaseApiController
             'appointment:id,date,followup_business_id,current_status',
             'appointment.followupBusiness:id,name',
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
         ]);
 
@@ -391,7 +392,7 @@ class ConsultationController extends BaseApiController
             'appointment:id,date,followup_business_id',
             'appointment.followupBusiness:id,name',
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ])->where('appointment_id', $appointmentId)
@@ -445,7 +446,7 @@ class ConsultationController extends BaseApiController
                 ]);
             },
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ]);
@@ -481,7 +482,7 @@ class ConsultationController extends BaseApiController
                 ]);
             },
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ]);
@@ -517,7 +518,7 @@ class ConsultationController extends BaseApiController
                 ]);
             },
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ]);
@@ -553,7 +554,7 @@ class ConsultationController extends BaseApiController
                 ]);
             },
             'meetingSlot:id,start_time,end_time',
-            'closer:id,first_name,last_name,username',
+            'closedBy:id,first_name,last_name,username',
             'assignedUser:id,first_name,last_name,username',
             'creator:id,first_name,last_name,username',
         ]);

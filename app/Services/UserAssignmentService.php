@@ -6,6 +6,7 @@ use App\Models\Consultation;
 use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Department;
+use App\Services\ConsultationMeetingService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +15,10 @@ class UserAssignmentService
 {
     private const CACHE_PREFIX = 'user_assignment_';
     private const CACHE_TTL = 3600; // 1 hour
+
+    public function __construct(
+        private readonly ConsultationMeetingService $consultationMeetingService,
+    ) {}
     
     /**
      * Create and assign consultation to Sales department user using Round Robin with load balancing
@@ -54,20 +59,42 @@ class UserAssignmentService
                     'meeting_slot' => $appointment ? $appointment->time_slot_id : null,
                 ]);
 
+                if (!$appointment) {
+                    throw new \RuntimeException("Appointment {$appointmentId} not found for consultation setup.");
+                }
+
+                $meetingResult = $this->consultationMeetingService->setupMeetingForConsultation(
+                    $consultation,
+                    $assignedUser,
+                    $appointment,
+                    auth()->id(),
+                );
+
+                $consultation->refresh();
+
                 $this->updateUserLoadCounter($assignedUser->id);
                 
-                Log::info("Consultation {$consultation->id} created and assigned to user {$assignedUser->id}");
+                Log::info("Consultation {$consultation->id} created and assigned to user {$assignedUser->id}", [
+                    'meeting_link' => $meetingResult['meeting_link'],
+                    'email_sent' => $meetingResult['email_sent'],
+                ]);
                 
                 return [
                     'consultation' => $consultation,
                     'assigned_user' => $assignedUser,
+                    'meeting_link' => $meetingResult['meeting_link'],
+                    'email_sent' => $meetingResult['email_sent'],
+                    'client_email' => $meetingResult['client_email'],
                 ];
             }
 
             return null;
         } catch (\Exception $e) {
-            Log::error('Error creating and assigning consultation: ' . $e->getMessage());
-            return null;
+            Log::error('Error creating and assigning consultation: ' . $e->getMessage(), [
+                'appointment_id' => $appointmentId,
+                'trace' => $e->getTraceAsString(),
+            ]);
+            throw $e;
         }
     }
 

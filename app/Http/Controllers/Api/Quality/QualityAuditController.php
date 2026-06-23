@@ -27,7 +27,8 @@ class QualityAuditController extends BaseApiController
             'assignedUser:id,first_name,last_name,email',
             'answers.question:id,question',
             'appointment.followupBusiness:id,name,category,type,website',
-            'appointment.timeSlot:id,start_time,end_time'
+            'appointment.timeSlot:id,start_time,end_time',
+            'appointment.consultations' => fn ($query) => $query->latest('id')->limit(1),
         ]);
 
         // Filter by unqualified status
@@ -61,7 +62,8 @@ class QualityAuditController extends BaseApiController
             'assignedUser:id,first_name,last_name,email',
             'answers.question:id,question',
             'appointment.followupBusiness:id,name,category,type,website',
-            'appointment.timeSlot:id,start_time,end_time'
+            'appointment.timeSlot:id,start_time,end_time',
+            'appointment.consultations' => fn ($query) => $query->latest('id')->limit(1),
         ]);
 
         // Filter by qualified status
@@ -96,7 +98,8 @@ class QualityAuditController extends BaseApiController
             'assignedUser:id,first_name,last_name,email',
             'answers.question:id,question',
             'appointment.followupBusiness:id,name,category,type,website',
-            'appointment.timeSlot:id,start_time,end_time'
+            'appointment.timeSlot:id,start_time,end_time',
+            'appointment.consultations' => fn ($query) => $query->latest('id')->limit(1),
         ]);
 
         // Apply role-based filtering
@@ -183,7 +186,7 @@ class QualityAuditController extends BaseApiController
                 'status' => $audit->status,
                 'score' => $audit->score,
                 'assigned_user' => $audit->assignedUser,
-                'meeting_link' => $audit->meeting_link,
+                'meeting_link' => $audit->appointment?->consultations->first()?->meeting_link,
                 'created_at' => $audit->created_at,
                 'updated_at' => $audit->updated_at,
                 'answers' => $audit->answers,

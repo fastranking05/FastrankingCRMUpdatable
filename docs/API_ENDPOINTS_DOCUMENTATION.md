@@ -133,6 +133,19 @@ Full payloads and module permission examples: [DEPARTMENTS_API_DOCUMENTATION.md]
 | PUT | `/api/teams/{id}` | Update team | Teams,update |
 | DELETE | `/api/teams/{id}` | Delete team | Teams,delete |
 
+### Zoom Accounts
+**Base URL:** `/api/zoom-accounts`
+
+Zoom OAuth and webhook credential management. Full documentation: [ZOOM_ACCOUNTS_API_DOCUMENTATION.md](./ZOOM_ACCOUNTS_API_DOCUMENTATION.md)
+
+| Method | Endpoint | Description | Permissions |
+|---------|-----------|-------------|--------------|
+| GET | `/api/zoom-accounts` | Get all zoom accounts | Administration,read |
+| GET | `/api/zoom-accounts/{id}` | Get zoom account by ID | Administration,read |
+| POST | `/api/zoom-accounts` | Create zoom account | Administration,create |
+| PUT | `/api/zoom-accounts/{id}` | Update zoom account | Administration,update |
+| DELETE | `/api/zoom-accounts/{id}` | Delete zoom account | Administration,delete |
+
 ### Business Categories
 **Base URL:** `/api/business-categories`
 
