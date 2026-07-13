@@ -162,7 +162,8 @@ class DirectAppointmentController extends BaseApiController
             'auth_persons.*.altmobile' => 'nullable|string|unique:followup_auth_persons,altmobile',
             'auth_persons.*.primaryemail' => 'required|email|unique:followup_auth_persons,primaryemail',
             'auth_persons.*.altemail' => 'nullable|email|unique:followup_auth_persons,altemail',
-        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
+        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*')
+            + FollowupAuthPerson::phoneCountryCodeValidationRules('auth_persons.*'));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
@@ -564,7 +565,8 @@ class DirectAppointmentController extends BaseApiController
             'comments.*.comment' => 'sometimes|required|string',
             'comments.*.old_status' => 'nullable|string|max:255',
             'comments.*.new_status' => 'nullable|string|max:255',
-        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*'));
+        ] + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*')
+            + FollowupAuthPerson::phoneCountryCodeValidationRules('auth_persons.*'));
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());

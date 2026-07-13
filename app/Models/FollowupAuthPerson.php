@@ -29,9 +29,13 @@ class FollowupAuthPerson extends Model
         'gender',
         'dob',
         'primaryphone',
+        'primaryphone_country_code',
         'altphone',
+        'altphone_country_code',
         'primarymobile',
+        'primarymobile_country_code',
         'altmobile',
+        'altmobile_country_code',
         'primaryemail',
         'altemail',
         'created_by',
@@ -59,6 +63,48 @@ class FollowupAuthPerson extends Model
     public function getFullNameAttribute(): string
     {
         return trim("{$this->title} {$this->firstname} {$this->middlename} {$this->lastname}");
+    }
+
+    /**
+     * Country code fields for each contact number column.
+     *
+     * @return list<string>
+     */
+    public static function phoneCountryCodeFieldNames(): array
+    {
+        return [
+            'primaryphone_country_code',
+            'altphone_country_code',
+            'primarymobile_country_code',
+            'altmobile_country_code',
+        ];
+    }
+
+    /**
+     * Validation rules for phone country code fields.
+     *
+     * @return array<string, string>
+     */
+    public static function phoneCountryCodeValidationRules(string $prefix = ''): array
+    {
+        $field = fn (string $name) => $prefix !== '' ? "{$prefix}.{$name}" : $name;
+        $rules = [];
+
+        foreach (self::phoneCountryCodeFieldNames() as $name) {
+            $rules[$field($name)] = 'nullable|string|max:10';
+        }
+
+        return $rules;
+    }
+
+    /**
+     * Extract phone country code values from request/array data.
+     *
+     * @return array<string, mixed>
+     */
+    public static function phoneCountryCodeFieldsFromArray(array $data): array
+    {
+        return array_intersect_key($data, array_flip(self::phoneCountryCodeFieldNames()));
     }
 
     /**
