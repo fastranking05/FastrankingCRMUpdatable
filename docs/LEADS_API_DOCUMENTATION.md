@@ -49,34 +49,42 @@ Creates a new lead with business, auth persons, comments, and optional service a
       "preferred_contact_time": "Weekdays 9am-5pm",
       "gender": "male",
       "dob": "1980-01-15",
-      "primaryphone": "+1234567890",
-      "altphone": "+0987654321",
-      "primarymobile": "+1122334455",
-      "altmobile": "+5544332211",
+      "primaryphone": "7123456789",
+      "primaryphone_country_code": "+44",
+      "altphone": "2012345678",
+      "altphone_country_code": "+44",
+      "primarymobile": "7987654321",
+      "primarymobile_country_code": "+44",
+      "altmobile": "7999888777",
+      "altmobile_country_code": "+91",
       "primaryemail": "john.doe@example.com",
       "altemail": "john.alternate@example.com"
     },
     {
-      "title": "Mr",
-      "firstname": "John",
-      "middlename": "Robert",
-      "lastname": "Doe",
-      "is_primary": true,
-      "job_title": "CEO",
-      "seniority_level": "Executive",
-      "extension": "101",
-      "linkedin_profile": "https://linkedin.com/in/johndoe",
-      "facebook_profile": "https://facebook.com/johndoe",
-      "preferred_contact_method": "email",
-      "preferred_contact_time": "Weekdays 9am-5pm",
-      "gender": "male",
-      "dob": "1980-01-15",
-      "primaryphone": "+1234567890",
-      "altphone": "+0987654321",
-      "primarymobile": "+1122334455",
-      "altmobile": "+5544332211",
-      "primaryemail": "john.doe@example.com",
-      "altemail": "john.alternate@example.com"
+      "title": "Ms",
+      "firstname": "Jane",
+      "middlename": "Anne",
+      "lastname": "Smith",
+      "is_primary": false,
+      "job_title": "Operations Manager",
+      "seniority_level": "Manager",
+      "extension": "102",
+      "linkedin_profile": "https://linkedin.com/in/janesmith",
+      "facebook_profile": null,
+      "preferred_contact_method": "mobile",
+      "preferred_contact_time": "Weekdays 10am-4pm",
+      "gender": "female",
+      "dob": "1985-03-20",
+      "primaryphone": "5551234567",
+      "primaryphone_country_code": "+1",
+      "altphone": null,
+      "altphone_country_code": null,
+      "primarymobile": "5559876543",
+      "primarymobile_country_code": "+1",
+      "altmobile": null,
+      "altmobile_country_code": null,
+      "primaryemail": "jane.smith@example.com",
+      "altemail": null
     }
   ],
   "comments": [
@@ -145,7 +153,7 @@ Creates a new lead with business, auth persons, comments, and optional service a
 | `number_of_locations` | integer | No | Number of locations (min 0) |
 | `website` | url | No | Business website |
 
-Contact phone and email are stored on **auth persons** (`primaryphone`, `primarymobile`, `primaryemail`, etc.), not on the business record.
+Contact phone, country code, and email are stored on **auth persons** (`primaryphone`, `primaryphone_country_code`, `primarymobile`, `primaryemail`, etc.), not on the business record. Store the **number** and **country code** separately (e.g. `primarymobile_country_code`: `+44`, `primarymobile`: `7987654321`).
 
 **Auth person fields (within `auth_persons` array):**
 
@@ -165,10 +173,14 @@ Contact phone and email are stored on **auth persons** (`primaryphone`, `primary
 | `preferred_contact_time` | string | No | Preferred contact time (varchar) |
 | `gender` | string | No | `male`, `female`, or `other` |
 | `dob` | date | No | Date of birth |
-| `primaryphone` | string | No | Primary phone |
-| `altphone` | string | No | Alternate phone |
-| `primarymobile` | string | No | Primary mobile |
-| `altmobile` | string | No | Alternate mobile |
+| `primaryphone` | string | No | Primary phone number (without country code) |
+| `primaryphone_country_code` | string | No | Country code for primary phone, e.g. `+44`, `+91` (max 10) |
+| `altphone` | string | No | Alternate phone number |
+| `altphone_country_code` | string | No | Country code for alternate phone (max 10) |
+| `primarymobile` | string | No | Primary mobile number |
+| `primarymobile_country_code` | string | No | Country code for primary mobile (max 10) |
+| `altmobile` | string | No | Alternate mobile number |
+| `altmobile_country_code` | string | No | Country code for alternate mobile (max 10) |
 | `primaryemail` | email | Yes | Primary email |
 | `altemail` | email | No | Alternate email |
 | `id` | integer | Update only | Existing auth person ID (omit on create; include on update to modify existing contact) |
@@ -352,8 +364,8 @@ Checks for duplicate lead data before creating or updating a lead. At least **on
 {
   "business_name": "Example Company Ltd",
   "website": "https://example.com",
-  "phone": "+1234567890",
-  "mobile": "+1122334455",
+  "phone": "7123456789",
+  "mobile": "7987654321",
   "email": "john.doe@example.com"
 }
 ```
@@ -364,8 +376,8 @@ Checks for duplicate lead data before creating or updating a lead. At least **on
 |-------|------|----------------|
 | `business_name` | string | `followup_businesses.name` and `trading_name` (case-insensitive, trimmed) |
 | `website` | url | `followup_businesses.website` (normalized: lowercase, trailing `/` ignored) |
-| `phone` | string | Auth person `primaryphone` and `altphone` |
-| `mobile` | string | Auth person `primarymobile` and `altmobile` |
+| `phone` | string | Auth person `primaryphone` and `altphone` (number only, without country code) |
+| `mobile` | string | Auth person `primarymobile` and `altmobile` (number only, without country code) |
 | `email` | email | Auth person `primaryemail` and `altemail` (case-insensitive) |
 
 **Legacy aliases (still supported):** `auth_person_phone` → `phone`, `auth_person_mobile` → `mobile`, `auth_person_email` → `email`
@@ -521,10 +533,14 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
         "preferred_contact_time": "Weekdays 9am-5pm",
         "gender": "male",
         "dob": "1980-05-15",
-        "primaryphone": "+1-555-0101",
-        "altphone": "+1-555-0102",
-        "primarymobile": "+1-555-0201",
-        "altmobile": "+1-555-0202",
+        "primaryphone": "7123456789",
+        "primaryphone_country_code": "+44",
+        "altphone": "2012345678",
+        "altphone_country_code": "+44",
+        "primarymobile": "7987654321",
+        "primarymobile_country_code": "+44",
+        "altmobile": "7999888777",
+        "altmobile_country_code": "+91",
         "primaryemail": "john.doe@example.com",
         "altemail": "john.alternate@example.com",
         "created_by": 1,
@@ -698,7 +714,8 @@ Module-specific data (`comments`, `appointments`, `deals`, etc.) is returned **i
           "firstname": "John",
           "lastname": "Doe",
           "primaryemail": "john.doe@example.com",
-          "primarymobile": "+1-555-0201"
+          "primarymobile": "7987654321",
+          "primarymobile_country_code": "+44"
         },
         "creator": {
           "id": 1,
@@ -780,10 +797,14 @@ Updates an existing lead using the **exact same payload fields as Create Lead** 
       "preferred_contact_time": "Weekdays 9am-5pm",
       "gender": "male",
       "dob": "1980-01-15",
-      "primaryphone": "+1234567890",
-      "altphone": "+0987654321",
-      "primarymobile": "+1122334455",
-      "altmobile": "+5544332211",
+      "primaryphone": "7123456789",
+      "primaryphone_country_code": "+44",
+      "altphone": "2012345678",
+      "altphone_country_code": "+44",
+      "primarymobile": "7987654321",
+      "primarymobile_country_code": "+44",
+      "altmobile": "7999888777",
+      "altmobile_country_code": "+91",
       "primaryemail": "john.doe@example.com",
       "altemail": "john.alternate@example.com"
     },
@@ -802,10 +823,14 @@ Updates an existing lead using the **exact same payload fields as Create Lead** 
       "preferred_contact_time": "Weekdays 10am-4pm",
       "gender": "female",
       "dob": "1985-03-20",
-      "primaryphone": "+1234567891",
+      "primaryphone": "5551234567",
+      "primaryphone_country_code": "+1",
       "altphone": null,
-      "primarymobile": "+1122334456",
+      "altphone_country_code": null,
+      "primarymobile": "5559876543",
+      "primarymobile_country_code": "+1",
       "altmobile": null,
+      "altmobile_country_code": null,
       "primaryemail": "jane.smith@example.com",
       "altemail": null
     }
