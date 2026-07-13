@@ -441,6 +441,7 @@ class LeadsController extends BaseApiController
 
         return $rules
             + FollowupAuthPerson::profileFieldValidationRules('auth_persons.*')
+            + FollowupAuthPerson::phoneCountryCodeValidationRules('auth_persons.*')
             + BusinessService::validationRules()
             + LeadQualification::validationRules();
     }
@@ -542,7 +543,7 @@ class LeadsController extends BaseApiController
             'altmobile' => $authPersonData['altmobile'] ?? null,
             'primaryemail' => $authPersonData['primaryemail'],
             'altemail' => $authPersonData['altemail'] ?? null,
-        ], FollowupAuthPerson::profileFieldsFromArray($authPersonData));
+        ], FollowupAuthPerson::profileFieldsFromArray($authPersonData), FollowupAuthPerson::phoneCountryCodeFieldsFromArray($authPersonData));
 
         if ($isNew) {
             $attributes['created_by'] = auth()->id();

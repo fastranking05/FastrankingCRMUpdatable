@@ -67,7 +67,8 @@ class FollowupAuthPersonController extends BaseApiController
             'altemail' => 'nullable|email|unique:followup_auth_persons,altemail',
             'business_ids' => 'nullable|array',
             'business_ids.*' => 'exists:followup_businesses,id',
-        ] + FollowupAuthPerson::profileFieldValidationRules());
+        ] + FollowupAuthPerson::profileFieldValidationRules()
+            + FollowupAuthPerson::phoneCountryCodeValidationRules());
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
@@ -134,7 +135,8 @@ class FollowupAuthPersonController extends BaseApiController
             'altemail' => 'nullable|email|unique:followup_auth_persons,altemail,' . $id,
             'business_ids' => 'nullable|array',
             'business_ids.*' => 'exists:followup_businesses,id',
-        ] + FollowupAuthPerson::profileFieldValidationRules());
+        ] + FollowupAuthPerson::profileFieldValidationRules()
+            + FollowupAuthPerson::phoneCountryCodeValidationRules());
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
