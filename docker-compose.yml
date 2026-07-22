@@ -17,6 +17,9 @@ services:
 
     working_dir: /var/www/html
 
+    networks:
+      - fastranking-network
+
   mysql:
     image: mysql:8.0
 
@@ -34,5 +37,32 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+    networks:
+      - fastranking-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+
+    container_name: fastrankingcrm_phpmyadmin
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:80"
+
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+
+    depends_on:
+      - mysql
+
+    networks:
+      - fastranking-network
+
 volumes:
   mysql_data:
+
+networks:
+  fastranking-network:
+    external: true
