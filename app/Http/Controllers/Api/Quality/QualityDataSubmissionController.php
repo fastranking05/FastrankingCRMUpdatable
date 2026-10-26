@@ -35,10 +35,13 @@ class QualityDataSubmissionController extends BaseApiController
         $startTime = microtime(true);
         $userId = auth()->id();
         
+        $sendEmail = $request->boolean('send_email', true);
+
         Log::info('Quality data submission started', [
             'user_id' => $userId,
             'appointment_id' => $request->appointment_id,
             'auditstatus' => $request->auditstatus,
+            'send_email' => $sendEmail,
         ]);
 
         $validator = Validator::make($request->all(), [
@@ -48,6 +51,7 @@ class QualityDataSubmissionController extends BaseApiController
             'score' => 'nullable|numeric|min:0|max:100',
             'appointment_id' => 'required|exists:appointments,id',
             'appointment_current_status' => 'nullable|string|in:Booked,Confirmed,In Progress,Conducted,Not Conducted,Rescheduled,Cancelled,Scheduled,scheduled,QA-Pending,QA-Approved,QA-Hold,QA-Reject,QA-Rework',
+            'send_email' => 'nullable|boolean',
             
             // Quality answers (linked to the quality record created in this request)
             'answers' => 'required|array|min:1',
@@ -72,7 +76,7 @@ class QualityDataSubmissionController extends BaseApiController
         }
 
         try {
-            return DB::transaction(function () use ($request, $userId, $startTime) {
+            return DB::transaction(function () use ($request, $userId, $startTime, $sendEmail) {
                 // Create Quality record
                 $quality = Quality::create([
                     'auditstatus' => $request->auditstatus,
@@ -87,48 +91,6 @@ class QualityDataSubmissionController extends BaseApiController
                     'appointment_id' => $quality->appointment_id,
                     'auditstatus' => $quality->auditstatus,
                 ]);
-
-                // If quality is approved, create and assign consultation
-                $consultationAssignment = null;
-                if ($request->auditstatus === 'qualified') {
-                    Log::info('Starting consultation assignment', [
-                        'appointment_id' => $request->appointment_id,
-                        'quality_id' => $quality->id,
-                    ]);
-                    
-                    $assignmentResult = $this->userAssignmentService->createAndAssignConsultation($request->appointment_id);
-                    
-                    if ($assignmentResult) {
-                        $consultation = $assignmentResult['consultation'];
-                        $assignedUser = $assignmentResult['assigned_user'];
-                        
-                        $consultationAssignment = [
-                            'consultation_id' => $consultation->id,
-                            'assigned_user_id' => $assignedUser->id,
-                            'assigned_user_name' => $assignedUser->first_name . ' ' . $assignedUser->last_name,
-                            'assigned_user_email' => $assignedUser->email,
-                            'consultation_status' => $consultation->status,
-                            'meeting_link' => $assignmentResult['meeting_link'] ?? $consultation->meeting_link,
-                            'email_sent' => $assignmentResult['email_sent'] ?? false,
-                            'client_email' => $assignmentResult['client_email'] ?? null,
-                        ];
-                        
-                        Log::info('Consultation assigned successfully', [
-                            'consultation_id' => $consultation->id,
-                            'assigned_user_id' => $assignedUser->id,
-                            'assigned_user_name' => $assignedUser->first_name . ' ' . $assignedUser->last_name,
-                        ]);
-                    } else {
-                        // If assignment fails, throw exception to roll back entire transaction
-                        Log::error('Consultation assignment failed - rolling back transaction', [
-                            'appointment_id' => $request->appointment_id,
-                            'quality_id' => $quality->id,
-                            'reason' => 'No active Sales users available',
-                        ]);
-                        
-                        throw new \Exception('Failed to assign consultation to Sales user - no active Sales users available');
-                    }
-                }
 
                 // Update Appointment current_status if provided
                 $appointment = null;
@@ -212,6 +174,60 @@ class QualityDataSubmissionController extends BaseApiController
                             ]);
                             throw $commentException; // Re-throw to trigger transaction rollback
                         }
+                    }
+                }
+
+                // Consultation, Zoom, and client email for qualified audits
+                $consultationAssignment = null;
+                if ($request->auditstatus === 'qualified') {
+                    Log::info('Starting consultation assignment', [
+                        'appointment_id' => $request->appointment_id,
+                        'quality_id' => $quality->id,
+                        'send_email' => $sendEmail,
+                    ]);
+
+                    try {
+                        $assignmentResult = $this->userAssignmentService->createAndAssignConsultation($request->appointment_id, $sendEmail);
+
+                        if ($assignmentResult) {
+                            $consultation = $assignmentResult['consultation'];
+                            $assignedUser = $assignmentResult['assigned_user'];
+
+                            $consultationAssignment = [
+                                'consultation_id' => $consultation->id,
+                                'assigned_user_id' => $assignedUser->id,
+                                'assigned_user_name' => $assignedUser->first_name . ' ' . $assignedUser->last_name,
+                                'assigned_user_email' => $assignedUser->email,
+                                'consultation_status' => $consultation->status,
+                                'meeting_link' => $assignmentResult['meeting_link'] ?? $consultation->meeting_link,
+                                'email_sent' => $assignmentResult['email_sent'] ?? false,
+                                'client_email' => $assignmentResult['client_email'] ?? null,
+                            ];
+
+                            Log::info('Consultation assigned successfully', [
+                                'consultation_id' => $consultation->id,
+                                'assigned_user_id' => $assignedUser->id,
+                                'assigned_user_name' => $assignedUser->first_name . ' ' . $assignedUser->last_name,
+                            ]);
+                        } else {
+                            Log::error('Consultation assignment failed - rolling back transaction', [
+                                'appointment_id' => $request->appointment_id,
+                                'quality_id' => $quality->id,
+                                'reason' => 'No active Sales users available',
+                            ]);
+
+                            throw new \Exception('Failed to assign consultation to Sales user - no active Sales users available');
+                        }
+                    } catch (\RuntimeException $e) {
+                        if (str_starts_with($e->getMessage(), 'No Zoom account found')) {
+                            return $this->errorResponse(
+                                $e->getMessage(),
+                                422,
+                                ['error_code' => 'QUALITY_SUBMISSION_FAILED']
+                            );
+                        }
+
+                        throw $e;
                     }
                 }
 
