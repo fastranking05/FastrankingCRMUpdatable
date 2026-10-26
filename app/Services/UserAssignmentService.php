@@ -23,7 +23,7 @@ class UserAssignmentService
     /**
      * Create and assign consultation to Sales department user using Round Robin with load balancing
      */
-    public function createAndAssignConsultation(string $appointmentId): ?array
+    public function createAndAssignConsultation(string $appointmentId, bool $sendEmail = true): ?array
     {
         try {
             $salesDepartment = $this->getSalesDepartment();
@@ -50,41 +50,48 @@ class UserAssignmentService
                 // Get appointment details
                 $appointment = Appointment::find($appointmentId);
 
+                if (!$appointment) {
+                    throw new \RuntimeException("Appointment {$appointmentId} not found for consultation setup.");
+                }
+
                 // Create consultation with assigned user
                 $consultation = Consultation::create([
                     'appointment_id' => $appointmentId,
                     'status' => 'scheduled',
                     'assigned_user' => $assignedUser->id,
-                    'meeting_date' => $appointment ? $appointment->date : null,
-                    'meeting_slot' => $appointment ? $appointment->time_slot_id : null,
+                    'meeting_date' => $appointment->date,
+                    'meeting_slot' => $appointment->time_slot_id,
                 ]);
 
-                if (!$appointment) {
-                    throw new \RuntimeException("Appointment {$appointmentId} not found for consultation setup.");
-                }
+                $meetingResult = null;
 
-                $meetingResult = $this->consultationMeetingService->setupMeetingForConsultation(
-                    $consultation,
-                    $assignedUser,
-                    $appointment,
-                    auth()->id(),
-                );
+                if ($sendEmail) {
+                    $meetingResult = $this->consultationMeetingService->setupMeetingForConsultation(
+                        $consultation,
+                        $assignedUser,
+                        $appointment,
+                        auth()->id(),
+                    );
+                } else {
+                    Log::info("Skipping meeting setup for consultation {$consultation->id} because send_email is false");
+                }
 
                 $consultation->refresh();
 
                 $this->updateUserLoadCounter($assignedUser->id);
                 
                 Log::info("Consultation {$consultation->id} created and assigned to user {$assignedUser->id}", [
-                    'meeting_link' => $meetingResult['meeting_link'],
-                    'email_sent' => $meetingResult['email_sent'],
+                    'meeting_link' => $meetingResult['meeting_link'] ?? null,
+                    'email_sent' => $meetingResult['email_sent'] ?? false,
+                    'send_email' => $sendEmail,
                 ]);
                 
                 return [
                     'consultation' => $consultation,
                     'assigned_user' => $assignedUser,
-                    'meeting_link' => $meetingResult['meeting_link'],
-                    'email_sent' => $meetingResult['email_sent'],
-                    'client_email' => $meetingResult['client_email'],
+                    'meeting_link' => $meetingResult['meeting_link'] ?? null,
+                    'email_sent' => $meetingResult['email_sent'] ?? false,
+                    'client_email' => $meetingResult['client_email'] ?? null,
                 ];
             }
 
