@@ -189,7 +189,7 @@ class GlobalChatDataService
             'information', 'info', 'about', 'regarding', 'related', 'crm', 'record',
             'records', 'status', 'count', 'total', 'number', 'hi', 'hello', 'hey',
             'namaste', 'latest', 'last', 'newest', 'recent', 'entered', 'entred',
-            'created', 'pending', 'business', 'name', 'lead', 'leads', 'deal', 'deals',
+            'created', 'pending', 'business', 'name', 'lead', 'leads',
             'appointment', 'appointments', 'audit', 'audits', 'seo', 'many', 'much',
         ];
 

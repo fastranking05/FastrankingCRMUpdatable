@@ -22,7 +22,6 @@ class Proposal extends Model
         'id',
         'business_id',
         'auth_person_id',
-        'deal_id',
         'email',
         'service_id',
         'amount',
@@ -71,11 +70,6 @@ class Proposal extends Model
     public function authPerson(): BelongsTo
     {
         return $this->belongsTo(FollowupAuthPerson::class, 'auth_person_id');
-    }
-
-    public function deal(): BelongsTo
-    {
-        return $this->belongsTo(Deal::class, 'deal_id');
     }
 
     public function service(): BelongsTo

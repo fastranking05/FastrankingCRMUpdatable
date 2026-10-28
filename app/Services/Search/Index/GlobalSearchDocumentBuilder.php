@@ -5,7 +5,6 @@ namespace App\Services\Search\Index;
 use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\Consultation;
-use App\Models\Deal;
 use App\Models\Email;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupBusiness;
@@ -22,7 +21,6 @@ class GlobalSearchDocumentBuilder
         return match ($model::class) {
             FollowupBusiness::class => $this->fromBusiness($model),
             FollowupAuthPerson::class => $this->fromContact($model),
-            Deal::class => $this->fromDeal($model),
             Appointment::class => $this->fromAppointment($model),
             User::class => $this->fromUser($model),
             Email::class => $this->fromEmail($model),
@@ -49,7 +47,6 @@ class GlobalSearchDocumentBuilder
         return match ($model::class) {
             FollowupBusiness::class => SearchEntityType::BUSINESS,
             FollowupAuthPerson::class => SearchEntityType::CONTACT,
-            Deal::class => SearchEntityType::DEAL,
             Appointment::class => SearchEntityType::APPOINTMENT,
             User::class => SearchEntityType::USER,
             Email::class => SearchEntityType::EMAIL,
@@ -176,42 +173,6 @@ class GlobalSearchDocumentBuilder
             ],
             $contact->created_at,
             $contact->updated_at,
-        );
-    }
-
-    private function fromDeal(Deal $deal): array
-    {
-        $businessName = $deal->relationLoaded('followupBusiness')
-            ? $deal->followupBusiness?->name
-            : $deal->followupBusiness()->value('name');
-
-        $searchText = implode(' ', array_filter([
-            $deal->id,
-            $deal->name,
-            $deal->type,
-            $deal->deal_stage,
-            $deal->selected_service,
-            $deal->lost_reason,
-            $businessName,
-        ]));
-
-        return $this->baseDocument(
-            SearchEntityType::DEAL,
-            $deal->id,
-            $deal->name ?? $deal->id,
-            trim(implode(' • ', array_filter([$businessName, $deal->deal_stage, $deal->type]))),
-            $searchText,
-            '/deals/' . $deal->id,
-            [
-                'deal_id' => $deal->id,
-                'followup_business_id' => $deal->followup_business_id,
-                'auth_person_id' => $deal->auth_person_id,
-                'deal_stage' => $deal->deal_stage,
-                'type' => $deal->type,
-                'selected_service' => $deal->selected_service,
-            ],
-            $deal->created_at,
-            $deal->updated_at,
         );
     }
 

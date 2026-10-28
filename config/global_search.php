@@ -47,10 +47,6 @@ return [
             'label' => 'Contact',
             'model' => \App\Models\FollowupAuthPerson::class,
         ],
-        'deal' => [
-            'label' => 'Deal',
-            'model' => \App\Models\Deal::class,
-        ],
         'appointment' => [
             'label' => 'Appointment',
             'model' => \App\Models\Appointment::class,
@@ -87,13 +83,12 @@ return [
     'entity_module_map' => [
         'business' => ['Leads', 'Follow-Up'],
         'contact' => ['Leads', 'Follow-Up'],
-        'deal' => ['Deals'],
         'appointment' => ['Appointment'],
         'user' => ['Administration'],
         'email' => ['Email'],
         'consultation' => ['Consultation'],
         'seo_audit' => ['SEO'],
-        'comment' => ['Leads', 'Follow-Up', 'Deals', 'Appointment'],
+        'comment' => ['Leads', 'Follow-Up', 'Appointment'],
     ],
 
 ];

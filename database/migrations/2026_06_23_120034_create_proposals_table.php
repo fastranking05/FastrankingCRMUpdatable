@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('id', 12)->primary(); // FRPR00000001 format
             $table->unsignedBigInteger('business_id');
             $table->unsignedBigInteger('auth_person_id');
-            $table->string('deal_id', 15);
             $table->string('email');
             $table->string('service_id');
             $table->string('amount');
@@ -35,14 +34,8 @@ return new class extends Migration
                 ->on('followup_auth_persons')
                 ->onDelete('restrict');
 
-            $table->foreign('deal_id')
-                ->references('id')
-                ->on('deals')
-                ->onDelete('cascade');
-
             $table->index('business_id');
             $table->index('auth_person_id');
-            $table->index('deal_id');
         });
     }
 

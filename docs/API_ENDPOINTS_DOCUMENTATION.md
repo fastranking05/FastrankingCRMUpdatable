@@ -55,21 +55,22 @@ All endpoints require JWT authentication except where specified.
 | POST | `/api/consultation/{id}/close` | Close consultation | Consultation,update |
 | DELETE | `/api/consultation/{id}` | Delete consultation | Consultation,delete |
 
-## Deals Module Routes
-**Base URL:** `/api/deals`
+## Proposals Module Routes
+**Base URL:** `/api/proposals`
 
-Sales pipeline CRUD on the `deals` table with business comments. Full documentation: [DEALS_API_DOCUMENTATION.md](./DEALS_API_DOCUMENTATION.md)
+Sales proposals linked to businesses, contacts, and services. Full documentation: [PROPOSALS_API_DOCUMENTATION.md](./PROPOSALS_API_DOCUMENTATION.md)
 
 | Method | Endpoint | Description | Permissions |
 |---------|-----------|-------------|--------------|
-| GET | `/api/deals` | List deals by `deal_stage` filter | Deals,read |
-| GET | `/api/deals/filter-options` | Get deal stage filter options | Deals,read |
-| GET | `/api/deals/{id}` | Get deal by ID | Deals,read |
-| GET | `/api/deals/form/businesses` | Eligible businesses for create form | Deals,create |
-| GET | `/api/deals/form/businesses/{followupBusinessId}/auth-persons` | Contacts for selected business | Deals,create |
-| POST | `/api/deals` | Create deal with comments | Deals,create |
-| PUT | `/api/deals/{id}` | Update deal and append comments | Deals,update |
-| DELETE | `/api/deals/{id}` | Delete deal | Deals,delete |
+| GET | `/api/proposals` | List proposals with filters and summary | Proposals,read |
+| GET | `/api/proposals/filter-options` | Get proposal filter options | Proposals,read |
+| GET | `/api/proposals/{id}` | Get proposal by ID | Proposals,read |
+| GET | `/api/proposals/form/businesses` | Businesses for create form | Proposals,create |
+| GET | `/api/proposals/form/businesses/{businessId}` | Business context and contacts | Proposals,create |
+| GET | `/api/proposals/form/services` | Active services for create form | Proposals,create |
+| POST | `/api/proposals` | Create proposal | Proposals,create |
+| PUT | `/api/proposals/{id}` | Update proposal | Proposals,update |
+| DELETE | `/api/proposals/{id}` | Delete proposal | Proposals,delete |
 
 ## User Assignment Routes
 **Base URL:** `/api/user-assignment`
@@ -211,7 +212,7 @@ Zoom OAuth and webhook credential management. Full documentation: [ZOOM_ACCOUNTS
 ## Global Search Routes (Typesense + Laravel Scout)
 **Base URL:** `/api/search`
 
-Unified full-text search across businesses, contacts, deals, appointments, users, emails, consultations, SEO audits, and comments. Full documentation: [GLOBAL_SEARCH_API_DOCUMENTATION.md](./GLOBAL_SEARCH_API_DOCUMENTATION.md)
+Unified full-text search across businesses, contacts, appointments, users, emails, consultations, SEO audits, and comments. Full documentation: [GLOBAL_SEARCH_API_DOCUMENTATION.md](./GLOBAL_SEARCH_API_DOCUMENTATION.md)
 
 | Method | Endpoint | Description | Permissions |
 |---------|-----------|-------------|--------------|

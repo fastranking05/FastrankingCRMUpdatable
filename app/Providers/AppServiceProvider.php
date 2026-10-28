@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\Consultation;
-use App\Models\Deal;
 use App\Models\Email;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupBusiness;
@@ -49,7 +48,6 @@ class AppServiceProvider extends ServiceProvider
         $globalSearchObserver = GlobalSearchObserver::class;
         FollowupBusiness::observe($globalSearchObserver);
         FollowupAuthPerson::observe($globalSearchObserver);
-        Deal::observe($globalSearchObserver);
         Appointment::observe($globalSearchObserver);
         User::observe($globalSearchObserver);
         Email::observe($globalSearchObserver);

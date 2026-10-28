@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 | Global Search Routes (Typesense + Laravel Scout)
 |--------------------------------------------------------------------------
 |
-| Unified search across businesses, contacts, deals, appointments, users,
+| Unified search across businesses, contacts, appointments, users,
 | emails, consultations, SEO audits, and comments.
 |
 | Results are limited to entity types the user's department(s) can read.
