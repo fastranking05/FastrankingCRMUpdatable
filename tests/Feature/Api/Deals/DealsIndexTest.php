@@ -240,6 +240,8 @@ class DealsIndexTest extends TestCase
             $table->decimal('amount_exc_vat', 15, 2)->nullable();
             $table->decimal('vat', 15, 2)->nullable();
             $table->string('next_activity')->nullable();
+            $table->date('callback_date')->nullable();
+            $table->time('callback_time')->nullable();
             $table->string('priority')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();

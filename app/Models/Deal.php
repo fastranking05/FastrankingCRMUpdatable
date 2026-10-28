@@ -32,6 +32,8 @@ class Deal extends Model
         'amount_exc_vat',
         'vat',
         'next_activity',
+        'callback_date',
+        'callback_time',
         'priority',
         'created_by',
     ];
@@ -39,6 +41,8 @@ class Deal extends Model
     protected $casts = [
         'probability' => 'decimal:2',
         'estimated_closed_date' => 'date',
+        'callback_date' => 'date',
+        'callback_time' => 'datetime:H:i',
         'amount_exc_vat' => 'decimal:2',
         'vat' => 'decimal:2',
         'created_at' => 'datetime',

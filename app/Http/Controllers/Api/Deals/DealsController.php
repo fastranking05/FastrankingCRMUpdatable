@@ -26,6 +26,8 @@ class DealsController extends BaseApiController
         'On Hold',
     ];
 
+    public const CALLBACK_ACTIVITY = 'Callback';
+
     private DateRangeFilterService $dateRangeFilterService;
 
     public function __construct(DateRangeFilterService $dateRangeFilterService)
@@ -57,6 +59,8 @@ class DealsController extends BaseApiController
             'vat' => $deal->vat,
             'value' => round($amountExcVat + $vat, 2),
             'next_activity' => $deal->next_activity,
+            'callback_date' => $deal->callback_date,
+            'callback_time' => $deal->callback_time,
             'priority' => $deal->priority,
             'followup_business_id' => $deal->followup_business_id,
             'auth_person_id' => $deal->auth_person_id,
@@ -324,6 +328,16 @@ class DealsController extends BaseApiController
             'amount_exc_vat' => 'nullable|numeric|min:0',
             'vat' => 'nullable|numeric|min:0',
             'next_activity' => 'nullable|string|max:255',
+            'callback_date' => [
+                'nullable',
+                'date',
+                Rule::requiredIf(fn () => strcasecmp((string) $request->next_activity, self::CALLBACK_ACTIVITY) === 0),
+            ],
+            'callback_time' => [
+                'nullable',
+                'date_format:H:i',
+                Rule::requiredIf(fn () => strcasecmp((string) $request->next_activity, self::CALLBACK_ACTIVITY) === 0),
+            ],
             'priority' => 'nullable|string|max:50',
             'comments' => 'nullable|array',
             'comments.*.comment' => 'sometimes|required|string',
@@ -335,7 +349,9 @@ class DealsController extends BaseApiController
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
-        $deal = DB::transaction(function () use ($request) {
+        $isCallback = strcasecmp((string) $request->next_activity, self::CALLBACK_ACTIVITY) === 0;
+
+        $deal = DB::transaction(function () use ($request, $isCallback) {
             $deal = Deal::create([
                 'followup_business_id' => $request->followup_business_id,
                 'auth_person_id' => $request->auth_person_id,
@@ -349,6 +365,8 @@ class DealsController extends BaseApiController
                 'amount_exc_vat' => $request->amount_exc_vat,
                 'vat' => $request->vat,
                 'next_activity' => $request->next_activity,
+                'callback_date' => $isCallback ? $request->callback_date : null,
+                'callback_time' => $isCallback ? $request->callback_time : null,
                 'priority' => $request->priority,
                 'created_by' => auth()->id(),
             ]);
@@ -429,6 +447,20 @@ class DealsController extends BaseApiController
             'amount_exc_vat' => 'sometimes|nullable|numeric|min:0',
             'vat' => 'sometimes|nullable|numeric|min:0',
             'next_activity' => 'sometimes|nullable|string|max:255',
+            'callback_date' => [
+                'sometimes',
+                'nullable',
+                'date',
+                Rule::requiredIf(fn () => $request->has('next_activity')
+                    && strcasecmp((string) $request->next_activity, self::CALLBACK_ACTIVITY) === 0),
+            ],
+            'callback_time' => [
+                'sometimes',
+                'nullable',
+                'date_format:H:i',
+                Rule::requiredIf(fn () => $request->has('next_activity')
+                    && strcasecmp((string) $request->next_activity, self::CALLBACK_ACTIVITY) === 0),
+            ],
             'priority' => 'sometimes|nullable|string|max:50',
             'comments' => 'nullable|array',
             'comments.*.comment' => 'sometimes|required|string',
@@ -441,7 +473,7 @@ class DealsController extends BaseApiController
         }
 
         DB::transaction(function () use ($request, $deal) {
-            $deal->update($request->only([
+            $data = $request->only([
                 'followup_business_id',
                 'auth_person_id',
                 'name',
@@ -454,8 +486,18 @@ class DealsController extends BaseApiController
                 'amount_exc_vat',
                 'vat',
                 'next_activity',
+                'callback_date',
+                'callback_time',
                 'priority',
-            ]));
+            ]);
+
+            if (array_key_exists('next_activity', $data)
+                && strcasecmp((string) $data['next_activity'], self::CALLBACK_ACTIVITY) !== 0) {
+                $data['callback_date'] = null;
+                $data['callback_time'] = null;
+            }
+
+            $deal->update($data);
 
             $businessId = $deal->followup_business_id;
 

@@ -128,6 +128,8 @@ curl -X GET \
         "vat": "25000.00",
         "value": 125000,
         "next_activity": null,
+        "callback_date": null,
+        "callback_time": null,
         "priority": null,
         "followup_business_id": 5720,
         "auth_person_id": 101,
@@ -290,6 +292,8 @@ Creates a deal and optionally saves business comments.
 | `amount_exc_vat` | number | No | Amount excluding VAT |
 | `vat` | number | No | VAT amount |
 | `next_activity` | string | No | Next planned activity |
+| `callback_date` | date | Conditional | Required when `next_activity` = `Callback` |
+| `callback_time` | time (`H:i`) | Conditional | Required when `next_activity` = `Callback` |
 | `priority` | string | No | Low, Medium, High, Urgent |
 | `comments` | array | No | Business comments to save |
 
