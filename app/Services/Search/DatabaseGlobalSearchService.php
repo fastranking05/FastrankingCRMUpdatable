@@ -5,7 +5,6 @@ namespace App\Services\Search;
 use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\Consultation;
-use App\Models\Deal;
 use App\Models\Email;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupBusiness;
@@ -119,7 +118,6 @@ class DatabaseGlobalSearchService
         $all = [
             SearchEntityType::BUSINESS => fn (string $like) => $this->searchBusinesses($like, $leadId),
             SearchEntityType::CONTACT => fn (string $like) => $this->searchContacts($like),
-            SearchEntityType::DEAL => fn (string $like) => $this->searchDeals($like),
             SearchEntityType::APPOINTMENT => fn (string $like) => $this->searchAppointments($like),
             SearchEntityType::USER => fn (string $like) => $this->searchUsers($like),
             SearchEntityType::EMAIL => fn (string $like) => $this->searchEmails($like),
@@ -176,22 +174,6 @@ class DatabaseGlobalSearchService
                 ->orWhere('primarymobile', 'like', $like)
                 ->orWhere('primaryemail', 'like', $like)
                 ->orWhere('altemail', 'like', $like))
-            ->latest('updated_at')
-            ->limit(50)
-            ->get();
-    }
-
-    private function searchDeals(string $like)
-    {
-        return Deal::query()
-            ->with('followupBusiness')
-            ->where(fn (Builder $q) => $q
-                ->where('id', 'like', $like)
-                ->orWhere('name', 'like', $like)
-                ->orWhere('type', 'like', $like)
-                ->orWhere('deal_stage', 'like', $like)
-                ->orWhere('selected_service', 'like', $like)
-                ->orWhereHas('followupBusiness', fn (Builder $bq) => $bq->where('name', 'like', $like)))
             ->latest('updated_at')
             ->limit(50)
             ->get();

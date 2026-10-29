@@ -133,11 +133,6 @@ class FollowupBusiness extends Model
         return $this->hasMany(SeoDetail::class, 'followup_business_id');
     }
 
-    public function deals(): HasMany
-    {
-        return $this->hasMany(Deal::class, 'followup_business_id');
-    }
-
     public function businessService(): HasOne
     {
         return $this->hasOne(BusinessService::class, 'followup_business_id');

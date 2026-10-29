@@ -564,7 +564,6 @@ class LeadsController extends BaseApiController
             'followup_details' => $business->followupDetails,
             'emails' => $business->emails,
             'appointments' => $business->appointments,
-            'deals' => $business->deals,
             'seo_details' => $business->seoDetails,
         ]);
     }
@@ -598,12 +597,6 @@ class LeadsController extends BaseApiController
                         ])->orderByDesc('created_at');
                     },
                 ])->orderByDesc('date')->orderByDesc('time_slot_id');
-            },
-            'deals' => function ($query) {
-                $query->with([
-                    'authPerson:id,title,firstname,lastname,primaryemail,primarymobile',
-                    'creator:id,first_name,last_name',
-                ])->orderByDesc('created_at');
             },
             'seoDetails' => function ($query) {
                 $query->with('assignedUser:id,first_name,last_name,username')

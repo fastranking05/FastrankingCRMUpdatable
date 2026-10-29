@@ -18,7 +18,7 @@ class GlobalSearchController extends BaseApiController
     /**
      * Search across all indexed CRM records.
      *
-     * GET /api/search?q=john&types[]=deal&types[]=business&page=1&limit=20
+     * GET /api/search?q=john&types[]=contact&types[]=business&page=1&limit=20
      */
     public function search(Request $request): JsonResponse
     {

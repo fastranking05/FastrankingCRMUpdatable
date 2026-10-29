@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Proposals module manages sales proposals in the `proposals` table. Each proposal is linked to a deal, follow-up business, authorized contact, and service.
+The Proposals module manages sales proposals in the `proposals` table. Each proposal is linked to a follow-up business, authorized contact, and one or more services (stored in `proposal_services`).
 
 Proposal IDs are auto-generated in `FRPR00000001` format.
 
@@ -14,16 +14,16 @@ Proposal IDs are auto-generated in `FRPR00000001` format.
 
 ## Authentication & Permissions
 
-All endpoints require JWT authentication. Proposals use the **Deals** module permissions — no separate Proposals module is required.
+All endpoints require JWT authentication. Proposals use the **Proposals** module permissions.
 
 | Permission | Description |
 |------------|-------------|
-| `Deals,read` | List, filter options, view proposals |
-| `Deals,create` | Create proposals and use form endpoints |
-| `Deals,update` | Update proposals |
-| `Deals,delete` | Delete proposals |
+| `Proposals,read` | List, filter options, view proposals |
+| `Proposals,create` | Create proposals and use form endpoints |
+| `Proposals,update` | Update proposals |
+| `Proposals,delete` | Delete proposals |
 
-If a user/department already has Deals access, they can use all proposal endpoints with the same permission level.
+Departments that previously had Deals access were automatically granted the same Proposals permissions.
 
 ---
 
@@ -39,10 +39,9 @@ Cursor-paginated list with optional filters and summary totals.
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `search` | string | No | Search email, proposal ID, company, deal, service, or owner |
+| `search` | string | No | Search email, proposal ID, company, service, or owner |
 | `business_id` | integer | No | Filter by follow-up business ID |
 | `auth_person_id` | integer | No | Filter by contact ID |
-| `deal_id` | string | No | Filter by deal ID |
 | `service_id` | integer | No | Filter by service ID |
 | `created_by` | integer | No | Filter by creator user ID |
 | `date_filter` | string | No | Preset date range (see filter-options) |
@@ -81,24 +80,47 @@ Returns date filter presets and available date columns.
 
 ---
 
-### 3. Form — Deals (GET)
+### 3. Form — Businesses (GET)
 
-**Endpoint:** `GET /api/proposals/form/deals`
+**Endpoint:** `GET /api/proposals/form/businesses`
 
-Deals available when creating a proposal.
+Businesses eligible for proposal creation — only businesses that have at least one consultation with `status = conducted` are returned.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `search` | string | Search deal name, ID, or company |
-| `business_id` | integer | Filter deals by business |
+| `search` | string | Search business name or ID |
 
 ---
 
-### 4. Form — Deal Context (GET)
+### 4. Form — Business Context (GET)
 
-**Endpoint:** `GET /api/proposals/form/deals/{dealId}`
+**Endpoint:** `GET /api/proposals/form/businesses/{businessId}`
 
-Returns deal, business, contact, and suggested email for form prefill.
+Returns the business, all its linked contacts (auth persons), and a `suggested_email` (first contact's email) for form prefill.
+
+#### Response
+
+```json
+{
+  "business": {
+    "id": 12,
+    "name": "Tech Solutions Inc.",
+    "category": "Technology",
+    "type": "Enterprise",
+    "website": "https://example.com"
+  },
+  "contacts": [
+    {
+      "id": 45,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "7987654321",
+      "job_title": "Manager"
+    }
+  ],
+  "suggested_email": "john@example.com"
+}
+```
 
 ---
 
@@ -122,13 +144,13 @@ Active services for the proposal form.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `business_id` | integer | Yes | Must match the selected deal's business |
-| `auth_person_id` | integer | Yes | Must be linked to the business and match deal contact when set |
-| `deal_id` | string | Yes | Existing deal ID |
+| `business_id` | integer | Yes | Follow-up business ID |
+| `auth_person_id` | integer | Yes | Contact linked to the business |
 | `email` | string | Yes | Proposal recipient email |
-| `service_id` | integer | Yes | Service ID from `services` table |
-| `amount` | number | Yes | Amount excluding VAT |
-| `vat_amount` | number | Yes | VAT amount |
+| `services` | array | Yes | One or more service line items (min 1) |
+| `services[].service_id` | integer | Yes | Service ID from `services` table |
+| `services[].amount` | number | Yes | Amount excluding VAT |
+| `services[].vat_amount` | number | Yes | VAT amount (e.g. 20%) |
 
 #### Example
 
@@ -136,11 +158,11 @@ Active services for the proposal form.
 {
   "business_id": 12,
   "auth_person_id": 45,
-  "deal_id": "FRDID00000001",
   "email": "contact@example.com",
-  "service_id": 3,
-  "amount": 100000,
-  "vat_amount": 25000
+  "services": [
+    { "service_id": 3, "amount": 100000, "vat_amount": 25000 },
+    { "service_id": 5, "amount": 50000, "vat_amount": 12500 }
+  ]
 }
 ```
 
@@ -152,11 +174,13 @@ Active services for the proposal form.
 
 ---
 
-### 8. Update Proposal (PUT)
+### 8. Update Proposal (PUT / POST)
 
-**Endpoint:** `PUT /api/proposals/{id}`
+**Endpoints:** `PUT /api/proposals/{id}` or `POST /api/proposals/{id}`
 
-All fields are optional (`sometimes` validation). Relation consistency is re-validated when `business_id`, `auth_person_id`, or `deal_id` change.
+Both update the proposal identically — use `POST` when submitting `multipart/form-data`.
+
+All fields are optional (`sometimes` validation). Relation consistency is re-validated when `business_id` or `auth_person_id` change. When `services` is sent, it replaces the full set of service line items for the proposal.
 
 ---
 
@@ -168,10 +192,31 @@ All fields are optional (`sometimes` validation). Relation consistency is re-val
 
 ## Response Shape
 
-Each proposal includes nested `company`, `contact`, `deal`, `service`, and `owner` objects, plus computed `total_value` (`amount + vat_amount`).
+Each proposal includes nested `company`, `contact`, and `owner` objects, a `services` array (each item with its `service`, `amount`, `vat_amount`, and `total_value`), plus proposal-level `total_amount`, `total_vat`, and `total_value` (sums across all service items).
+
+```json
+{
+  "id": "FRPR00000001",
+  "business_id": 12,
+  "auth_person_id": 45,
+  "email": "contact@example.com",
+  "services": [
+    {
+      "id": 1,
+      "service_id": 3,
+      "amount": "100000.00",
+      "vat_amount": "25000.00",
+      "total_value": 125000,
+      "service": { "id": 3, "name": "SEO Retainer", "status": true }
+    }
+  ],
+  "total_amount": 100000,
+  "total_vat": 25000,
+  "total_value": 125000
+}
+```
 
 ## Validation Rules
 
-- `business_id`, `auth_person_id`, and `deal_id` must be consistent with each other
 - The contact must be linked to the selected business via `followup_business_auth_person`
-- If the deal has an `auth_person_id`, the proposal contact must match
+- `services` must contain at least one item; each `service_id` must exist in `services`

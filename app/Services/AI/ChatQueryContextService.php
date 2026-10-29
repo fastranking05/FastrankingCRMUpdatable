@@ -3,7 +3,6 @@
 namespace App\Services\AI;
 
 use App\Models\Appointment;
-use App\Models\Deal;
 use App\Models\FollowupBusiness;
 use App\Models\SeoDetail;
 use App\Models\User;
@@ -39,10 +38,6 @@ class ChatQueryContextService
             $context['appointments_today'] = $this->appointmentsToday($user);
         }
 
-        if ($this->mentionsDealsToday($normalized)) {
-            $context['deals_created_today'] = $this->dealsCreatedToday($user);
-        }
-
         if ($this->mentionsSeoAudits($normalized)) {
             $context['seo_audits'] = $this->seoAuditStats($user);
         }
@@ -61,7 +56,6 @@ class ChatQueryContextService
         return $this->mentionsLatestLead($normalized)
             || $this->mentionsLeadsToday($normalized)
             || $this->mentionsAppointmentsToday($normalized)
-            || $this->mentionsDealsToday($normalized)
             || $this->mentionsSeoAudits($normalized)
             || $this->mentionsQuality($normalized)
             || (bool) preg_match('/\b(how many|how much|count|total|number of|kitne)\b/', $normalized);
@@ -90,12 +84,6 @@ class ChatQueryContextService
     {
         return (bool) preg_match('/\b(today)\b/', $message)
             && (bool) preg_match('/\b(appointment|appointments|meeting|meetings)\b/', $message);
-    }
-
-    private function mentionsDealsToday(string $message): bool
-    {
-        return (bool) preg_match('/\b(today)\b/', $message)
-            && (bool) preg_match('/\b(deal|deals)\b/', $message);
     }
 
     private function mentionsSeoAudits(string $message): bool
@@ -208,40 +196,6 @@ class ChatQueryContextService
                     'current_status' => $apt->current_status,
                     'business_name' => $apt->followupBusiness?->name,
                     'created_by' => $apt->created_by,
-                ])
-                ->toArray(),
-        ];
-    }
-
-    /**
-     * @return array<string, mixed>|null
-     */
-    private function dealsCreatedToday(User $user): ?array
-    {
-        if (!$this->scopeService->hasModulePermission($user, 'Deals', 'read')) {
-            return null;
-        }
-
-        $query = $this->scopeService
-            ->scopeQuery(Deal::query(), $user)
-            ->whereDate('created_at', Carbon::today());
-
-        return [
-            'count' => $query->count(),
-            'date' => Carbon::today()->toDateString(),
-            'records' => $query
-                ->with(['followupBusiness:id,name'])
-                ->select('id', 'name', 'deal_stage', 'created_by', 'created_at', 'followup_business_id')
-                ->orderByDesc('created_at')
-                ->limit(10)
-                ->get()
-                ->map(fn (Deal $deal) => [
-                    'id' => $deal->id,
-                    'name' => $deal->name,
-                    'deal_stage' => $deal->deal_stage,
-                    'business_name' => $deal->followupBusiness?->name,
-                    'created_by' => $deal->created_by,
-                    'created_at' => $deal->created_at?->toDateTimeString(),
                 ])
                 ->toArray(),
         ];
