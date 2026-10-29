@@ -28,6 +28,7 @@ Route::middleware(['jwt.auth'])->prefix('proposals')->name('proposals.')->group(
 
     Route::middleware('permission:Proposals,update')->group(function () {
         Route::put('/{id}', [ProposalsController::class, 'update'])->name('update');
+        Route::post('/{id}', [ProposalsController::class, 'update'])->name('update.post');
     });
 
     Route::middleware('permission:Proposals,delete')->group(function () {

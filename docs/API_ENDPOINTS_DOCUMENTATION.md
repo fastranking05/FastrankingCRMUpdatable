@@ -69,7 +69,7 @@ Sales proposals linked to businesses, contacts, and services. Full documentation
 | GET | `/api/proposals/form/businesses/{businessId}` | Business context and contacts | Proposals,create |
 | GET | `/api/proposals/form/services` | Active services for create form | Proposals,create |
 | POST | `/api/proposals` | Create proposal | Proposals,create |
-| PUT | `/api/proposals/{id}` | Update proposal | Proposals,update |
+| PUT/POST | `/api/proposals/{id}` | Update proposal | Proposals,update |
 | DELETE | `/api/proposals/{id}` | Delete proposal | Proposals,delete |
 
 ## User Assignment Routes

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Proposals module manages sales proposals in the `proposals` table. Each proposal is linked to a follow-up business, authorized contact, and service.
+The Proposals module manages sales proposals in the `proposals` table. Each proposal is linked to a follow-up business, authorized contact, and one or more services (stored in `proposal_services`).
 
 Proposal IDs are auto-generated in `FRPR00000001` format.
 
@@ -84,7 +84,7 @@ Returns date filter presets and available date columns.
 
 **Endpoint:** `GET /api/proposals/form/businesses`
 
-Businesses available when creating a proposal.
+Businesses eligible for proposal creation — only businesses that have at least one consultation with `status = conducted` are returned.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -96,7 +96,31 @@ Businesses available when creating a proposal.
 
 **Endpoint:** `GET /api/proposals/form/businesses/{businessId}`
 
-Returns the business, its linked contacts, and a suggested email for form prefill.
+Returns the business, all its linked contacts (auth persons), and a `suggested_email` (first contact's email) for form prefill.
+
+#### Response
+
+```json
+{
+  "business": {
+    "id": 12,
+    "name": "Tech Solutions Inc.",
+    "category": "Technology",
+    "type": "Enterprise",
+    "website": "https://example.com"
+  },
+  "contacts": [
+    {
+      "id": 45,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "7987654321",
+      "job_title": "Manager"
+    }
+  ],
+  "suggested_email": "john@example.com"
+}
+```
 
 ---
 
@@ -123,9 +147,10 @@ Active services for the proposal form.
 | `business_id` | integer | Yes | Follow-up business ID |
 | `auth_person_id` | integer | Yes | Contact linked to the business |
 | `email` | string | Yes | Proposal recipient email |
-| `service_id` | integer | Yes | Service ID from `services` table |
-| `amount` | number | Yes | Amount excluding VAT |
-| `vat_amount` | number | Yes | VAT amount |
+| `services` | array | Yes | One or more service line items (min 1) |
+| `services[].service_id` | integer | Yes | Service ID from `services` table |
+| `services[].amount` | number | Yes | Amount excluding VAT |
+| `services[].vat_amount` | number | Yes | VAT amount (e.g. 20%) |
 
 #### Example
 
@@ -134,9 +159,10 @@ Active services for the proposal form.
   "business_id": 12,
   "auth_person_id": 45,
   "email": "contact@example.com",
-  "service_id": 3,
-  "amount": 100000,
-  "vat_amount": 25000
+  "services": [
+    { "service_id": 3, "amount": 100000, "vat_amount": 25000 },
+    { "service_id": 5, "amount": 50000, "vat_amount": 12500 }
+  ]
 }
 ```
 
@@ -148,11 +174,13 @@ Active services for the proposal form.
 
 ---
 
-### 8. Update Proposal (PUT)
+### 8. Update Proposal (PUT / POST)
 
-**Endpoint:** `PUT /api/proposals/{id}`
+**Endpoints:** `PUT /api/proposals/{id}` or `POST /api/proposals/{id}`
 
-All fields are optional (`sometimes` validation). Relation consistency is re-validated when `business_id` or `auth_person_id` change.
+Both update the proposal identically — use `POST` when submitting `multipart/form-data`.
+
+All fields are optional (`sometimes` validation). Relation consistency is re-validated when `business_id` or `auth_person_id` change. When `services` is sent, it replaces the full set of service line items for the proposal.
 
 ---
 
@@ -164,8 +192,31 @@ All fields are optional (`sometimes` validation). Relation consistency is re-val
 
 ## Response Shape
 
-Each proposal includes nested `company`, `contact`, `service`, and `owner` objects, plus computed `total_value` (`amount + vat_amount`).
+Each proposal includes nested `company`, `contact`, and `owner` objects, a `services` array (each item with its `service`, `amount`, `vat_amount`, and `total_value`), plus proposal-level `total_amount`, `total_vat`, and `total_value` (sums across all service items).
+
+```json
+{
+  "id": "FRPR00000001",
+  "business_id": 12,
+  "auth_person_id": 45,
+  "email": "contact@example.com",
+  "services": [
+    {
+      "id": 1,
+      "service_id": 3,
+      "amount": "100000.00",
+      "vat_amount": "25000.00",
+      "total_value": 125000,
+      "service": { "id": 3, "name": "SEO Retainer", "status": true }
+    }
+  ],
+  "total_amount": 100000,
+  "total_vat": 25000,
+  "total_value": 125000
+}
+```
 
 ## Validation Rules
 
 - The contact must be linked to the selected business via `followup_business_auth_person`
+- `services` must contain at least one item; each `service_id` must exist in `services`
