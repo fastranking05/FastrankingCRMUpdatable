@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Proposal extends Model
 {
@@ -22,11 +23,7 @@ class Proposal extends Model
         'id',
         'business_id',
         'auth_person_id',
-        'deal_id',
         'email',
-        'service_id',
-        'amount',
-        'vat_amount',
         'created_by',
     ];
 
@@ -73,14 +70,9 @@ class Proposal extends Model
         return $this->belongsTo(FollowupAuthPerson::class, 'auth_person_id');
     }
 
-    public function deal(): BelongsTo
+    public function services(): HasMany
     {
-        return $this->belongsTo(Deal::class, 'deal_id');
-    }
-
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->hasMany(ProposalService::class, 'proposal_id');
     }
 
     public function creator(): BelongsTo

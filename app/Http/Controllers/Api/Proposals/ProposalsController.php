@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Api\Proposals;
 
 use App\Http\Controllers\Api\BaseApiController;
-use App\Models\Deal;
+use App\Models\Consultation;
 use App\Models\FollowupBusiness;
 use App\Models\Proposal;
+use App\Models\ProposalService;
 use App\Models\Service;
 use App\Services\DateRangeFilterService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ProposalsController extends BaseApiController
@@ -26,21 +28,32 @@ class ProposalsController extends BaseApiController
      */
     private function transformProposalItem(Proposal $proposal): array
     {
-        $amount = (float) ($proposal->amount ?? 0);
-        $vatAmount = (float) ($proposal->vat_amount ?? 0);
+        $services = $proposal->services->map(fn (ProposalService $item) => [
+            'id' => $item->id,
+            'service_id' => $item->service_id,
+            'amount' => $item->amount,
+            'vat_amount' => $item->vat_amount,
+            'total_value' => round((float) $item->amount + (float) $item->vat_amount, 2),
+            'service' => $item->service ? [
+                'id' => $item->service->id,
+                'name' => $item->service->name,
+                'status' => $item->service->status,
+            ] : null,
+        ])->values();
+
+        $totalAmount = (float) $proposal->services->sum(fn ($item) => (float) $item->amount);
+        $totalVat = (float) $proposal->services->sum(fn ($item) => (float) $item->vat_amount);
         $authPerson = $proposal->authPerson;
-        $deal = $proposal->deal;
 
         return [
             'id' => $proposal->id,
             'business_id' => $proposal->business_id,
             'auth_person_id' => $proposal->auth_person_id,
-            'deal_id' => $proposal->deal_id,
             'email' => $proposal->email,
-            'service_id' => $proposal->service_id,
-            'amount' => $proposal->amount,
-            'vat_amount' => $proposal->vat_amount,
-            'total_value' => round($amount + $vatAmount, 2),
+            'services' => $services,
+            'total_amount' => round($totalAmount, 2),
+            'total_vat' => round($totalVat, 2),
+            'total_value' => round($totalAmount + $totalVat, 2),
             'created_by' => $proposal->created_by,
             'created_at' => $proposal->created_at,
             'updated_at' => $proposal->updated_at,
@@ -62,19 +75,6 @@ class ProposalsController extends BaseApiController
                 'phone' => $authPerson->primarymobile ?? $authPerson->primaryphone,
                 'job_title' => $authPerson->job_title,
             ] : null,
-            'deal' => $deal ? [
-                'id' => $deal->id,
-                'name' => $deal->name,
-                'deal_stage' => $deal->deal_stage,
-                'selected_service' => $deal->selected_service,
-                'amount_exc_vat' => $deal->amount_exc_vat,
-                'vat' => $deal->vat,
-            ] : null,
-            'service' => $proposal->service ? [
-                'id' => $proposal->service->id,
-                'name' => $proposal->service->name,
-                'status' => $proposal->service->status,
-            ] : null,
             'owner' => $proposal->creator ? [
                 'id' => $proposal->creator->id,
                 'first_name' => $proposal->creator->first_name,
@@ -90,8 +90,7 @@ class ProposalsController extends BaseApiController
         return Proposal::with([
             'followupBusiness',
             'authPerson',
-            'deal',
-            'service',
+            'services.service',
             'creator:id,first_name,last_name,email,username',
         ]);
     }
@@ -108,10 +107,7 @@ class ProposalsController extends BaseApiController
                 ->orWhereHas('followupBusiness', function ($businessQuery) use ($search) {
                     $businessQuery->where('name', 'like', '%'.$search.'%');
                 })
-                ->orWhereHas('deal', function ($dealQuery) use ($search) {
-                    $dealQuery->where('name', 'like', '%'.$search.'%');
-                })
-                ->orWhereHas('service', function ($serviceQuery) use ($search) {
+                ->orWhereHas('services.service', function ($serviceQuery) use ($search) {
                     $serviceQuery->where('name', 'like', '%'.$search.'%');
                 })
                 ->orWhereHas('creator', function ($userQuery) use ($search) {
@@ -127,23 +123,8 @@ class ProposalsController extends BaseApiController
      */
     private function validateProposalRelations(
         int $businessId,
-        int $authPersonId,
-        string $dealId
+        int $authPersonId
     ): ?array {
-        $deal = Deal::find($dealId);
-
-        if (!$deal) {
-            return ['deal_id' => ['The selected deal does not exist.']];
-        }
-
-        if ((int) $deal->followup_business_id !== $businessId) {
-            return ['business_id' => ['The selected business does not match the deal.']];
-        }
-
-        if ($deal->auth_person_id !== null && (int) $deal->auth_person_id !== $authPersonId) {
-            return ['auth_person_id' => ['The selected contact does not match the deal.']];
-        }
-
         $businessHasContact = FollowupBusiness::query()
             ->where('id', $businessId)
             ->whereHas('authPersons', fn ($q) => $q->where('followup_auth_persons.id', $authPersonId))
@@ -171,12 +152,8 @@ class ProposalsController extends BaseApiController
             $query->where('auth_person_id', $request->input('auth_person_id'));
         }
 
-        if ($request->filled('deal_id')) {
-            $query->where('deal_id', $request->input('deal_id'));
-        }
-
         if ($request->filled('service_id')) {
-            $query->where('service_id', $request->input('service_id'));
+            $query->whereHas('services', fn ($q) => $q->where('service_id', $request->input('service_id')));
         }
 
         if ($request->filled('created_by')) {
@@ -193,12 +170,13 @@ class ProposalsController extends BaseApiController
 
         $summaryQuery = clone $query;
         $proposalCount = (clone $summaryQuery)->count();
-        $totalAmount = (float) (clone $summaryQuery)
-            ->selectRaw('COALESCE(SUM(CAST(amount AS DECIMAL(15,2))), 0) as total_amount')
-            ->value('total_amount');
-        $totalVat = (float) (clone $summaryQuery)
-            ->selectRaw('COALESCE(SUM(CAST(vat_amount AS DECIMAL(15,2))), 0) as total_vat')
-            ->value('total_vat');
+        $totals = (clone $summaryQuery)
+            ->join('proposal_services', 'proposals.id', '=', 'proposal_services.proposal_id')
+            ->selectRaw('COALESCE(SUM(proposal_services.amount), 0) as total_amount')
+            ->selectRaw('COALESCE(SUM(proposal_services.vat_amount), 0) as total_vat')
+            ->first();
+        $totalAmount = (float) ($totals->total_amount ?? 0);
+        $totalVat = (float) ($totals->total_vat ?? 0);
 
         $perPage = max(1, (int) $request->get('per_page', 15));
         $proposals = $query->orderByDesc('proposals.created_at')
@@ -232,89 +210,77 @@ class ProposalsController extends BaseApiController
     }
 
     /**
-     * Deals available for proposal creation form.
+     * Businesses with a conducted consultation, for the proposal creation form.
      */
-    public function getFormDeals(Request $request): JsonResponse
+    public function getFormBusinesses(Request $request): JsonResponse
     {
-        $query = Deal::with(['followupBusiness:id,name', 'authPerson:id,firstname,lastname,primaryemail'])
-            ->orderByDesc('created_at');
+        $conductedBusinessIds = Consultation::query()
+            ->select('appointments.followup_business_id')
+            ->join('appointments', 'consultations.appointment_id', '=', 'appointments.id')
+            ->whereRaw('LOWER(consultations.status) = ?', ['conducted'])
+            ->distinct();
 
-        if ($request->filled('business_id')) {
-            $query->where('followup_business_id', $request->input('business_id'));
-        }
+        $query = FollowupBusiness::query()
+            ->whereIn('id', $conductedBusinessIds)
+            ->orderBy('name');
 
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', '%'.$search.'%')
-                    ->orWhere('id', 'like', '%'.$search.'%')
-                    ->orWhereHas('followupBusiness', fn ($bq) => $bq->where('name', 'like', '%'.$search.'%'));
+                    ->orWhere('id', 'like', '%'.$search.'%');
             });
         }
 
-        $deals = $query->get(['id', 'name', 'deal_stage', 'followup_business_id', 'auth_person_id', 'selected_service'])
-            ->map(fn (Deal $deal) => [
-                'id' => $deal->id,
-                'name' => $deal->name,
-                'deal_stage' => $deal->deal_stage,
-                'selected_service' => $deal->selected_service,
-                'followup_business_id' => $deal->followup_business_id,
-                'auth_person_id' => $deal->auth_person_id,
-                'company_name' => $deal->followupBusiness?->name,
-                'contact_name' => $deal->authPerson
-                    ? trim($deal->authPerson->firstname.' '.$deal->authPerson->lastname)
-                    : null,
-                'contact_email' => $deal->authPerson?->primaryemail,
+        $businesses = $query->get(['id', 'name', 'category', 'type', 'website'])
+            ->map(fn (FollowupBusiness $business) => [
+                'id' => $business->id,
+                'name' => $business->name,
+                'category' => $business->category,
+                'type' => $business->type,
+                'website' => $business->website,
             ])
             ->values();
 
-        return $this->successResponse($deals, 'Deals for proposal form retrieved successfully');
+        return $this->successResponse($businesses, 'Businesses for proposal form retrieved successfully');
     }
 
     /**
-     * Selected deal context for proposal form prefill.
+     * Selected business context (contacts) for proposal form prefill.
      */
-    public function getFormDealContext(string $dealId): JsonResponse
+    public function getFormBusinessContext(int $businessId): JsonResponse
     {
-        $deal = Deal::with(['followupBusiness', 'authPerson'])->find($dealId);
+        $business = FollowupBusiness::with('authPersons')->find($businessId);
 
-        if (!$deal) {
-            return $this->errorResponse('Deal not found', 404);
+        if (!$business) {
+            return $this->errorResponse('Business not found', 404);
         }
 
-        $authPerson = $deal->authPerson;
+        $contacts = $business->authPersons->map(function ($person) {
+            return [
+                'id' => $person->id,
+                'title' => $person->title,
+                'firstname' => $person->firstname,
+                'middlename' => $person->middlename,
+                'lastname' => $person->lastname,
+                'name' => trim($person->firstname.' '.$person->lastname),
+                'email' => $person->primaryemail,
+                'phone' => $person->primarymobile ?? $person->primaryphone,
+                'job_title' => $person->job_title,
+            ] + $person->profileFieldsForResponse();
+        })->values();
 
         return $this->successResponse([
-            'deal' => [
-                'id' => $deal->id,
-                'name' => $deal->name,
-                'deal_stage' => $deal->deal_stage,
-                'selected_service' => $deal->selected_service,
-                'amount_exc_vat' => $deal->amount_exc_vat,
-                'vat' => $deal->vat,
+            'business' => [
+                'id' => $business->id,
+                'name' => $business->name,
+                'category' => $business->category,
+                'type' => $business->type,
+                'website' => $business->website,
             ],
-            'business_id' => $deal->followup_business_id,
-            'auth_person_id' => $deal->auth_person_id,
-            'suggested_email' => $authPerson?->primaryemail,
-            'company' => $deal->followupBusiness ? [
-                'id' => $deal->followupBusiness->id,
-                'name' => $deal->followupBusiness->name,
-                'category' => $deal->followupBusiness->category,
-                'type' => $deal->followupBusiness->type,
-                'website' => $deal->followupBusiness->website,
-            ] : null,
-            'contact' => $authPerson ? [
-                'id' => $authPerson->id,
-                'title' => $authPerson->title,
-                'firstname' => $authPerson->firstname,
-                'middlename' => $authPerson->middlename,
-                'lastname' => $authPerson->lastname,
-                'name' => trim($authPerson->firstname.' '.$authPerson->lastname),
-                'email' => $authPerson->primaryemail,
-                'phone' => $authPerson->primarymobile ?? $authPerson->primaryphone,
-                'job_title' => $authPerson->job_title,
-            ] + $authPerson->profileFieldsForResponse() : null,
-        ], 'Deal context retrieved successfully');
+            'contacts' => $contacts,
+            'suggested_email' => $contacts->first()['email'] ?? null,
+        ], 'Business context retrieved successfully');
     }
 
     /**
@@ -349,11 +315,11 @@ class ProposalsController extends BaseApiController
         $validator = Validator::make($request->all(), [
             'business_id' => 'required|exists:followup_businesses,id',
             'auth_person_id' => 'required|exists:followup_auth_persons,id',
-            'deal_id' => 'required|exists:deals,id',
             'email' => 'required|email|max:255',
-            'service_id' => 'required|exists:services,id',
-            'amount' => 'required|numeric|min:0',
-            'vat_amount' => 'required|numeric|min:0',
+            'services' => 'required|array|min:1',
+            'services.*.service_id' => 'required|exists:services,id',
+            'services.*.amount' => 'required|numeric|min:0',
+            'services.*.vat_amount' => 'required|numeric|min:0',
         ]);
 
         if ($validator->fails()) {
@@ -362,24 +328,31 @@ class ProposalsController extends BaseApiController
 
         if ($relationErrors = $this->validateProposalRelations(
             (int) $request->business_id,
-            (int) $request->auth_person_id,
-            (string) $request->deal_id
+            (int) $request->auth_person_id
         )) {
             return $this->errorResponse('Validation failed', 422, $relationErrors);
         }
 
-        $proposal = Proposal::create([
-            'business_id' => $request->business_id,
-            'auth_person_id' => $request->auth_person_id,
-            'deal_id' => $request->deal_id,
-            'email' => $request->email,
-            'service_id' => (string) $request->service_id,
-            'amount' => (string) $request->amount,
-            'vat_amount' => (string) $request->vat_amount,
-            'created_by' => (string) auth()->id(),
-        ]);
+        $proposal = DB::transaction(function () use ($request) {
+            $proposal = Proposal::create([
+                'business_id' => $request->business_id,
+                'auth_person_id' => $request->auth_person_id,
+                'email' => $request->email,
+                'created_by' => (string) auth()->id(),
+            ]);
 
-        $proposal->load(['followupBusiness', 'authPerson', 'deal', 'service', 'creator']);
+            foreach ($request->services as $item) {
+                $proposal->services()->create([
+                    'service_id' => (int) $item['service_id'],
+                    'amount' => (float) $item['amount'],
+                    'vat_amount' => (float) $item['vat_amount'],
+                ]);
+            }
+
+            return $proposal;
+        });
+
+        $proposal->load(['followupBusiness', 'authPerson', 'services.service', 'creator']);
 
         return $this->successResponse(
             $this->transformProposalItem($proposal),
@@ -419,50 +392,47 @@ class ProposalsController extends BaseApiController
         $validator = Validator::make($request->all(), [
             'business_id' => 'sometimes|required|exists:followup_businesses,id',
             'auth_person_id' => 'sometimes|required|exists:followup_auth_persons,id',
-            'deal_id' => 'sometimes|required|exists:deals,id',
             'email' => 'sometimes|required|email|max:255',
-            'service_id' => 'sometimes|required|exists:services,id',
-            'amount' => 'sometimes|required|numeric|min:0',
-            'vat_amount' => 'sometimes|required|numeric|min:0',
+            'services' => 'sometimes|required|array|min:1',
+            'services.*.service_id' => 'required|exists:services,id',
+            'services.*.amount' => 'required|numeric|min:0',
+            'services.*.vat_amount' => 'required|numeric|min:0',
         ]);
 
         if ($validator->fails()) {
             return $this->errorResponse('Validation failed', 422, $validator->errors());
         }
 
-        $businessId = (int) ($request->input('business_id', $proposal->business_id));
-        $authPersonId = (int) ($request->input('auth_person_id', $proposal->auth_person_id));
-        $dealId = (string) ($request->input('deal_id', $proposal->deal_id));
+        if ($request->hasAny(['business_id', 'auth_person_id'])) {
+            $businessId = (int) ($request->input('business_id', $proposal->business_id));
+            $authPersonId = (int) ($request->input('auth_person_id', $proposal->auth_person_id));
 
-        if ($request->hasAny(['business_id', 'auth_person_id', 'deal_id'])) {
-            if ($relationErrors = $this->validateProposalRelations($businessId, $authPersonId, $dealId)) {
+            if ($relationErrors = $this->validateProposalRelations($businessId, $authPersonId)) {
                 return $this->errorResponse('Validation failed', 422, $relationErrors);
             }
         }
 
-        $updateData = $request->only([
-            'business_id',
-            'auth_person_id',
-            'deal_id',
-            'email',
-            'amount',
-            'vat_amount',
-        ]);
+        DB::transaction(function () use ($request, $proposal) {
+            $proposal->update($request->only([
+                'business_id',
+                'auth_person_id',
+                'email',
+            ]));
 
-        if ($request->has('service_id')) {
-            $updateData['service_id'] = (string) $request->service_id;
-        }
+            if ($request->has('services')) {
+                $proposal->services()->delete();
 
-        if ($request->has('amount')) {
-            $updateData['amount'] = (string) $request->amount;
-        }
+                foreach ($request->services as $item) {
+                    $proposal->services()->create([
+                        'service_id' => (int) $item['service_id'],
+                        'amount' => (float) $item['amount'],
+                        'vat_amount' => (float) $item['vat_amount'],
+                    ]);
+                }
+            }
+        });
 
-        if ($request->has('vat_amount')) {
-            $updateData['vat_amount'] = (string) $request->vat_amount;
-        }
-
-        $proposal->update($updateData);
-        $proposal->refresh()->load(['followupBusiness', 'authPerson', 'deal', 'service', 'creator']);
+        $proposal->refresh()->load(['followupBusiness', 'authPerson', 'services.service', 'creator']);
 
         return $this->successResponse(
             $this->transformProposalItem($proposal),

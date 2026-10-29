@@ -45,12 +45,6 @@ class ChatDeterministicAnswerService
             }
         }
 
-        if ($deals = $context['deals_created_today'] ?? null) {
-            if ($this->asksDealsTodayCount($normalized)) {
-                return $this->formatCountAnswer('deals created today', (int) $deals['count'], $deals['date'] ?? null);
-            }
-        }
-
         return null;
     }
 
@@ -97,13 +91,6 @@ class ChatDeterministicAnswerService
             && (bool) preg_match('/\b(appointment|appointments)\b/', $message)
             && (bool) preg_match('/\b(how many|count|total|kitne|number of)\b/', $message)
             && !(bool) preg_match('/\b(approved|quality|qa)\b/', $message);
-    }
-
-    private function asksDealsTodayCount(string $message): bool
-    {
-        return (bool) preg_match('/\b(today)\b/', $message)
-            && (bool) preg_match('/\b(deal|deals)\b/', $message)
-            && (bool) preg_match('/\b(how many|count|total|kitne|number of)\b/', $message);
     }
 
     /**

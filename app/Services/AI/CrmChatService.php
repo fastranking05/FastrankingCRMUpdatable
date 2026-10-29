@@ -117,7 +117,7 @@ class CrmChatService
             'If all relevant sections are empty or zero, say no matching data exists in this user scope.',
             'If the user asks about a module they cannot read, say they do not have permission.',
             'If the user asks you to delete, update, create, or change records, refuse and explain you are read-only.',
-            'Answer about any CRM topic (leads, deals, appointments, emails, follow-ups, SEO, users, etc.) using the provided data.',
+            'Answer about any CRM topic (leads, appointments, emails, follow-ups, SEO, users, etc.) using the provided data.',
             $this->languageInstruction(),
             'Keep answers concise, accurate, and helpful.',
         ]);

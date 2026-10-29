@@ -5,7 +5,6 @@ namespace App\Services\Search\Index;
 use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\Consultation;
-use App\Models\Deal;
 use App\Models\Email;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupBusiness;
@@ -99,10 +98,6 @@ class GlobalSearchIndexer
             );
             $counts['contact'] = $this->bulkIndexQuery(
                 FollowupAuthPerson::query()->orderBy('id'),
-                $batchSize
-            );
-            $counts['deal'] = $this->bulkIndexQuery(
-                Deal::query()->with('followupBusiness')->orderBy('id'),
                 $batchSize
             );
             $counts['appointment'] = $this->bulkIndexQuery(

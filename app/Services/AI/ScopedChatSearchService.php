@@ -5,7 +5,6 @@ namespace App\Services\AI;
 use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\Consultation;
-use App\Models\Deal;
 use App\Models\Email;
 use App\Models\FollowupAuthPerson;
 use App\Models\FollowupBusiness;
@@ -151,13 +150,6 @@ class ScopedChatSearchService
                     ->orWhere('lastname', 'like', $like)
                     ->orWhere('primaryemail', 'like', $like)
                     ->orWhere('primarymobile', 'like', $like))
-                ->latest('updated_at'),
-            SearchEntityType::DEAL => fn (string $like) => Deal::query()
-                ->with('followupBusiness')
-                ->where(fn (Builder $q) => $q
-                    ->where('name', 'like', $like)
-                    ->orWhere('deal_stage', 'like', $like)
-                    ->orWhereHas('followupBusiness', fn (Builder $bq) => $bq->where('name', 'like', $like)))
                 ->latest('updated_at'),
             SearchEntityType::APPOINTMENT => fn (string $like) => Appointment::query()
                 ->with('followupBusiness')

@@ -79,11 +79,6 @@ return [
             'label' => 'Contact',
             'scope_column' => 'created_by',
         ],
-        SearchEntityType::DEAL => [
-            'module' => 'Deals',
-            'label' => 'Deal',
-            'scope_column' => 'created_by',
-        ],
         SearchEntityType::APPOINTMENT => [
             'module' => 'Appointment',
             'label' => 'Appointment',

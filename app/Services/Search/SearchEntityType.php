@@ -6,7 +6,6 @@ final class SearchEntityType
 {
     public const BUSINESS = 'business';
     public const CONTACT = 'contact';
-    public const DEAL = 'deal';
     public const APPOINTMENT = 'appointment';
     public const USER = 'user';
     public const EMAIL = 'email';
