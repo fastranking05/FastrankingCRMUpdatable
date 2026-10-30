@@ -70,6 +70,7 @@ Sales proposals linked to businesses, contacts, and services. Full documentation
 | GET | `/api/proposals/form/services` | Active services for create form | Proposals,create |
 | POST | `/api/proposals` | Create proposal | Proposals,create |
 | PUT/POST | `/api/proposals/{id}` | Update proposal | Proposals,update |
+| POST | `/api/proposals/{id}/send` | Email proposal PDF to recipient | Proposals,create |
 | DELETE | `/api/proposals/{id}` | Delete proposal | Proposals,delete |
 
 ## User Assignment Routes
