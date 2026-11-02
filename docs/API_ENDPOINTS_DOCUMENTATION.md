@@ -71,6 +71,22 @@ Sales proposals linked to businesses, contacts, and services. Full documentation
 | POST | `/api/proposals` | Create proposal | Proposals,create |
 | PUT/POST | `/api/proposals/{id}` | Update proposal | Proposals,update |
 | POST | `/api/proposals/{id}/send` | Email proposal PDF to recipient | Proposals,create |
+
+## Contract Routes
+**Base URL:** `/api/contracts`
+
+Send frontend-generated contract documents (PDF) via email. Full documentation: [CONTRACTS_API_DOCUMENTATION.md](./CONTRACTS_API_DOCUMENTATION.md)
+
+| Method | Endpoint | Description | Permissions |
+|---------|-----------|-------------|--------------|
+| GET | `/api/contracts` | List contracts (proposal/business filters) | Proposals,read |
+| GET | `/api/contracts/{id}` | Get contract by ID or document_id UUID | Proposals,read |
+| POST | `/api/contracts` | Create contract (JSON document) | Proposals,create |
+| POST | `/api/contracts/send` | Email contract PDF or sign link | Proposals,create |
+| GET | `/api/contracts/public/{documentId}` | Public contract fetch for e-sign page | None (public) |
+| POST | `/api/contracts/public/{documentId}/sign` | Submit client signature | None (public) |
+| PUT/POST | `/api/contracts/{id}` | Update contract | Proposals,update |
+| DELETE | `/api/contracts/{id}` | Delete contract | Proposals,delete |
 | DELETE | `/api/proposals/{id}` | Delete proposal | Proposals,delete |
 
 ## User Assignment Routes

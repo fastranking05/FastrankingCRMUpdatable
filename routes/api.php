@@ -108,6 +108,11 @@ Route::group([], function () {
     require __DIR__ . '/api/proposals.php';
 });
 
+// Contract Routes
+Route::group([], function () {
+    require __DIR__ . '/api/contracts.php';
+});
+
 // User Assignment Routes
 Route::group([], function () {
     require __DIR__ . '/api/user-assignment.php';

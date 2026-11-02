@@ -217,6 +217,12 @@ The send is logged in the `emails` table with type `proposal`.
 
 ---
 
+## Contract Send
+
+Contract documents are sent via `POST /api/contracts/send` — see [CONTRACTS_API_DOCUMENTATION.md](./CONTRACTS_API_DOCUMENTATION.md) for details.
+
+---
+
 ## Response Shape
 
 Each proposal includes nested `company`, `contact`, and `owner` objects, a `services` array (each item with its `service`, `amount`, `vat_amount`, and `total_value`), plus proposal-level `total_amount`, `total_vat`, and `total_value` (sums across all service items).
