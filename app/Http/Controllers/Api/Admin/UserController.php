@@ -125,13 +125,13 @@ class UserController extends BaseApiController
     {
         return $this->executeTransaction(function () use ($id) {
             $user = User::with([
-                'creator:id,first_name,last_name', 
-                'teams', 
-                'departments', 
-                'roles.modules' => function ($query) {
+                'creator:id,first_name,last_name',
+                'teams',
+                'departments.modules' => function ($query) {
                     $query->select('modules.id', 'modules.name', 'modules.description', 'modules.status')
                           ->withPivot(['can_create', 'can_read', 'can_update', 'can_delete']);
-                }, 
+                },
+                'roles',
                 'createdUsers:id,first_name,last_name'
             ])->find($id);
 
@@ -139,10 +139,10 @@ class UserController extends BaseApiController
                 return $this->errorResponse('User not found', 404);
             }
 
-            // Format modules and permissions
+            // Format modules and permissions (union across the user's departments)
             $modulesWithPermissions = [];
-            foreach ($user->roles as $role) {
-                foreach ($role->modules as $module) {
+            foreach ($user->departments as $department) {
+                foreach ($department->modules as $module) {
                     $moduleId = $module->id;
                     
                     if (!isset($modulesWithPermissions[$moduleId])) {

@@ -18,6 +18,7 @@ Route::middleware(['jwt.auth'])->prefix('proposals')->name('proposals.')->group(
         Route::get('/form/businesses/{businessId}', [ProposalsController::class, 'getFormBusinessContext'])->name('form.business-context');
         Route::get('/form/services', [ProposalsController::class, 'getFormServices'])->name('form.services');
         Route::post('/', [ProposalsController::class, 'store'])->name('store');
+        Route::post('/{id}/send', [ProposalsController::class, 'send'])->name('send');
     });
 
     Route::middleware('permission:Proposals,read')->group(function () {
