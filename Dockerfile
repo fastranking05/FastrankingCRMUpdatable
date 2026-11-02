@@ -50,6 +50,11 @@ RUN composer install
 RUN chmod -R 777 storage bootstrap/cache
 
 # ============================================================
+# PHP Upload Limits
+# ============================================================
+COPY docker/php/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
+
+# ============================================================
 # Expose Port
 # ============================================================
 EXPOSE 8000
