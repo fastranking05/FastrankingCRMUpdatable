@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Exception;
+use Throwable;
 
 abstract class BaseApiController extends Controller
 {
@@ -29,10 +29,13 @@ abstract class BaseApiController extends Controller
 
                 return $result;
             });
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             Log::error($action . ' failed', array_merge($context, [
                 'user_id' => auth()->id(),
+                'exception' => $e::class,
                 'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()
             ]));
 

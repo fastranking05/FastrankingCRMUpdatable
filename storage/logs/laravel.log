@@ -984,3 +984,777 @@
 [2026-11-02 09:29:05] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
 [2026-11-02 09:29:05] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
 [2026-11-02 09:29:05] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:42:28] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-02 16:42:28] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-02 16:42:30] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:42:30] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:42:30] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:42:30] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:46:03] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-02 16:46:03] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-02 16:46:04] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:46:04] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:46:04] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:46:04] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:48:17] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-02 16:48:17] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-02 16:48:18] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:48:18] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:48:18] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:48:18] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:49:38] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-02 16:49:39] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-02 16:49:40] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:49:40] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:49:40] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-02 16:49:40] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:17:23] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 09:17:23] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 09:17:25] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:17:25] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:17:25] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:17:25] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:52:57] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 09:52:57] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 09:52:58] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:52:58] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:52:58] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 09:52:58] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 10:23:14] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 10:23:14] local.INFO: Fetch roles list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 10:23:14] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 10:23:14] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 10:23:14] local.INFO: Fetch teams list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 10:23:52] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-11-03 10:23:57] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-11-03 10:24:01] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 10:24:58] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 10:26:26] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 10:27:16] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 10:28:04] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-03 10:28:20] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-03 10:28:42] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-03 10:32:19] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-03 10:32:35] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-03 10:32:50] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 10:32:51] local.ERROR: Appointment retrieval failed {"appointment_id":"FRMID00000006","user_id":1,"exception":"Illuminate\\Database\\Eloquent\\RelationNotFoundException","error":"Call to undefined relationship [closer] on model [App\\Models\\Consultation].","file":"/var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php","line":35,"trace":"#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Models\\Consultation), 'closer')
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate\\Database\\Eloquent\\Builder->Illuminate\\Database\\Eloquent\\{closure}()
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate\\Database\\Eloquent\\Relations\\Relation::noConstraints(Object(Closure))
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate\\Database\\Eloquent\\Builder->getRelation('closer')
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelation(Array, 'closer', Object(Closure))
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelations(Array)
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate\\Database\\Eloquent\\Builder->get(Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate\\Database\\Eloquent\\Relations\\Relation->get()
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate\\Database\\Eloquent\\Relations\\Relation->getEager()
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelation(Array, 'consultations', Object(Closure))
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelations(Array)
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/BuildsQueries.php(366): Illuminate\\Database\\Eloquent\\Builder->get(Array)
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(568): Illuminate\\Database\\Eloquent\\Builder->first(Array)
+#13 /var/www/html/app/Http/Controllers/Api/Appointment/AppointmentController.php(325): Illuminate\\Database\\Eloquent\\Builder->find('FRMID00000006')
+#14 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(24): App\\Http\\Controllers\\Api\\Appointment\\AppointmentController->App\\Http\\Controllers\\Api\\Appointment\\{closure}()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\BaseApiController->App\\Http\\Controllers\\Api\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#18 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(23): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#19 /var/www/html/app/Http/Controllers/Api/Appointment/AppointmentController.php(302): App\\Http\\Controllers\\Api\\BaseApiController->executeTransaction(Object(Closure), 'Appointment ret...', Array)
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Appointment\\AppointmentController->show('FRMID00000006')
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Appointment\\AppointmentController), 'show')
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /var/www/html/app/Http/Middleware/PermissionMiddleware.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Appointment', 'read')
+#27 /var/www/html/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#57 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#60 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#61 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/var/www/html/p...')
+#62 {main}"} 
+[2026-11-03 10:32:51] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-03 10:32:51] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-03 10:52:39] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 10:52:41] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 10:52:41] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 10:52:41] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 10:52:41] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 10:52:41] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:38:08] local.INFO: Fetch teams list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:08] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:08] local.INFO: Fetch roles list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:08] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:08] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:38:26] local.INFO: Update department successful {"department_id":"1","user_id":1} 
+[2026-11-03 16:38:26] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: Fetch roles list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: Fetch teams list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:38] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:38:40] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:40] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:40] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:40] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:56] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 16:38:57] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:38:58] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:58] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:58] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:38:58] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:41:27] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:41:27] local.INFO: Fetch roles list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:41:27] local.INFO: Fetch teams list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:41:27] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:41:27] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:41:29] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:42:10] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: Fetch roles list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: Fetch teams list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:42:42] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:42:44] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:42:44] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:42:44] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:42:44] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: Fetch departments list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: Fetch roles list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: Fetch teams list successful {"filters":{"page":"1","per_page":"15"},"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:46:37] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:46:38] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:46:38] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:46:39] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:46:39] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:46:44] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 16:51:42] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 16:51:42] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:51:43] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:51:43] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:51:43] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:51:43] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:53:55] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 16:53:55] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 16:53:56] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:53:56] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:53:56] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:53:56] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 16:54:12] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 16:54:14] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 16:54:20] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-03 17:01:29] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:01:29] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:01:30] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:01:30] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:01:30] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:01:30] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:08:26] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:08:26] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:08:27] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:08:27] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:08:27] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:08:27] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:15:37] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:15:37] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:15:38] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:15:38] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:15:38] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:15:38] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:20:49] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:20:49] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:20:50] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:20:50] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:20:50] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:20:50] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:23:17] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:23:17] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:23:18] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:23:19] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:23:19] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:23:19] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:25:00] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:25:00] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:25:02] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:25:02] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:25:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:25:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:27:10] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-03 17:27:10] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-03 17:27:11] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:27:11] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:27:11] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:27:11] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-03 17:37:52] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-04 10:30:12] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-04 10:30:12] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-04 10:30:13] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-04 10:30:13] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-04 10:30:14] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-04 10:30:14] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:03:00] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-04 12:03:00] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-04 12:03:02] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:03:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:03:02] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:03:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:05:01] local.ERROR: Lead creation failed {"business_name":"Negi Trading","user_id":1,"exception":"Illuminate\\Database\\UniqueConstraintViolationException","error":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '7777777777' for key 'followup_auth_persons.followup_auth_persons_primaryphone_unique' (Connection: mysql, Host: mysql, Port: 3306, Database: fastrankingcrm, SQL: insert into `followup_auth_persons` (`title`, `firstname`, `middlename`, `lastname`, `is_primary`, `job_title`, `gender`, `dob`, `primaryphone`, `altphone`, `primarymobile`, `altmobile`, `primaryemail`, `altemail`, `seniority_level`, `extension`, `linkedin_profile`, `facebook_profile`, `preferred_contact_method`, `preferred_contact_time`, `primaryphone_country_code`, `altphone_country_code`, `primarymobile_country_code`, `altmobile_country_code`, `created_by`, `updated_at`, `created_at`) values (Mr, Sandeep, ?, Negi, 1, ?, ?, ?, 7777777777, ?, ?, ?, abcd@gmail.com, ?, ?, ?, ?, ?, ?, ?, +44, ?, ?, ?, 1, 2026-11-04 12:05:01, 2026-11-04 12:05:01))","file":"/var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php","line":838,"trace":"#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into `fo...', Array, Object(Closure))
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/MySqlConnection.php(42): Illuminate\\Database\\Connection->run('insert into `fo...', Array, Object(Closure))
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/MySqlProcessor.php(35): Illuminate\\Database\\MySqlConnection->insert('insert into `fo...', Array, 'id')
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4140): Illuminate\\Database\\Query\\Processors\\MySqlProcessor->processInsertGetId(Object(Illuminate\\Database\\Query\\Builder), 'insert into `fo...', Array, 'id')
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(2235): Illuminate\\Database\\Query\\Builder->insertGetId(Array, 'id')
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1436): Illuminate\\Database\\Eloquent\\Builder->__call('insertGetId', Array)
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1401): Illuminate\\Database\\Eloquent\\Model->insertAndSetId(Object(Illuminate\\Database\\Eloquent\\Builder), Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1240): Illuminate\\Database\\Eloquent\\Model->performInsert(Object(Illuminate\\Database\\Eloquent\\Builder))
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1219): Illuminate\\Database\\Eloquent\\Model->save()
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(388): Illuminate\\Database\\Eloquent\\Builder->Illuminate\\Database\\Eloquent\\{closure}(Object(App\\Models\\FollowupAuthPerson))
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1218): tap(Object(App\\Models\\FollowupAuthPerson), Object(Closure))
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->create(Array)
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2540): Illuminate\\Database\\Eloquent\\Model->forwardCallTo(Object(Illuminate\\Database\\Eloquent\\Builder), 'create', Array)
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2556): Illuminate\\Database\\Eloquent\\Model->__call('create', Array)
+#14 /var/www/html/app/Http/Controllers/Api/Leads/LeadsController.php(49): Illuminate\\Database\\Eloquent\\Model::__callStatic('create', Array)
+#15 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(24): App\\Http\\Controllers\\Api\\Leads\\LeadsController->App\\Http\\Controllers\\Api\\Leads\\{closure}()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\BaseApiController->App\\Http\\Controllers\\Api\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#19 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(23): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#20 /var/www/html/app/Http/Controllers/Api/Leads/LeadsController.php(40): App\\Http\\Controllers\\Api\\BaseApiController->executeTransaction(Object(Closure), 'Lead creation', Array)
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Leads\\LeadsController->store(Object(Illuminate\\Http\\Request))
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Leads\\LeadsController), 'store')
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/app/Http/Middleware/PermissionMiddleware.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Leads', 'create')
+#28 /var/www/html/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#60 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#61 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#62 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/var/www/html/p...')
+#63 {main}"} 
+[2026-11-04 12:06:22] local.ERROR: Lead creation failed {"business_name":"Negi Trading","user_id":1,"exception":"Illuminate\\Database\\UniqueConstraintViolationException","error":"SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '7777777777' for key 'followup_auth_persons.followup_auth_persons_primaryphone_unique' (Connection: mysql, Host: mysql, Port: 3306, Database: fastrankingcrm, SQL: insert into `followup_auth_persons` (`title`, `firstname`, `middlename`, `lastname`, `is_primary`, `job_title`, `gender`, `dob`, `primaryphone`, `altphone`, `primarymobile`, `altmobile`, `primaryemail`, `altemail`, `seniority_level`, `extension`, `linkedin_profile`, `facebook_profile`, `preferred_contact_method`, `preferred_contact_time`, `primaryphone_country_code`, `altphone_country_code`, `primarymobile_country_code`, `altmobile_country_code`, `created_by`, `updated_at`, `created_at`) values (Mr, Sandeep, ?, Negi, 1, ?, ?, ?, 7777777777, ?, ?, ?, abcd@gmail.com, ?, ?, ?, ?, ?, ?, ?, +44, ?, ?, ?, 1, 2026-11-04 12:06:22, 2026-11-04 12:06:22))","file":"/var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php","line":838,"trace":"#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into `fo...', Array, Object(Closure))
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/MySqlConnection.php(42): Illuminate\\Database\\Connection->run('insert into `fo...', Array, Object(Closure))
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/MySqlProcessor.php(35): Illuminate\\Database\\MySqlConnection->insert('insert into `fo...', Array, 'id')
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4140): Illuminate\\Database\\Query\\Processors\\MySqlProcessor->processInsertGetId(Object(Illuminate\\Database\\Query\\Builder), 'insert into `fo...', Array, 'id')
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(2235): Illuminate\\Database\\Query\\Builder->insertGetId(Array, 'id')
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1436): Illuminate\\Database\\Eloquent\\Builder->__call('insertGetId', Array)
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1401): Illuminate\\Database\\Eloquent\\Model->insertAndSetId(Object(Illuminate\\Database\\Eloquent\\Builder), Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1240): Illuminate\\Database\\Eloquent\\Model->performInsert(Object(Illuminate\\Database\\Eloquent\\Builder))
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1219): Illuminate\\Database\\Eloquent\\Model->save()
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/helpers.php(388): Illuminate\\Database\\Eloquent\\Builder->Illuminate\\Database\\Eloquent\\{closure}(Object(App\\Models\\FollowupAuthPerson))
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1218): tap(Object(App\\Models\\FollowupAuthPerson), Object(Closure))
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Traits/ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->create(Array)
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2540): Illuminate\\Database\\Eloquent\\Model->forwardCallTo(Object(Illuminate\\Database\\Eloquent\\Builder), 'create', Array)
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(2556): Illuminate\\Database\\Eloquent\\Model->__call('create', Array)
+#14 /var/www/html/app/Http/Controllers/Api/Leads/LeadsController.php(49): Illuminate\\Database\\Eloquent\\Model::__callStatic('create', Array)
+#15 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(24): App\\Http\\Controllers\\Api\\Leads\\LeadsController->App\\Http\\Controllers\\Api\\Leads\\{closure}()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\BaseApiController->App\\Http\\Controllers\\Api\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#19 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(23): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#20 /var/www/html/app/Http/Controllers/Api/Leads/LeadsController.php(40): App\\Http\\Controllers\\Api\\BaseApiController->executeTransaction(Object(Closure), 'Lead creation', Array)
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Leads\\LeadsController->store(Object(Illuminate\\Http\\Request))
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Leads\\LeadsController), 'store')
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/app/Http/Middleware/PermissionMiddleware.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Leads', 'create')
+#28 /var/www/html/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#60 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#61 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#62 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/var/www/html/p...')
+#63 {main}"} 
+[2026-11-04 12:10:02] local.INFO: Lead creation successful {"business_name":"ABC Treding","user_id":1} 
+[2026-11-04 12:10:16] local.INFO: Lead retrieval successful {"lead_id":22,"user_id":1} 
+[2026-11-04 12:13:39] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-04 12:13:40] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-04 12:13:41] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:13:41] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:13:41] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:13:41] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:14:31] local.INFO: Lead creation successful {"business_name":"Sandeep Trading","user_id":1} 
+[2026-11-04 12:15:02] local.INFO: Follow-up creation successful {"followup_business_id":23,"user_id":1} 
+[2026-11-04 12:15:13] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:15:29] local.INFO: Follow-up retrieval successful {"followup_id":"23","user_id":1} 
+[2026-11-04 12:15:29] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:15:54] local.INFO: All follow-ups retrieval successful {"user_id":1} 
+[2026-11-04 12:15:56] local.INFO: Follow-up retrieval successful {"followup_id":"23","user_id":1} 
+[2026-11-04 12:15:56] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:16:09] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:16:22] local.INFO: Active Sales department users count: 2  
+[2026-11-04 12:16:29] local.INFO: Block slot request {"date":"2026-11-04","time_slot_id":7,"user_id":null,"session_id":"session_1793794546710_7xczwiw36"} 
+[2026-11-04 12:16:29] local.INFO: Attempting to hold time slot {"date":"2026-11-04","time_slot_id":7,"user_id":null,"session_id":"session_1793794546710_7xczwiw36"} 
+[2026-11-04 12:16:29] local.INFO: Active Sales department users count: 2  
+[2026-11-04 12:16:29] local.INFO: Time slot held successfully {"booking_id":13,"time_slot_id":7,"expires_at":"2026-11-04 12:31:29"} 
+[2026-11-04 12:16:45] local.INFO: Direct appointment creation successful {"user_id":1} 
+[2026-11-04 12:16:51] local.INFO: Release slot request {"block_id":"13","user_id":null} 
+[2026-11-04 12:16:51] local.INFO: Attempting to release slot {"block_id":"13"} 
+[2026-11-04 12:16:51] local.INFO: Temporary booking found and deleted {"booking_id":13,"time_slot_id":7,"date":"2026-11-04 00:00:00"} 
+[2026-11-04 12:16:51] local.INFO: Block slot request {"date":"2026-11-04","time_slot_id":8,"user_id":null,"session_id":"session_1793794568631_bsj2w5kp7"} 
+[2026-11-04 12:16:51] local.INFO: Attempting to hold time slot {"date":"2026-11-04","time_slot_id":8,"user_id":null,"session_id":"session_1793794568631_bsj2w5kp7"} 
+[2026-11-04 12:16:51] local.INFO: Active Sales department users count: 2  
+[2026-11-04 12:16:51] local.INFO: Time slot held successfully {"booking_id":14,"time_slot_id":8,"expires_at":"2026-11-04 12:31:51"} 
+[2026-11-04 12:16:53] local.INFO: Quality record created for appointment: FRMID00000007, assigned to user: 4  
+[2026-11-04 12:16:53] local.INFO: SEO record created for appointment: FRMID00000007, business: 23, assigned to user: 3  
+[2026-11-04 12:16:53] local.INFO: Direct appointment creation successful {"user_id":1} 
+[2026-11-04 12:16:53] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:16:55] local.INFO: Release slot request {"block_id":"14","user_id":null} 
+[2026-11-04 12:16:55] local.INFO: Attempting to release slot {"block_id":"14"} 
+[2026-11-04 12:16:55] local.INFO: Temporary booking found and deleted {"booking_id":14,"time_slot_id":8,"date":"2026-11-04 00:00:00"} 
+[2026-11-04 12:40:41] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-04 12:40:45] local.INFO: Appointment retrieval successful {"appointment_id":"FRMID00000007","user_id":1} 
+[2026-11-04 12:40:45] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:40:57] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:42:38] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-04 12:42:38] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-04 12:42:39] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:42:39] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:42:39] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:42:39] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:43:30] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-04 12:43:30] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-04 12:43:31] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:43:31] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:43:31] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:43:31] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-04 12:45:24] local.INFO: Quality data submission started {"user_id":1,"appointment_id":"FRMID00000007","auditstatus":"qualified","send_email":true} 
+[2026-11-04 12:45:24] local.INFO: Quality record created {"quality_id":15,"appointment_id":"FRMID00000007","auditstatus":"qualified"} 
+[2026-11-04 12:45:24] local.INFO: Appointment status updated {"appointment_id":"FRMID00000007","old_status":"Appointment Booked","new_status":"QA-Approved"} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":127,"quality_id":15,"question_id":1,"answer_index":0} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":128,"quality_id":15,"question_id":2,"answer_index":1} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":129,"quality_id":15,"question_id":3,"answer_index":2} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":130,"quality_id":15,"question_id":4,"answer_index":3} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":131,"quality_id":15,"question_id":5,"answer_index":4} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":132,"quality_id":15,"question_id":6,"answer_index":5} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":133,"quality_id":15,"question_id":7,"answer_index":6} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":134,"quality_id":15,"question_id":8,"answer_index":7} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":135,"quality_id":15,"question_id":9,"answer_index":8} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":136,"quality_id":15,"question_id":10,"answer_index":9} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":137,"quality_id":15,"question_id":11,"answer_index":10} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":138,"quality_id":15,"question_id":12,"answer_index":11} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":139,"quality_id":15,"question_id":13,"answer_index":12} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":140,"quality_id":15,"question_id":14,"answer_index":13} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":141,"quality_id":15,"question_id":15,"answer_index":14} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":142,"quality_id":15,"question_id":16,"answer_index":15} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":143,"quality_id":15,"question_id":17,"answer_index":16} 
+[2026-11-04 12:45:24] local.DEBUG: Quality answer created {"answer_id":144,"quality_id":15,"question_id":18,"answer_index":17} 
+[2026-11-04 12:45:24] local.DEBUG: Comment created {"comment_id":39,"followup_business_id":23,"comment_index":0} 
+[2026-11-04 12:45:24] local.INFO: Starting consultation assignment {"appointment_id":"FRMID00000007","quality_id":15,"send_email":true} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":2,"users":{"Aryan":9,"Vani":20}} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":2,"users":[{"id":9,"name":"Aryan Sales","email":"akram@fastranking.co.uk"},{"id":20,"name":"Vani Mendiratta","email":"vani@gmail.com"}]} 
+[2026-11-04 12:45:24] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":2,"users_empty":false} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[9,20]} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"9":4,"20":4}} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":[{"id":9,"name":"Aryan Sales","load":4},{"id":20,"name":"Vani Mendiratta","load":4}]} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":4,"least_loaded_users_count":2,"least_loaded_users":[{"id":9,"name":"Aryan Sales"},{"id":20,"name":"Vani Mendiratta"}]} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":2,"current_index":false,"calculated_index":1} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":2,"round_robin_index":1} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":20,"selected_user_name":"Vani Mendiratta"} 
+[2026-11-04 12:45:24] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":20} 
+[2026-11-04 12:45:24] local.ERROR: Error creating and assigning consultation: No Zoom account found. Add a zoom_accounts record where email matches the user: vani@gmail.com {"appointment_id":"FRMID00000007","trace":"#0 /var/www/html/app/Services/ConsultationMeetingService.php(32): App\\Services\\Zoom\\ZoomMeetingGenerationService->generateForUser(Object(App\\Models\\User), Array)
+#1 /var/www/html/app/Services/UserAssignmentService.php(69): App\\Services\\ConsultationMeetingService->setupMeetingForConsultation(Object(App\\Models\\Consultation), Object(App\\Models\\User), Object(App\\Models\\Appointment), 1)
+#2 /var/www/html/app/Http/Controllers/Api/Quality/QualityDataSubmissionController.php(190): App\\Services\\UserAssignmentService->createAndAssignConsultation('FRMID00000007', true)
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\Quality\\QualityDataSubmissionController->App\\Http\\Controllers\\Api\\Quality\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure), 3)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#6 /var/www/html/app/Http/Controllers/Api/Quality/QualityDataSubmissionController.php(79): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Quality\\QualityDataSubmissionController->submitQualityData(Object(Illuminate\\Http\\Request))
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Quality\\QualityDataSubmissionController), 'submitQualityDa...')
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/app/Http/Middleware/PermissionMiddleware.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Administration', 'create')
+#14 /var/www/html/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#47 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/var/www/html/p...')
+#49 {main}"} 
+[2026-11-04 12:45:29] local.INFO: Quality data submission started {"user_id":1,"appointment_id":"FRMID00000007","auditstatus":"qualified","send_email":true} 
+[2026-11-04 12:45:29] local.INFO: Quality record created {"quality_id":16,"appointment_id":"FRMID00000007","auditstatus":"qualified"} 
+[2026-11-04 12:45:29] local.INFO: Appointment status updated {"appointment_id":"FRMID00000007","old_status":"QA-Approved","new_status":"QA-Approved"} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":145,"quality_id":16,"question_id":1,"answer_index":0} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":146,"quality_id":16,"question_id":2,"answer_index":1} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":147,"quality_id":16,"question_id":3,"answer_index":2} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":148,"quality_id":16,"question_id":4,"answer_index":3} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":149,"quality_id":16,"question_id":5,"answer_index":4} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":150,"quality_id":16,"question_id":6,"answer_index":5} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":151,"quality_id":16,"question_id":7,"answer_index":6} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":152,"quality_id":16,"question_id":8,"answer_index":7} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":153,"quality_id":16,"question_id":9,"answer_index":8} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":154,"quality_id":16,"question_id":10,"answer_index":9} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":155,"quality_id":16,"question_id":11,"answer_index":10} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":156,"quality_id":16,"question_id":12,"answer_index":11} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":157,"quality_id":16,"question_id":13,"answer_index":12} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":158,"quality_id":16,"question_id":14,"answer_index":13} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":159,"quality_id":16,"question_id":15,"answer_index":14} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":160,"quality_id":16,"question_id":16,"answer_index":15} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":161,"quality_id":16,"question_id":17,"answer_index":16} 
+[2026-11-04 12:45:29] local.DEBUG: Quality answer created {"answer_id":162,"quality_id":16,"question_id":18,"answer_index":17} 
+[2026-11-04 12:45:29] local.DEBUG: Comment created {"comment_id":40,"followup_business_id":23,"comment_index":0} 
+[2026-11-04 12:45:29] local.INFO: Starting consultation assignment {"appointment_id":"FRMID00000007","quality_id":16,"send_email":true} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":2,"users":{"Aryan":9,"Vani":20}} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":2,"users":[{"id":9,"name":"Aryan Sales","email":"akram@fastranking.co.uk"},{"id":20,"name":"Vani Mendiratta","email":"vani@gmail.com"}]} 
+[2026-11-04 12:45:29] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":2,"users_empty":false} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[9,20]} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"9":4,"20":5}} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":[{"id":9,"name":"Aryan Sales","load":4},{"id":20,"name":"Vani Mendiratta","load":5}]} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":4,"least_loaded_users_count":1,"least_loaded_users":[{"id":9,"name":"Aryan Sales"}]} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":1,"current_index":false,"calculated_index":0} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":1,"round_robin_index":0} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":9,"selected_user_name":"Aryan Sales"} 
+[2026-11-04 12:45:29] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":9} 
+[2026-11-04 12:45:29] local.ERROR: Error creating and assigning consultation: No Zoom account found. Add a zoom_accounts record where email matches the user: akram@fastranking.co.uk {"appointment_id":"FRMID00000007","trace":"#0 /var/www/html/app/Services/ConsultationMeetingService.php(32): App\\Services\\Zoom\\ZoomMeetingGenerationService->generateForUser(Object(App\\Models\\User), Array)
+#1 /var/www/html/app/Services/UserAssignmentService.php(69): App\\Services\\ConsultationMeetingService->setupMeetingForConsultation(Object(App\\Models\\Consultation), Object(App\\Models\\User), Object(App\\Models\\Appointment), 1)
+#2 /var/www/html/app/Http/Controllers/Api/Quality/QualityDataSubmissionController.php(190): App\\Services\\UserAssignmentService->createAndAssignConsultation('FRMID00000007', true)
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\Quality\\QualityDataSubmissionController->App\\Http\\Controllers\\Api\\Quality\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure), 3)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#6 /var/www/html/app/Http/Controllers/Api/Quality/QualityDataSubmissionController.php(79): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Quality\\QualityDataSubmissionController->submitQualityData(Object(Illuminate\\Http\\Request))
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Quality\\QualityDataSubmissionController), 'submitQualityDa...')
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/html/app/Http/Middleware/PermissionMiddleware.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Administration', 'create')
+#14 /var/www/html/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#47 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/var/www/html/p...')
+#49 {main}"} 
+[2026-11-04 12:45:36] local.INFO: Quality data submission started {"user_id":1,"appointment_id":"FRMID00000007","auditstatus":"qualified","send_email":false} 
+[2026-11-04 12:45:36] local.INFO: Quality record created {"quality_id":17,"appointment_id":"FRMID00000007","auditstatus":"qualified"} 
+[2026-11-04 12:45:36] local.INFO: Appointment status updated {"appointment_id":"FRMID00000007","old_status":"QA-Approved","new_status":"QA-Approved"} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":163,"quality_id":17,"question_id":1,"answer_index":0} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":164,"quality_id":17,"question_id":2,"answer_index":1} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":165,"quality_id":17,"question_id":3,"answer_index":2} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":166,"quality_id":17,"question_id":4,"answer_index":3} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":167,"quality_id":17,"question_id":5,"answer_index":4} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":168,"quality_id":17,"question_id":6,"answer_index":5} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":169,"quality_id":17,"question_id":7,"answer_index":6} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":170,"quality_id":17,"question_id":8,"answer_index":7} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":171,"quality_id":17,"question_id":9,"answer_index":8} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":172,"quality_id":17,"question_id":10,"answer_index":9} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":173,"quality_id":17,"question_id":11,"answer_index":10} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":174,"quality_id":17,"question_id":12,"answer_index":11} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":175,"quality_id":17,"question_id":13,"answer_index":12} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":176,"quality_id":17,"question_id":14,"answer_index":13} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":177,"quality_id":17,"question_id":15,"answer_index":14} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":178,"quality_id":17,"question_id":16,"answer_index":15} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":179,"quality_id":17,"question_id":17,"answer_index":16} 
+[2026-11-04 12:45:36] local.DEBUG: Quality answer created {"answer_id":180,"quality_id":17,"question_id":18,"answer_index":17} 
+[2026-11-04 12:45:36] local.DEBUG: Comment created {"comment_id":41,"followup_business_id":23,"comment_index":0} 
+[2026-11-04 12:45:36] local.INFO: Starting consultation assignment {"appointment_id":"FRMID00000007","quality_id":17,"send_email":false} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":2,"users":{"Aryan":9,"Vani":20}} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":2,"users":[{"id":9,"name":"Aryan Sales","email":"akram@fastranking.co.uk"},{"id":20,"name":"Vani Mendiratta","email":"vani@gmail.com"}]} 
+[2026-11-04 12:45:36] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":2,"users_empty":false} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[9,20]} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"9":5,"20":5}} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":[{"id":9,"name":"Aryan Sales","load":5},{"id":20,"name":"Vani Mendiratta","load":5}]} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":5,"least_loaded_users_count":2,"least_loaded_users":[{"id":9,"name":"Aryan Sales"},{"id":20,"name":"Vani Mendiratta"}]} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":2,"current_index":false,"calculated_index":1} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":2,"round_robin_index":1} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":20,"selected_user_name":"Vani Mendiratta"} 
+[2026-11-04 12:45:36] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":20} 
+[2026-11-04 12:45:36] local.INFO: Skipping meeting setup for consultation 50 because send_email is false  
+[2026-11-04 12:45:36] local.INFO: Consultation 50 created and assigned to user 20 {"meeting_link":null,"email_sent":false,"send_email":false} 
+[2026-11-04 12:45:36] local.INFO: Consultation assigned successfully {"consultation_id":50,"assigned_user_id":20,"assigned_user_name":"Vani Mendiratta"} 
+[2026-11-04 12:45:36] local.INFO: Quality data submission completed successfully {"user_id":1,"quality_id":17,"appointment_id":"FRMID00000007","execution_time_ms":24.65,"answers_count":18,"comments_count":1,"consultation_assigned":true} 
+[2026-11-04 12:45:42] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-04 12:45:55] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-04 12:46:49] local.INFO: Active Sales department users count: 2  
+[2026-11-04 12:59:05] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-05 09:05:18] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-05 09:05:18] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-05 09:05:20] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:05:20] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:05:20] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:05:20] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:11:13] local.INFO: Lead retrieval successful {"lead_id":15,"user_id":1} 
+[2026-11-05 09:17:03] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-05 09:17:03] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-05 09:17:03] local.INFO: Lead retrieval successful {"lead_id":15,"user_id":1} 
+[2026-11-05 09:17:04] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:17:04] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:17:04] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:17:04] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:17:15] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-05 09:17:29] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-05 09:21:34] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-05 09:21:35] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-05 09:21:35] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-05 09:21:36] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:21:36] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:21:36] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-05 09:21:36] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-05 10:53:44] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-05 15:18:34] local.INFO: Quality data submission started {"user_id":1,"appointment_id":"FRMID00000005","auditstatus":"qualified","send_email":false} 
+[2026-11-05 15:18:34] local.INFO: Quality record created {"quality_id":18,"appointment_id":"FRMID00000005","auditstatus":"qualified"} 
+[2026-11-05 15:18:34] local.INFO: Appointment status updated {"appointment_id":"FRMID00000005","old_status":"Appointment Booked","new_status":"QA-Approved"} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":181,"quality_id":18,"question_id":1,"answer_index":0} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":182,"quality_id":18,"question_id":2,"answer_index":1} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":183,"quality_id":18,"question_id":3,"answer_index":2} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":184,"quality_id":18,"question_id":4,"answer_index":3} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":185,"quality_id":18,"question_id":5,"answer_index":4} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":186,"quality_id":18,"question_id":6,"answer_index":5} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":187,"quality_id":18,"question_id":7,"answer_index":6} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":188,"quality_id":18,"question_id":8,"answer_index":7} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":189,"quality_id":18,"question_id":9,"answer_index":8} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":190,"quality_id":18,"question_id":10,"answer_index":9} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":191,"quality_id":18,"question_id":11,"answer_index":10} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":192,"quality_id":18,"question_id":12,"answer_index":11} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":193,"quality_id":18,"question_id":13,"answer_index":12} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":194,"quality_id":18,"question_id":14,"answer_index":13} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":195,"quality_id":18,"question_id":15,"answer_index":14} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":196,"quality_id":18,"question_id":16,"answer_index":15} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":197,"quality_id":18,"question_id":17,"answer_index":16} 
+[2026-11-05 15:18:34] local.DEBUG: Quality answer created {"answer_id":198,"quality_id":18,"question_id":18,"answer_index":17} 
+[2026-11-05 15:18:34] local.DEBUG: Comment created {"comment_id":42,"followup_business_id":18,"comment_index":0} 
+[2026-11-05 15:18:34] local.INFO: Starting consultation assignment {"appointment_id":"FRMID00000005","quality_id":18,"send_email":false} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Looking for Sales department  
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Sales department found {"department_id":3,"department_name":"Sales","department_status":"active"} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Getting active users for department {"department_id":3} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Users with department (any status) {"department_id":3,"count":2,"users":{"Aryan":9,"Vani":20}} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Active users with active department {"department_id":3,"count":2,"users":[{"id":9,"name":"Aryan Sales","email":"akram@fastranking.co.uk"},{"id":20,"name":"Vani Mendiratta","email":"vani@gmail.com"}]} 
+[2026-11-05 15:18:34] local.EMERGENCY: UserAssignmentService: ENTER selectUserByRoundRobin {"users_count":2,"users_empty":false} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Getting user loads {"user_ids":[9,20]} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: User loads retrieved {"user_loads":{"9":5,"20":6}} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Users sorted by load {"sorted_users":[{"id":9,"name":"Aryan Sales","load":5},{"id":20,"name":"Vani Mendiratta","load":6}]} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Least loaded users identified {"least_load":5,"least_loaded_users_count":1,"least_loaded_users":[{"id":9,"name":"Aryan Sales"}]} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: getRoundRobinIndex calculated {"department":"sales","user_count":1,"current_index":false,"calculated_index":0} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: Round robin index calculated {"department":"sales","user_count":1,"round_robin_index":0} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: User selected successfully {"selected_user_id":9,"selected_user_name":"Aryan Sales"} 
+[2026-11-05 15:18:34] local.INFO: UserAssignmentService: selectUserByRoundRobin result {"assigned_user_is_null":false,"assigned_user_id":9} 
+[2026-11-05 15:18:34] local.INFO: Skipping meeting setup for consultation 51 because send_email is false  
+[2026-11-05 15:18:34] local.INFO: Consultation 51 created and assigned to user 9 {"meeting_link":null,"email_sent":false,"send_email":false} 
+[2026-11-05 15:18:34] local.INFO: Consultation assigned successfully {"consultation_id":51,"assigned_user_id":9,"assigned_user_name":"Aryan Sales"} 
+[2026-11-05 15:18:34] local.INFO: Quality data submission completed successfully {"user_id":1,"quality_id":18,"appointment_id":"FRMID00000005","execution_time_ms":31.09,"answers_count":18,"comments_count":1,"consultation_assigned":true} 
+[2026-11-05 15:18:42] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:23:27] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-05 15:23:27] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-05 15:23:27] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:23:28] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:23:28] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:23:28] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:23:28] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:25:45] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-05 15:25:45] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-05 15:25:45] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:25:46] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:25:46] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:25:46] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:25:46] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:26:07] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:26:14] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:48:54] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-05 15:48:54] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-05 15:48:54] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:48:56] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:48:56] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:48:56] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:48:56] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-05 15:48:56] local.INFO: Lead retrieval successful {"lead_id":18,"user_id":1} 
+[2026-11-05 15:49:21] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-06 09:42:44] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-06 09:42:44] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-06 09:42:46] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-06 09:42:46] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-06 09:42:46] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-06 09:42:46] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-09 09:06:21] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-09 09:06:21] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-09 09:06:23] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-09 09:06:23] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-09 09:06:23] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-09 09:06:23] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-09 12:03:58] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-09 12:04:15] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-09 12:04:34] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-09 12:04:36] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-09 15:18:54] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-09 16:36:33] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-09 16:36:35] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-09 16:36:35] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-09 16:36:35] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-09 16:36:35] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-14 09:45:55] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-14 09:45:55] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-14 09:45:56] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-14 09:45:56] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-14 09:45:56] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-14 09:45:56] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-14 10:34:19] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-14 10:53:36] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-14 10:53:40] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-14 10:53:58] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-14 10:54:02] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-14 10:54:04] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-14 10:54:06] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
