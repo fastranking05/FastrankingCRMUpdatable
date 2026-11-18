@@ -43,6 +43,7 @@ Cursor-paginated list with optional filters and summary totals.
 | `business_id` | integer | No | Filter by follow-up business ID |
 | `auth_person_id` | integer | No | Filter by contact ID |
 | `service_id` | integer | No | Filter by service ID |
+| `status` | string | No | Filter by status: `Proposal Not Sent`, `Proposal Sent` |
 | `created_by` | integer | No | Filter by creator user ID |
 | `date_filter` | string | No | Preset date range (see filter-options) |
 | `date_from` | date | No | Custom range start (`Y-m-d`) |
@@ -140,6 +141,8 @@ Active services for the proposal form.
 
 **Endpoint:** `POST /api/proposals`
 
+The proposal is created with `status = "Proposal Not Sent"`. On create, the business's linked appointment `current_status` (the latest appointment with a conducted consultation, otherwise the latest appointment) is also set to `Proposal Not Sent`.
+
 #### Request Body
 
 | Field | Type | Required | Description |
@@ -151,6 +154,8 @@ Active services for the proposal form.
 | `services[].service_id` | integer | Yes | Service ID from `services` table |
 | `services[].amount` | number | Yes | Amount excluding VAT |
 | `services[].vat_amount` | number | Yes | VAT amount (e.g. 20%) |
+| `services[].estimation_duration` | number | No | Estimated duration (e.g. `4`) |
+| `services[].estimation_unit` | string | No | Duration unit, e.g. `Days`, `Weeks`, `Months` (max 50 chars) |
 
 #### Example
 
@@ -160,8 +165,8 @@ Active services for the proposal form.
   "auth_person_id": 45,
   "email": "contact@example.com",
   "services": [
-    { "service_id": 3, "amount": 100000, "vat_amount": 25000 },
-    { "service_id": 5, "amount": 50000, "vat_amount": 12500 }
+    { "service_id": 3, "amount": 100000, "vat_amount": 25000, "estimation_duration": 4, "estimation_unit": "Weeks" },
+    { "service_id": 5, "amount": 50000, "vat_amount": 12500, "estimation_duration": 10, "estimation_unit": "Days" }
   ]
 }
 ```
@@ -189,6 +194,8 @@ All fields are optional (`sometimes` validation). Relation consistency is re-val
 **Endpoint:** `POST /api/proposals/{id}/send`
 
 Emails the proposal document to the recipient. The backend does **not** generate the PDF — send the frontend-generated proposal PDF (same file as "Download PDF") as `multipart/form-data`.
+
+On successful send, the proposal's `status` is updated from `Proposal Not Sent` to `Proposal Sent`, and the business's linked appointment `current_status` is also set to `Proposal Sent`.
 
 #### Request Body (multipart/form-data)
 
@@ -225,7 +232,7 @@ Contract documents are sent via `POST /api/contracts/send` — see [CONTRACTS_AP
 
 ## Response Shape
 
-Each proposal includes nested `company`, `contact`, and `owner` objects, a `services` array (each item with its `service`, `amount`, `vat_amount`, and `total_value`), plus proposal-level `total_amount`, `total_vat`, and `total_value` (sums across all service items).
+Each proposal includes nested `company`, `contact`, and `owner` objects, a `services` array (each item with its `service`, `amount`, `vat_amount`, `estimation_duration`, `estimation_unit`, and `total_value`), plus proposal-level `total_amount`, `total_vat`, and `total_value` (sums across all service items).
 
 ```json
 {
@@ -233,12 +240,15 @@ Each proposal includes nested `company`, `contact`, and `owner` objects, a `serv
   "business_id": 12,
   "auth_person_id": 45,
   "email": "contact@example.com",
+  "status": "Proposal Not Sent",
   "services": [
     {
       "id": 1,
       "service_id": 3,
       "amount": "100000.00",
       "vat_amount": "25000.00",
+      "estimation_duration": "4.00",
+      "estimation_unit": "Weeks",
       "total_value": 125000,
       "service": { "id": 3, "name": "SEO Retainer", "status": true }
     }

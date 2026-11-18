@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Proposals;
 
 use App\Http\Controllers\Api\BaseApiController;
 use App\Mail\ProposalMail;
+use App\Models\Appointment;
 use App\Models\Consultation;
 use App\Models\Email;
 use App\Models\FollowupBusiness;
@@ -38,6 +39,8 @@ class ProposalsController extends BaseApiController
             'service_id' => $item->service_id,
             'amount' => $item->amount,
             'vat_amount' => $item->vat_amount,
+            'estimation_duration' => $item->estimation_duration,
+            'estimation_unit' => $item->estimation_unit,
             'total_value' => round((float) $item->amount + (float) $item->vat_amount, 2),
             'service' => $item->service ? [
                 'id' => $item->service->id,
@@ -55,6 +58,7 @@ class ProposalsController extends BaseApiController
             'business_id' => $proposal->business_id,
             'auth_person_id' => $proposal->auth_person_id,
             'email' => $proposal->email,
+            'status' => $proposal->status,
             'services' => $services,
             'total_amount' => round($totalAmount, 2),
             'total_vat' => round($totalVat, 2),
@@ -88,6 +92,28 @@ class ProposalsController extends BaseApiController
                 'username' => $proposal->creator->username,
             ] : null,
         ];
+    }
+
+    /**
+     * Sync the business's appointment current_status with the proposal status.
+     * Prefers the latest appointment that has a conducted consultation;
+     * falls back to the business's latest appointment.
+     */
+    private function syncAppointmentCurrentStatus(int $businessId, string $status): void
+    {
+        $appointment = Appointment::query()
+            ->where('followup_business_id', $businessId)
+            ->whereHas('consultations', fn ($q) => $q->whereRaw('LOWER(status) = ?', ['conducted']))
+            ->orderByDesc('id')
+            ->first()
+            ?? Appointment::query()
+                ->where('followup_business_id', $businessId)
+                ->orderByDesc('id')
+                ->first();
+
+        if ($appointment) {
+            $appointment->update(['current_status' => $status]);
+        }
     }
 
     private function baseProposalQuery()
@@ -159,6 +185,10 @@ class ProposalsController extends BaseApiController
 
         if ($request->filled('service_id')) {
             $query->whereHas('services', fn ($q) => $q->where('service_id', $request->input('service_id')));
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
         }
 
         if ($request->filled('created_by')) {
@@ -325,6 +355,8 @@ class ProposalsController extends BaseApiController
             'services.*.service_id' => 'required|exists:services,id',
             'services.*.amount' => 'required|numeric|min:0',
             'services.*.vat_amount' => 'required|numeric|min:0',
+            'services.*.estimation_duration' => 'nullable|numeric|min:0',
+            'services.*.estimation_unit' => 'nullable|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -351,8 +383,12 @@ class ProposalsController extends BaseApiController
                     'service_id' => (int) $item['service_id'],
                     'amount' => (float) $item['amount'],
                     'vat_amount' => (float) $item['vat_amount'],
+                    'estimation_duration' => $item['estimation_duration'] ?? null,
+                    'estimation_unit' => $item['estimation_unit'] ?? null,
                 ]);
             }
+
+            $this->syncAppointmentCurrentStatus((int) $proposal->business_id, Proposal::STATUS_NOT_SENT);
 
             return $proposal;
         });
@@ -402,6 +438,8 @@ class ProposalsController extends BaseApiController
             'services.*.service_id' => 'required|exists:services,id',
             'services.*.amount' => 'required|numeric|min:0',
             'services.*.vat_amount' => 'required|numeric|min:0',
+            'services.*.estimation_duration' => 'nullable|numeric|min:0',
+            'services.*.estimation_unit' => 'nullable|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -432,6 +470,8 @@ class ProposalsController extends BaseApiController
                         'service_id' => (int) $item['service_id'],
                         'amount' => (float) $item['amount'],
                         'vat_amount' => (float) $item['vat_amount'],
+                        'estimation_duration' => $item['estimation_duration'] ?? null,
+                        'estimation_unit' => $item['estimation_unit'] ?? null,
                     ]);
                 }
             }
@@ -499,6 +539,9 @@ class ProposalsController extends BaseApiController
                 'type' => 'proposal',
                 'created_by' => auth()->id(),
             ]);
+
+            $proposal->update(['status' => Proposal::STATUS_SENT]);
+            $this->syncAppointmentCurrentStatus((int) $proposal->business_id, Proposal::STATUS_SENT);
 
             return $this->successResponse(
                 $this->transformProposalItem($proposal) + ['sent_to' => $recipient],
