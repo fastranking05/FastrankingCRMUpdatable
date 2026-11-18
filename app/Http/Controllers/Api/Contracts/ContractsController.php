@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Contracts;
 
 use App\Http\Controllers\Api\BaseApiController;
 use App\Mail\ContractMail;
+use App\Models\Appointment;
 use App\Models\Contract;
 use App\Models\Email;
 use App\Models\FollowupBusiness;
@@ -23,6 +24,7 @@ class ContractsController extends BaseApiController
             'document_id' => $contract->document_id,
             'proposal_id' => $contract->proposal_id,
             'followup_business_id' => $contract->followup_business_id,
+            'status' => $contract->status,
             'document' => $contract->document,
             'created_by' => $contract->created_by,
             'created_at' => $contract->created_at,
@@ -71,6 +73,10 @@ class ContractsController extends BaseApiController
             $query->where('followup_business_id', $request->input('followup_business_id'));
         }
 
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
         if ($request->filled('created_by')) {
             $query->where('created_by', $request->input('created_by'));
         }
@@ -103,8 +109,14 @@ class ContractsController extends BaseApiController
             'proposal_id' => $request->proposal_id,
             'followup_business_id' => $request->followup_business_id,
             'document' => $request->document,
+            'status' => Contract::STATUS_PENDING,
             'created_by' => auth()->id(),
         ]);
+
+        Appointment::updateCurrentStatusForBusiness(
+            (int) $contract->followup_business_id,
+            Contract::STATUS_PENDING
+        );
 
         $contract->load(['proposal', 'followupBusiness', 'creator:id,first_name,last_name,email,username']);
 
@@ -232,13 +244,40 @@ class ContractsController extends BaseApiController
         $document['signatures']['client'] = $request->signature;
         $document['client_signed_at'] = $request->input('signed_at', now()->toIso8601String());
 
-        $contract->update(['document' => $document]);
+        $contract->update([
+            'document' => $document,
+            'status' => Contract::STATUS_SIGNED,
+        ]);
+        Appointment::updateCurrentStatusForBusiness(
+            (int) $contract->followup_business_id,
+            Contract::APPOINTMENT_STATUS_ACTIVE
+        );
         $contract->refresh()->load(['proposal', 'followupBusiness', 'creator:id,first_name,last_name,email,username']);
 
         return $this->successResponse(
             $this->transformContractItem($contract),
             'Contract signed successfully'
         );
+    }
+
+    /**
+     * Find the contract a send request refers to — via `contract_id`
+     * (numeric id or document_id UUID) or a document_id embedded in `sign_url`.
+     */
+    private function resolveSentContract(Request $request): ?Contract
+    {
+        if ($request->filled('contract_id')) {
+            return Contract::where('id', $request->contract_id)
+                ->orWhere('document_id', $request->contract_id)
+                ->first();
+        }
+
+        if ($request->filled('sign_url')
+            && preg_match('/contract-sign\/([0-9a-fA-F-]{36})/', $request->sign_url, $matches)) {
+            return Contract::where('document_id', $matches[1])->first();
+        }
+
+        return null;
     }
 
     /**
@@ -259,6 +298,7 @@ class ContractsController extends BaseApiController
             'bcc' => 'nullable|array',
             'bcc.*' => 'nullable|email',
             'filename' => 'nullable|string|max:255',
+            'contract_id' => 'nullable|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -321,6 +361,15 @@ class ContractsController extends BaseApiController
                 'type' => 'contract',
                 'created_by' => auth()->id(),
             ]);
+
+            $sentContract = $this->resolveSentContract($request);
+            if ($sentContract) {
+                $sentContract->update(['status' => Contract::STATUS_SENT]);
+                Appointment::updateCurrentStatusForBusiness(
+                    (int) $sentContract->followup_business_id,
+                    Contract::STATUS_SENT
+                );
+            }
 
             return $this->successResponse([
                 'email_id' => $email->id,

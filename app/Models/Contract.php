@@ -13,11 +13,20 @@ class Contract extends Model
 
     protected $table = 'contracts';
 
+    public const STATUS_PENDING = 'Contract Pending';
+
+    public const STATUS_SENT = 'Contract Sent';
+
+    public const STATUS_SIGNED = 'Contract Signed';
+
+    public const APPOINTMENT_STATUS_ACTIVE = 'Customer Active';
+
     protected $fillable = [
         'document_id',
         'proposal_id',
         'followup_business_id',
         'document',
+        'status',
         'created_by',
     ];
 
