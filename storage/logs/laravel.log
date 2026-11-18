@@ -1893,3 +1893,93 @@
 [2026-11-18 12:19:42] local.INFO: Admin accessing all appointments {"user_id":1} 
 [2026-11-18 12:19:48] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
 [2026-11-18 12:20:04] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:47:58] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:47:58] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:48:00] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:00] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:00] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:00] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:13] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:48:13] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:48:14] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:15] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:15] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:15] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:48:25] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:48:27] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:48:34] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:48:37] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-18 12:48:59] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:49:13] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:49:13] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:49:15] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:49:15] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:49:15] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:49:15] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:49:41] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-18 12:52:38] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:52:38] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:52:39] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:52:39] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:52:39] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:52:40] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:53:02] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-18 12:53:20] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:53:20] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:53:22] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:53:22] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:53:22] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:53:22] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:53:59] local.INFO: Setting update successful {"setting_id":3,"user_id":1} 
+[2026-11-18 12:55:13] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:55:14] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:55:15] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:55:15] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:55:15] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:55:15] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:22] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:29:22] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:29:24] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:24] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:24] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:24] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:25] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:29:25] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:29:27] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:27] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:27] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:27] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:51] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:29:51] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:29:52] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:52] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:52] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:52] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:29:53] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 13:32:21] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:32:21] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:32:22] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:32:23] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:32:23] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:32:23] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:32:26] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 13:34:58] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:34:58] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:34:59] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:34:59] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:34:59] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:34:59] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:35:00] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 13:35:01] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:35:01] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:35:01] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 13:35:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:35:02] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:35:02] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:35:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:37:00] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 13:37:00] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 13:37:01] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:37:01] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:37:01] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 13:37:01] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 

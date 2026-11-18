@@ -6,6 +6,18 @@ The Contracts API stores contract documents as JSON (the complete frontend desig
 
 Each contract has an auto-generated `document_id` (UUID) and is linked to a proposal (`proposal_id`) and a business (`followup_business_id`).
 
+## Status Lifecycle
+
+Every contract has a `status` (`Contract Pending` → `Contract Sent` → `Contract Signed`). The business's linked appointment `current_status` is synced on each transition.
+
+| Action | `contracts.status` | `appointments.current_status` |
+|--------|-------------------|-------------------------------|
+| Contract created | `Contract Pending` | `Contract Pending` |
+| Contract emailed (`send` with matching `contract_id`/`sign_url`) | `Contract Sent` | `Contract Sent` |
+| Client submits signature | `Contract Signed` | `Customer Active` |
+
+The appointment synced is the business's latest appointment that has a conducted consultation (fallback: the business's latest appointment).
+
 ## Base URL
 
 ```
@@ -37,6 +49,7 @@ All endpoints require JWT authentication. Contracts use the **Proposals** module
 |-----------|------|-------------|
 | `proposal_id` | string | Filter by proposal ID (`FRPR...`) |
 | `followup_business_id` | integer | Filter by business |
+| `status` | string | Filter by status: `Contract Pending`, `Contract Sent`, `Contract Signed` |
 | `created_by` | integer | Filter by creator user ID |
 | `per_page` | integer | Results per page (default: `15`) |
 | `cursor` | string | Cursor token for pagination |
@@ -46,6 +59,8 @@ All endpoints require JWT authentication. Contracts use the **Proposals** module
 ### 2. Create Contract (POST)
 
 **Endpoint:** `POST /api/contracts`
+
+The contract is created with `status = "Contract Pending"`, and the business's linked appointment `current_status` is set to `Contract Pending`.
 
 #### Request Body
 
@@ -117,6 +132,9 @@ Emails a contract to a recipient — either with the contract PDF attached, or w
 | `cc` | array | No | CC email addresses |
 | `bcc` | array | No | BCC email addresses |
 | `filename` | string | No | Attachment filename (defaults to `Contract.pdf`) |
+| `contract_id` | string | No | Contract `id` or `document_id` — marks that contract `Contract Sent`. Auto-detected from `sign_url` when it contains `/contract-sign/{document_id}` |
+
+On successful send, the matched contract's `status` becomes `Contract Sent` and the business's linked appointment `current_status` is set to `Contract Sent`.
 
 #### Example
 
@@ -175,7 +193,7 @@ Returns the contract record (including the `document` JSON with `deal`, `signatu
 | `signature` | string | Yes | Client signature (e.g. data-URL image or typed value) |
 | `signed_at` | datetime | No | Defaults to server time |
 
-Saves `document.signatures.client` and `document.client_signed_at`. After signing, the GET endpoint keeps returning the contract (read-only signed state).
+Saves `document.signatures.client` and `document.client_signed_at`, sets the contract `status` to `Contract Signed`, and sets the business's linked appointment `current_status` to `Customer Active`. After signing, the GET endpoint keeps returning the contract (read-only signed state).
 
 | Error | Reason |
 |-------|--------|
