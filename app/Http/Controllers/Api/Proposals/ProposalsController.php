@@ -94,28 +94,6 @@ class ProposalsController extends BaseApiController
         ];
     }
 
-    /**
-     * Sync the business's appointment current_status with the proposal status.
-     * Prefers the latest appointment that has a conducted consultation;
-     * falls back to the business's latest appointment.
-     */
-    private function syncAppointmentCurrentStatus(int $businessId, string $status): void
-    {
-        $appointment = Appointment::query()
-            ->where('followup_business_id', $businessId)
-            ->whereHas('consultations', fn ($q) => $q->whereRaw('LOWER(status) = ?', ['conducted']))
-            ->orderByDesc('id')
-            ->first()
-            ?? Appointment::query()
-                ->where('followup_business_id', $businessId)
-                ->orderByDesc('id')
-                ->first();
-
-        if ($appointment) {
-            $appointment->update(['current_status' => $status]);
-        }
-    }
-
     private function baseProposalQuery()
     {
         return Proposal::with([
@@ -388,7 +366,7 @@ class ProposalsController extends BaseApiController
                 ]);
             }
 
-            $this->syncAppointmentCurrentStatus((int) $proposal->business_id, Proposal::STATUS_NOT_SENT);
+            Appointment::updateCurrentStatusForBusiness((int) $proposal->business_id, Proposal::STATUS_NOT_SENT);
 
             return $proposal;
         });
@@ -541,7 +519,7 @@ class ProposalsController extends BaseApiController
             ]);
 
             $proposal->update(['status' => Proposal::STATUS_SENT]);
-            $this->syncAppointmentCurrentStatus((int) $proposal->business_id, Proposal::STATUS_SENT);
+            Appointment::updateCurrentStatusForBusiness((int) $proposal->business_id, Proposal::STATUS_SENT);
 
             return $this->successResponse(
                 $this->transformProposalItem($proposal) + ['sent_to' => $recipient],

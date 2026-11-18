@@ -105,6 +105,28 @@ class Appointment extends Model
         return $this->hasMany(Consultation::class, 'appointment_id', 'id');
     }
 
+    /**
+     * Sync a business's appointment current_status with a workflow status
+     * (proposal/contract lifecycle). Prefers the latest appointment that has
+     * a conducted consultation; falls back to the business's latest appointment.
+     */
+    public static function updateCurrentStatusForBusiness(int $businessId, string $status): void
+    {
+        $appointment = static::query()
+            ->where('followup_business_id', $businessId)
+            ->whereHas('consultations', fn ($q) => $q->whereRaw('LOWER(status) = ?', ['conducted']))
+            ->orderByDesc('id')
+            ->first()
+            ?? static::query()
+                ->where('followup_business_id', $businessId)
+                ->orderByDesc('id')
+                ->first();
+
+        if ($appointment) {
+            $appointment->update(['current_status' => $status]);
+        }
+    }
+
     // Check if user is available for this appointment time
     public function isUserAvailable(): bool
     {
