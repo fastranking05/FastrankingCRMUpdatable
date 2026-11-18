@@ -1758,3 +1758,138 @@
 [2026-11-14 10:54:02] local.INFO: Admin accessing all appointments {"user_id":1} 
 [2026-11-14 10:54:04] local.INFO: Admin accessing all appointments {"user_id":1} 
 [2026-11-14 10:54:06] local.INFO: Lead retrieval successful {"lead_id":23,"user_id":1} 
+[2026-11-18 11:45:55] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 11:45:56] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 11:45:57] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:45:57] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:45:57] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:45:57] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:52:12] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 11:52:12] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 11:52:13] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:52:13] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:52:13] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:52:13] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:58:22] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 11:58:22] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 11:58:23] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:58:23] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:58:23] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 11:58:24] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:00:02] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:00:02] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:00:03] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:00:03] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:00:03] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:00:03] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:01:05] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:01:05] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:01:06] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:01:06] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:01:06] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:01:06] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:02:37] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:02:37] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:02:38] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:02:38] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:02:38] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:02:38] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:05:09] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:05:09] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:05:10] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:05:10] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:05:10] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:05:10] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:05:11] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:10:49] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:10:54] local.ERROR: Appointment retrieval failed {"appointment_id":"FRMID00000006","user_id":1,"exception":"Illuminate\\Database\\Eloquent\\RelationNotFoundException","error":"Call to undefined relationship [closer] on model [App\\Models\\Consultation].","file":"/var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/RelationNotFoundException.php","line":35,"trace":"#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(969): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Models\\Consultation), 'closer')
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(119): Illuminate\\Database\\Eloquent\\Builder->Illuminate\\Database\\Eloquent\\{closure}()
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(965): Illuminate\\Database\\Eloquent\\Relations\\Relation::noConstraints(Object(Closure))
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(939): Illuminate\\Database\\Eloquent\\Builder->getRelation('closer')
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelation(Array, 'closer', Object(Closure))
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelations(Array)
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(212): Illuminate\\Database\\Eloquent\\Builder->get(Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Relations/Relation.php(175): Illuminate\\Database\\Eloquent\\Relations\\Relation->get()
+#8 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(950): Illuminate\\Database\\Eloquent\\Relations\\Relation->getEager()
+#9 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(919): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelation(Array, 'consultations', Object(Closure))
+#10 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(885): Illuminate\\Database\\Eloquent\\Builder->eagerLoadRelations(Array)
+#11 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/BuildsQueries.php(366): Illuminate\\Database\\Eloquent\\Builder->get(Array)
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(568): Illuminate\\Database\\Eloquent\\Builder->first(Array)
+#13 /var/www/html/app/Http/Controllers/Api/Appointment/AppointmentController.php(325): Illuminate\\Database\\Eloquent\\Builder->find('FRMID00000006')
+#14 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(24): App\\Http\\Controllers\\Api\\Appointment\\AppointmentController->App\\Http\\Controllers\\Api\\Appointment\\{closure}()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Http\\Controllers\\Api\\BaseApiController->App\\Http\\Controllers\\Api\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#18 /var/www/html/app/Http/Controllers/Api/BaseApiController.php(23): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#19 /var/www/html/app/Http/Controllers/Api/Appointment/AppointmentController.php(302): App\\Http\\Controllers\\Api\\BaseApiController->executeTransaction(Object(Closure), 'Appointment ret...', Array)
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): App\\Http\\Controllers\\Api\\Appointment\\AppointmentController->show('FRMID00000006')
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\Appointment\\AppointmentController), 'show')
+#22 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#23 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#24 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /var/www/html/app/Http/Middleware/PermissionMiddleware.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): App\\Http\\Middleware\\PermissionMiddleware->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'Appointment', 'read')
+#27 /var/www/html/vendor/tymon/jwt-auth/src/Http/Middleware/Authenticate.php(32): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Tymon\\JWTAuth\\Http\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(821): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#33 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#34 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(764): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#35 /var/www/html/vendor/laravel/framework/src/Illuminate/Routing/Router.php(753): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#36 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#37 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#42 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#43 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(109): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(74): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#53 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 /var/www/html/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePathEncoding.php(26): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Illuminate\\Http\\Middleware\\ValidatePathEncoding->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 /var/www/html/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(137): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#57 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#58 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#59 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#60 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#61 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/var/www/html/p...')
+#62 {main}"} 
+[2026-11-18 12:10:54] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-18 12:10:54] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-18 12:10:57] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:17:01] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:17:01] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:17:02] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:02] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:02] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:02] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:03] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:17:36] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:17:53] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:17:53] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:17:55] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:55] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:55] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:55] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:56] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:17:57] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 12:17:57] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 12:17:57] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:17:58] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:58] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:58] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:17:58] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 12:19:42] local.INFO: Admin accessing all appointments {"user_id":1} 
+[2026-11-18 12:19:48] local.INFO: Lead retrieval successful {"lead_id":19,"user_id":1} 
+[2026-11-18 12:20:04] local.INFO: Admin accessing all appointments {"user_id":1} 

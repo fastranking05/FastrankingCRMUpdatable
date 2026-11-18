@@ -17,11 +17,14 @@ class ProposalService extends Model
         'service_id',
         'amount',
         'vat_amount',
+        'estimation_duration',
+        'estimation_unit',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'vat_amount' => 'decimal:2',
+        'estimation_duration' => 'decimal:2',
     ];
 
     public function proposal(): BelongsTo
