@@ -19,11 +19,16 @@ class Proposal extends Model
 
     protected $primaryKey = 'id';
 
+    public const STATUS_NOT_SENT = 'Proposal Not Sent';
+
+    public const STATUS_SENT = 'Proposal Sent';
+
     protected $fillable = [
         'id',
         'business_id',
         'auth_person_id',
         'email',
+        'status',
         'created_by',
     ];
 
