@@ -89,6 +89,27 @@ Send frontend-generated contract documents (PDF) via email. Full documentation: 
 | DELETE | `/api/contracts/{id}` | Delete contract | Proposals,delete |
 | DELETE | `/api/proposals/{id}` | Delete proposal | Proposals,delete |
 
+## Billing Routes
+**Base URL:** `/api/billing`
+
+Billing setups per signed contract and auto-generated invoices. Full documentation: [BILLING_API_DOCUMENTATION.md](./BILLING_API_DOCUMENTATION.md)
+
+| Method | Endpoint | Description | Permissions |
+|---------|-----------|-------------|--------------|
+| GET | `/api/billing/setups/form/contracts` | Signed contracts without a setup | Invoice,read |
+| GET | `/api/billing/setups/form/contracts/{contractId}` | Contract + proposal services for form | Invoice,read |
+| GET | `/api/billing/setups` | List billing setups | Invoice,read |
+| GET | `/api/billing/setups/{id}` | Get billing setup | Invoice,read |
+| POST | `/api/billing/setups` | Create billing setup | Invoice,create |
+| PUT/POST | `/api/billing/setups/{id}` | Update setup / replace items | Invoice,update |
+| DELETE | `/api/billing/setups/{id}` | Delete setup (or mark Completed) | Invoice,delete |
+| GET | `/api/billing/invoices` | List invoices with filters and summary | Invoice,read |
+| GET | `/api/billing/invoices/filter-options` | Invoice status options | Invoice,read |
+| GET | `/api/billing/invoices/{id}` | Get invoice with items and payments | Invoice,read |
+| POST | `/api/billing/invoices/{id}/payments` | Record a payment | Invoice,update |
+| POST | `/api/billing/invoices/{id}/cancel` | Cancel unpaid invoice | Invoice,update |
+| POST | `/api/billing/invoices/{id}/send` | Email invoice PDF | Invoice,create |
+
 ## User Assignment Routes
 **Base URL:** `/api/user-assignment`
 

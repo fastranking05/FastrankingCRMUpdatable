@@ -1983,3 +1983,22 @@
 [2026-11-18 13:37:01] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
 [2026-11-18 13:37:01] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
 [2026-11-18 13:37:01] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 14:07:33] local.INFO: Invoice generated {"invoice_id":"FRIN00000001","billing_setup_id":1,"invoice_date":"2026-11-01","items_billed":2,"total":7200.0,"previous_balance":0.0,"grand_total":7200.0} 
+[2026-11-18 14:07:43] local.INFO: Invoice generated {"invoice_id":"FRIN00000002","billing_setup_id":1,"invoice_date":"2026-12-01","items_billed":1,"total":1200.0,"previous_balance":7200.0,"grand_total":8400.0} 
+[2026-11-18 14:17:31] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-18 14:17:31] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-18 14:17:33] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-18 14:17:33] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-18 14:17:33] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-18 14:17:33] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-19 09:50:47] local.INFO: User retrieval successful {"user_id":1} 
+[2026-11-19 09:50:48] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-19 09:50:49] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-19 09:50:49] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-19 09:50:49] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-19 09:50:49] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
+[2026-11-19 10:02:42] local.INFO: User list retrieval successful {"user_id":1} 
+[2026-11-19 10:02:44] local.INFO: Fetch departments list successful {"filters":[],"user_id":1} 
+[2026-11-19 10:02:44] local.INFO: Fetch roles list successful {"filters":[],"user_id":1} 
+[2026-11-19 10:02:44] local.INFO: Fetch teams list successful {"filters":[],"user_id":1} 
+[2026-11-19 10:02:44] local.INFO: Fetch modules list successful {"filters":[],"user_id":1} 
